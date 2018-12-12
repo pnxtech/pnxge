@@ -1,0 +1,8 @@
+.cache
+.DS_Store
+.vscode/
+*.log
+scratch.*
+node_modules/
+bin/
+dist/
