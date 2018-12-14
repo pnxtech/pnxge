@@ -1,32 +1,29 @@
-import * as PIXI from 'pixi.js'
+import * as PIXI from 'pixi.js';
+import TestScene from './TestScene';
 
 export default class PixiBoot extends PIXI.Application {
-  bunny: PIXI.Sprite;
+  private scene: TestScene;
 
   constructor() {
     super({
       view: <HTMLCanvasElement>document.getElementById('canvas'),
-      backgroundColor: 0x6495ed,
+      backgroundColor: 0x000000,
       width: 800,
       height: 800
     });
-
     document.body.appendChild(this.view);
 
-    this.bunny = PIXI.Sprite.fromImage('bunny.png');
-
-    this.bunny.anchor.set(0.5);
-
-    this.bunny.x = this.screen.width / 2;
-    this.bunny.y = this.screen.height / 2;
-
-    this.stage.addChild(this.bunny);
-
+    this.scene = new TestScene(this);
     this.ticker.add((deltaTime) => this.update(deltaTime));
+
+    let timer = setTimeout(() => {
+      clearTimeout(timer);
+      this.scene.destroy();
+    }, 5000);
   }
 
   update(deltaTime: number) {
-    this.bunny.rotation += 0.1 * deltaTime;
+    this.scene.update(deltaTime);
   }
 }
 
