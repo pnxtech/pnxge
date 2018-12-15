@@ -33,6 +33,8 @@ export default class TestScene extends PNXScene {
       this.turetAnim.x = 400;
       this.turetAnim.y = 400;
       this.turetAnim.z = 1000;
+      this.turetAnim.vx = 2;
+      this.turetAnim.vy = 2;
       this.turetAnim.anchor = 0.5;
       this.turetAnim.play('turet', false);
 
@@ -59,6 +61,8 @@ export default class TestScene extends PNXScene {
    * @return {void}
    */
   update(deltaTime: number): void {
+    this.turetAnim.update();
+    this.explosionAnim.update();
     this.turetAnim.rotation = this.turetAnim.rotation + (0.02 * deltaTime);
   }
 

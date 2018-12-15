@@ -24,6 +24,8 @@ export default class PNXAnim {
   private animSpeed: number = 1;
   private animAnchor: number = .5;
   private animPivot: number = .5;
+  private velocityX: number = 0;
+  private velocityY: number = 0;
   private scene: PNXScene;
   private stage: PIXI.Container;
   private currentSequence: PNXAnimatedSprite | undefined;
@@ -178,6 +180,46 @@ export default class PNXAnim {
   }
 
   /**
+   * @name vx
+   * @description vx getter
+   * @return {number} vx position
+   */
+  get vx() : number {
+    return this.velocityX;
+  }
+
+  /**
+   * @name vx
+   * @description vx setter
+   */
+  set vx(value: number) {
+    this.velocityX = value;
+    if (this.currentSequence) {
+      this.currentSequence.vx = value;
+    }
+  }
+
+  /**
+   * @name vy
+   * @description vy getter
+   * @return {number} vy position
+   */
+  get vy() : number {
+    return this.velocityY;
+  }
+
+  /**
+   * @name vy
+   * @description vy setter
+   */
+  set vy(value: number) {
+    this.velocityY = value;
+    if (this.currentSequence) {
+      this.currentSequence.vy = value;
+    }
+  }
+
+  /**
    * @name loadSequence
    * @description load a new animation sequence
    * @param {string} name - name of sequence
@@ -216,6 +258,9 @@ export default class PNXAnim {
     this.currentSequence.loop = loop;
     this.currentSequence.x = this.currentX;
     this.currentSequence.y = this.currentY;
+    this.currentSequence.vx = this.velocityX;
+    this.currentSequence.vy = this.velocityY;
+
     this.currentSequence.zOrder = this.currentZ;
 
     this.currentSequence.rotation = this.rotation;
@@ -223,6 +268,17 @@ export default class PNXAnim {
     this.currentSequence.anchor.set(this.animAnchor);
     this.currentSequence.pivot.set(this.animPivot);
     this.currentSequence.gotoAndPlay(0);
+  }
+
+  /**
+   * @name update
+   * @description update anim position based on velocity
+   */
+  update(): void {
+    if (this.currentSequence) {
+      this.currentX = (this.currentSequence.x += this.currentSequence.vx);
+      this.currentY = (this.currentSequence.y += this.currentSequence.vy);
+    }
   }
 
   /**
