@@ -1,10 +1,12 @@
 import * as PIXI from 'pixi.js';
 import Scene from './Scene';
 import Anim from './Anim';
+import { setInterval } from 'timers';
 
 export default class TestScene extends Scene {
   private turetAnim: Anim;
   private explosionAnim: Anim;
+  private timer: any;
 
   /**
    * @name constructor
@@ -15,21 +17,29 @@ export default class TestScene extends Scene {
     super(app);
 
     this.turetAnim = new Anim(this);
-    this.turetAnim.loadSequence('turet', 'turet.json', () => {
+    this.explosionAnim = new Anim(this);
+
+    this.assetLoader([
+      'turet.json',
+      'explode.json'
+    ], (_loader, resources) => {
+      this.turetAnim.loadSequence('turet', resources);
+      this.explosionAnim.loadSequence('explode', resources);
+
       this.turetAnim.x = 400;
       this.turetAnim.y = 400;
       this.turetAnim.anchor = 0.5;
-      this.turetAnim.animationSpeed = 0.1;
       this.turetAnim.play('turet', false);
 
-      this.explosionAnim = new Anim(this);
-      this.explosionAnim.loadSequence('explode', 'explode.json', () => {
-        this.explosionAnim.x = 300;
-        this.explosionAnim.y = 300;
-        this.explosionAnim.anchor = 0.5;
-        this.explosionAnim.animationSpeed = 0.4;
-        this.explosionAnim.play('explode', true);
-      });
+      this.explosionAnim.x = 400;
+      this.explosionAnim.y = 400;
+      this.explosionAnim.anchor = 0.5;
+      this.explosionAnim.animationSpeed = .5;
+      this.explosionAnim.play('explode', false);
+
+      this.timer = setInterval(() => {
+        this.explosionAnim.play('explode', false);
+      }, 2000);
     });
   }
 
@@ -39,8 +49,18 @@ export default class TestScene extends Scene {
    *
    */
   update(deltaTime: number): void {
-    this.turetAnim.rotation = this.turetAnim.rotation + (0.1 * deltaTime);
+    this.turetAnim.rotation = this.turetAnim.rotation + (0.02 * deltaTime);
+  }
+
+  /**
+   * @name destroy
+   * @description cleanup
+   * @return {void}
+   */
+  destroy(): void {
+    super.destroy();
+    clearInterval(this.timer);
+    this.turetAnim.destroy();
+    this.explosionAnim.destroy();
   }
 }
-
-

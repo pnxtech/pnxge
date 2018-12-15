@@ -60,8 +60,8 @@ export default class Anim {
   }
 
   /**
-   * @name s
-   * @description x position setter
+   * @name y
+   * @description y position setter
    */
   set y(y: number) {
     this.currentY = y;
@@ -154,25 +154,21 @@ export default class Anim {
    * @name loadSequence
    * @description load a new animation sequence
    * @param {string} name - name of sequence
-   * @param {string} path - path to sequence asset
-   * @param {ICallback} postLoadHandler - callback on load
+   * @param {object} resources - loaded resources
    * @return {void}
    */
-  loadSequence(name: string, path: string, postLoadHandler: ICallback): void {
-    PIXI.loader.add(path).load();
-    PIXI.loader.once('complete', () => {
-      let sheet = PIXI.loader.resources[path].spritesheet;
-      if (sheet) {
-        let sequence = new AnimatedSprite(sheet.animations[name]);
-        sequence.renderable = false;
-        this.animationSequence[name] = {
-          name,
-          sequence
-        };
-        this.stage.addChild(sequence);
-      }
-      postLoadHandler();
-    });
+  loadSequence(name: string, resources: any): void {
+    let path: string = `${name}.json`;
+    let sheet = resources[path].spritesheet;
+    if (sheet) {
+      let sequence = new AnimatedSprite(sheet.animations[name]);
+      sequence.visible = false;
+      this.animationSequence[name] = {
+        name,
+        sequence
+      };
+      this.stage.addChild(sequence);
+    }
   }
 
   /**
@@ -184,13 +180,35 @@ export default class Anim {
    */
   play(sequenceName: string, loop: boolean = false): void {
     if (this.lastSequenceName) {
-      this.animationSequence[this.lastSequenceName].sequence.renderable = false;
+      this.animationSequence[this.lastSequenceName].sequence.visible = false;
     }
     this.lastSequenceName = sequenceName;
     this.currentSequenceName = sequenceName;
     this.currentSequence = this.animationSequence[this.currentSequenceName].sequence;
-    this.currentSequence.renderable = true;
+    this.currentSequence.visible = true;
     this.currentSequence.loop = loop;
-    this.currentSequence.play();
+    this.currentSequence.x = this.x;
+    this.currentSequence.y = this.y;
+    this.currentSequence.rotation = this.rotation;
+    this.currentSequence.animationSpeed = this.animSpeed;
+    this.currentSequence.anchor.set(this.animAnchor);
+    this.currentSequence.pivot.set(this.animPivot);
+    this.currentSequence.gotoAndPlay(0);
+  }
+
+  /**
+   * @name destroy
+   * @description destroys anim and all sequences
+   * @return {void}
+   */
+  destroy(): void {
+    for (let animSequence of this.animationSequence) {
+      animSequence.sequence.visible = false;
+      animSequence.sequence.destroy({
+        children: true,
+        texture: false,
+        baseTexture: false
+      });
+    }
   }
 }
