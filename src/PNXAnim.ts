@@ -1,32 +1,35 @@
 import * as PIXI from 'pixi.js';
-import Scene from './Scene';
-import AnimatedSprite = PIXI.extras.AnimatedSprite;
+import PNXAnimatedSprite from './PNXAnimatedSprite';
+import PNXScene from './PNXScene';
 
 interface ICallback { (): void };
+
 interface IHash { [key: string]: {
   name: string,
-  sequence: PIXI.extras.AnimatedSprite
+  sequence: PNXAnimatedSprite
 }};
 
-// uses PIXI AnimatedSprite https://pixijs.download/release/docs/PIXI.extras.AnimatedSprite.html
-export default class Anim {
+export default class PNXAnim {
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
   private currentX: number = 0;
   private currentY: number = 0;
+  private currentZ: number = 0;
   private currentRotation: number = 0;
   private animSpeed: number = 1;
   private animAnchor: number = .5;
   private animPivot: number = .5;
+  private scene: PNXScene;
   private stage: PIXI.Container;
-  private currentSequence: PIXI.extras.AnimatedSprite | undefined;
+  private currentSequence: PNXAnimatedSprite | undefined;
 
   /**
    * @name constructor
    * @description binds Anim to Scene
    */
-  constructor(scene: Scene) {
+  constructor(scene: PNXScene) {
+    this.scene = scene;
     this.stage = scene.stage;
   }
 
@@ -67,6 +70,26 @@ export default class Anim {
     this.currentY = y;
     if (this.currentSequence) {
       this.currentSequence.y = this.currentY;
+    }
+  }
+
+  /**
+   * @name z
+   * @description z position getter
+   * @return {number} z position
+   */
+  get z(): number {
+    return this.currentZ;
+  }
+
+  /**
+   * @name z
+   * @description z position setter
+   */
+  set z(z: number) {
+    this.currentZ = z;
+    if (this.currentSequence) {
+      this.scene.sortAnims();
     }
   }
 
@@ -161,7 +184,7 @@ export default class Anim {
     let path: string = `${name}.json`;
     let sheet = resources[path].spritesheet;
     if (sheet) {
-      let sequence = new AnimatedSprite(sheet.animations[name]);
+      let sequence = new PNXAnimatedSprite(sheet.animations[name]);
       sequence.visible = false;
       this.animationSequence[name] = {
         name,
@@ -184,11 +207,13 @@ export default class Anim {
     }
     this.lastSequenceName = sequenceName;
     this.currentSequenceName = sequenceName;
-    this.currentSequence = this.animationSequence[this.currentSequenceName].sequence;
+    this.currentSequence = <PNXAnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     this.currentSequence.visible = true;
     this.currentSequence.loop = loop;
-    this.currentSequence.x = this.x;
-    this.currentSequence.y = this.y;
+    this.currentSequence.x = this.currentX;
+    this.currentSequence.y = this.currentY;
+    this.currentSequence.zOrder = this.currentZ;
+
     this.currentSequence.rotation = this.rotation;
     this.currentSequence.animationSpeed = this.animSpeed;
     this.currentSequence.anchor.set(this.animAnchor);

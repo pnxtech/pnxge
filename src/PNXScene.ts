@@ -1,8 +1,13 @@
 import * as PIXI from 'pixi.js';
+import PNXAnimatedSprite from './PNXAnimatedSprite';
 
 interface ICallback { (loader: PIXI.loaders.Loader, resources: {}): void };
 
-export default class Scene {
+/**
+ * @name PNXScene
+ * @description Phoenix Game Engine Scene class
+ */
+export default class PNXScene {
   public stage: PIXI.Container;
   public ticker: PIXI.ticker.Ticker;
   private loader: PIXI.loaders.Loader;
@@ -48,6 +53,17 @@ export default class Scene {
    */
   update(deltaTime: number): void {}
 
+  /**
+   * @name sortAnims
+   * @description sort dislay list based on anim zOrder
+   * @return {void}
+   */
+  sortAnims(): void {
+    let objectList: any = <PNXAnimatedSprite>this.stage.children;
+    objectList.sort((a: PNXAnimatedSprite, b: PNXAnimatedSprite) => {
+      return a.zOrder - b.zOrder;
+    });
+  }
 
   /**
    * @name destroy
