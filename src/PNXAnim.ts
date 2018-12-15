@@ -9,6 +9,10 @@ interface IHash { [key: string]: {
   sequence: PNXAnimatedSprite
 }};
 
+/**
+ * @name PNXAnim
+ * @description Phoenix Game Engine Anim class
+ */
 export default class PNXAnim {
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';

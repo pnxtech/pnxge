@@ -3,6 +3,10 @@ import PNXScene from './PNXScene';
 import PNXAnim from './PNXAnim';
 import { setInterval } from 'timers';
 
+/**
+ * @name TestScene
+ * @description Sample test scene using the PNX Game Engine
+ */
 export default class TestScene extends PNXScene {
   private turetAnim: PNXAnim;
   private explosionAnim: PNXAnim;
