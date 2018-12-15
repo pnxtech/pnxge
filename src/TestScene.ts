@@ -46,7 +46,8 @@ export default class TestScene extends Scene {
   /**
    * @name update
    * @description update the scene
-   *
+   * @param {number} deltaTime
+   * @return {void}
    */
   update(deltaTime: number): void {
     this.turetAnim.rotation = this.turetAnim.rotation + (0.02 * deltaTime);

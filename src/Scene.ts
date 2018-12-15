@@ -32,11 +32,22 @@ export default class Scene {
   }
 
   /**
+   * @name start
+   * @description start scene updates
+   * @return {void}
+   */
+  start(): void {
+    this.ticker.add((deltaTime) => this.update(deltaTime));
+  }
+
+  /**
    * @name update
    * @description update the scene
-   *
+   * @param {number} deltaTime
+   * @return {void}
    */
   update(deltaTime: number): void {}
+
 
   /**
    * @name destroy
@@ -45,7 +56,7 @@ export default class Scene {
    */
   destroy(): void {
     for (let child of this.stage.children) {
-      child.visible = false;
+      child.renderable = false;
     }
 
     let interval = setInterval(() => {

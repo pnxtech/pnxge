@@ -14,16 +14,12 @@ export default class PixiBoot extends PIXI.Application {
     document.body.appendChild(this.view);
 
     this.scene = new TestScene(this);
-    this.ticker.add((deltaTime) => this.update(deltaTime));
+    this.scene.start();
 
     let timer = setTimeout(() => {
       clearTimeout(timer);
       this.scene.destroy();
     }, 5000);
-  }
-
-  update(deltaTime: number) {
-    this.scene.update(deltaTime);
   }
 }
 
