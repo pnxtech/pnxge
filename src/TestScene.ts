@@ -2,6 +2,8 @@ import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
 import PNXAnim from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
+import PNXTextSprite from './PNXTextSprite';
+
 import { setInterval } from 'timers';
 
 /**
@@ -10,6 +12,7 @@ import { setInterval } from 'timers';
  */
 export default class TestScene extends PNXScene {
   private background: PNXBackgroundTile;
+  private bitmapText: PNXTextSprite;
   private turetAnim: PNXAnim;
   private explosionAnim: PNXAnim;
   private timer: any;
@@ -28,8 +31,15 @@ export default class TestScene extends PNXScene {
 
     this.assetLoader([
       'turet.json',
-      'explode.json'
+      'explode.json',
+      'title60pt.fnt'
     ], (_loader, resources) => {
+      this.bitmapText = new PNXTextSprite(this, 'PNXGameEngine', {font: '72px title60pt', align: 'left'});
+      this.bitmapText.x = 150;
+      this.bitmapText.y = 40;
+      this.bitmapText.zOrder = 5000;
+      this.bitmapText.tint = 0x00bb00;
+
       this.explosionAnim.loadSequence('explode', resources);
       this.turetAnim.loadSequence('turet', resources);
 
@@ -82,6 +92,7 @@ export default class TestScene extends PNXScene {
   destroy(): void {
     super.destroy();
     clearInterval(this.timer);
+    this.bitmapText.destroy();
     this.background.destroy();
     this.turetAnim.destroy();
     this.explosionAnim.destroy();
