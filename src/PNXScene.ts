@@ -8,6 +8,7 @@ interface ICallback { (loader: PIXI.loaders.Loader, resources: {}): void };
  * @description Phoenix Game Engine Scene class
  */
 export default class PNXScene {
+  public app: PIXI.Application;
   public stage: PIXI.Container;
   public ticker: PIXI.ticker.Ticker;
   private loader: PIXI.loaders.Loader;
@@ -18,6 +19,7 @@ export default class PNXScene {
    * @param {PIXI.Container} stage
    */
   constructor(app: PIXI.Application) {
+    this.app = app;
     this.stage = app.stage;
     this.ticker = app.ticker;
     this.loader = new PIXI.loaders.Loader();

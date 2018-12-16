@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
 import PNXAnim from './PNXAnim';
+import PNXBackgroundTile from './PNXBackgroundTile';
 import { setInterval } from 'timers';
 
 /**
@@ -8,6 +9,7 @@ import { setInterval } from 'timers';
  * @description Sample test scene using the PNX Game Engine
  */
 export default class TestScene extends PNXScene {
+  private background: PNXBackgroundTile;
   private turetAnim: PNXAnim;
   private explosionAnim: PNXAnim;
   private timer: any;
@@ -20,6 +22,7 @@ export default class TestScene extends PNXScene {
   constructor(app: PIXI.Application) {
     super(app);
 
+    this.background = new PNXBackgroundTile(this, 'tile.png');
     this.turetAnim = new PNXAnim(this);
     this.explosionAnim = new PNXAnim(this);
 
@@ -79,6 +82,7 @@ export default class TestScene extends PNXScene {
   destroy(): void {
     super.destroy();
     clearInterval(this.timer);
+    this.background.destroy();
     this.turetAnim.destroy();
     this.explosionAnim.destroy();
   }
