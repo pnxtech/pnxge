@@ -68,16 +68,24 @@ export default class PNXScene {
   /**
    * @name hitTestRectangle
    * @description check whether two anim objects have collided
+   * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
    * @param {PNXAnimatedSprite} a1 - first anim
    * @param {PNXAnimatedSprite} a2 - second anim
    * @return {boolean} bool - true if collision else false
    */
   hitTestRectangle(a1: PNXAnimatedSprite, a2: PNXAnimatedSprite): boolean {
     // Find the half-widths and half-heights of each sprite
-    let a1_halfWidth = a1.width / 2;
-    let a1_halfHeight = a1.height / 2;
-    let a2_halfWidth = a2.width / 2;
-    let a2_halfHeight = a2.height / 2;
+    let a1_halfWidth = 0;
+    let a1_halfHeight = 0;
+    let a2_halfWidth = 0;
+    let a2_halfHeight = 0;
+
+    if (a1.anim && a2.anim) {
+      a1_halfWidth = a1.width * a1.anim.anchor;
+      a1_halfHeight = a1.height * a1.anim.anchor;
+      a2_halfWidth = a2.width * a2.anim.anchor;
+      a2_halfHeight = a2.height * a2.anim.anchor;
+    }
 
     // Calculate the distance vector between the sprites
     let dx = Math.abs(a1.x - a2.x) * 2;

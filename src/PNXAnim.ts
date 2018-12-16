@@ -144,7 +144,7 @@ export default class PNXAnim {
    * @description anchor getter
    * @return {number} anchor position
    */
-  get anchor() : number {
+  get anchor(): number {
     return this.animAnchor;
   }
 
