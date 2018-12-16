@@ -59,10 +59,57 @@ export default class PNXScene {
    * @return {void}
    */
   sortAnims(): void {
-    let objectList: any = <PNXAnimatedSprite>this.stage.children;
+    let objectList: any = this.stage.children;
     objectList.sort((a: PNXAnimatedSprite, b: PNXAnimatedSprite) => {
       return a.zOrder - b.zOrder;
     });
+  }
+
+  /**
+   * @name hitTestRectangle
+   * @description check whether two anim objects have collided
+   * @param {PNXAnimatedSprite} a1 - first anim
+   * @param {PNXAnimatedSprite} a2 - second anim
+   * @return {boolean} bool - true if collision else false
+   */
+  hitTestRectangle(a1: PNXAnimatedSprite, a2: PNXAnimatedSprite): boolean {
+    // Find the half-widths and half-heights of each sprite
+    let a1_halfWidth = a1.width / 2;
+    let a1_halfHeight = a1.height / 2;
+    let a2_halfWidth = a2.width / 2;
+    let a2_halfHeight = a2.height / 2;
+
+    // Calculate the distance vector between the sprites
+    let dx = Math.abs(a1.x - a2.x) * 2;
+    let dy = Math.abs(a1.y - a2.y) * 2;
+
+    // Figure out the combined half-widths and half-heights
+    let combinedHalfWidths = a1_halfWidth + a2_halfWidth;
+    let combinedHalfHeights = a1_halfHeight + a2_halfHeight;
+
+    return ((Math.abs(dx) < combinedHalfWidths) && (Math.abs(dy) < combinedHalfHeights)) ? true : false;
+  }
+
+  /**
+   * @name collisionDetection
+   * @description collision detection system. notifies anim object when they collide with other objects
+   * @return {void}
+   */
+  collisionDetection(): void {
+    let objectList: any = this.stage.children;
+    for (let obj1 of objectList) {
+      for (let obj2 of objectList) {
+        if (obj1.collisionDetection === false || obj2.collisionDetection === false) {
+          continue;
+        }
+        if (obj1.id !== obj2.id) {
+          if (this.hitTestRectangle(obj1, obj2)) {
+            obj1.anim.onCollision(obj2.anim);
+            obj2.anim.onCollision(obj1.anim);
+          }
+        }
+      }
+    }
   }
 
   /**

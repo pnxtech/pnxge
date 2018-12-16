@@ -30,27 +30,31 @@ export default class TestScene extends PNXScene {
       this.explosionAnim.loadSequence('explode', resources);
       this.turetAnim.loadSequence('turet', resources);
 
-      this.turetAnim.x = 400;
-      this.turetAnim.y = 400;
+      this.turetAnim.x = 500;
+      this.turetAnim.y = 500;
       this.turetAnim.z = 1000;
-      this.turetAnim.vx = 2;
-      this.turetAnim.vy = 2;
-      this.turetAnim.anchor = 0.5;
+      this.turetAnim.vx = 0;
+      this.turetAnim.vy = 0;
+      this.turetAnim.type = 'hero';
+      this.turetAnim.collisionDetection = true;
       this.turetAnim.play('turet', false);
 
-      this.explosionAnim.x = 320;
-      this.explosionAnim.y = 320;
+      this.explosionAnim.x = 100;
+      this.explosionAnim.y = 100;
       this.explosionAnim.z = 2000;
-      this.explosionAnim.anchor = 0.5;
-      this.explosionAnim.animationSpeed = .5;
-      this.explosionAnim.play('explode', false);
+      this.explosionAnim.vx = 5;
+      this.explosionAnim.vy = 5;
+      this.explosionAnim.type = 'bullet';
+      this.explosionAnim.animationSpeed = 0.8;
+      this.explosionAnim.collisionDetection = true;
+      this.explosionAnim.play('explode', true);
 
       this.sortAnims();
 
-      this.timer = setInterval(() => {
-        this.explosionAnim.z = 100;
-        this.explosionAnim.play('explode', false);
-      }, 1000);
+      // this.timer = setInterval(() => {
+      //   this.explosionAnim.z = 100;
+      //   this.explosionAnim.play('explode', false);
+      // }, 1000);
     });
   }
 
@@ -64,6 +68,7 @@ export default class TestScene extends PNXScene {
     this.turetAnim.update();
     this.explosionAnim.update();
     this.turetAnim.rotation = this.turetAnim.rotation + (0.02 * deltaTime);
+    this.collisionDetection();
   }
 
   /**

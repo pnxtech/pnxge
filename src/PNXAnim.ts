@@ -3,7 +3,6 @@ import PNXAnimatedSprite from './PNXAnimatedSprite';
 import PNXScene from './PNXScene';
 
 interface ICallback { (): void };
-
 interface IHash { [key: string]: {
   name: string,
   sequence: PNXAnimatedSprite
@@ -23,9 +22,10 @@ export default class PNXAnim {
   private currentRotation: number = 0;
   private animSpeed: number = 1;
   private animAnchor: number = .5;
-  private animPivot: number = .5;
   private velocityX: number = 0;
   private velocityY: number = 0;
+  private animType: string = '';
+  private currentCollisionDetection: boolean = false;
   private scene: PNXScene;
   private stage: PIXI.Container;
   private currentSequence: PNXAnimatedSprite | undefined;
@@ -160,26 +160,6 @@ export default class PNXAnim {
   }
 
   /**
-   * @name pivot
-   * @description pivot getter
-   * @return {number} pivot position
-   */
-  get pivot() : number {
-    return this.animPivot;
-  }
-
-  /**
-   * @name pivot
-   * @description pivot setter
-   */
-  set pivot(value: number) {
-    this.animPivot = value;
-    if (this.currentSequence) {
-      this.currentSequence.pivot.set(this.animPivot);
-    }
-  }
-
-  /**
    * @name vx
    * @description vx getter
    * @return {number} vx position
@@ -191,6 +171,7 @@ export default class PNXAnim {
   /**
    * @name vx
    * @description vx setter
+   * @param {number} value - velocity X
    */
   set vx(value: number) {
     this.velocityX = value;
@@ -211,11 +192,54 @@ export default class PNXAnim {
   /**
    * @name vy
    * @description vy setter
+   * @param {number} value - velocity Y
    */
   set vy(value: number) {
     this.velocityY = value;
     if (this.currentSequence) {
       this.currentSequence.vy = value;
+    }
+  }
+
+  /**
+   * @name type
+   * @description type getter
+   * @return {string} vy position
+   */
+  get type() : string {
+    return this.animType;
+  }
+
+  /**
+   * @name type
+   * @description type setter
+   * @param {string} value - anim type
+   */
+  set type(value: string) {
+    this.animType = value;
+    if (this.currentSequence) {
+      this.currentSequence.type = value;
+    }
+  }
+
+  /**
+   * @name collisionDetection
+   * @description collisionDetection getter
+   * @return {boolean} collisionDetection position
+   */
+  get collisionDetection() : boolean {
+    return this.currentCollisionDetection;
+  }
+
+  /**
+   * @name collisionDetection
+   * @description collisionDetection setter
+   * @param {string} value - collisionDetection setting
+   */
+  set collisionDetection(value: boolean) {
+    this.currentCollisionDetection = value;
+    if (this.currentSequence) {
+      this.currentSequence.collisionDetection = value;
     }
   }
 
@@ -231,6 +255,7 @@ export default class PNXAnim {
     let sheet = resources[path].spritesheet;
     if (sheet) {
       let sequence = new PNXAnimatedSprite(sheet.animations[name]);
+      sequence.anim = this;
       sequence.visible = false;
       this.animationSequence[name] = {
         name,
@@ -260,13 +285,12 @@ export default class PNXAnim {
     this.currentSequence.y = this.currentY;
     this.currentSequence.vx = this.velocityX;
     this.currentSequence.vy = this.velocityY;
-
     this.currentSequence.zOrder = this.currentZ;
-
+    this.currentSequence.type = this.animType;
     this.currentSequence.rotation = this.rotation;
     this.currentSequence.animationSpeed = this.animSpeed;
     this.currentSequence.anchor.set(this.animAnchor);
-    this.currentSequence.pivot.set(this.animPivot);
+    this.currentSequence.collisionDetection = this.currentCollisionDetection;
     this.currentSequence.gotoAndPlay(0);
   }
 
@@ -276,9 +300,21 @@ export default class PNXAnim {
    */
   update(): void {
     if (this.currentSequence) {
-      this.currentX = (this.currentSequence.x += this.currentSequence.vx);
-      this.currentY = (this.currentSequence.y += this.currentSequence.vy);
+      this.currentSequence.x += this.currentSequence.vx;
+      this.currentSequence.y += this.currentSequence.vy;
+      this.currentX = this.currentSequence.x;
+      this.currentY = this.currentSequence.y;
     }
+  }
+
+  /**
+   * @name onCollision
+   * @description trigged when this anim collides with another anim
+   * @param {PNXAnim} anim - anim with which collision has occured
+   * @return {void}
+   */
+  onCollision(anim: PNXAnim): void {
+    console.log(`anim:${this.type} collided with anim:${anim.type}`);
   }
 
   /**
@@ -287,7 +323,7 @@ export default class PNXAnim {
    * @return {void}
    */
   destroy(): void {
-    for (let animSequence of this.animationSequence) {
+    for (let animSequence of <any>this.animationSequence) {
       animSequence.sequence.visible = false;
       animSequence.sequence.destroy({
         children: true,
