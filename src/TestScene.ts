@@ -1,29 +1,26 @@
-// <reference path="PNXScene.ts" />
-// <reference path="PNXAnim.ts" />
-// <reference path="PNXAnimatedSprite.ts" />
-// <reference path="PNXBackgroundTile.ts" />
-// <reference path="PNXTextSprite.ts" />
-
 import * as PIXI from 'pixi.js';
+import PNXScene from './PNXScene';
+import PNXAnim from './PNXAnim';
+import PNXBackgroundTile from './PNXBackgroundTile';
+import PNXTextSprite from './PNXTextSprite';
+
 import { setInterval } from 'timers';
 
-import Scene from './PNXScene';
-
-/**
- * @name TestScene
- * @description Sample test scene using the PNX Game Engine
- */
 enum SceneLevel {
   Low = 0,
   Medium = 5000,
   High = 10000
 };
 
-export default class TestScene extends Scene {
-  private background: PNXGE.BackgroundTile;
-  private bitmapText: PNXGE.TextSprite;
-  private turetAnim: PNXGE.Anim;
-  private explosionAnim: PNXGE.Anim;
+/**
+ * @name TestScene
+ * @description Sample test scene using the PNX Game Engine
+ */
+export default class TestScene extends PNXScene {
+  private background: PNXBackgroundTile;
+  private bitmapText: PNXTextSprite;
+  private turetAnim: PNXAnim;
+  private explosionAnim: PNXAnim;
   private timer: any;
 
   /**
@@ -34,16 +31,16 @@ export default class TestScene extends Scene {
   constructor(app: PIXI.Application) {
     super(app);
 
-    this.background = new PNXGE.BackgroundTile(this, 'tile.png');
-    this.turetAnim = new PNXGE.Anim(this);
-    this.explosionAnim = new PNXGE.Anim(this);
+    this.background = new PNXBackgroundTile(this, 'tile.png');
+    this.turetAnim = new PNXAnim(this);
+    this.explosionAnim = new PNXAnim(this);
 
     this.assetLoader([
       'turet.json',
       'explode.json',
       'title60pt.fnt'
     ], (_loader, resources) => {
-      this.bitmapText = new PNXGE.TextSprite(this, 'PNXGameEngine', {font: '72px title60pt', align: 'left'});
+      this.bitmapText = new PNXTextSprite(this, 'PNXGameEngine', {font: '72px title60pt', align: 'left'});
       this.bitmapText.x = 150;
       this.bitmapText.y = 40;
       this.bitmapText.zOrder = SceneLevel.High;
@@ -54,7 +51,7 @@ export default class TestScene extends Scene {
 
       this.turetAnim.x = 500;
       this.turetAnim.y = 500;
-      this.turetAnim.z = 1000;
+      this.turetAnim.z = SceneLevel.Medium;
       this.turetAnim.vx = 0;
       this.turetAnim.vy = 0;
       this.turetAnim.type = 'hero';
@@ -63,7 +60,7 @@ export default class TestScene extends Scene {
 
       this.explosionAnim.x = 100;
       this.explosionAnim.y = 100;
-      this.explosionAnim.z = 2000;
+      this.explosionAnim.z = SceneLevel.High - 1000;
       this.explosionAnim.vx = 5;
       this.explosionAnim.vy = 5;
       this.explosionAnim.type = 'bullet';
