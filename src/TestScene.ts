@@ -1,20 +1,29 @@
-import * as PIXI from 'pixi.js';
-import PNXScene from './PNXScene';
-import PNXAnim from './PNXAnim';
-import PNXBackgroundTile from './PNXBackgroundTile';
-import PNXTextSprite from './PNXTextSprite';
+// <reference path="PNXScene.ts" />
+// <reference path="PNXAnim.ts" />
+// <reference path="PNXAnimatedSprite.ts" />
+// <reference path="PNXBackgroundTile.ts" />
+// <reference path="PNXTextSprite.ts" />
 
+import * as PIXI from 'pixi.js';
 import { setInterval } from 'timers';
+
+import Scene from './PNXScene';
 
 /**
  * @name TestScene
  * @description Sample test scene using the PNX Game Engine
  */
-export default class TestScene extends PNXScene {
-  private background: PNXBackgroundTile;
-  private bitmapText: PNXTextSprite;
-  private turetAnim: PNXAnim;
-  private explosionAnim: PNXAnim;
+enum SceneLevel {
+  Low = 0,
+  Medium = 5000,
+  High = 10000
+};
+
+export default class TestScene extends Scene {
+  private background: PNXGE.BackgroundTile;
+  private bitmapText: PNXGE.TextSprite;
+  private turetAnim: PNXGE.Anim;
+  private explosionAnim: PNXGE.Anim;
   private timer: any;
 
   /**
@@ -25,19 +34,19 @@ export default class TestScene extends PNXScene {
   constructor(app: PIXI.Application) {
     super(app);
 
-    this.background = new PNXBackgroundTile(this, 'tile.png');
-    this.turetAnim = new PNXAnim(this);
-    this.explosionAnim = new PNXAnim(this);
+    this.background = new PNXGE.BackgroundTile(this, 'tile.png');
+    this.turetAnim = new PNXGE.Anim(this);
+    this.explosionAnim = new PNXGE.Anim(this);
 
     this.assetLoader([
       'turet.json',
       'explode.json',
       'title60pt.fnt'
     ], (_loader, resources) => {
-      this.bitmapText = new PNXTextSprite(this, 'PNXGameEngine', {font: '72px title60pt', align: 'left'});
+      this.bitmapText = new PNXGE.TextSprite(this, 'PNXGameEngine', {font: '72px title60pt', align: 'left'});
       this.bitmapText.x = 150;
       this.bitmapText.y = 40;
-      this.bitmapText.zOrder = 5000;
+      this.bitmapText.zOrder = SceneLevel.High;
       this.bitmapText.tint = 0x00bb00;
 
       this.explosionAnim.loadSequence('explode', resources);
