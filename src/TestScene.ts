@@ -3,6 +3,7 @@ import PNXScene from './PNXScene';
 import PNXAnim from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
 import PNXTextSprite from './PNXTextSprite';
+import { PNXPoint, PNXCurve } from './PNXMath';
 
 import { setInterval } from 'timers';
 
@@ -21,6 +22,8 @@ export default class TestScene extends PNXScene {
   private bitmapText: PNXTextSprite;
   private turetAnim: PNXAnim;
   private explosionAnim: PNXAnim;
+  private curve: PNXCurve;
+  private path: Array<PNXPoint>;
   private timer: any;
 
   /**
@@ -31,6 +34,11 @@ export default class TestScene extends PNXScene {
   constructor(app: PIXI.Application) {
     super(app);
 
+    this.curve = new PNXCurve(new PNXPoint(400, 0), new PNXPoint(0,800), new PNXPoint(400, 400), 100);
+    this.path = this.curve.getPoints();
+    // for (let i=0; i<this.path.length; i++) {
+    //   console.log(`point: ${i} ${this.path[i].x}, ${this.path[i].y}`);
+    // }
     this.background = new PNXBackgroundTile(this, 'tile.png');
     this.turetAnim = new PNXAnim(this);
     this.explosionAnim = new PNXAnim(this);
@@ -49,8 +57,8 @@ export default class TestScene extends PNXScene {
       this.explosionAnim.loadSequence('explode', resources);
       this.turetAnim.loadSequence('turet', resources);
 
-      this.turetAnim.x = 500;
-      this.turetAnim.y = 500;
+      this.turetAnim.x = 400;
+      this.turetAnim.y = 650;
       this.turetAnim.z = SceneLevel.Medium;
       this.turetAnim.vx = 0;
       this.turetAnim.vy = 0;
@@ -58,11 +66,11 @@ export default class TestScene extends PNXScene {
       this.turetAnim.collisionDetection = true;
       this.turetAnim.play('turet', false);
 
-      this.explosionAnim.x = 100;
-      this.explosionAnim.y = 100;
+      this.explosionAnim.x = 0;
+      this.explosionAnim.y = 0;
       this.explosionAnim.z = SceneLevel.High - 1000;
-      this.explosionAnim.vx = 5;
-      this.explosionAnim.vy = 5;
+      this.explosionAnim.vx = 10;
+      this.explosionAnim.vy = 10;
       this.explosionAnim.type = 'bullet';
       this.explosionAnim.animationSpeed = 0.8;
       this.explosionAnim.collisionDetection = true;
@@ -85,6 +93,13 @@ export default class TestScene extends PNXScene {
    */
   update(deltaTime: number): void {
     this.turetAnim.update();
+
+    if (this.path.length) {
+      let loc = <any>this.path.shift();
+      this.explosionAnim.x = loc.x;
+      this.explosionAnim.y = loc.y;
+    }
+
     this.explosionAnim.update();
     this.turetAnim.rotation = this.turetAnim.rotation + (0.02 * deltaTime);
     this.collisionDetection();
