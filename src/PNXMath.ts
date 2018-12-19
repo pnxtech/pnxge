@@ -6,6 +6,7 @@
 /**
  * @name pcap
  * @description precision cap
+ * @note: see https://stackoverflow.com/questions/1458633/how-to-deal-with-floating-point-number-precision-in-javascript/3644302#3644302
  * @param {number | string} value - input number
  * @return {number} capped value
  */
