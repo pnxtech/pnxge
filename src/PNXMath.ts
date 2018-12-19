@@ -4,6 +4,17 @@
  */
 
 /**
+ * @name pcap
+ * @description precision cap
+ * @param {number | string} value - input number
+ * @return {number} capped value
+ */
+function pcap(value: number | string): number {
+  let num: number = parseFloat(`${value}`);
+  return Number(num.toPrecision(7));
+}
+
+/**
  * @name PNXPoint
  * @description Represent a point
  */
@@ -26,7 +37,7 @@ export class PNXVector extends PNXPoint {
     super(x, y);
   }
   public length(): number {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
+    return pcap(Math.sqrt(this.x * this.x + this.y * this.y));
   }
 }
 
@@ -91,7 +102,7 @@ export class PNXCurve {
    * @return {number} distance
    */
   protected distanceX(l: PNXLine): number {
-    return (l.pt2.x - l.pt1.x);
+    return pcap(l.pt2.x - l.pt1.x);
   }
 
   /**
@@ -101,7 +112,7 @@ export class PNXCurve {
    * @return {number} distance
    */
   protected distanceY(l: PNXLine): number {
-    return (l.pt2.y - l.pt1.y);
+    return pcap(l.pt2.y - l.pt1.y);
   }
 
   /**
@@ -120,22 +131,22 @@ export class PNXCurve {
 
     if (this.distanceX(l1) === 0) {
       p.x = l1.pt1.x;
-      m1 = (l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x);
-      b1 = l2.pt1.y - m1 * l2.pt1.x;
+      m1 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
+      b1 = pcap(l2.pt1.y - m1 * l2.pt1.x);
     }
     else if (this.distanceX(l2) === 0) {
       p.x = l2.pt1.x;
-      m1 = (l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
-      b1 = l1.pt1.y - m1 * l1.pt1.x;
+      m1 = pcap(l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
+      b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
     }
     else {
-      m1 = (l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
-      b1 = l1.pt1.y - m1 * l1.pt1.x;
-      m2 = (l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x);
-      b2 = l2.pt1.y - m2 * l2.pt1.x;
-      p.x = (b1 - b2) / (m2 - m1);
+      m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
+      b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
+      m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
+      b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
+      p.x = pcap((b1 - b2) / (m2 - m1));
     }
-    p.y = m1 * p.x + b1;
+    p.y = pcap(m1 * p.x + b1);
     return p;
   }
 
@@ -150,8 +161,8 @@ export class PNXCurve {
   protected generatePoints(p1: PNXPoint, p2: PNXPoint, p3: PNXPoint): void {
     let l1: PNXLine = new PNXLine(p1.x, p1.y, p3.x, p3.y);
     let l2: PNXLine = new PNXLine(p3.x, p3.y, p2.x, p2.y);
-    let dx1: number = this.distanceX(l1) / (this.totalSegments + 1);
-    let dx2: number = this.distanceX(l2) / (this.totalSegments + 1);
+    let dx1: number = pcap(this.distanceX(l1) / (this.totalSegments + 1));
+    let dx2: number = pcap(this.distanceX(l2) / (this.totalSegments + 1));
 
     let m1: number = 0;
     let m2: number = 0;
@@ -161,41 +172,41 @@ export class PNXCurve {
     let b2: number = 0;
 
     if (dx1 !== 0) {
-      m1 = (l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
-      b1 = l1.pt1.y - m1 * l1.pt1.x;
+      m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
+      b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
     }
     else {
-      dy1 = this.distanceY(l1) / (this.totalSegments + 1);
+      dy1 = pcap(this.distanceY(l1) / (this.totalSegments + 1));
     }
 
     if (dx2 !== 0) {
-      m2 = (l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x);
-      b2 = l2.pt1.y - m2 * l2.pt1.x;
+      m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
+      b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
     }
     else {
-      dy2 = this.distanceY(l2) / (this.totalSegments + 1);
+      dy2 = pcap(this.distanceY(l2) / (this.totalSegments + 1));
     }
 
     let ls1: PNXLine = new PNXLine();
     let ls2: PNXLine = new PNXLine();
     for (let i = 0; i < this.totalSegments; i++) {
-      ls1.pt1.x = l1.pt1.x + (dx1 * i);
-      ls1.pt2.x = l2.pt1.x + (dx2 * (i + 1));
-      ls2.pt1.x = l1.pt1.x + (dx1 * (i + 1));
-      ls2.pt2.x = l2.pt1.x + (dx2 * (i + 2));
+      ls1.pt1.x = pcap(l1.pt1.x + (dx1 * i));
+      ls1.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 1)));
+      ls2.pt1.x = pcap(l1.pt1.x + (dx1 * (i + 1)));
+      ls2.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 2)));
       if (dx1 !== 0) {
-        ls1.pt1.y = m1 * ls1.pt1.x + b1;
-        ls2.pt1.y = m1 * ls2.pt1.x + b1;
+        ls1.pt1.y = pcap(m1 * ls1.pt1.x + b1);
+        ls2.pt1.y = pcap(m1 * ls2.pt1.x + b1);
       } else {
-        ls1.pt1.y = l1.pt1.y + (dy1 * i);
-        ls2.pt1.y = l1.pt1.y + (dy1 * (i + 1));
+        ls1.pt1.y = pcap(l1.pt1.y + (dy1 * i));
+        ls2.pt1.y = pcap(l1.pt1.y + (dy1 * (i + 1)));
       }
       if (dx2 != 0) {
-        ls1.pt2.y = m2 * ls1.pt2.x + b2;
-        ls2.pt2.y = m2 * ls2.pt2.x + b2;
+        ls1.pt2.y = pcap(m2 * ls1.pt2.x + b2);
+        ls2.pt2.y = pcap(m2 * ls2.pt2.x + b2);
       } else {
-        ls1.pt2.y = l2.pt1.y + (dy2 * (i + 1));
-        ls2.pt2.y = l2.pt1.y + (dy2 * (i + 2));
+        ls1.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 1)));
+        ls2.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 2)));
       }
       this.segmentList[i] = this.intersect(ls1, ls2);
     }
