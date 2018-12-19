@@ -3,7 +3,7 @@ import PNXScene from './PNXScene';
 import PNXAnim from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
 import PNXTextSprite from './PNXTextSprite';
-import { PNXPoint, PNXCurve, PNXVector } from './PNXMath';
+import { PNXPoint, PNXCurve, PNXVector, PNXAngle } from './PNXMath';
 
 import { setInterval } from 'timers';
 
@@ -20,6 +20,7 @@ enum SceneLevel {
 export default class TestScene extends PNXScene {
   private background: PNXBackgroundTile;
   private bitmapText: PNXTextSprite;
+  private movementVector: PNXVector;
   private turetAnim: PNXAnim;
   private explosionAnim: PNXAnim;
   private curve: PNXCurve;
@@ -33,6 +34,10 @@ export default class TestScene extends PNXScene {
    */
   constructor(app: PIXI.Application) {
     super(app);
+
+    this.movementVector = (new PNXAngle()).vectorAngleFromDegrees(14);
+    console.log(`mx: ${this.movementVector.x}`);
+    console.log(`my: ${this.movementVector.y}`);
 
     this.curve = new PNXCurve(new PNXPoint(400, 0), new PNXPoint(0,800), new PNXPoint(400, 400), 100);
     this.path = this.curve.getPoints();
@@ -66,11 +71,11 @@ export default class TestScene extends PNXScene {
       this.turetAnim.collisionDetection = true;
       this.turetAnim.play('turet', false);
 
-      this.explosionAnim.x = 0;
-      this.explosionAnim.y = 0;
+      this.explosionAnim.x = 400;
+      this.explosionAnim.y = 20;
       this.explosionAnim.z = SceneLevel.High - 1000;
-      this.explosionAnim.vx = 10;
-      this.explosionAnim.vy = 10;
+      // this.explosionAnim.vx = 10;
+      // this.explosionAnim.vy = 10;
       this.explosionAnim.type = 'bullet';
       this.explosionAnim.animationSpeed = 0.8;
       this.explosionAnim.collisionDetection = true;
@@ -94,11 +99,14 @@ export default class TestScene extends PNXScene {
   update(deltaTime: number): void {
     this.turetAnim.update();
 
-    if (this.path.length) {
-      let loc = <any>this.path.shift();
-      this.explosionAnim.x = loc.x;
-      this.explosionAnim.y = loc.y;
-    }
+    // if (this.path.length) {
+    //   let loc = <any>this.path.shift();
+    //   this.explosionAnim.x = loc.x;
+    //   this.explosionAnim.y = loc.y;
+    // }
+
+    this.explosionAnim.vx += this.movementVector.x;
+    this.explosionAnim.vy += this.movementVector.y;
 
     this.explosionAnim.update();
     this.turetAnim.rotation = this.turetAnim.rotation + (0.02 * deltaTime);

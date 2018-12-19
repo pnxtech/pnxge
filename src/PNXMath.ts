@@ -5,7 +5,7 @@
 
 /**
  * @name pcap
- * @description precision cap
+ * @description precision cap - reduces number precision to avoid rounding errors
  * @note: see https://stackoverflow.com/questions/1458633/how-to-deal-with-floating-point-number-precision-in-javascript/3644302#3644302
  * @param {number | string} value - input number
  * @return {number} capped value
@@ -13,6 +13,53 @@
 function pcap(value: number | string): number {
   let num: number = parseFloat(`${value}`);
   return Number(num.toPrecision(7));
+}
+
+/**
+ * @name PNXAngle
+ * @description Angle functions
+ */
+export class PNXAngle {
+  /**
+   * @name d2r
+   * @description degrees to radians
+   * @param {number} degree - 360 degree type
+   * @return {number} radian
+   */
+  d2r(degree: number): number {
+    return pcap(degree * Math.PI / 180.0);
+  }
+
+  /**
+   * @name r2d
+   * @description radians to degrees
+   * @param {number} radians
+   * @return {number} degree
+   */
+  r2d(radians: number): number {
+    return pcap(radians * 180.0 * Math.PI);
+  }
+
+  /**
+   * @name vectorAngleFromDegrees
+   * @description return a new angle vector based on degrees
+   * @param {number} degrees
+   * @return {PNXVector} angleVector
+   */
+  vectorAngleFromDegrees(degrees: number): PNXVector {
+    let radians: number = this.d2r(degrees);
+    return new PNXVector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+  }
+
+  /**
+   * @name vectorAngleFromRadians
+   * @description return a new angle vector based on radians
+   * @param {number} radians
+   * @return {PNXAngle} angleVector
+   */
+  vectorAngleFromRadians(radians: number): PNXVector {
+    return new PNXVector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+  }
 }
 
 /**
@@ -97,7 +144,7 @@ export class PNXVector extends PNXPoint {
   }
 
   /**
-   * @name divides
+   * @name divide
    * @description divides vector with current vector
    * @param {PNXVector} vector - to use in operation
    * @return {PNXVector} returns a new vector
