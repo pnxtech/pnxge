@@ -3,7 +3,7 @@ import PNXScene from './PNXScene';
 import PNXAnim from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
 import PNXTextSprite from './PNXTextSprite';
-import { PNXPoint, PNXCurve } from './PNXMath';
+import { PNXPoint, PNXCurve, PNXVector } from './PNXMath';
 
 import { setInterval } from 'timers';
 

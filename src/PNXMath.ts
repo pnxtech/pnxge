@@ -34,11 +34,88 @@ export class PNXPoint {
  * @description Represent a line (connection between to points)
  */
 export class PNXVector extends PNXPoint {
+  /**
+   * @name constructor
+   * @description constructor
+   */
   constructor(x: number = 0, y:number = 0) {
     super(x, y);
   }
+
+  /**
+   * @name length
+   * @description returns the vector length
+   * @returns returns the vector length
+   */
   public length(): number {
     return pcap(Math.sqrt(this.x * this.x + this.y * this.y));
+  }
+
+  /**
+   * @name negate
+   * @description negates the current vector
+   * @return {PNXVector} returns a new negated vector
+   */
+  public negate(): PNXVector {
+    return new PNXVector(-this.x, -this.y);
+  }
+
+  /**
+   * @name add
+   * @description adds vector to current vector
+   * @param {PNXVector} vector - to use in operation
+   * @return {PNXVector} returns a new vector
+   */
+  public add(vector: PNXVector): PNXVector {
+    this.x += vector.x;
+    this.y += vector.y;
+    return new PNXVector(this.x, this.y);
+  }
+
+  /**
+   * @name substract
+   * @description substracts vector from current vector
+   * @param {PNXVector} vector - to use in operation
+   * @return {PNXVector} returns a new vector
+   */
+  public substract(vector: PNXVector): PNXVector {
+    this.x -= vector.x;
+    this.y -= vector.y;
+    return new PNXVector(this.x, this.y);
+  }
+
+  /**
+   * @name multiply
+   * @description multiplies vector with current vector
+   * @param {PNXVector} vector - to use in operation
+   * @return {PNXVector} returns a new vector
+   */
+  public multiply(vector: PNXVector): PNXVector {
+    this.x *= vector.x;
+    this.y *= vector.y;
+    return new PNXVector(this.x, this.y);
+  }
+
+  /**
+   * @name divides
+   * @description divides vector with current vector
+   * @param {PNXVector} vector - to use in operation
+   * @return {PNXVector} returns a new vector
+   */
+  public divide(vector: PNXVector): PNXVector {
+    this.x /= vector.x;
+    this.y /= vector.y;
+    return new PNXVector(pcap(this.x), pcap(this.y));
+  }
+
+  /**
+   * @name equals
+   * @description determines whether current and other vector are "realtively" equal while avoiding rounding errors
+   * @return {boolan} true if equal / false if not
+   */
+  public equals(vector: PNXVector): boolean {
+    return (pcap(Math.abs(this.x)) === pcap(Math.abs(vector.x)) &&
+            pcap(Math.abs(this.y)) === pcap(Math.abs(vector.y)));
   }
 }
 
