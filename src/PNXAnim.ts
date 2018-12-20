@@ -22,6 +22,8 @@ export default class PNXAnim {
   private currentRotation: number = 0;
   private animSpeed: number = 1;
   private animAnchor: number = .5;
+  private directionX: number = 0;
+  private directionY: number = 0;
   private velocityX: number = 0;
   private velocityY: number = 0;
   private animType: string = '';
@@ -160,9 +162,51 @@ export default class PNXAnim {
   }
 
   /**
+   * @name dx
+   * @description direction X getter
+   * @return {number} dx - direction X
+   */
+  get dx() : number {
+    return this.directionX;
+  }
+
+  /**
+   * @name dx
+   * @description direction X setter
+   * @param {number} value - direction X
+   */
+  set dx(value: number) {
+    this.directionX = value;
+    if (this.currentSequence) {
+      this.currentSequence.dx = value;
+    }
+  }
+
+  /**
+   * @name dy
+   * @description direction Y getter
+   * @return {number} dy - direction Y
+   */
+  get dy() : number {
+    return this.directionY;
+  }
+
+  /**
+   * @name dy
+   * @description direction Y setter
+   * @param {number} value - direction Y
+   */
+  set dy(value: number) {
+    this.directionY = value;
+    if (this.currentSequence) {
+      this.currentSequence.dy = value;
+    }
+  }
+
+  /**
    * @name vx
-   * @description vx getter
-   * @return {number} vx position
+   * @description velocity X getter
+   * @return {number} vx - velocity X
    */
   get vx() : number {
     return this.velocityX;
@@ -170,7 +214,7 @@ export default class PNXAnim {
 
   /**
    * @name vx
-   * @description vx setter
+   * @description velocity X setter
    * @param {number} value - velocity X
    */
   set vx(value: number) {
@@ -182,8 +226,8 @@ export default class PNXAnim {
 
   /**
    * @name vy
-   * @description vy getter
-   * @return {number} vy position
+   * @description velocity Y getter
+   * @return {number} vy - velocity Y
    */
   get vy() : number {
     return this.velocityY;
@@ -191,7 +235,7 @@ export default class PNXAnim {
 
   /**
    * @name vy
-   * @description vy setter
+   * @description velocity Y setter
    * @param {number} value - velocity Y
    */
   set vy(value: number) {
@@ -283,6 +327,8 @@ export default class PNXAnim {
     this.currentSequence.loop = loop;
     this.currentSequence.x = this.currentX;
     this.currentSequence.y = this.currentY;
+    this.currentSequence.dx = this.directionX;
+    this.currentSequence.dy = this.directionY;
     this.currentSequence.vx = this.velocityX;
     this.currentSequence.vy = this.velocityY;
     this.currentSequence.zOrder = this.currentZ;
@@ -297,11 +343,13 @@ export default class PNXAnim {
   /**
    * @name update
    * @description update anim position based on velocity
+   * @param {number} delta - delta time offset
+   * @return {void}
    */
-  update(): void {
+  update(delta: number = 0): void {
     if (this.currentSequence) {
-      this.currentSequence.x += this.currentSequence.vx;
-      this.currentSequence.y += this.currentSequence.vy;
+      this.currentSequence.x += this.currentSequence.dx * this.currentSequence.vx;
+      this.currentSequence.y += this.currentSequence.dy * this.currentSequence.vy;
       this.currentX = this.currentSequence.x;
       this.currentY = this.currentSequence.y;
     }

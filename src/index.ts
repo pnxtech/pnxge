@@ -16,10 +16,10 @@ export default class PixiBoot extends PIXI.Application {
     this.scene = new TestScene(this);
     this.scene.start();
 
-    let timer = setTimeout(() => {
-      clearTimeout(timer);
-      this.scene.destroy();
-    }, 15000);
+    // let timer = setTimeout(() => {
+    //   clearTimeout(timer);
+    //   this.scene.destroy();
+    // }, 15000);
   }
 }
 

@@ -44,7 +44,9 @@ export default class PNXScene {
    * @return {void}
    */
   start(): void {
-    this.ticker.add((deltaTime) => this.update(deltaTime));
+    this.ticker.add((deltaTime) => {
+      this.update(deltaTime);
+    });
   }
 
   /**

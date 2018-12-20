@@ -9,6 +9,8 @@ import PNXAnim from './PNXAnim';
 export default class PNXAnimatedSprite extends PIXI.extras.AnimatedSprite {
   public id: string;
   public zOrder: number = -1;
+  public dx: number = 0; // directionX
+  public dy: number = 0; // directionY
   public vx: number = 0; // velocityX
   public vy: number = 0; // velocityY
   public collisionDetection: boolean = false;

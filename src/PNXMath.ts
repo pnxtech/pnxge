@@ -37,7 +37,7 @@ export class PNXAngle {
    * @return {number} degree
    */
   r2d(radians: number): number {
-    return pcap(radians * 180.0 * Math.PI);
+    return pcap(radians * (180.0 / Math.PI));
   }
 
   /**
@@ -59,6 +59,24 @@ export class PNXAngle {
    */
   vectorAngleFromRadians(radians: number): PNXVector {
     return new PNXVector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+  }
+
+  /**
+   * @name angleFromVectors
+   * @description compute angle from v1 vector to v2 vector
+   * @param {PNXVector} v1 - from (source) vector
+   * @param {PNXVector} v2 - to (target) vector
+   * @return {number} angle - in radians
+   * note:
+   *  let angle: PNXAngle = new PNXAngle();
+   *  let radians = angle.angleFromVectors(
+   *    new PNXVector(this.explosionAnim.x, this.explosionAnim.y),
+   *    new PNXVector(this.turetAnim.x, this.turetAnim.y)
+   *  );
+   *  this.movementVector = angle.vectorAngleFromRadians(radians);
+   */
+  angleFromVectors(v1: PNXVector, v2: PNXVector): number {
+    return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
   }
 }
 
