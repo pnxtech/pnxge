@@ -10,9 +10,18 @@
  * @param {number | string} value - input number
  * @return {number} capped value
  */
-function pcap(value: number | string): number {
+export function pcap(value: number | string): number {
   let num: number = parseFloat(`${value}`);
   return Number(num.toPrecision(7));
+}
+
+/**
+ * @name createID
+ * @description create a unique ID
+ * @return {string} unique ID
+ */
+export function createID(): string {
+  return (Math.floor(Math.random() * (new Date()).getTime()).toString(36));
 }
 
 /**

@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
+import {createID} from './PNXMath';
 
 /**
  * @name PNXTextSprite
@@ -7,7 +8,7 @@ import PNXScene from './PNXScene';
  * @note: uses PIXI BitmapText
  */
 export default class PNXTextSprite extends PIXI.extras.BitmapText {
-  public id: string;
+  public id: string = createID();
   public zOrder: number = -1;
   public vx: number = 0; // velocityX
   public vy: number = 0; // velocityY
@@ -25,7 +26,6 @@ export default class PNXTextSprite extends PIXI.extras.BitmapText {
   constructor(scene: PNXScene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined) {
     super(text, style);
     this.scene = scene;
-    this.id = (Math.floor(Math.random() * (new Date()).getTime()).toString(36));
     this.scene.stage.addChild(this);
   }
 

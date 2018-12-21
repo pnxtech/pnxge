@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXAnim from './PNXAnim';
+import {createID} from './PNXMath';
 
 /**
  * @name PNXAnimatedSprite
@@ -7,7 +8,7 @@ import PNXAnim from './PNXAnim';
  * @note: uses PIXI AnimatedSprite https://pixijs.download/release/docs/PIXI.extras.AnimatedSprite.html
  */
 export default class PNXAnimatedSprite extends PIXI.extras.AnimatedSprite {
-  public id: string;
+  public id: string = createID();
   public zOrder: number = -1;
   public dx: number = 0; // directionX
   public dy: number = 0; // directionY
@@ -19,6 +20,5 @@ export default class PNXAnimatedSprite extends PIXI.extras.AnimatedSprite {
 
   constructor(textures: [], autoUpdate?: boolean | undefined) {
     super(textures, autoUpdate);
-    this.id = (Math.floor(Math.random() * (new Date()).getTime()).toString(36));
   }
 };
