@@ -341,6 +341,18 @@ export default class PNXAnim {
   }
 
   /**
+   * @name setFrame
+   * @description set the frame of the current animation sequence
+   * @param {number} frameNumber - frame number
+   * @return {void}
+   */
+  setFrame(frameNumber: number): void {
+    if (this.currentSequence) {
+      this.currentSequence.gotoAndStop(frameNumber);
+    }
+  }
+
+  /**
    * @name update
    * @description update anim position based on velocity
    * @param {number} delta - delta time offset
