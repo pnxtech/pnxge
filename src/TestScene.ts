@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import PNXGameLoader from './PNXGameLoader';
 import PNXScene from './PNXScene';
-import PNXAnim from './PNXAnim';
+import PNXAnim, { AnimType } from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
 import PNXTextSprite from './PNXTextSprite';
 import { PNXPoint, PNXCurve, PNXVector, PNXAngle } from './PNXMath';
@@ -39,8 +39,8 @@ export default class TestScene extends PNXScene {
     super(app);
 
     this.movementVector = new PNXVector();
-    this.curve = new PNXCurve(new PNXPoint(400, 0), new PNXPoint(0,800), new PNXPoint(400, 400), 100);
-    this.path = this.curve.getPoints();
+    // this.curve = new PNXCurve(new PNXPoint(400, 0), new PNXPoint(0,800), new PNXPoint(400, 400), 100);
+    // this.path = this.curve.getPoints();
     // for (let i=0; i<this.path.length; i++) {
     //   console.log(`point: ${i} ${this.path[i].x}, ${this.path[i].y}`);
     // }
@@ -65,7 +65,7 @@ export default class TestScene extends PNXScene {
       this.tankAnim.z = SceneLevel.Medium;
       this.tankAnim.vx = 0;
       this.tankAnim.vy = 0;
-      this.tankAnim.type = 'hero';
+      this.tankAnim.type = AnimType.HERO;
       this.tankAnim.collisionDetection = true;
       this.tankAnim.animationSpeed = 0.02;
       this.tankAnim.play('tank', true);
@@ -75,7 +75,7 @@ export default class TestScene extends PNXScene {
       this.explosionAnim.z = SceneLevel.High - 1000;
       // this.explosionAnim.vx = 4;
       // this.explosionAnim.vy = 4;
-      this.explosionAnim.type = 'bullet';
+      this.explosionAnim.type = AnimType.EXPLOSION;
       this.explosionAnim.animationSpeed = 0.33;
       this.explosionAnim.collisionDetection = true;
       this.explosionAnim.play('explode', false);
@@ -85,7 +85,7 @@ export default class TestScene extends PNXScene {
       this.bulletAnim.z = SceneLevel.High - 1000;
       this.bulletAnim.vx = 0;
       this.bulletAnim.vy = -2;
-      this.bulletAnim.type = 'bullet';
+      this.bulletAnim.type = AnimType.BULLET;
       this.bulletAnim.collisionDetection = true;
       this.bulletAnim.play('bullet', false);
       this.bulletAnim.setFrame(0);

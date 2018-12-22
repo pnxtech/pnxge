@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import PNXScene from './PNXScene';
 
 interface ICallback { (resources: {}): void };
 

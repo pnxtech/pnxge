@@ -8,6 +8,14 @@ interface IHash { [key: string]: {
   sequence: PNXAnimatedSprite
 }};
 
+export enum AnimType {
+  HERO = 'hero',
+  BULLET = 'bullet',
+  EXPLOSION = 'explosion',
+  BACKGROUND = 'background',
+  TEXT = 'text'
+};
+
 /**
  * @name PNXAnim
  * @description Phoenix Game Engine Anim class

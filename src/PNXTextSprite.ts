@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
+import {AnimType} from './PNXAnim';
 import {createID} from './PNXMath';
 
 /**
@@ -13,7 +14,7 @@ export default class PNXTextSprite extends PIXI.extras.BitmapText {
   public vx: number = 0; // velocityX
   public vy: number = 0; // velocityY
   public collisionDetection: boolean = false;
-  public type: string = 'text';
+  public type: string = AnimType.TEXT;
   protected scene: PNXScene;
 
   /**

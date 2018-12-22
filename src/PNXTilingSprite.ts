@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import {createID} from './PNXMath';
+import {AnimType} from './PNXAnim';
 
 /**
  * @name PNXTilingSprite
@@ -12,7 +13,7 @@ export default class PNXTilingSprite extends PIXI.extras.TilingSprite {
   public vx: number = 0; // velocityX
   public vy: number = 0; // velocityY
   public collisionDetection: boolean = false;
-  public type: string = 'background';
+  public type: string = AnimType.BACKGROUND;
 
   constructor(texture: PIXI.Texture, width: number, height: number) {
     super(texture, width, height);
