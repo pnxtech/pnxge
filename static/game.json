@@ -1,8 +1,6 @@
 {
   "assets": [
-    "tank.json",
-    "bullet.json",
-    "explode.json",
+    "sprites.json",
     "title60pt.fnt"
   ],
   "scenes": {

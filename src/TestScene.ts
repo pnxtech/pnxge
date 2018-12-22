@@ -56,9 +56,9 @@ export default class TestScene extends PNXScene {
       this.bitmapText.y = 30;
       this.bitmapText.zOrder = SceneLevel.High;
 
-      this.explosionAnim.loadSequence('explode', resources);
-      this.bulletAnim.loadSequence('bullet', resources);
-      this.tankAnim.loadSequence('tank', resources);
+      this.explosionAnim.loadSequence('explode', 'sprites.json', resources);
+      this.bulletAnim.loadSequence('bullet', 'sprites.json', resources);
+      this.tankAnim.loadSequence('tank', 'sprites.json', resources);
 
       this.tankAnim.x = 180;
       this.tankAnim.y = 310;
@@ -77,7 +77,7 @@ export default class TestScene extends PNXScene {
       // this.explosionAnim.vy = 4;
       this.explosionAnim.type = AnimType.EXPLOSION;
       this.explosionAnim.animationSpeed = 0.33;
-      this.explosionAnim.collisionDetection = true;
+      this.explosionAnim.collisionDetection = false;
       this.explosionAnim.play('explode', false);
 
       this.bulletAnim.x = 180;

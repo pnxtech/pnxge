@@ -299,12 +299,12 @@ export default class PNXAnim {
    * @name loadSequence
    * @description load a new animation sequence
    * @param {string} name - name of sequence
+   * @param {string} atlas - sprite atlas name
    * @param {object} resources - loaded resources
    * @return {void}
    */
-  loadSequence(name: string, resources: any): void {
-    let path: string = `${name}.json`;
-    let sheet = resources[path].spritesheet;
+  loadSequence(name: string, atlas: string, resources: any): void {
+    let sheet = resources[atlas].spritesheet;
     if (sheet) {
       let sequence = new PNXAnimatedSprite(sheet.animations[name]);
       sequence.anim = this;
