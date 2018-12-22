@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import PNXScene from './PNXScene';
 
 interface ICallback { (resources: {}): void };
 
@@ -8,9 +9,9 @@ export default class PNXGameLoader {
 
   /**
    * @name constructor
-   * @description initialize game loader
+   * @description game loader
    */
-  constructor() {
+  constructor(scene: PNXScene) {
     this.loader = new PIXI.loaders.Loader();
   }
 

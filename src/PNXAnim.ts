@@ -10,6 +10,7 @@ interface IHash { [key: string]: {
 
 export enum AnimType {
   HERO = 'hero',
+  ENEMY = 'enemy',
   BULLET = 'bullet',
   EXPLOSION = 'explosion',
   BACKGROUND = 'background',
