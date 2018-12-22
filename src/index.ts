@@ -8,8 +8,8 @@ export default class PixiBoot extends PIXI.Application {
     super({
       view: <HTMLCanvasElement>document.getElementById('canvas'),
       backgroundColor: 0x000000,
-      width: 800,
-      height: 800
+      width: 360,
+      height: 360
     });
     document.body.appendChild(this.view);
 
