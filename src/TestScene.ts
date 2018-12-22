@@ -21,8 +21,9 @@ export default class TestScene extends PNXScene {
   private background: PNXBackgroundTile;
   private bitmapText: PNXTextSprite;
   private movementVector: PNXVector;
-  private turetAnim: PNXAnim;
+  private tankAnim: PNXAnim;
   private explosionAnim: PNXAnim;
+  private bulletAnim: PNXAnim;
   private curve: PNXCurve;
   private path: Array<PNXPoint>;
   private timer: any;
@@ -42,54 +43,70 @@ export default class TestScene extends PNXScene {
     //   console.log(`point: ${i} ${this.path[i].x}, ${this.path[i].y}`);
     // }
     this.background = new PNXBackgroundTile(this, 'tile.png');
-    this.turetAnim = new PNXAnim(this);
+    this.tankAnim = new PNXAnim(this);
+    this.bulletAnim = new PNXAnim(this);
     this.explosionAnim = new PNXAnim(this);
 
     this.assetLoader([
-      'turet.json',
+      'tank.json',
+      'bullet.json',
       'explode.json',
       'title60pt.fnt'
     ], (_loader, resources) => {
-      this.bitmapText = new PNXTextSprite(this, 'PNXGameEngine', {font: '72px title60pt', align: 'left'});
-      this.bitmapText.x = 150;
-      this.bitmapText.y = 40;
+      this.bitmapText = new PNXTextSprite(this, 'Battle\nfor\nTyros', {font: '60px title60pt', align: 'center'});
+      this.bitmapText.x = 110;
+      this.bitmapText.y = 30;
       this.bitmapText.zOrder = SceneLevel.High;
-      this.bitmapText.tint = 0x00bb00;
 
       this.explosionAnim.loadSequence('explode', resources);
-      this.turetAnim.loadSequence('turet', resources);
+      this.bulletAnim.loadSequence('bullet', resources);
+      this.tankAnim.loadSequence('tank', resources);
 
-      this.turetAnim.x = 700;
-      this.turetAnim.y = 500;
-      this.turetAnim.z = SceneLevel.Medium;
-      this.turetAnim.vx = 1;
-      this.turetAnim.vy = 1;
-      this.turetAnim.type = 'hero';
-      this.turetAnim.collisionDetection = true;
-      this.turetAnim.play('turet', false);
+      this.tankAnim.x = 180;
+      this.tankAnim.y = 310;
+      this.tankAnim.z = SceneLevel.Medium;
+      this.tankAnim.vx = 0;
+      this.tankAnim.vy = 0;
+      this.tankAnim.type = 'hero';
+      this.tankAnim.collisionDetection = true;
+      this.tankAnim.animationSpeed = 0.02;
+      this.tankAnim.play('tank', true);
 
-      this.explosionAnim.x = 0;
-      this.explosionAnim.y = 800;
+      this.explosionAnim.x = 180;
+      this.explosionAnim.y = 280;
       this.explosionAnim.z = SceneLevel.High - 1000;
-      this.explosionAnim.vx = 10;
-      this.explosionAnim.vy = 10;
+      // this.explosionAnim.vx = 4;
+      // this.explosionAnim.vy = 4;
       this.explosionAnim.type = 'bullet';
-      this.explosionAnim.animationSpeed = 0.20;
+      this.explosionAnim.animationSpeed = 0.33;
       this.explosionAnim.collisionDetection = true;
-      this.explosionAnim.play('explode', true);
+      this.explosionAnim.play('explode', false);
+
+      this.bulletAnim.x = 180;
+      this.bulletAnim.y = 310;
+      this.bulletAnim.z = SceneLevel.High - 1000;
+      this.bulletAnim.vx = 0;
+      this.bulletAnim.vy = -2;
+      this.bulletAnim.type = 'bullet';
+      this.bulletAnim.collisionDetection = true;
+      this.bulletAnim.play('bullet', false);
+      this.bulletAnim.setFrame(0);
 
       let angle: PNXAngle = new PNXAngle();
       let radians = angle.angleFromVectors(
         new PNXVector(this.explosionAnim.x, this.explosionAnim.y),
-        new PNXVector(this.turetAnim.x, this.turetAnim.y)
+        new PNXVector(this.tankAnim.x, this.tankAnim.y)
       );
       this.movementVector = angle.vectorAngleFromRadians(radians);
       this.explosionAnim.dx = this.movementVector.x;
       this.explosionAnim.dy = this.movementVector.y;
 
+      this.bulletAnim.dx = this.movementVector.x;
+      this.bulletAnim.dy = this.movementVector.y;
+
       let tAngle = angle.vectorAngleFromDegrees(359);
-      this.turetAnim.dx = tAngle.x;
-      this.turetAnim.dy = tAngle.y;
+      this.tankAnim.dx = tAngle.x;
+      this.tankAnim.dy = tAngle.y;
 
       this.sortAnims();
 
@@ -113,8 +130,9 @@ export default class TestScene extends PNXScene {
     //   this.explosionAnim.y = loc.y;
     // }
 
-    this.turetAnim.update(deltaTime);
-    this.turetAnim.rotation = this.turetAnim.rotation + (0.02 * deltaTime);
+    this.tankAnim.update(deltaTime);
+    // this.tankAnim.rotation = this.tankAnim.rotation + (0.02 * deltaTime);
+    this.bulletAnim.update(deltaTime);
     this.explosionAnim.update(deltaTime);
     this.collisionDetection();
   }
@@ -129,7 +147,7 @@ export default class TestScene extends PNXScene {
     clearInterval(this.timer);
     this.bitmapText.destroy();
     this.background.destroy();
-    this.turetAnim.destroy();
+    this.tankAnim.destroy();
     this.explosionAnim.destroy();
   }
 }
