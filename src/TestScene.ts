@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import PNXGameLoader from './PNXGameLoader';
 import PNXScene from './PNXScene';
 import PNXAnim from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
@@ -18,6 +19,7 @@ enum SceneLevel {
  * @description Sample test scene using the PNX Game Engine
  */
 export default class TestScene extends PNXScene {
+  private gameLoader: PNXGameLoader;
   private background: PNXBackgroundTile;
   private bitmapText: PNXTextSprite;
   private movementVector: PNXVector;
@@ -47,12 +49,8 @@ export default class TestScene extends PNXScene {
     this.bulletAnim = new PNXAnim(this);
     this.explosionAnim = new PNXAnim(this);
 
-    this.assetLoader([
-      'tank.json',
-      'bullet.json',
-      'explode.json',
-      'title60pt.fnt'
-    ], (_loader, resources) => {
+    this.gameLoader = new PNXGameLoader()
+    this.gameLoader.load('game.json', (resources: {}) => {
       this.bitmapText = new PNXTextSprite(this, 'Battle\nfor\nTyros', {font: '60px title60pt', align: 'center'});
       this.bitmapText.x = 110;
       this.bitmapText.y = 30;

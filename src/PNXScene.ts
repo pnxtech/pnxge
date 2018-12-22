@@ -1,8 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXAnimatedSprite from './PNXAnimatedSprite';
 
-interface ICallback { (loader: PIXI.loaders.Loader, resources: {}): void };
-
 /**
  * @name PNXScene
  * @description Phoenix Game Engine Scene class
@@ -11,7 +9,6 @@ export default class PNXScene {
   public app: PIXI.Application;
   public stage: PIXI.Container;
   public ticker: PIXI.ticker.Ticker;
-  private loader: PIXI.loaders.Loader;
 
   /**
    * @name constructor
@@ -22,20 +19,6 @@ export default class PNXScene {
     this.app = app;
     this.stage = app.stage;
     this.ticker = app.ticker;
-    this.loader = new PIXI.loaders.Loader();
-  }
-
-  /**
-   * @name assetLoader
-   * @description load game assets
-   * @param {string[]} assets - array of asset files
-   * @param {ICallback} postLoaderHandler - handler to call on post load
-   */
-  assetLoader(assets: string[], postLoaderHandler: ICallback): void {
-    for (let asset of assets) {
-      this.loader.add(asset);
-    }
-    this.loader.load(postLoaderHandler);
   }
 
   /**
