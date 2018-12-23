@@ -14,6 +14,7 @@ export enum AnimType {
   BULLET = 'bullet',
   EXPLOSION = 'explosion',
   BACKGROUND = 'background',
+  GROUND = 'ground',
   TEXT = 'text'
 };
 
@@ -37,8 +38,8 @@ export default class PNXAnim {
   private velocityY: number = 0;
   private animType: string = '';
   private currentCollisionDetection: boolean = false;
-  private scene: PNXScene;
-  private stage: PIXI.Container;
+  protected scene: PNXScene;
+  protected stage: PIXI.Container;
   private currentSequence: PNXAnimatedSprite | undefined;
 
   /**

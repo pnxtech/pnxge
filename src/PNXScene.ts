@@ -1,5 +1,8 @@
 import * as PIXI from 'pixi.js';
 import PNXAnimatedSprite from './PNXAnimatedSprite';
+import PNXAnim from './PNXAnim';
+
+interface IAnimHash { [key: string]: PNXAnim};
 
 /**
  * @name PNXScene
@@ -9,6 +12,7 @@ export default class PNXScene {
   public app: PIXI.Application;
   public stage: PIXI.Container;
   public ticker: PIXI.ticker.Ticker;
+  public anims: IAnimHash;
 
   /**
    * @name constructor
@@ -19,6 +23,7 @@ export default class PNXScene {
     this.app = app;
     this.stage = app.stage;
     this.ticker = app.ticker;
+    this.anims = {};
   }
 
   /**
@@ -33,12 +38,26 @@ export default class PNXScene {
   }
 
   /**
+   * @name addAnim
+   * @description add an anim to the scene
+   * @param {string} name - name of anim
+   * @param {PNXAnim} anim - anim objec
+   */
+  addAnim(name: string, anim: PNXAnim): void {
+    this.anims[name] = anim;
+  }
+
+  /**
    * @name update
    * @description update the scene
    * @param {number} deltaTime
    * @return {void}
    */
-  update(deltaTime: number): void {}
+  update(deltaTime: number): void {
+    Object.keys(this.anims).forEach((key) => {
+      this.anims[key].update(deltaTime);
+    });
+  }
 
   /**
    * @name sortAnims
@@ -131,6 +150,10 @@ export default class PNXScene {
       };
 
       PIXI.loader.reset();
+
+      Object.keys(this.anims).forEach((key) => {
+        this.anims[key].destroy();
+      });
     }, 2000);
   }
 }

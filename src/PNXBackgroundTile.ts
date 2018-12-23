@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
 import PNXTilingSprite from './PNXTilingSprite';
 
@@ -8,7 +9,7 @@ import PNXTilingSprite from './PNXTilingSprite';
  * @note: uses PIXI.extras.TilingSprite, image resource should
  * have an image size of a power of two for use with WebGL
  */
-export default class PNXBackgroundTile {
+export default class PNXBackgroundTile extends PNXAnim {
   protected scene: PNXScene;
   protected texture: PIXI.Texture;
   protected tilingSprite: PNXTilingSprite;
@@ -21,6 +22,7 @@ export default class PNXBackgroundTile {
    * @note image resource should have an image size of a power of two for use with WebGL
    */
   constructor(scene: PNXScene, assetPath: string) {
+    super(scene);
     this.scene = scene;
     this.texture = PIXI.Texture.fromImage(assetPath);
     this.tilingSprite = new PNXTilingSprite(

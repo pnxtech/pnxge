@@ -1,18 +1,33 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
+import PNXAnim, { AnimType } from './PNXAnim';
+import PNXBackgroundTile from './PNXBackgroundTile';
+import PNXTextSprite from './PNXTextSprite';
 
 interface ICallback { (resources: {}): void };
+interface ISceneDataHash { [key: string]: {
+  type: string,
+  objects: []
+}};
+
+interface ISceneObjectHash { [key: string]: PNXAnim};
 
 export default class PNXGameLoader {
   private loader: PIXI.loaders.Loader;
   private gameConfig: any = {};
+  private parentScene: PNXScene;
+  private sceneName: string;
+  private sceneData: ISceneDataHash = {};
+  private sceneObjects: ISceneObjectHash = {};
 
   /**
    * @name constructor
    * @description game loader
    */
-  constructor(scene: PNXScene) {
+  constructor(scene: PNXScene, sceneName: string) {
     this.loader = new PIXI.loaders.Loader();
+    this.sceneName = sceneName;
+    this.parentScene = scene;
   }
 
   /**
@@ -25,12 +40,60 @@ export default class PNXGameLoader {
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: {}) => {
       this.gameConfig = resources[filename].data;
+      this.sceneData = this.gameConfig.scenes[this.sceneName];
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);
       }
       this.loader.load((_loader: PIXI.loaders.Loader, resources: {}) => {
-        // TODO: process game.json here
-        // then call postLoaderHandler
+        let objectList = this.sceneData.objects;
+        for (let obj of <any>objectList) {
+          switch (obj.type) {
+            case 'tile':
+              this.sceneObjects[obj.name] = new PNXBackgroundTile(this.parentScene, obj.file);
+              this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
+              break;
+            case 'text':
+              this.sceneObjects[obj.name] = new PNXTextSprite(this.parentScene, obj.text, obj.fontInfo);
+              this.sceneObjects[obj.name].x = obj.x;
+              this.sceneObjects[obj.name].y = obj.y;
+              this.sceneObjects[obj.name].zOrder = obj.z;
+              this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
+              break;
+            case 'character':
+              this.sceneObjects[obj.name] = new PNXAnim(this.parentScene);
+              this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, resources);
+              this.sceneObjects[obj.name].x = obj.x;
+              this.sceneObjects[obj.name].y = obj.y;
+              this.sceneObjects[obj.name].z = obj.z;
+              this.sceneObjects[obj.name].vx = obj.vx || 0;
+              this.sceneObjects[obj.name].vy = obj.vy || 0;
+              this.sceneObjects[obj.name].dx = obj.dx || 0;
+              this.sceneObjects[obj.name].dy = obj.dy || 0;
+              this.sceneObjects[obj.name].rotation = obj.rotation || 0;
+              this.sceneObjects[obj.name].health = obj.health;
+              this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
+              this.sceneObjects[obj.name].play(obj.sequence, obj.loop);
+              if (obj.frame !== undefined) {
+                this.sceneObjects[obj.name].setFrame(obj.frame);
+              }
+              if (obj.animationSpeed !== undefined) {
+                this.sceneObjects[obj.name].animationSpeed = obj.animationSpeed;
+              }
+              this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
+              break;
+            case 'ground':
+              this.sceneObjects[obj.name] = new PNXAnim(this.parentScene);
+              this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, resources);
+              this.sceneObjects[obj.name].x = obj.x;
+              this.sceneObjects[obj.name].y = obj.y;
+              this.sceneObjects[obj.name].z = obj.z;
+              this.sceneObjects[obj.name].rotation = obj.rotation;
+              this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
+              this.sceneObjects[obj.name].play(obj.sequence, obj.loop);
+              this.sceneObjects[obj.name].setFrame(obj.frame);
+              break;
+          }
+        }
         postLoaderHandler(resources);
       });
     });
