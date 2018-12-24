@@ -38,6 +38,8 @@ export default class PNXAnim {
   private velocityY: number = 0;
   private scaleX: number = 1;
   private scaleY: number = 1;
+  private flipState: boolean = false;
+  private tint: number = 0;
   private animType: string = '';
   private currentCollisionDetection: boolean = false;
   protected scene: PNXScene;
@@ -313,6 +315,36 @@ export default class PNXAnim {
   }
 
   /**
+   * @name flip
+   * @description flip tile
+   * @param {state} boolean - true flip, else don't
+   * @return {void}
+   */
+  flip(state: boolean): void {
+    this.flipState = state;
+    if (this.currentSequence) {
+      if (state) {
+        this.currentSequence.scale.x *= -1;
+      } else {
+        this.currentSequence.scale.y *= -1;
+      }
+    }
+  }
+
+  /**
+   * @name setTint
+   * @description set tint
+   * @param {number} color - color tint
+   * @return {void}
+   */
+  setTint(color: number): void {
+    this.tint = color;
+    if (this.currentSequence) {
+      this.currentSequence.tint = color;
+    }
+  }
+
+  /**
    * @name loadSequence
    * @description load a new animation sequence
    * @param {string} name - name of sequence
@@ -363,6 +395,10 @@ export default class PNXAnim {
     this.currentSequence.rotation = this.rotation;
     this.currentSequence.animationSpeed = this.animSpeed;
     this.currentSequence.anchor.set(this.animAnchor);
+    this.flip(this.flipState);
+    if (this.tint !== 0) {
+      this.setTint(this.tint);
+    }
     this.currentSequence.collisionDetection = this.currentCollisionDetection;
     this.currentSequence.gotoAndPlay(0);
   }

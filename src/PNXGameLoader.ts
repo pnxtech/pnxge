@@ -87,6 +87,9 @@ export default class PNXGameLoader {
               if (obj.animationSpeed !== undefined) {
                 this.sceneObjects[obj.name].animationSpeed = obj.animationSpeed;
               }
+              if (obj.tint) {
+                this.sceneObjects[obj.name].setTint(parseInt(obj.tint, 16));
+              }
               this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
               break;
             case 'ground':

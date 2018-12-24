@@ -40,7 +40,7 @@ export default class PNXBackgroundTile extends PNXAnim {
     scene.stage.addChild(this.tilingSprite);
   }
 
-  /**
+   /**
    * @name flip
    * @description flip tile
    * @param {state} boolean - true flip, else don't
