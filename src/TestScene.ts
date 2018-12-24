@@ -18,6 +18,17 @@ export default class TestScene extends PNXScene {
   }
 
   /**
+   * @name start
+   * @description start scene updates
+   * @return {void}
+   */
+  start(): void {
+    let hero = this.getAnim('hero');
+    hero.x = 100;
+    super.start();
+  }
+
+  /**
    * @name update
    * @description update the scene
    * @param {number} deltaTime

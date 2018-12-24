@@ -48,6 +48,15 @@ export default class PNXScene {
   }
 
   /**
+   * @name getAnim
+   * @description get anim by name
+   * @return {PNXAnim} anim
+   */
+  getAnim(name: string): PNXAnim {
+    return this.anims[name];
+  }
+
+  /**
    * @name update
    * @description update the scene
    * @param {number} deltaTime
