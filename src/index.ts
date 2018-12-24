@@ -1,7 +1,9 @@
 import * as PIXI from 'pixi.js';
 import TestScene from './TestScene';
+import PNXGameLoader from './PNXGameLoader';
 
 export default class PixiBoot extends PIXI.Application {
+  private gameLoader: PNXGameLoader;
   private scene: TestScene;
 
   constructor() {
@@ -14,7 +16,12 @@ export default class PixiBoot extends PIXI.Application {
     document.body.appendChild(this.view);
 
     this.scene = new TestScene(this);
-    this.scene.start();
+
+    this.gameLoader = new PNXGameLoader(this.scene, 'level1');
+    this.gameLoader.load('game.json', (resources: {}) => {
+      this.scene.sortAnims();
+      this.scene.start();
+    });
 
     // let timer = setTimeout(() => {
     //   clearTimeout(timer);

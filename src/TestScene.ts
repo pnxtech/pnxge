@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import PNXGameLoader from './PNXGameLoader';
 import PNXScene from './PNXScene';
 
 /**
@@ -7,8 +6,6 @@ import PNXScene from './PNXScene';
  * @description Sample test scene using the PNX Game Engine
  */
 export default class TestScene extends PNXScene {
-  private gameLoader: PNXGameLoader;
-  private sceneName: string = 'level1';
   private timer: any;
 
   /**
@@ -18,11 +15,6 @@ export default class TestScene extends PNXScene {
    */
   constructor(app: PIXI.Application) {
     super(app);
-
-    this.gameLoader = new PNXGameLoader(this, this.sceneName);
-    this.gameLoader.load('game.json', (resources: {}) => {
-      this.sortAnims();
-    });
   }
 
   /**
