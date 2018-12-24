@@ -207,6 +207,52 @@ export class PNXLine {
 }
 
 /**
+* @name PNXRandom
+* @description Random number functions. Borrowed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+*/
+export class PNXRandom {
+  /**
+  * @name getRandom
+  * @summary Returns a random number between 0 (inclusive) and 1 (exclusive)
+  * @return {number} num - number
+  */
+  getRandom(): number {
+    return Math.random();
+  }
+
+  /**
+  * @name getRandomArbitrary
+  * @summary Returns a random number between min (inclusive) and max (exclusive)
+  * @return {number} num - number
+  */
+  getRandomArbitrary(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
+
+  /**
+  * @name getRandomInt
+  * @summary Returns a random integer between min (included) and max (excluded)
+  * @return {number} num - number
+  */
+  getRandomInt(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  /**
+  * @name getRandomIntInclusive
+  * @summary Returns a random integer between min (included) and max (included)
+  * @return {number} num - number
+  */
+  getRandomIntInclusive(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+}
+
+/**
  * @name PNXCurve
  * @description Generates curves points between two points and a control point
  */
