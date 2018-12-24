@@ -115,6 +115,26 @@ export default class PNXAnim {
     }
   }
 
+  get width(): number {
+    let ret;
+    if (this.currentSequence) {
+      ret = this.currentSequence.width;
+    } else {
+      ret = 0;
+    }
+    return ret;
+  }
+
+  get height(): number {
+    let ret;
+    if (this.currentSequence) {
+      ret = this.currentSequence.height;
+    } else {
+      ret = 0;
+    }
+    return ret;
+  }
+
   /**
    * @name rotation
    * @description rotation getter

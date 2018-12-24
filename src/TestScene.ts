@@ -24,7 +24,14 @@ export default class TestScene extends PNXScene {
    */
   start(): void {
     let hero = this.getAnim('hero');
-    hero.x = 100;
+    let explode1 = this.getAnim('explode1');
+    let vLen = hero.height / 2;
+    explode1.x = hero.x - Math.sin(hero.rotation) * vLen;
+    explode1.y = hero.y + Math.cos(hero.rotation) * vLen;
+    explode1.dx = -Math.sin(hero.rotation);
+    explode1.dy = Math.cos(hero.rotation);
+    explode1.vx = 0.1;
+    explode1.vy = 0.1;
     super.start();
   }
 

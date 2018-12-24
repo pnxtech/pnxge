@@ -106,8 +106,7 @@
           "dx": 0,
           "dy": 0,
           "loop": false,
-          "tint": "0x00ffff",
-          "rotation": 0.34,
+          "rotation": 3.14,
           "collisionDetection": true,
           "health": 100
         },
@@ -142,10 +141,10 @@
           "vy": 1,
           "dx": 0,
           "dy": 1,
-          "sx": 0.5,
-          "sy": 0.5,
+          "sx": 1,
+          "sy": 1,
           "loop": true,
-          "rotation": 0,
+          "rotation": 3.14,
           "collisionDetection": true,
           "health": 100
         },
@@ -254,8 +253,8 @@
           "dy": 0,
           "sx": 0.5,
           "sy": 0.5,
-          "loop": false,
-          "rotation": 3.10,
+          "loop": true,
+          "rotation": 0,
           "collisionDetection": true,
           "health": 100
         }
