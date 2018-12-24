@@ -36,6 +36,8 @@ export default class PNXAnim {
   private directionY: number = 0;
   private velocityX: number = 0;
   private velocityY: number = 0;
+  private scaleX: number = 1;
+  private scaleY: number = 1;
   private animType: string = '';
   private currentCollisionDetection: boolean = false;
   protected scene: PNXScene;
@@ -149,6 +151,19 @@ export default class PNXAnim {
     if (this.currentSequence) {
       this.currentSequence.animationSpeed = this.animSpeed;
     }
+  }
+
+  get sx(): number {
+    return this.scaleX;
+  }
+  get sy(): number {
+    return this.scaleY;
+  }
+  set sx(value: number) {
+    this.scaleX = value;
+  }
+  set sy(value: number) {
+    this.scaleY = value;
   }
 
   /**
@@ -342,6 +357,8 @@ export default class PNXAnim {
     this.currentSequence.vx = this.velocityX;
     this.currentSequence.vy = this.velocityY;
     this.currentSequence.zOrder = this.currentZ;
+    this.currentSequence.scale.x = this.scaleX;
+    this.currentSequence.scale.y = this.scaleY;
     this.currentSequence.type = this.animType;
     this.currentSequence.rotation = this.rotation;
     this.currentSequence.animationSpeed = this.animSpeed;

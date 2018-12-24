@@ -54,6 +54,8 @@ export default class PNXGameLoader {
               if (obj.tint) {
                 this.sceneObjects[obj.name].setTint(parseInt(obj.tint, 16));
               }
+              this.sceneObjects[obj.name].sx = obj.sx || 1;
+              this.sceneObjects[obj.name].sy = obj.sy || 1;
               this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
               break;
             case 'text':
@@ -73,6 +75,8 @@ export default class PNXGameLoader {
               this.sceneObjects[obj.name].vy = obj.vy || 0;
               this.sceneObjects[obj.name].dx = obj.dx || 0;
               this.sceneObjects[obj.name].dy = obj.dy || 0;
+              this.sceneObjects[obj.name].sx = obj.sx || 1;
+              this.sceneObjects[obj.name].sy = obj.sy || 1;
               this.sceneObjects[obj.name].rotation = obj.rotation || 0;
               this.sceneObjects[obj.name].health = obj.health;
               this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
@@ -91,6 +95,8 @@ export default class PNXGameLoader {
               this.sceneObjects[obj.name].x = obj.x;
               this.sceneObjects[obj.name].y = obj.y;
               this.sceneObjects[obj.name].z = obj.z;
+              this.sceneObjects[obj.name].sx = obj.sx || 1;
+              this.sceneObjects[obj.name].sy = obj.sy || 1;
               this.sceneObjects[obj.name].rotation = obj.rotation;
               this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
               this.sceneObjects[obj.name].play(obj.sequence, obj.loop);

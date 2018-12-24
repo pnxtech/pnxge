@@ -14,6 +14,8 @@ export default class PNXAnimatedSprite extends PIXI.extras.AnimatedSprite {
   public dy: number = 0; // directionY
   public vx: number = 0; // velocityX
   public vy: number = 0; // velocityY
+  public sx: number = 0; // scale X
+  public sy: number = 0; // scale Y
   public collisionDetection: boolean = false;
   public anim: PNXAnim | undefined;
   public type: string = '';
