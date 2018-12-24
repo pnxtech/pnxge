@@ -42,7 +42,8 @@
         {
           "type": "tile",
           "name": "background",
-          "file": "tile02.jpg"
+          "file": "tile02.jpg",
+          "flip": true
         },
         {
           "type": "ground",

@@ -50,6 +50,7 @@ export default class PNXGameLoader {
           switch (obj.type) {
             case 'tile':
               this.sceneObjects[obj.name] = new PNXBackgroundTile(this.parentScene, obj.file);
+              this.sceneObjects[obj.name].flip(obj.flip || false);
               this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
               break;
             case 'text':

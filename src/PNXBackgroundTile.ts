@@ -30,7 +30,28 @@ export default class PNXBackgroundTile extends PNXAnim {
       scene.app.screen.width,
       scene.app.screen.height
     );
+
+    this.tilingSprite.anchor.x = 0.5;
+    this.tilingSprite.anchor.y = 0.5;
+
+    this.tilingSprite.x = this.tilingSprite.width / 2;
+    this.tilingSprite.y = this.tilingSprite.height / 2;
+
     scene.stage.addChild(this.tilingSprite);
+  }
+
+  /**
+   * @name flip
+   * @description flip tile
+   * @param {state} boolean - true flip, else don't
+   * @return {void}
+   */
+  flip(state: boolean): void {
+    if (state) {
+      this.tilingSprite.scale.x *= -1;
+    } else {
+      this.tilingSprite.scale.y *= -1;
+    }
   }
 
   /**
