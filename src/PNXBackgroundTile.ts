@@ -55,6 +55,16 @@ export default class PNXBackgroundTile extends PNXAnim {
   }
 
   /**
+   * @name setTint
+   * @description set tint
+   * @param {number} color - color tint
+   * @return {void}
+   */
+  setTint(color: number): void {
+    this.tilingSprite.tint = color;
+  }
+
+  /**
    * @name destroy
    * @description cleanup
    * @return {void}
