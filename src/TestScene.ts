@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
+import HeroController from './heroController';
 
 /**
  * @name TestScene
@@ -7,6 +8,7 @@ import PNXScene from './PNXScene';
  */
 export default class TestScene extends PNXScene {
   private timer: any;
+  private heroController: HeroController | undefined;
 
   /**
    * @name constructor
@@ -23,15 +25,7 @@ export default class TestScene extends PNXScene {
    * @return {void}
    */
   start(): void {
-    let hero = this.getAnim('hero');
-    let explode1 = this.getAnim('explode1');
-    let vLen = hero.height / 2;
-    explode1.x = hero.x - Math.sin(hero.rotation) * vLen;
-    explode1.y = hero.y + Math.cos(hero.rotation) * vLen;
-    explode1.dx = -Math.sin(hero.rotation);
-    explode1.dy = Math.cos(hero.rotation);
-    explode1.vx = 0.1;
-    explode1.vy = 0.1;
+    this.heroController = new HeroController('hero', this);
     super.start();
   }
 
@@ -43,6 +37,9 @@ export default class TestScene extends PNXScene {
    */
   update(deltaTime: number): void {
     super.update(deltaTime);
+    if (this.heroController) {
+      this.heroController.update(deltaTime);
+    }
     this.collisionDetection();
   }
 
