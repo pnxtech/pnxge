@@ -48,6 +48,22 @@ export default class PNXScene {
   }
 
   /**
+   * @name moveLeft
+   * @description handle movement left
+   * @return {void}
+   */
+  moveLeft(): void {
+  }
+
+  /**
+   * @name moveRight
+   * @description handle movement right
+   * @return {void}
+   */
+  moveRight(): void {
+  }
+
+  /**
    * @name getAnim
    * @description get anim by name
    * @return {PNXAnim} anim

@@ -30,6 +30,30 @@ export default class TestScene extends PNXScene {
   }
 
   /**
+   * @name moveLeft
+   * @description handle movement left
+   * @return {void}
+   */
+  moveLeft(): void {
+    super.moveLeft();
+    if (this.heroController) {
+      this.heroController.moveLeft();
+    }
+  }
+
+  /**
+   * @name moveRight
+   * @description handle movement right
+   * @return {void}
+   */
+  moveRight(): void {
+    super.moveRight();
+    if (this.heroController) {
+      this.heroController.moveRight();
+    }
+  }
+
+  /**
    * @name update
    * @description update the scene
    * @param {number} deltaTime

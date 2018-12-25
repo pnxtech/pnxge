@@ -21,6 +21,14 @@ export default class PixiBoot extends PIXI.Application {
     this.gameLoader.load('game.json', (resources: {}) => {
       this.scene.sortAnims();
       this.scene.start();
+      document.addEventListener('keydown', (event) => {
+        if(event.keyCode === 37) {
+          this.scene.moveLeft();
+        }
+        else if(event.keyCode === 39) {
+          this.scene.moveRight();
+        }
+      });
     });
 
     // let timer = setTimeout(() => {
