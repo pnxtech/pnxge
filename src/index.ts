@@ -5,6 +5,8 @@ import PNXGameLoader from './PNXGameLoader';
 export default class PixiBoot extends PIXI.Application {
   private gameLoader: PNXGameLoader;
   private scene: TestScene;
+  private LEFTKEY: number = 37;
+  private RIGHTKEY: number = 39;
 
   constructor() {
     super({
@@ -22,10 +24,10 @@ export default class PixiBoot extends PIXI.Application {
       this.scene.sortAnims();
       this.scene.start();
       document.addEventListener('keydown', (event) => {
-        if(event.keyCode === 37) {
+        if(event.keyCode === this.LEFTKEY) {
           this.scene.moveLeft();
         }
-        else if(event.keyCode === 39) {
+        else if(event.keyCode === this.RIGHTKEY) {
           this.scene.moveRight();
         }
       });
