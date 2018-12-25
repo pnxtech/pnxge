@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import TestScene from './TestScene';
+import TestScene from './testScene';
 import PNXGameLoader from './PNXGameLoader';
 
 export default class PixiBoot extends PIXI.Application {

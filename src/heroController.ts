@@ -12,6 +12,10 @@ export default class HeroController {
   private extremeLeft: number = 1.53;
   private extremeRight: number = 4.73;
 
+  /**
+   * @name constructor
+   * @description class constructor
+   */
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
     this.heroAnim = scene.getAnim(name);
@@ -25,6 +29,10 @@ export default class HeroController {
     explode1.vy = 2;
   }
 
+  /**
+   * @name updateFire
+   * @description update fire ball location - temp func
+   */
   updateFire() {
     let explode1 = this.scene.getAnim('explode1');
     let vLen = this.heroAnim.height / 2;
