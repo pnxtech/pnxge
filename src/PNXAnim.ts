@@ -457,7 +457,7 @@ export default class PNXAnim {
    * @return {void}
    */
   onCollision(anim: PNXAnim): void {
-    console.log(`anim:${this.type} collided with anim:${anim.type}`);
+    // console.log(`anim:${this.type} collided with anim:${anim.type}`);
   }
 
   /**

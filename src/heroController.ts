@@ -1,5 +1,6 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
+import { PNXAngle } from './PNXMath';
 
 /**
  * @name HeroController
@@ -9,7 +10,9 @@ export default class HeroController {
   private heroAnim: PNXAnim;
 
   constructor(name: string, scene: PNXScene) {
+    let angle = (new PNXAngle()).randomAngleTop();
     this.heroAnim = scene.getAnim(name);
+    this.heroAnim.rotation = angle;
     let explode1 = scene.getAnim('explode1');
     let vLen = this.heroAnim.height / 2;
     explode1.x = this.heroAnim.x - Math.sin(this.heroAnim.rotation) * vLen;
@@ -21,6 +24,5 @@ export default class HeroController {
   }
 
   update(deltaTime: number): void {
-
   }
 }

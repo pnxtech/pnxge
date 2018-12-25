@@ -29,6 +29,8 @@ export function createID(): string {
  * @description Angle functions
  */
 export class PNXAngle {
+  public HalfPI: number = Math.PI * 0.5;
+
   /**
    * @name d2r
    * @description degrees to radians
@@ -86,6 +88,26 @@ export class PNXAngle {
    */
   angleFromVectors(v1: PNXVector, v2: PNXVector): number {
     return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
+  }
+
+  /**
+   * @name randomAngleTop
+   * @description get random top facing angle
+   * @return {number} random angle
+   */
+  randomAngleTop(): number {
+    let random = new PNXRandom();
+    return pcap(random.getRandomInclusive(0, Math.PI) + this.HalfPI);
+  }
+
+  /**
+   * @name randomAngleBottom
+   * @description get random bottom facing angle
+   * @return {number} random angle
+   */
+  randomAngleBottom(): number {
+    let random = new PNXRandom();
+    return pcap(random.getRandomInclusive(0, Math.PI) - this.HalfPI);
   }
 }
 
@@ -249,6 +271,15 @@ export class PNXRandom {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /**
+  * @name getRandomInclusive
+  * @summary Returns a random number (real not int) between min (included) and max (included)
+  * @return {number} num - number
+  */
+  getRandomInclusive(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
   }
 }
 
