@@ -22,7 +22,7 @@ export default class PixiBoot extends PIXI.Application {
     this.gameLoader = new PNXGameLoader(this.scene, 'level1');
     this.gameLoader.load('game.json', (resources: {}) => {
       this.scene.sortAnims();
-      this.scene.start();
+      this.scene.start(resources);
       document.addEventListener('keydown', (event) => {
         if(event.keyCode === this.LEFTKEY) {
           this.scene.moveLeft();

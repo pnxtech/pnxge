@@ -29,9 +29,10 @@ export default class PNXScene {
   /**
    * @name start
    * @description start scene updates
+   * @param {object} resources - loaded asset resources
    * @return {void}
    */
-  start(): void {
+  start(resources: {}): void {
     this.ticker.add((deltaTime) => {
       this.update(deltaTime);
     });

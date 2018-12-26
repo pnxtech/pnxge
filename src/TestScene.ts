@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
 import HeroController from './heroController';
 
@@ -7,8 +8,10 @@ import HeroController from './heroController';
  * @description Sample test scene using the PNX Game Engine
  */
 export default class TestScene extends PNXScene {
+  private app: PIXI.Application;
   private timer: any;
   private heroController: HeroController | undefined;
+  private explode2: PNXAnim | undefined;
 
   /**
    * @name constructor
@@ -17,14 +20,26 @@ export default class TestScene extends PNXScene {
    */
   constructor(app: PIXI.Application) {
     super(app);
+    this.app = app;
   }
 
   /**
    * @name start
    * @description start scene updates
+   * @param {object} resources - loaded asset resources
    * @return {void}
    */
-  start(): void {
+  start(resources: {}): void {
+    this.explode2 = new PNXAnim(this);
+    this.explode2.loadSequence('explode', 'sprites.json', resources);
+    this.explode2.x = 120;
+    this.explode2.y = 120;
+    this.explode2.z = 8000;
+    this.explode2.loop = true;
+    this.explode2.collisionDetection = true;
+    this.explode2.play('explode', true);
+    this.addAnim('explode2', this.explode2);
+
     this.heroController = new HeroController('hero', this);
     super.start();
   }
