@@ -57,8 +57,6 @@ export class PNXProjectileManager {
       }
     }
     if (!projectile) {
-      console.log(`fire! New [${this.projectiles.length}]`);
-
       let anim = new PNXAnim(this.scene);
       projectile = {
         active: true,
@@ -82,8 +80,6 @@ export class PNXProjectileManager {
       anim.play(projectile.name);
       this.scene.addAnim(createID(), anim);
     } else {
-      console.log(`fire! Old [${this.projectiles.length}]`);
-
       projectile.active = true;
       projectile.name = projectileInfo.name;
       projectile.type = projectileInfo.type;
@@ -148,6 +144,7 @@ export class PNXProjectileManager {
           if (hide) {
             this.projectiles[i].active = false;
             anim.reset();
+            anim.visible = false;
           }
         }
       }
