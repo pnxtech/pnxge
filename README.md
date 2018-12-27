@@ -2,6 +2,8 @@
 # pnxge
 PNXTech Game Engine
 
+Built on top of [PixiJS 4.8.1](https://pixijs.download/v4.8.1/docs/index.html)
+
 ## Tools
 
 #### TexturePacker

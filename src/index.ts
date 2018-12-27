@@ -7,6 +7,8 @@ export default class PixiBoot extends PIXI.Application {
   private scene: TestScene;
   private LEFTKEY: number = 37;
   private RIGHTKEY: number = 39;
+  private SCENEWIDTH: number = 360;
+  private SCENEHEIGHT: number = 360;
 
   constructor() {
     super({
@@ -17,11 +19,10 @@ export default class PixiBoot extends PIXI.Application {
     });
     document.body.appendChild(this.view);
 
-    this.scene = new TestScene(this);
+    this.scene = new TestScene(this, this.SCENEWIDTH, this.SCENEHEIGHT);
 
     this.gameLoader = new PNXGameLoader(this.scene, 'level1');
     this.gameLoader.load('game.json', (resources: {}) => {
-      this.scene.sortAnims();
       this.scene.start(resources);
       document.addEventListener('keydown', (event) => {
         if(event.keyCode === this.LEFTKEY) {

@@ -1,12 +1,23 @@
 import * as PIXI from 'pixi.js';
 import PNXAnimatedSprite from './PNXAnimatedSprite';
 import PNXScene from './PNXScene';
+import {createID} from './PNXMath';
 
 interface ICallback { (): void };
 interface IHash { [key: string]: {
   name: string,
   sequence: PNXAnimatedSprite
 }};
+
+export interface IPNXAnimCompatible {
+  anim?: PNXAnim | undefined,
+  id: string,
+  x: number,
+  y: number,
+  z: number,
+  type: string,
+  visible: boolean
+};
 
 export enum AnimType {
   HERO = 'hero',
@@ -22,14 +33,18 @@ export enum AnimType {
  * @name PNXAnim
  * @description Phoenix Game Engine Anim class
  */
-export default class PNXAnim {
+export default class PNXAnim implements IPNXAnimCompatible {
+  private animID: string = createID();
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
   private currentX: number = 0;
   private currentY: number = 0;
   private currentZ: number = 0;
+  private currentLoop: boolean = false;
   private currentRotation: number = 0;
+  private currentVisible: boolean = true;
+  private currentHealth: number = 0;
   private animSpeed: number = 1;
   private animAnchor: number = .5;
   private directionX: number = 0;
@@ -42,6 +57,7 @@ export default class PNXAnim {
   private tint: number = 0;
   private animType: string = '';
   private currentCollisionDetection: boolean = false;
+  private animCollisionWith: PNXAnim | undefined;
   protected scene: PNXScene;
   protected stage: PIXI.Container;
   private currentSequence: PNXAnimatedSprite | undefined;
@@ -53,6 +69,42 @@ export default class PNXAnim {
   constructor(scene: PNXScene) {
     this.scene = scene;
     this.stage = scene.stage;
+  }
+
+  /**
+   * @name id
+   * @description get anin id
+   */
+  get id(): string {
+    return this.animID;
+  }
+
+  /**
+   * @name reset
+   * @description reset anim - in cases where this anim is reused
+   * @return {void}
+   */
+  reset(): void {
+    this.animID = createID();
+    this.currentX = 0;
+    this.currentY= 0;
+    this.currentZ = 0;
+    this.currentLoop = false;
+    this.currentRotation = 0;
+    this.currentVisible = true;
+    this.animSpeed = 1;
+    this.animAnchor = .5;
+    this.directionX = 0;
+    this.directionY = 0;
+    this.velocityX = 0;
+    this.velocityY = 0;
+    this.scaleX = 1;
+    this.scaleY = 1;
+    this.flipState = false;
+    this.tint = 0;
+    this.animType = '';
+    this.currentCollisionDetection = false;
+    this.animCollisionWith = undefined;
   }
 
   /**
@@ -70,9 +122,6 @@ export default class PNXAnim {
    */
   set x(x: number) {
     this.currentX = x;
-    if (this.currentSequence) {
-      this.currentSequence.x = this.currentX;
-    }
   }
 
   /**
@@ -90,9 +139,6 @@ export default class PNXAnim {
    */
   set y(y: number) {
     this.currentY = y;
-    if (this.currentSequence) {
-      this.currentSequence.y = this.currentY;
-    }
   }
 
   /**
@@ -110,11 +156,30 @@ export default class PNXAnim {
    */
   set z(z: number) {
     this.currentZ = z;
-    if (this.currentSequence) {
-      this.scene.sortAnims();
-    }
   }
 
+  /**
+   * @name visible
+   * @description get visibility
+   * @return {boolean} true if visible
+   */
+  get visible(): boolean {
+    return this.currentVisible;
+  }
+
+  /**
+   * @name visible
+   * @description set visibility
+   */
+  set visible(value: boolean) {
+    this.currentVisible = value;
+  }
+
+  /**
+   * @name width
+   * @description get the anim width
+   * @return {number} anim width
+   */
   get width(): number {
     let ret;
     if (this.currentSequence) {
@@ -125,6 +190,11 @@ export default class PNXAnim {
     return ret;
   }
 
+  /**
+   * @name height
+   * @description get the anim height
+   * @return {number} anim height
+   */
   get height(): number {
     let ret;
     if (this.currentSequence) {
@@ -150,9 +220,6 @@ export default class PNXAnim {
    */
   set rotation(value: number) {
     this.currentRotation = value;
-    if (this.currentSequence) {
-      this.currentSequence.rotation = this.currentRotation;
-    }
   }
 
   /**
@@ -170,20 +237,56 @@ export default class PNXAnim {
    */
   set animationSpeed(speed: number) {
     this.animSpeed = speed;
-    if (this.currentSequence) {
-      this.currentSequence.animationSpeed = this.animSpeed;
-    }
   }
 
+  /**
+   * @name health
+   * @description get current health
+   * @return {number} health
+   */
+  get health(): number {
+    return this.currentHealth;
+  }
+
+  /**
+   * @name health
+   * @description set current health
+   * @param {number} value - health
+   */
+  set health(value: number) {
+    this.currentHealth = value;;
+  }
+
+  /**
+   * @name sx
+   * @description get anim scale x
+   * @return {number} scale x
+   */
   get sx(): number {
     return this.scaleX;
   }
+
+  /**
+   * @name sy
+   * @description get anim scale y
+   * @return {number} scale y
+   */
   get sy(): number {
     return this.scaleY;
   }
+
+  /**
+   * @name sx
+   * @description set anim scale x
+   */
   set sx(value: number) {
     this.scaleX = value;
   }
+
+  /**
+   * @name sy
+   * @description set anim scale y
+   */
   set sy(value: number) {
     this.scaleY = value;
   }
@@ -203,9 +306,6 @@ export default class PNXAnim {
    */
   set anchor(value: number) {
     this.animAnchor = value;
-    if (this.currentSequence) {
-      this.currentSequence.anchor.set(this.animAnchor);
-    }
   }
 
   /**
@@ -224,9 +324,6 @@ export default class PNXAnim {
    */
   set dx(value: number) {
     this.directionX = value;
-    if (this.currentSequence) {
-      this.currentSequence.dx = value;
-    }
   }
 
   /**
@@ -245,9 +342,6 @@ export default class PNXAnim {
    */
   set dy(value: number) {
     this.directionY = value;
-    if (this.currentSequence) {
-      this.currentSequence.dy = value;
-    }
   }
 
   /**
@@ -266,9 +360,6 @@ export default class PNXAnim {
    */
   set vx(value: number) {
     this.velocityX = value;
-    if (this.currentSequence) {
-      this.currentSequence.vx = value;
-    }
   }
 
   /**
@@ -287,9 +378,23 @@ export default class PNXAnim {
    */
   set vy(value: number) {
     this.velocityY = value;
-    if (this.currentSequence) {
-      this.currentSequence.vy = value;
-    }
+  }
+
+  /**
+   * @name loop
+   * @description get animation loop state
+   * @return {boolean}
+   */
+  get loop(): boolean {
+    return this.currentLoop;
+  }
+
+  /**
+   * @name loop
+   * @description set animation loop state
+   */
+  set loop(value: boolean) {
+    this.currentLoop = value;
   }
 
   /**
@@ -308,9 +413,6 @@ export default class PNXAnim {
    */
   set type(value: string) {
     this.animType = value;
-    if (this.currentSequence) {
-      this.currentSequence.type = value;
-    }
   }
 
   /**
@@ -329,9 +431,15 @@ export default class PNXAnim {
    */
   set collisionDetection(value: boolean) {
     this.currentCollisionDetection = value;
-    if (this.currentSequence) {
-      this.currentSequence.collisionDetection = value;
-    }
+  }
+
+  /**
+   * @name collisionWith
+   * @description return PNXAnim if collision else undefined
+   * @return {PNXAnim | undefined}
+   */
+  collisionWith(): PNXAnim | undefined {
+    return this.animCollisionWith;
   }
 
   /**
@@ -342,13 +450,6 @@ export default class PNXAnim {
    */
   flip(state: boolean): void {
     this.flipState = state;
-    if (this.currentSequence) {
-      if (state) {
-        this.currentSequence.scale.x *= -1;
-      } else {
-        this.currentSequence.scale.y *= -1;
-      }
-    }
   }
 
   /**
@@ -359,9 +460,6 @@ export default class PNXAnim {
    */
   setTint(color: number): void {
     this.tint = color;
-    if (this.currentSequence) {
-      this.currentSequence.tint = color;
-    }
   }
 
   /**
@@ -390,36 +488,15 @@ export default class PNXAnim {
    * @name play
    * @description play an animation sequence
    * @param {string} sequenceName - name of sequence
-   * @param {boolean} loop - whether animation sequence loops
    * @return {void}
    */
-  play(sequenceName: string, loop: boolean = false): void {
-    if (this.lastSequenceName) {
+  play(sequenceName: string): void {
+    if (this.lastSequenceName && sequenceName !== this.lastSequenceName) {
       this.animationSequence[this.lastSequenceName].sequence.visible = false;
     }
     this.lastSequenceName = sequenceName;
     this.currentSequenceName = sequenceName;
     this.currentSequence = <PNXAnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
-    this.currentSequence.visible = true;
-    this.currentSequence.loop = loop;
-    this.currentSequence.x = this.currentX;
-    this.currentSequence.y = this.currentY;
-    this.currentSequence.dx = this.directionX;
-    this.currentSequence.dy = this.directionY;
-    this.currentSequence.vx = this.velocityX;
-    this.currentSequence.vy = this.velocityY;
-    this.currentSequence.zOrder = this.currentZ;
-    this.currentSequence.scale.x = this.scaleX;
-    this.currentSequence.scale.y = this.scaleY;
-    this.currentSequence.type = this.animType;
-    this.currentSequence.rotation = this.rotation;
-    this.currentSequence.animationSpeed = this.animSpeed;
-    this.currentSequence.anchor.set(this.animAnchor);
-    this.flip(this.flipState);
-    if (this.tint !== 0) {
-      this.setTint(this.tint);
-    }
-    this.currentSequence.collisionDetection = this.currentCollisionDetection;
     this.currentSequence.gotoAndPlay(0);
   }
 
@@ -442,11 +519,31 @@ export default class PNXAnim {
    * @return {void}
    */
   update(delta: number = 0): void {
+    if (!this.currentSequenceName) {
+      return;
+    }
+
+    this.currentSequence = <PNXAnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     if (this.currentSequence) {
-      this.currentSequence.x += this.currentSequence.dx * this.currentSequence.vx;
-      this.currentSequence.y += this.currentSequence.dy * this.currentSequence.vy;
-      this.currentX = this.currentSequence.x;
-      this.currentY = this.currentSequence.y;
+      this.currentX += this.directionX * this.velocityX;
+      this.currentY += this.directionY * this.velocityY;
+      this.currentSequence.visible = this.currentVisible;
+      this.currentSequence.loop = this.currentLoop;
+      this.currentSequence.x = this.currentX;
+      this.currentSequence.y = this.currentY;
+      this.currentSequence.scale.x = this.scaleX;
+      this.currentSequence.scale.y = this.scaleY;
+      this.currentSequence.rotation = this.rotation;
+      this.currentSequence.animationSpeed = this.animSpeed;
+      this.currentSequence.anchor.set(this.animAnchor);
+      if (this.flipState) {
+        this.currentSequence.scale.x *= -1;
+      } else {
+        this.currentSequence.scale.y *= -1;
+      }
+      if (this.tint !== 0) {
+        this.currentSequence.tint = this.tint;
+      }
     }
   }
 
@@ -457,7 +554,10 @@ export default class PNXAnim {
    * @return {void}
    */
   onCollision(anim: PNXAnim): void {
-    // console.log(`anim:${this.type} collided with anim:${anim.type}`);
+    if (!this.animCollisionWith) {
+      this.animCollisionWith = anim;
+      console.log(`anim:${this.currentSequenceName} collided with anim:${anim.currentSequenceName}`);
+    }
   }
 
   /**

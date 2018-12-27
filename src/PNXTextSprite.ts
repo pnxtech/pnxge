@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
-import {AnimType} from './PNXAnim';
+import {AnimType, IPNXAnimCompatible} from './PNXAnim';
 import {createID} from './PNXMath';
 
 /**
@@ -8,11 +8,9 @@ import {createID} from './PNXMath';
  * @description extends the PIXI BitmapText to include additional fields
  * @note: uses PIXI BitmapText
  */
-export default class PNXTextSprite extends PIXI.extras.BitmapText {
+export default class PNXTextSprite extends PIXI.extras.BitmapText implements IPNXAnimCompatible {
   public id: string = createID();
   public zOrder: number = -1;
-  public vx: number = 0; // velocityX
-  public vy: number = 0; // velocityY
   public collisionDetection: boolean = false;
   public type: string = AnimType.TEXT;
   protected scene: PNXScene;

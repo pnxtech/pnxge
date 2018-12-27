@@ -50,6 +50,7 @@ export default class PNXGameLoader {
           switch (obj.type) {
             case 'tile':
               this.sceneObjects[obj.name] = new PNXBackgroundTile(this.parentScene, obj.file);
+              this.sceneObjects[obj.name].type = obj.type;
               this.sceneObjects[obj.name].flip(obj.flip || false);
               if (obj.tint) {
                 this.sceneObjects[obj.name].setTint(parseInt(obj.tint, 16));
@@ -60,14 +61,16 @@ export default class PNXGameLoader {
               break;
             case 'text':
               this.sceneObjects[obj.name] = new PNXTextSprite(this.parentScene, obj.text, obj.fontInfo);
+              this.sceneObjects[obj.name].type = obj.type;
               this.sceneObjects[obj.name].x = obj.x;
               this.sceneObjects[obj.name].y = obj.y;
-              this.sceneObjects[obj.name].zOrder = obj.z;
+              this.sceneObjects[obj.name].z = obj.z;
               this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
               break;
             case 'character':
               this.sceneObjects[obj.name] = new PNXAnim(this.parentScene);
               this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, resources);
+              this.sceneObjects[obj.name].type = obj.type;
               this.sceneObjects[obj.name].x = obj.x;
               this.sceneObjects[obj.name].y = obj.y;
               this.sceneObjects[obj.name].z = obj.z;
@@ -77,10 +80,11 @@ export default class PNXGameLoader {
               this.sceneObjects[obj.name].dy = obj.dy || 0;
               this.sceneObjects[obj.name].sx = obj.sx || 1;
               this.sceneObjects[obj.name].sy = obj.sy || 1;
+              this.sceneObjects[obj.name].loop = obj.loop;
               this.sceneObjects[obj.name].rotation = obj.rotation || 0;
               this.sceneObjects[obj.name].health = obj.health;
               this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
-              this.sceneObjects[obj.name].play(obj.sequence, obj.loop);
+              this.sceneObjects[obj.name].play(obj.sequence);
               if (obj.frame !== undefined) {
                 this.sceneObjects[obj.name].setFrame(obj.frame);
               }
@@ -95,6 +99,7 @@ export default class PNXGameLoader {
             case 'ground':
               this.sceneObjects[obj.name] = new PNXAnim(this.parentScene);
               this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, resources);
+              this.sceneObjects[obj.name].type = obj.type;
               this.sceneObjects[obj.name].x = obj.x;
               this.sceneObjects[obj.name].y = obj.y;
               this.sceneObjects[obj.name].z = obj.z;
@@ -102,8 +107,10 @@ export default class PNXGameLoader {
               this.sceneObjects[obj.name].sy = obj.sy || 1;
               this.sceneObjects[obj.name].rotation = obj.rotation;
               this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
-              this.sceneObjects[obj.name].play(obj.sequence, obj.loop);
+              this.sceneObjects[obj.name].loop = obj.loop;
+              this.sceneObjects[obj.name].play(obj.sequence);
               this.sceneObjects[obj.name].setFrame(obj.frame);
+              this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
               break;
           }
         }

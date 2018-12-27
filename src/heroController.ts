@@ -1,6 +1,7 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
-import { PNXAngle } from './PNXMath';
+import {IProjectileObject, PNXProjectileManager} from './PNXProjectileManager';
+import {pcap} from './PNXMath';
 
 /**
  * @name HeroController
@@ -19,29 +20,35 @@ export default class HeroController {
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
     this.heroAnim = scene.getAnim(name);
-    let explode1 = scene.getAnim('explode1');
-    let vLen = this.heroAnim.height / 2;
-    explode1.x = this.heroAnim.x - Math.sin(this.heroAnim.rotation) * vLen;
-    explode1.y = this.heroAnim.y + Math.cos(this.heroAnim.rotation) * vLen;
-    explode1.dx = -Math.sin(this.heroAnim.rotation);
-    explode1.dy = Math.cos(this.heroAnim.rotation);
-    explode1.vx = 2;
-    explode1.vy = 2;
+    this.heroAnim.collisionDetection = true;
   }
 
   /**
-   * @name updateFire
-   * @description update fire ball location - temp func
+   * @name fire
+   * @description file projectile
+   * @return {void}
    */
-  updateFire() {
-    let explode1 = this.scene.getAnim('explode1');
-    let vLen = this.heroAnim.height / 2;
-    explode1.x = this.heroAnim.x - Math.sin(this.heroAnim.rotation) * vLen;
-    explode1.y = this.heroAnim.y + Math.cos(this.heroAnim.rotation) * vLen;
-    explode1.dx = -Math.sin(this.heroAnim.rotation);
-    explode1.dy = Math.cos(this.heroAnim.rotation);
-    explode1.vx = 4;
-    explode1.vy = 4;
+  fire(): void {
+    let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
+    if (projectileManager) {
+      let vLen = this.heroAnim.height * 0.5;
+      projectileManager.createProjectile({
+        name: 'bullet',
+        type: 'hero-bullet',
+        strength: 100,
+        collisionDetection: true,
+        frame: 2,
+        x: pcap(this.heroAnim.x - Math.sin(this.heroAnim.rotation) * vLen),
+        y: pcap(this.heroAnim.y + Math.cos(this.heroAnim.rotation) * vLen),
+        z: 9000,
+        dx: pcap(-Math.sin(this.heroAnim.rotation)),
+        dy: pcap(Math.cos(this.heroAnim.rotation)),
+        vx: 4,
+        vy: 4,
+        rotation: this.heroAnim.rotation,
+        scale: 1
+      });
+    }
   }
 
   /**
@@ -54,7 +61,7 @@ export default class HeroController {
     if (this.heroAnim.rotation < this.extremeLeft) {
       this.heroAnim.rotation = this.extremeLeft;
     }
-    this.updateFire();
+    this.fire();
   }
 
   /**
@@ -67,9 +74,8 @@ export default class HeroController {
     if (this.heroAnim.rotation > this.extremeRight) {
       this.heroAnim.rotation = this.extremeRight;
     }
-    this.updateFire();
+    this.fire();
   }
-
 
   /**
    * @name update

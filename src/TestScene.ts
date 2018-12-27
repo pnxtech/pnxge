@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
+import {IProjectileObject, PNXProjectileManager} from './PNXProjectileManager';
 import HeroController from './heroController';
 
 /**
@@ -8,18 +9,16 @@ import HeroController from './heroController';
  * @description Sample test scene using the PNX Game Engine
  */
 export default class TestScene extends PNXScene {
-  private app: PIXI.Application;
-  private timer: any;
+  protected projectileManager: PNXProjectileManager | undefined;
   private heroController: HeroController | undefined;
-  private explode2: PNXAnim | undefined;
 
   /**
    * @name constructor
    * @description initialize scene
    * @param {PIXI.Container} stage
    */
-  constructor(app: PIXI.Application) {
-    super(app);
+  constructor(app: PIXI.Application, width: number, height: number) {
+    super(app, width, height);
     this.app = app;
   }
 
@@ -30,18 +29,10 @@ export default class TestScene extends PNXScene {
    * @return {void}
    */
   start(resources: {}): void {
-    this.explode2 = new PNXAnim(this);
-    this.explode2.loadSequence('explode', 'sprites.json', resources);
-    this.explode2.x = 120;
-    this.explode2.y = 120;
-    this.explode2.z = 8000;
-    this.explode2.loop = true;
-    this.explode2.collisionDetection = true;
-    this.explode2.play('explode', true);
-    this.addAnim('explode2', this.explode2);
-
+    this.projectileManager = new PNXProjectileManager(this, 'sprites.json', resources);
+    this.attachProjectileManager(this.projectileManager);
     this.heroController = new HeroController('hero', this);
-    super.start();
+    super.start(resources);
   }
 
   /**
@@ -76,10 +67,10 @@ export default class TestScene extends PNXScene {
    */
   update(deltaTime: number): void {
     super.update(deltaTime);
+    this.collisionDetection(); // TODO: move to base scene?
     if (this.heroController) {
       this.heroController.update(deltaTime);
     }
-    this.collisionDetection();
   }
 
   /**
@@ -89,6 +80,5 @@ export default class TestScene extends PNXScene {
    */
   destroy(): void {
     super.destroy();
-    clearInterval(this.timer);
   }
 }

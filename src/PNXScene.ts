@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
-import PNXAnimatedSprite from './PNXAnimatedSprite';
 import PNXAnim from './PNXAnim';
+import {IPNXAnimCompatible} from './PNXAnim';
+import { PNXProjectileManager } from './PNXProjectileManager';
 
 interface IAnimHash { [key: string]: PNXAnim};
 
@@ -10,20 +11,46 @@ interface IAnimHash { [key: string]: PNXAnim};
  */
 export default class PNXScene {
   public app: PIXI.Application;
+  protected sceneWidth: number;
+  protected sceneHeight: number;
+
   public stage: PIXI.Container;
   public ticker: PIXI.ticker.Ticker;
   public anims: IAnimHash;
+  protected projectileManager: PNXProjectileManager | undefined;
 
   /**
    * @name constructor
    * @description initialize scene
    * @param {PIXI.Container} stage
+   * @param {number} width - scene width
+   * @param {number} height - scene height
    */
-  constructor(app: PIXI.Application) {
+  constructor(app: PIXI.Application, width: number, height: number) {
     this.app = app;
+    this.sceneWidth = width;
+    this.sceneHeight = height;
     this.stage = app.stage;
     this.ticker = app.ticker;
     this.anims = {};
+  }
+
+  /**
+   * @name attachProjectileManager
+   * @description attach a projectile manager
+   * @return {void}
+   */
+  attachProjectileManager(projectileManager: PNXProjectileManager): void {
+    this.projectileManager = projectileManager;
+  }
+
+  /**
+   * @name getProjectileManager
+   * @description retrieve a projectile manager instance or undefined
+   * @return {PNXProjectileManager | undefined}
+   */
+  getProjectileManager(): PNXProjectileManager | undefined {
+    return this.projectileManager;
   }
 
   /**
@@ -74,6 +101,24 @@ export default class PNXScene {
   }
 
   /**
+   * @name width
+   * @description get the width of the scene
+   * @return {number} width
+   */
+  get width() : number {
+    return this.sceneWidth;
+  }
+
+  /**
+   * @name height
+   * @description get the height of the scene
+   * @return {number} height
+   */
+  get height() : number {
+    return this.sceneHeight;
+  }
+
+  /**
    * @name update
    * @description update the scene
    * @param {number} deltaTime
@@ -83,17 +128,26 @@ export default class PNXScene {
     Object.keys(this.anims).forEach((key) => {
       this.anims[key].update(deltaTime);
     });
+    if (this.projectileManager) {
+      this.projectileManager.update(deltaTime);
+    }
+    this.sortAnims();
   }
 
   /**
    * @name sortAnims
-   * @description sort dislay list based on anim zOrder
+   * @description sort dislay list based on anim z order
    * @return {void}
    */
   sortAnims(): void {
     let objectList: any = this.stage.children;
-    objectList.sort((a: PNXAnimatedSprite, b: PNXAnimatedSprite) => {
-      return a.zOrder - b.zOrder;
+    objectList.sort((a: IPNXAnimCompatible, b: IPNXAnimCompatible) => {
+      if (!a.anim || !b.anim) {
+        return 0;
+      }
+      let first: IPNXAnimCompatible = <IPNXAnimCompatible>a.anim;
+      let second: IPNXAnimCompatible = <IPNXAnimCompatible>b.anim;
+      return first.z - second.z;
     });
   }
 
@@ -101,22 +155,22 @@ export default class PNXScene {
    * @name hitTestRectangle
    * @description check whether two anim objects have collided
    * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
-   * @param {PNXAnimatedSprite} a1 - first anim
-   * @param {PNXAnimatedSprite} a2 - second anim
+   * @param {PNXAnim} a1 - first anim
+   * @param {PNXAnim} a2 - second anim
    * @return {boolean} bool - true if collision else false
    */
-  hitTestRectangle(a1: PNXAnimatedSprite, a2: PNXAnimatedSprite): boolean {
+  hitTestRectangle(a1: PNXAnim, a2: PNXAnim): boolean {
     // Find the half-widths and half-heights of each sprite
     let a1_halfWidth = 0;
     let a1_halfHeight = 0;
     let a2_halfWidth = 0;
     let a2_halfHeight = 0;
 
-    if (a1.anim && a2.anim) {
-      a1_halfWidth = a1.width * a1.anim.anchor;
-      a1_halfHeight = a1.height * a1.anim.anchor;
-      a2_halfWidth = a2.width * a2.anim.anchor;
-      a2_halfHeight = a2.height * a2.anim.anchor;
+    if (a1 && a2) {
+      a1_halfWidth = a1.width * 0.5;
+      a1_halfHeight = a1.height * 0.5;
+      a2_halfWidth = a2.width * 0.5;
+      a2_halfHeight = a2.height * 0.5;
     }
 
     // Calculate the distance vector between the sprites
@@ -138,15 +192,19 @@ export default class PNXScene {
   collisionDetection(): void {
     let objectList: any = this.stage.children;
     for (let obj1 of objectList) {
+      if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
+        continue;
+      }
       for (let obj2 of objectList) {
-        if (obj1.collisionDetection === false || obj2.collisionDetection === false) {
+        if (!obj2.anim || !obj2.anim.collisionDetection || !obj2.anim.visible) {
           continue;
         }
-        if (obj1.id !== obj2.id) {
-          if (this.hitTestRectangle(obj1, obj2)) {
-            obj1.anim.onCollision(obj2.anim);
-            obj2.anim.onCollision(obj1.anim);
-          }
+        if (obj1.anim.type === obj2.anim.type) {
+          continue;
+        }
+        if (this.hitTestRectangle(obj1, obj2)) {
+          obj1.anim.onCollision(obj2.anim);
+          obj2.anim.onCollision(obj1.anim);
         }
       }
     }
