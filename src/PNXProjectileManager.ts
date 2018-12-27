@@ -5,6 +5,7 @@ import {createID} from './PNXMath';
 export interface IProjectileObject {
   active?: boolean,
   anim?: PNXAnim,
+  animSpeed?: number,
   name: string,
   type: string,
   strength: number,
@@ -71,6 +72,7 @@ export class PNXProjectileManager {
         dy: projectileInfo.dy,
         vx: projectileInfo.vx,
         vy: projectileInfo.vy,
+        animSpeed: (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1,
         frame: projectileInfo.frame,
         rotation: projectileInfo.rotation,
         scale: projectileInfo.scale
@@ -91,6 +93,7 @@ export class PNXProjectileManager {
       projectile.dy = projectileInfo.dy;
       projectile.vx = projectileInfo.vx;
       projectile.vy = projectileInfo.vy;
+      projectile.animSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
       projectile.frame = projectileInfo.frame;
       projectile.rotation = projectileInfo.rotation;
       projectile.scale = projectileInfo.scale;
@@ -106,6 +109,7 @@ export class PNXProjectileManager {
       anim.dy = projectileInfo.dy;
       anim.vx = projectileInfo.vx;
       anim.vy = projectileInfo.vy;
+      anim.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
       anim.rotation = projectileInfo.rotation;
       anim.sx = projectileInfo.scale;
       anim.sy = projectileInfo.scale;

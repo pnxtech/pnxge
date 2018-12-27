@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXAnimatedSprite from './PNXAnimatedSprite';
+import IPNXController from './PNXController';
 import PNXScene from './PNXScene';
 import {createID} from './PNXMath';
 
@@ -38,6 +39,7 @@ export default class PNXAnim implements IPNXAnimCompatible {
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
+  protected controller: IPNXController | undefined;
   private currentX: number = 0;
   private currentY: number = 0;
   private currentZ: number = 0;
@@ -105,6 +107,15 @@ export default class PNXAnim implements IPNXAnimCompatible {
     this.animType = '';
     this.currentCollisionDetection = false;
     this.animCollisionWith = undefined;
+  }
+
+  /**
+   * @name attachController
+   * @description attach a PNXController
+   * @return {void}
+   */
+  attachController(controller: IPNXController): void {
+    this.controller = controller;
   }
 
   /**
@@ -515,14 +526,17 @@ export default class PNXAnim implements IPNXAnimCompatible {
   /**
    * @name update
    * @description update anim position based on velocity
-   * @param {number} delta - delta time offset
+   * @param {number} deltaTime - delta time offset
    * @return {void}
    */
-  update(delta: number = 0): void {
+  update(deltaTime: number = 0): void {
     if (!this.currentSequenceName) {
       return;
     }
 
+    if (this.controller) {
+      this.controller.update(deltaTime);
+    }
     this.currentSequence = <PNXAnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     if (this.currentSequence) {
       this.currentX += this.directionX * this.velocityX;
@@ -556,6 +570,9 @@ export default class PNXAnim implements IPNXAnimCompatible {
   onCollision(anim: PNXAnim): void {
     if (!this.animCollisionWith) {
       this.animCollisionWith = anim;
+      if (this.controller) {
+        this.controller.hitBy(anim);
+      }
       console.log(`anim:${this.currentSequenceName} collided with anim:${anim.currentSequenceName}`);
     }
   }

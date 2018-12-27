@@ -5,14 +5,12 @@ import {pcap} from './PNXMath';
 import IPNXController from './PNXController';
 
 /**
- * @name HeroController
- * @description Hero HeroController
+ * @name SquidController
+ * @description Squid Controller
  */
-export default class HeroController implements IPNXController {
+export default class SquidController implements IPNXController{
   private scene: PNXScene;
   private anim: PNXAnim;
-  private extremeLeft: number = 1.53;
-  private extremeRight: number = 4.73;
 
   /**
    * @name constructor
@@ -59,50 +57,7 @@ export default class HeroController implements IPNXController {
   fire(): void {
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
-      let vLen = this.anim.height * 0.5;
-      projectileManager.createProjectile({
-        name: 'bullet',
-        type: 'hero-bullet',
-        strength: 100,
-        collisionDetection: true,
-        frame: 2,
-        x: pcap(this.anim.x - Math.sin(this.anim.rotation) * vLen),
-        y: pcap(this.anim.y + Math.cos(this.anim.rotation) * vLen),
-        z: 9000,
-        dx: pcap(-Math.sin(this.anim.rotation)),
-        dy: pcap(Math.cos(this.anim.rotation)),
-        vx: 4,
-        vy: 4,
-        rotation: this.anim.rotation,
-        scale: 1
-      });
     }
-  }
-
-  /**
-   * @name moveLeft
-   * @description handle movement left
-   * @return {void}
-   */
-  moveLeft(): void {
-    this.anim.rotation -= 0.2;
-    if (this.anim.rotation < this.extremeLeft) {
-      this.anim.rotation = this.extremeLeft;
-    }
-    this.fire();
-  }
-
-  /**
-   * @name moveRight
-   * @description handle movement right
-   * @return {void}
-   */
-  moveRight(): void {
-    this.anim.rotation += 0.2;
-    if (this.anim.rotation > this.extremeRight) {
-      this.anim.rotation = this.extremeRight;
-    }
-    this.fire();
   }
 
   /**

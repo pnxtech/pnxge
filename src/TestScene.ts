@@ -1,8 +1,11 @@
 import * as PIXI from 'pixi.js';
-import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
-import {IProjectileObject, PNXProjectileManager} from './PNXProjectileManager';
+import {PNXProjectileManager} from './PNXProjectileManager';
 import HeroController from './heroController';
+import SquidController from './squidController';
+import SeekerController from './squidController';
+import BeetleController from './squidController';
+
 
 /**
  * @name TestScene
@@ -32,6 +35,9 @@ export default class TestScene extends PNXScene {
     this.projectileManager = new PNXProjectileManager(this, 'sprites.json', resources);
     this.attachProjectileManager(this.projectileManager);
     this.heroController = new HeroController('hero', this);
+    new SquidController('squid1', this);
+    new SeekerController('seeker1', this);
+    new BeetleController('beetle1', this);
     super.start(resources);
   }
 
@@ -67,10 +73,6 @@ export default class TestScene extends PNXScene {
    */
   update(deltaTime: number): void {
     super.update(deltaTime);
-    this.collisionDetection(); // TODO: move to base scene?
-    if (this.heroController) {
-      this.heroController.update(deltaTime);
-    }
   }
 
   /**

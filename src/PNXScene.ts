@@ -132,6 +132,7 @@ export default class PNXScene {
       this.projectileManager.update(deltaTime);
     }
     this.sortAnims();
+    this.collisionDetection();
   }
 
   /**
@@ -199,7 +200,7 @@ export default class PNXScene {
         if (!obj2.anim || !obj2.anim.collisionDetection || !obj2.anim.visible) {
           continue;
         }
-        if (obj1.anim.type === obj2.anim.type) {
+        if (obj1.anim.id === obj2.anim.id) {
           continue;
         }
         if (this.hitTestRectangle(obj1, obj2)) {
