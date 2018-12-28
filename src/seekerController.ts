@@ -1,7 +1,7 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
-import {IProjectileObject, PNXProjectileManager} from './PNXProjectileManager';
-import {pcap} from './PNXMath';
+import {PNXProjectileManager} from './PNXProjectileManager';
+import {PNXVector, PNXAngle} from './PNXMath';
 import IPNXController from './PNXController';
 
 /**
@@ -11,6 +11,10 @@ import IPNXController from './PNXController';
 export default class SeekerController implements IPNXController{
   private scene: PNXScene;
   private anim: PNXAnim;
+  private heroAnim: PNXAnim;
+  private animVector: PNXVector = new PNXVector(0,0);
+  private heroVector: PNXVector = new PNXVector(0,0);
+  private changeCourse: boolean = false;
 
   /**
    * @name constructor
@@ -19,6 +23,7 @@ export default class SeekerController implements IPNXController{
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
     this.anim = scene.getAnim(name);
+    this.heroAnim = scene.getAnim('hero');
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
   }
@@ -67,5 +72,21 @@ export default class SeekerController implements IPNXController{
    * @return {void}
    */
   update(deltaTime: number): void {
+    this.animVector.x = this.anim.x;
+    this.animVector.y = this.anim.y;
+    this.heroVector.x = this.heroAnim.x;
+    this.heroVector.y = this.heroAnim.y;
+    let distance = this.animVector.distance(this.heroVector);
+    if (!this.changeCourse && distance < 200) {
+      this.changeCourse = true;
+      let angle = new PNXAngle();
+      let course = angle.angleFromVectors(this.heroVector, this.animVector);
+      this.anim.rotation = -course;
+      let directionVector = angle.vectorAngleFromRadians(course);
+      this.anim.dx = -directionVector.x;
+      this.anim.dy = -directionVector.y;
+      this.anim.vx = 1;
+      this.anim.vy = 1;
+    }
   }
 }

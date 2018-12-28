@@ -135,7 +135,7 @@
           "sequence": "seeker",
           "animationSpeed": 0.3,
           "x": 80,
-          "y": 10,
+          "y": -50,
           "z": 5000,
           "vx": 0,
           "vy": 1,

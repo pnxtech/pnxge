@@ -3,8 +3,8 @@ import PNXScene from './PNXScene';
 import {PNXProjectileManager} from './PNXProjectileManager';
 import HeroController from './heroController';
 import SquidController from './squidController';
-import SeekerController from './squidController';
-import BeetleController from './squidController';
+import SeekerController from './seekerController';
+import BeetleController from './beetleController';
 
 
 /**

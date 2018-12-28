@@ -148,6 +148,17 @@ export class PNXVector extends PNXPoint {
   }
 
   /**
+   * @name distance
+   * @description returns the distance between this and another vector
+   * @returns {number} distance
+   */
+  public distance(otherVector: PNXVector): number {
+    let vx = this.x - otherVector.x;
+    let vy = this.y - otherVector.y;
+    return pcap(Math.sqrt(vx * vx + vy * vy));
+  }
+
+  /**
    * @name negate
    * @description negates the current vector
    * @return {PNXVector} returns a new negated vector
