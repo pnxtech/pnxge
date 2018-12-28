@@ -11,8 +11,9 @@ import IPNXController from './PNXController';
 export default class HeroController implements IPNXController {
   private scene: PNXScene;
   private anim: PNXAnim;
-  private extremeLeft: number = 1.53;
-  private extremeRight: number = 4.73;
+  private frames: number[] = [6, 5, 4, 3, 2, 1, 0, 16, 15, 14, 13, 12, 11];
+  private rotation: number[] = [1.33, 1.84, 2.24, 2.66, 2.90, 3.10, 3.18, 3.22, 3.42, 3.66, 4.04, 4.48, 4.95];
+  private frameIndex:number = 6;
 
   /**
    * @name constructor
@@ -44,10 +45,12 @@ export default class HeroController implements IPNXController {
         dy: 0,
         vx: 0,
         vy: 0,
-        animSpeed: 0.3,
+        animSpeed: 0.2,
         rotation: this.anim.rotation,
-        scale: 1
+        scale: 2
       });
+
+      this.anim.setFrame(18);
     }
   }
 
@@ -59,21 +62,22 @@ export default class HeroController implements IPNXController {
   fire(): void {
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
-      let vLen = this.anim.height * 0.5;
+      let vLen = (this.anim.height * 0.5) - 8;
+      let rotation = this.rotation[this.frameIndex];
       projectileManager.createProjectile({
         name: 'bullet',
         type: 'hero-bullet',
         strength: 100,
         collisionDetection: true,
         frame: 2,
-        x: pcap(this.anim.x - Math.sin(this.anim.rotation) * vLen),
-        y: pcap(this.anim.y + Math.cos(this.anim.rotation) * vLen),
+        x: pcap(this.anim.x - Math.sin(rotation) * vLen),
+        y: pcap(this.anim.y + Math.cos(rotation) * vLen),
         z: 9000,
-        dx: pcap(-Math.sin(this.anim.rotation)),
-        dy: pcap(Math.cos(this.anim.rotation)),
-        vx: 4,
-        vy: 4,
-        rotation: this.anim.rotation,
+        dx: pcap(-Math.sin(rotation)),
+        dy: pcap(Math.cos(rotation)),
+        vx: 2,
+        vy: 2,
+        rotation,
         scale: 1
       });
     }
@@ -85,10 +89,13 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   moveLeft(): void {
-    this.anim.rotation -= 0.2;
-    if (this.anim.rotation < this.extremeLeft) {
-      this.anim.rotation = this.extremeLeft;
+    this.frameIndex--;
+    if (this.frameIndex < 1) {
+      this.frameIndex = 0;
     }
+    // console.log(`this.frameIndex: ${this.frameIndex}`);
+    // console.log(`this.rotation[${this.frameIndex}]: ${this.rotation[this.frameIndex]}`);
+    this.anim.setFrame(this.frames[this.frameIndex]);
     this.fire();
   }
 
@@ -98,10 +105,11 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   moveRight(): void {
-    this.anim.rotation += 0.2;
-    if (this.anim.rotation > this.extremeRight) {
-      this.anim.rotation = this.extremeRight;
+    this.frameIndex++;
+    if (this.frameIndex > 12) {
+      this.frameIndex = 12;
     }
+    this.anim.setFrame(this.frames[this.frameIndex]);
     this.fire();
   }
 
