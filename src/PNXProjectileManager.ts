@@ -72,6 +72,7 @@ export class PNXProjectileManager {
         dy: projectileInfo.dy,
         vx: projectileInfo.vx,
         vy: projectileInfo.vy,
+        collisionDetection: projectileInfo.collisionDetection,
         animSpeed: (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1,
         frame: projectileInfo.frame,
         rotation: projectileInfo.rotation,
@@ -93,6 +94,7 @@ export class PNXProjectileManager {
       projectile.dy = projectileInfo.dy;
       projectile.vx = projectileInfo.vx;
       projectile.vy = projectileInfo.vy;
+      projectile.collisionDetection = projectileInfo.collisionDetection;
       projectile.animSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
       projectile.frame = projectileInfo.frame;
       projectile.rotation = projectileInfo.rotation;

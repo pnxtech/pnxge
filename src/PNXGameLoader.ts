@@ -38,13 +38,13 @@ export default class PNXGameLoader {
    */
   load(filename: string, postLoaderHandler: ICallback): void {
     this.loader.add(filename);
-    this.loader.load((_loader: PIXI.loaders.Loader, resources: {}) => {
+    this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
       this.sceneData = this.gameConfig.scenes[this.sceneName];
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);
       }
-      this.loader.load((_loader: PIXI.loaders.Loader, resources: {}) => {
+      this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         let objectList = this.sceneData.objects;
         for (let obj of <any>objectList) {
           switch (obj.type) {
