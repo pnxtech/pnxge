@@ -13,6 +13,7 @@ export default class SquidController implements IPNXController{
   private anim: PNXAnim;
   private firingInterval: number = 80;
   private firingDelay: number;
+  private active: boolean = true;
 
   /**
    * @name constructor
@@ -29,6 +30,8 @@ export default class SquidController implements IPNXController{
   /**
    * @name hitBy
    * @description hit by anim (collision event handler)
+   * @param {PNXAnim} anim
+   * @return {void}
    */
   hitBy(anim: PNXAnim): void {
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
@@ -88,10 +91,16 @@ export default class SquidController implements IPNXController{
    * @return {void}
    */
   update(deltaTime: number): void {
-    this.firingDelay -= deltaTime;
-    if (this.firingDelay < 0) {
-      this.firingDelay = this.firingInterval;
-      this.fire();
+    if (this.active) {
+      this.firingDelay -= deltaTime;
+      if (this.firingDelay < 0) {
+        this.firingDelay = this.firingInterval;
+        this.fire();
+      }
+      if ((this.anim.y - this.anim.height) > this.scene.width) {
+        this.active = false;
+        this.anim.visible = false;
+      }
     }
   }
 }

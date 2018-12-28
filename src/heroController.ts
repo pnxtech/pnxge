@@ -29,6 +29,8 @@ export default class HeroController implements IPNXController {
   /**
    * @name hitBy
    * @description hit by anim (collision event handler)
+   * @param {PNXAnim} anim
+   * @return {void}
    */
   hitBy(anim: PNXAnim): void {
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
