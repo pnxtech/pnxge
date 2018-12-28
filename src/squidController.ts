@@ -1,6 +1,6 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
-import {IProjectileObject, PNXProjectileManager} from './PNXProjectileManager';
+import {PNXProjectileManager} from './PNXProjectileManager';
 import {pcap} from './PNXMath';
 import IPNXController from './PNXController';
 
@@ -11,6 +11,8 @@ import IPNXController from './PNXController';
 export default class SquidController implements IPNXController{
   private scene: PNXScene;
   private anim: PNXAnim;
+  private firingInterval: number = 80;
+  private firingDelay: number;
 
   /**
    * @name constructor
@@ -21,6 +23,7 @@ export default class SquidController implements IPNXController{
     this.anim = scene.getAnim(name);
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
+    this.firingDelay = this.firingInterval;
   }
 
   /**
@@ -57,6 +60,24 @@ export default class SquidController implements IPNXController{
   fire(): void {
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
+      let vLen = (this.anim.height * 0.5) - 8;
+      let rotation = 0;
+      projectileManager.createProjectile({
+        name: 'bullet',
+        type: 'bullet',
+        strength: 100,
+        collisionDetection: true,
+        frame: 1,
+        x: pcap(this.anim.x - Math.sin(rotation) * vLen),
+        y: pcap(this.anim.y + Math.cos(rotation) * vLen),
+        z: 9000,
+        dx: pcap(Math.sin(rotation)),
+        dy: pcap(Math.cos(rotation)),
+        vx: this.anim.vx * 2,
+        vy: this.anim.vy * 2,
+        rotation,
+        scale: 1
+      });
     }
   }
 
@@ -67,5 +88,10 @@ export default class SquidController implements IPNXController{
    * @return {void}
    */
   update(deltaTime: number): void {
+    this.firingDelay -= deltaTime;
+    if (this.firingDelay < 0) {
+      this.firingDelay = this.firingInterval;
+      this.fire();
+    }
   }
 }
