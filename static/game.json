@@ -108,7 +108,8 @@
           "loop": false,
           "rotation": 3.14,
           "collisionDetection": true,
-          "health": 100
+          "health": 30,
+          "strength": 10
         },
         {
           "type": "character",
@@ -126,7 +127,8 @@
           "loop": true,
           "rotation": 0,
           "collisionDetection": true,
-          "health": 100
+          "health": 100,
+          "strength": 10
         },
         {
           "type": "character",
@@ -135,7 +137,7 @@
           "sequence": "seeker",
           "animationSpeed": 0.3,
           "x": 80,
-          "y": -50,
+          "y": -100,
           "z": 5000,
           "vx": 0,
           "vy": 1,
@@ -146,7 +148,8 @@
           "loop": true,
           "rotation": 3.14,
           "collisionDetection": true,
-          "health": 100
+          "health": 100,
+          "strength": 20
         },
         {
           "type": "character",
@@ -164,7 +167,8 @@
           "loop": true,
           "rotation": 3.14,
           "collisionDetection": true,
-          "health": 100
+          "health": 100,
+          "strength": 10
         },
         {
           "type": "character",
@@ -182,7 +186,8 @@
           "loop": true,
           "rotation": 3.14,
           "collisionDetection": false,
-          "health": 100
+          "health": 100,
+          "strength": 10
         },
         {
           "type": "character",
@@ -200,7 +205,8 @@
           "loop": true,
           "rotation": 0,
           "collisionDetection": false,
-          "health": 100
+          "health": 100,
+          "strength": 10
         },
         {
           "type": "character",
@@ -218,7 +224,8 @@
           "loop": true,
           "rotation": 1.10,
           "collisionDetection": false,
-          "health": 100
+          "health": 100,
+          "strength": 10
         },
         {
           "type": "character",
@@ -236,7 +243,8 @@
           "loop": true,
           "rotation": 3.10,
           "collisionDetection": false,
-          "health": 100
+          "health": 100,
+          "strength": 10
         }
       ]
     },

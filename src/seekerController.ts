@@ -52,6 +52,8 @@ export default class SeekerController implements IPNXController{
         rotation: this.anim.rotation,
         scale: 1
       });
+      this.active = false;
+      this.anim.visible = false;
     }
   }
 

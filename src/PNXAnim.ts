@@ -47,6 +47,7 @@ export default class PNXAnim implements IPNXAnimCompatible {
   private currentRotation: number = 0;
   private currentVisible: boolean = true;
   private currentHealth: number = 0;
+  private currentStrength: number = 0;
   private animSpeed: number = 1;
   private animAnchor: number = .5;
   private directionX: number = 0;
@@ -248,6 +249,25 @@ export default class PNXAnim implements IPNXAnimCompatible {
    */
   set animationSpeed(speed: number) {
     this.animSpeed = speed;
+  }
+
+
+  /**
+   * @name strength
+   * @description get current strength
+   * @return {number} strength
+   */
+  get strength(): number {
+    return this.currentStrength;
+  }
+
+  /**
+   * @name strength
+   * @description set current strength
+   * @param {number} value - strength
+   */
+  set strength(value: number) {
+    this.currentStrength = value;
   }
 
   /**
@@ -575,6 +595,15 @@ export default class PNXAnim implements IPNXAnimCompatible {
       }
       console.log(`anim:${this.currentSequenceName} collided with anim:${anim.currentSequenceName}`);
     }
+  }
+
+  /**
+   * @name clearCollision
+   * @description clear collision event
+   * @return {void}
+   */
+  clearCollision(): void {
+    this.animCollisionWith = undefined;
   }
 
   /**

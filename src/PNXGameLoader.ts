@@ -83,6 +83,7 @@ export default class PNXGameLoader {
               this.sceneObjects[obj.name].loop = obj.loop;
               this.sceneObjects[obj.name].rotation = obj.rotation || 0;
               this.sceneObjects[obj.name].health = obj.health;
+              this.sceneObjects[obj.name].strength = obj.strength;
               this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
               this.sceneObjects[obj.name].play(obj.sequence);
               if (obj.frame !== undefined) {

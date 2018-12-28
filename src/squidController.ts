@@ -52,6 +52,8 @@ export default class SquidController implements IPNXController{
         rotation: this.anim.rotation,
         scale: 1
       });
+      this.active = false;
+      this.anim.visible = false;
     }
   }
 
@@ -68,7 +70,7 @@ export default class SquidController implements IPNXController{
       projectileManager.createProjectile({
         name: 'bullet',
         type: 'bullet',
-        strength: 100,
+        strength: 10,
         collisionDetection: true,
         frame: 1,
         x: pcap(this.anim.x - Math.sin(rotation) * vLen),

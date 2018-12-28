@@ -104,6 +104,8 @@ export class PNXProjectileManager {
     if (projectile && projectile.anim) {
       let anim = projectile.anim;
       anim.visible = true;
+      anim.type = projectileInfo.type,
+      anim.strength = projectileInfo.strength,
       anim.x = projectileInfo.x;
       anim.y = projectileInfo.y;
       anim.z = projectileInfo.z;

@@ -1,6 +1,6 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
-import {IProjectileObject, PNXProjectileManager} from './PNXProjectileManager';
+import {PNXProjectileManager} from './PNXProjectileManager';
 import {pcap} from './PNXMath';
 import IPNXController from './PNXController';
 
@@ -14,6 +14,9 @@ export default class HeroController implements IPNXController {
   private frames: number[] = [6, 5, 4, 3, 2, 1, 0, 16, 15, 14, 13, 12, 11];
   private rotation: number[] = [1.33, 1.84, 2.24, 2.66, 2.90, 3.10, 3.18, 3.22, 3.42, 3.66, 4.04, 4.48, 4.95];
   private frameIndex:number = 6;
+  private active: boolean = true;
+  private collisionClearInterval: number = 100;
+  private collisionClearCountdown: number = -1;
 
   /**
    * @name constructor
@@ -33,6 +36,15 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   hitBy(anim: PNXAnim): void {
+    let explosionScale = 0.5;
+    this.collisionClearCountdown = this.collisionClearInterval;
+    this.anim.health -= anim.strength;
+    console.log(`hero health: ${this.anim.health}`);
+    if (!this.anim.health) {
+      explosionScale = 2;
+      this.anim.setFrame(18);
+      this.active = false;
+    }
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       projectileManager.createProjectile({
@@ -49,10 +61,8 @@ export default class HeroController implements IPNXController {
         vy: 0,
         animSpeed: 0.2,
         rotation: this.anim.rotation,
-        scale: 2
+        scale: explosionScale
       });
-
-      this.anim.setFrame(18);
     }
   }
 
@@ -62,6 +72,9 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   fire(): void {
+    if (!this.active) {
+      return;
+    }
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       let vLen = (this.anim.height * 0.5) - 8;
@@ -91,12 +104,13 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   moveLeft(): void {
+    if (!this.active) {
+      return;
+    }
     this.frameIndex--;
     if (this.frameIndex < 1) {
       this.frameIndex = 0;
     }
-    // console.log(`this.frameIndex: ${this.frameIndex}`);
-    // console.log(`this.rotation[${this.frameIndex}]: ${this.rotation[this.frameIndex]}`);
     this.anim.setFrame(this.frames[this.frameIndex]);
     this.fire();
   }
@@ -107,6 +121,9 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   moveRight(): void {
+    if (!this.active) {
+      return;
+    }
     this.frameIndex++;
     if (this.frameIndex > 12) {
       this.frameIndex = 12;
@@ -122,5 +139,12 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   update(deltaTime: number): void {
+    if (this.collisionClearCountdown !== -1) {
+      this.collisionClearCountdown--;
+      if (this.collisionClearCountdown < 0) {
+        this.collisionClearCountdown = -1;
+        this.anim.clearCollision();
+      }
+    }
   }
 }
