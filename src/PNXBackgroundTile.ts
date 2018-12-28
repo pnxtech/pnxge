@@ -26,6 +26,7 @@ export default class PNXBackgroundTile extends PNXAnim {
     this.scene = scene;
     this.texture = PIXI.Texture.fromImage(assetPath);
     this.tilingSprite = new PNXTilingSprite(
+      this.scene,
       this.texture,
       scene.app.screen.width,
       scene.app.screen.height

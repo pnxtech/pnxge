@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
-import {AnimType, IPNXAnimCompatible} from './PNXAnim';
+import PNXAnim, {AnimType, IPNXAnimCompatible} from './PNXAnim';
 import {createID} from './PNXMath';
 
 /**
@@ -14,6 +14,7 @@ export default class PNXTextSprite extends PIXI.extras.BitmapText implements IPN
   public collisionDetection: boolean = false;
   public type: string = AnimType.TEXT;
   protected scene: PNXScene;
+  public anim: PNXAnim;
 
   /**
    * @name constructor
@@ -25,6 +26,7 @@ export default class PNXTextSprite extends PIXI.extras.BitmapText implements IPN
   constructor(scene: PNXScene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined) {
     super(text, style);
     this.scene = scene;
+    this.anim = new PNXAnim(this.scene);
     this.scene.stage.addChild(this);
   }
 
@@ -34,7 +36,7 @@ export default class PNXTextSprite extends PIXI.extras.BitmapText implements IPN
    * @return {number} z position
    */
   get z(): number {
-    return this.zOrder;
+    return this.anim.z;
   }
 
   /**
@@ -42,7 +44,16 @@ export default class PNXTextSprite extends PIXI.extras.BitmapText implements IPN
    * @description z position setter
    */
   set z(z: number) {
-    this.zOrder = z;
+    this.anim.z = z;
+  }
+
+  /**
+   * @name update
+   * @description update handler
+   * @param {number} deltaTime - delta time
+   * @return {void}
+   */
+  update(deltaTime: number): void {
   }
 
   /**

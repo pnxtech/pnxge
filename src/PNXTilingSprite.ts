@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
+import PNXScene from './PNXScene';
 import {createID} from './PNXMath';
-import {AnimType} from './PNXAnim';
+import PNXAnim, {AnimType} from './PNXAnim';
 
 /**
  * @name PNXTilingSprite
@@ -9,13 +10,15 @@ import {AnimType} from './PNXAnim';
  */
 export default class PNXTilingSprite extends PIXI.extras.TilingSprite {
   public id: string = createID();
-  public zOrder: number = -1;
   public vx: number = 0; // velocityX
   public vy: number = 0; // velocityY
   public collisionDetection: boolean = false;
   public type: string = AnimType.BACKGROUND;
+  public anim: PNXAnim;
 
-  constructor(texture: PIXI.Texture, width: number, height: number) {
+  constructor(scene: PNXScene, texture: PIXI.Texture, width: number, height: number) {
     super(texture, width, height);
+    this.anim = new PNXAnim(scene);
+    this.anim.z = -1;
   }
 };
