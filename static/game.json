@@ -31,13 +31,13 @@
           "type": "text",
           "name": "background",
           "fontInfo": {
-            "font": "60px title60pt",
+            "font": "30px title60pt",
             "align": "center"
           },
           "text": "Tyros",
-          "x": 110,
-          "y": 30,
-          "z": 10000
+          "x": 142,
+          "y": 2,
+          "z": 25000
         },
         {
           "type": "tile",
@@ -99,7 +99,7 @@
           "sequence": "tank",
           "frame": 0,
           "x": 180,
-          "y": 310,
+          "y": 270,
           "z": 5000,
           "vx": 0,
           "vy": 0,
@@ -245,6 +245,26 @@
           "collisionDetection": false,
           "health": 100,
           "strength": 10
+        },
+        {
+          "type": "character",
+          "name": "hud",
+          "atlas": "sprites.json",
+          "sequence": "hud",
+          "animationSpeed": 0.05,
+          "frame": 0,
+          "x": 180,
+          "y": 180,
+          "z": 20000,
+          "vx": 0,
+          "vy": 0,
+          "dx": 0,
+          "dy": 0,
+          "loop": false,
+          "rotation": 0,
+          "collisionDetection": false,
+          "health": 0,
+          "strength": 0
         }
       ]
     },

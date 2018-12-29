@@ -5,6 +5,7 @@ import HeroController from './heroController';
 import SquidController from './squidController';
 import SeekerController from './seekerController';
 import BeetleController from './beetleController';
+import HudController from './hudController';
 
 
 /**
@@ -35,6 +36,7 @@ export default class TestScene extends PNXScene {
     this.projectileManager = new PNXProjectileManager(this, 'sprites.json', resources);
     this.attachProjectileManager(this.projectileManager);
     this.heroController = new HeroController('hero', this);
+    new HudController('hud', this);
     new SquidController('squid1', this);
     new SeekerController('seeker1', this);
     new BeetleController('beetle1', this);
