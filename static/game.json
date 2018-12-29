@@ -1,7 +1,8 @@
 {
   "assets": [
     "sprites.json",
-    "title60pt.fnt"
+    "title60pt.fnt",
+    "digital40pt.fnt"
   ],
   "scenes": {
     "intro": {
@@ -29,7 +30,7 @@
       "objects": [
         {
           "type": "text",
-          "name": "background",
+          "name": "title",
           "fontInfo": {
             "font": "30px title60pt",
             "align": "center"
@@ -38,6 +39,33 @@
           "x": 142,
           "y": 2,
           "z": 25000
+        },
+        {
+          "type": "text",
+          "name": "score",
+          "fontInfo": {
+            "font": "30px digital40pt",
+            "align": "center"
+          },
+          "text": "00000",
+          "x": 140,
+          "y": 326,
+          "z": 25000
+        },
+        {
+          "type": "character",
+          "name": "health",
+          "atlas": "sprites.json",
+          "sequence": "health",
+          "animationSpeed": 0.1,
+          "x": 180,
+          "y": 322,
+          "z": 25000,
+          "loop": true,
+          "rotation": 0,
+          "collisionDetection": false,
+          "health": 0,
+          "strength": 0
         },
         {
           "type": "tile",

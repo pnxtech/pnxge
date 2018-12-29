@@ -2,8 +2,8 @@
   "frames": {
     "beetle0.png": {
       "frame": {
-        "x": 956,
-        "y": 699,
+        "x": 913,
+        "y": 993,
         "w": 32,
         "h": 32
       },
@@ -22,8 +22,8 @@
     },
     "beetle1.png": {
       "frame": {
-        "x": 972,
-        "y": 733,
+        "x": 853,
+        "y": 1131,
         "w": 32,
         "h": 32
       },
@@ -42,8 +42,8 @@
     },
     "beetle2.png": {
       "frame": {
-        "x": 980,
-        "y": 791,
+        "x": 885,
+        "y": 1028,
         "w": 32,
         "h": 32
       },
@@ -62,8 +62,8 @@
     },
     "beetle3.png": {
       "frame": {
-        "x": 980,
-        "y": 825,
+        "x": 919,
+        "y": 1027,
         "w": 32,
         "h": 32
       },
@@ -82,8 +82,8 @@
     },
     "beetle4.png": {
       "frame": {
-        "x": 981,
-        "y": 859,
+        "x": 891,
+        "y": 1092,
         "w": 32,
         "h": 32
       },
@@ -102,8 +102,8 @@
     },
     "beetle5.png": {
       "frame": {
-        "x": 981,
-        "y": 893,
+        "x": 833,
+        "y": 1165,
         "w": 32,
         "h": 32
       },
@@ -122,8 +122,8 @@
     },
     "beetle6.png": {
       "frame": {
-        "x": 974,
-        "y": 932,
+        "x": 867,
+        "y": 1165,
         "w": 32,
         "h": 32
       },
@@ -142,8 +142,8 @@
     },
     "beetle7.png": {
       "frame": {
-        "x": 943,
-        "y": 592,
+        "x": 887,
+        "y": 1131,
         "w": 32,
         "h": 32
       },
@@ -162,8 +162,8 @@
     },
     "beetle8.png": {
       "frame": {
-        "x": 964,
-        "y": 626,
+        "x": 901,
+        "y": 1165,
         "w": 32,
         "h": 32
       },
@@ -182,8 +182,8 @@
     },
     "beetle9.png": {
       "frame": {
-        "x": 964,
-        "y": 660,
+        "x": 921,
+        "y": 1126,
         "w": 32,
         "h": 32
       },
@@ -202,12 +202,12 @@
     },
     "blue-gem1.png": {
       "frame": {
-        "x": 985,
-        "y": 406,
+        "x": 31,
+        "y": 1181,
         "w": 20,
         "h": 27
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 1,
@@ -222,12 +222,12 @@
     },
     "blue-gem2.png": {
       "frame": {
-        "x": 987,
-        "y": 966,
+        "x": 60,
+        "y": 1181,
         "w": 20,
         "h": 27
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 1,
@@ -242,12 +242,12 @@
     },
     "bullet1.png": {
       "frame": {
-        "x": 880,
-        "y": 225,
+        "x": 838,
+        "y": 993,
         "w": 7,
         "h": 9
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -262,12 +262,12 @@
     },
     "bullet2.png": {
       "frame": {
-        "x": 877,
-        "y": 633,
+        "x": 838,
+        "y": 594,
         "w": 6,
         "h": 11
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -282,12 +282,12 @@
     },
     "cyclone1.png": {
       "frame": {
-        "x": 725,
-        "y": 263,
+        "x": 121,
+        "y": 1109,
         "w": 103,
         "h": 95
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -302,8 +302,8 @@
     },
     "cyclone2.png": {
       "frame": {
-        "x": 725,
-        "y": 465,
+        "x": 322,
+        "y": 1109,
         "w": 93,
         "h": 95
       },
@@ -322,8 +322,8 @@
     },
     "cyclone3.png": {
       "frame": {
-        "x": 725,
-        "y": 368,
+        "x": 226,
+        "y": 1109,
         "w": 94,
         "h": 95
       },
@@ -342,8 +342,8 @@
     },
     "cyclone4.png": {
       "frame": {
-        "x": 725,
-        "y": 562,
+        "x": 780,
+        "y": 149,
         "w": 93,
         "h": 93
       },
@@ -362,12 +362,12 @@
     },
     "debris-overlay1.png": {
       "frame": {
-        "x": 926,
-        "y": 1,
+        "x": 417,
+        "y": 1120,
         "w": 98,
         "h": 73
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -382,8 +382,8 @@
     },
     "explode1.png": {
       "frame": {
-        "x": 968,
-        "y": 154,
+        "x": 906,
+        "y": 387,
         "w": 55,
         "h": 47
       },
@@ -402,12 +402,12 @@
     },
     "explode2.png": {
       "frame": {
-        "x": 820,
-        "y": 560,
+        "x": 838,
+        "y": 617,
         "w": 52,
         "h": 53
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -422,8 +422,8 @@
     },
     "explode3.png": {
       "frame": {
-        "x": 841,
-        "y": 1045,
+        "x": 864,
+        "y": 321,
         "w": 53,
         "h": 40
       },
@@ -442,8 +442,8 @@
     },
     "explode4.png": {
       "frame": {
-        "x": 890,
-        "y": 447,
+        "x": 781,
+        "y": 957,
         "w": 55,
         "h": 55
       },
@@ -462,8 +462,8 @@
     },
     "explode5.png": {
       "frame": {
-        "x": 968,
-        "y": 211,
+        "x": 906,
+        "y": 444,
         "w": 55,
         "h": 47
       },
@@ -482,8 +482,8 @@
     },
     "explode6.png": {
       "frame": {
-        "x": 965,
-        "y": 288,
+        "x": 671,
+        "y": 1162,
         "w": 50,
         "h": 42
       },
@@ -502,12 +502,12 @@
     },
     "explode7.png": {
       "frame": {
-        "x": 896,
-        "y": 1045,
+        "x": 914,
+        "y": 790,
         "w": 40,
         "h": 43
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 7,
@@ -522,8 +522,8 @@
     },
     "explode8.png": {
       "frame": {
-        "x": 970,
-        "y": 101,
+        "x": 674,
+        "y": 1109,
         "w": 51,
         "h": 45
       },
@@ -542,12 +542,12 @@
     },
     "explode9.png": {
       "frame": {
-        "x": 820,
-        "y": 615,
+        "x": 914,
+        "y": 835,
         "w": 55,
         "h": 36
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -562,8 +562,8 @@
     },
     "explode10.png": {
       "frame": {
-        "x": 981,
-        "y": 927,
+        "x": 116,
+        "y": 1181,
         "w": 3,
         "h": 3
       },
@@ -582,12 +582,12 @@
     },
     "green-gem1.png": {
       "frame": {
-        "x": 921,
-        "y": 568,
+        "x": 885,
+        "y": 1062,
         "w": 28,
         "h": 22
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 1,
@@ -602,8 +602,8 @@
     },
     "green-gem2.png": {
       "frame": {
-        "x": 972,
-        "y": 767,
+        "x": 1,
+        "y": 1181,
         "w": 28,
         "h": 22
       },
@@ -622,12 +622,12 @@
     },
     "groundpatch01.png": {
       "frame": {
-        "x": 890,
-        "y": 384,
+        "x": 893,
+        "y": 617,
         "w": 55,
         "h": 61
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -642,12 +642,12 @@
     },
     "groundpatch02.png": {
       "frame": {
-        "x": 965,
-        "y": 332,
+        "x": 906,
+        "y": 567,
         "w": 44,
         "h": 35
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -662,12 +662,12 @@
     },
     "groundpatch03.png": {
       "frame": {
-        "x": 875,
-        "y": 504,
+        "x": 908,
+        "y": 734,
         "w": 54,
         "h": 46
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -682,8 +682,8 @@
     },
     "groundpatch04.png": {
       "frame": {
-        "x": 979,
-        "y": 1034,
+        "x": 853,
+        "y": 1092,
         "w": 37,
         "h": 36
       },
@@ -702,8 +702,8 @@
     },
     "groundpatch05.png": {
       "frame": {
-        "x": 820,
-        "y": 498,
+        "x": 781,
+        "y": 895,
         "w": 53,
         "h": 60
       },
@@ -722,12 +722,12 @@
     },
     "groundpatch06.png": {
       "frame": {
-        "x": 822,
-        "y": 347,
+        "x": 836,
+        "y": 895,
         "w": 56,
         "h": 35
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 3,
@@ -742,8 +742,8 @@
     },
     "groundpatch07.png": {
       "frame": {
-        "x": 931,
-        "y": 504,
+        "x": 853,
+        "y": 1028,
         "w": 62,
         "h": 30
       },
@@ -762,8 +762,8 @@
     },
     "groundpatch08.png": {
       "frame": {
-        "x": 941,
-        "y": 1034,
+        "x": 838,
+        "y": 953,
         "w": 36,
         "h": 38
       },
@@ -782,12 +782,12 @@
     },
     "groundpatch09.png": {
       "frame": {
-        "x": 721,
-        "y": 735,
+        "x": 806,
+        "y": 90,
         "w": 100,
         "h": 55
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -802,8 +802,8 @@
     },
     "groundpatch10.png": {
       "frame": {
-        "x": 725,
-        "y": 657,
+        "x": 517,
+        "y": 1120,
         "w": 86,
         "h": 76
       },
@@ -822,8 +822,8 @@
     },
     "groundpatch11.png": {
       "frame": {
-        "x": 886,
-        "y": 101,
+        "x": 780,
+        "y": 321,
         "w": 82,
         "h": 40
       },
@@ -842,12 +842,12 @@
     },
     "groundpatch12.png": {
       "frame": {
-        "x": 875,
-        "y": 552,
+        "x": 723,
+        "y": 1160,
         "w": 42,
         "h": 44
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -862,12 +862,12 @@
     },
     "groundpatch13.png": {
       "frame": {
-        "x": 875,
-        "y": 552,
+        "x": 723,
+        "y": 1160,
         "w": 42,
         "h": 44
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -882,8 +882,8 @@
     },
     "groundpatch14.png": {
       "frame": {
-        "x": 985,
-        "y": 369,
+        "x": 935,
+        "y": 133,
         "w": 35,
         "h": 19
       },
@@ -902,8 +902,8 @@
     },
     "groundpatch15.png": {
       "frame": {
-        "x": 806,
-        "y": 1,
+        "x": 1,
+        "y": 1087,
         "w": 118,
         "h": 92
       },
@@ -922,12 +922,12 @@
     },
     "groundpatch16.png": {
       "frame": {
-        "x": 725,
-        "y": 149,
+        "x": 806,
+        "y": 1,
         "w": 112,
         "h": 87
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -1000,6 +1000,406 @@
         "h": 146
       }
     },
+    "health01.png": {
+      "frame": {
+        "x": 725,
+        "y": 149,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health02.png": {
+      "frame": {
+        "x": 121,
+        "y": 1087,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health03.png": {
+      "frame": {
+        "x": 725,
+        "y": 340,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health04.png": {
+      "frame": {
+        "x": 736,
+        "y": 149,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health05.png": {
+      "frame": {
+        "x": 121,
+        "y": 1098,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health06.png": {
+      "frame": {
+        "x": 725,
+        "y": 531,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health07.png": {
+      "frame": {
+        "x": 736,
+        "y": 340,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health08.png": {
+      "frame": {
+        "x": 747,
+        "y": 149,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health09.png": {
+      "frame": {
+        "x": 312,
+        "y": 1087,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health10.png": {
+      "frame": {
+        "x": 312,
+        "y": 1098,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health11.png": {
+      "frame": {
+        "x": 736,
+        "y": 531,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health12.png": {
+      "frame": {
+        "x": 747,
+        "y": 340,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health13.png": {
+      "frame": {
+        "x": 758,
+        "y": 149,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health14.png": {
+      "frame": {
+        "x": 503,
+        "y": 1087,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health15.png": {
+      "frame": {
+        "x": 747,
+        "y": 531,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health16.png": {
+      "frame": {
+        "x": 758,
+        "y": 340,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health17.png": {
+      "frame": {
+        "x": 769,
+        "y": 149,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health18.png": {
+      "frame": {
+        "x": 503,
+        "y": 1098,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health19.png": {
+      "frame": {
+        "x": 417,
+        "y": 1109,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
+    "health20.png": {
+      "frame": {
+        "x": 758,
+        "y": 531,
+        "w": 189,
+        "h": 9
+      },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 189,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 189,
+        "h": 9
+      }
+    },
     "hud1.png": {
       "frame": {
         "x": 1,
@@ -1022,8 +1422,8 @@
     },
     "hud2.png": {
       "frame": {
-        "x": 1,
-        "y": 725,
+        "x": 363,
+        "y": 1,
         "w": 360,
         "h": 360
       },
@@ -1042,8 +1442,8 @@
     },
     "hud3.png": {
       "frame": {
-        "x": 363,
-        "y": 1,
+        "x": 1,
+        "y": 725,
         "w": 360,
         "h": 360
       },
@@ -1082,12 +1482,12 @@
     },
     "purple-gem1.png": {
       "frame": {
-        "x": 987,
-        "y": 995,
+        "x": 694,
+        "y": 1087,
         "w": 20,
         "h": 25
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 2,
@@ -1102,8 +1502,8 @@
     },
     "purple-gem2.png": {
       "frame": {
-        "x": 990,
-        "y": 694,
+        "x": 89,
+        "y": 1181,
         "w": 20,
         "h": 25
       },
@@ -1122,8 +1522,8 @@
     },
     "red-gem1.png": {
       "frame": {
-        "x": 951,
-        "y": 568,
+        "x": 605,
+        "y": 1183,
         "w": 24,
         "h": 21
       },
@@ -1142,12 +1542,12 @@
     },
     "red-gem2.png": {
       "frame": {
-        "x": 977,
-        "y": 567,
+        "x": 631,
+        "y": 1183,
         "w": 24,
         "h": 21
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 1,
@@ -1162,12 +1562,12 @@
     },
     "seeker0.png": {
       "frame": {
-        "x": 821,
-        "y": 461,
+        "x": 919,
+        "y": 321,
         "w": 35,
         "h": 64
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1182,8 +1582,8 @@
     },
     "seeker1.png": {
       "frame": {
-        "x": 947,
-        "y": 435,
+        "x": 906,
+        "y": 501,
         "w": 35,
         "h": 64
       },
@@ -1202,12 +1602,12 @@
     },
     "seeker2.png": {
       "frame": {
-        "x": 963,
-        "y": 501,
+        "x": 608,
+        "y": 1109,
         "w": 35,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1222,8 +1622,8 @@
     },
     "seeker3.png": {
       "frame": {
-        "x": 877,
-        "y": 596,
+        "x": 605,
+        "y": 1146,
         "w": 35,
         "h": 64
       },
@@ -1242,8 +1642,8 @@
     },
     "seeker4.png": {
       "frame": {
-        "x": 814,
-        "y": 225,
+        "x": 721,
+        "y": 1048,
         "w": 36,
         "h": 64
       },
@@ -1262,12 +1662,12 @@
     },
     "seeker5.png": {
       "frame": {
-        "x": 947,
-        "y": 369,
+        "x": 787,
+        "y": 1048,
         "w": 36,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
@@ -1282,8 +1682,8 @@
     },
     "seeker6.png": {
       "frame": {
-        "x": 890,
-        "y": 633,
+        "x": 840,
+        "y": 815,
         "w": 35,
         "h": 64
       },
@@ -1302,8 +1702,8 @@
     },
     "seeker7.png": {
       "frame": {
-        "x": 927,
-        "y": 633,
+        "x": 877,
+        "y": 814,
         "w": 35,
         "h": 64
       },
@@ -1322,12 +1722,12 @@
     },
     "seeker8.png": {
       "frame": {
-        "x": 898,
-        "y": 734,
+        "x": 721,
+        "y": 1086,
         "w": 35,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1342,12 +1742,12 @@
     },
     "seeker9.png": {
       "frame": {
-        "x": 935,
-        "y": 734,
+        "x": 787,
+        "y": 1086,
         "w": 35,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1362,8 +1762,8 @@
     },
     "squid0.png": {
       "frame": {
-        "x": 984,
-        "y": 435,
+        "x": 911,
+        "y": 927,
         "w": 31,
         "h": 64
       },
@@ -1382,8 +1782,8 @@
     },
     "squid1.png": {
       "frame": {
-        "x": 890,
-        "y": 699,
+        "x": 873,
+        "y": 892,
         "w": 33,
         "h": 64
       },
@@ -1402,8 +1802,8 @@
     },
     "squid2.png": {
       "frame": {
-        "x": 945,
-        "y": 800,
+        "x": 876,
+        "y": 927,
         "w": 33,
         "h": 64
       },
@@ -1422,12 +1822,12 @@
     },
     "squid3.png": {
       "frame": {
-        "x": 880,
-        "y": 348,
+        "x": 920,
+        "y": 1,
         "w": 34,
         "h": 64
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1442,12 +1842,12 @@
     },
     "squid4.png": {
       "frame": {
-        "x": 908,
-        "y": 800,
+        "x": 721,
+        "y": 1123,
         "w": 35,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1462,12 +1862,12 @@
     },
     "squid5.png": {
       "frame": {
-        "x": 908,
-        "y": 866,
+        "x": 787,
+        "y": 1123,
         "w": 35,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1482,8 +1882,8 @@
     },
     "squid6.png": {
       "frame": {
-        "x": 945,
-        "y": 866,
+        "x": 920,
+        "y": 67,
         "w": 34,
         "h": 64
       },
@@ -1502,8 +1902,8 @@
     },
     "squid7.png": {
       "frame": {
-        "x": 908,
-        "y": 932,
+        "x": 767,
+        "y": 1160,
         "w": 34,
         "h": 64
       },
@@ -1522,12 +1922,12 @@
     },
     "squid8.png": {
       "frame": {
-        "x": 918,
-        "y": 968,
+        "x": 847,
+        "y": 993,
         "w": 33,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 0,
@@ -1542,12 +1942,12 @@
     },
     "squid9.png": {
       "frame": {
-        "x": 953,
-        "y": 968,
+        "x": 781,
+        "y": 1014,
         "w": 32,
         "h": 64
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 1,
@@ -1562,8 +1962,8 @@
     },
     "tank00.png": {
       "frame": {
-        "x": 721,
-        "y": 837,
+        "x": 875,
+        "y": 147,
         "w": 58,
         "h": 83
       },
@@ -1582,12 +1982,12 @@
     },
     "tank01.png": {
       "frame": {
-        "x": 721,
-        "y": 922,
+        "x": 769,
+        "y": 671,
         "w": 58,
         "h": 83
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 17,
@@ -1602,8 +2002,8 @@
     },
     "tank02.png": {
       "frame": {
-        "x": 781,
-        "y": 905,
+        "x": 846,
+        "y": 533,
         "w": 58,
         "h": 82
       },
@@ -1623,7 +2023,7 @@
     "tank03.png": {
       "frame": {
         "x": 721,
-        "y": 1007,
+        "y": 968,
         "w": 58,
         "h": 78
       },
@@ -1642,12 +2042,12 @@
     },
     "tank04.png": {
       "frame": {
-        "x": 891,
-        "y": 220,
+        "x": 858,
+        "y": 244,
         "w": 66,
         "h": 75
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 17,
@@ -1662,8 +2062,8 @@
     },
     "tank05.png": {
       "frame": {
-        "x": 891,
-        "y": 143,
+        "x": 769,
+        "y": 363,
         "w": 75,
         "h": 75
       },
@@ -1682,8 +2082,8 @@
     },
     "tank06.png": {
       "frame": {
-        "x": 813,
-        "y": 657,
+        "x": 769,
+        "y": 440,
         "w": 75,
         "h": 75
       },
@@ -1702,8 +2102,8 @@
     },
     "tank07.png": {
       "frame": {
-        "x": 841,
-        "y": 814,
+        "x": 721,
+        "y": 731,
         "w": 65,
         "h": 75
       },
@@ -1722,12 +2122,12 @@
     },
     "tank08.png": {
       "frame": {
-        "x": 882,
-        "y": 288,
+        "x": 721,
+        "y": 885,
         "w": 58,
         "h": 81
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 17,
@@ -1742,12 +2142,12 @@
     },
     "tank09.png": {
       "frame": {
-        "x": 781,
-        "y": 989,
+        "x": 854,
+        "y": 674,
         "w": 58,
         "h": 82
       },
-      "rotated": false,
+      "rotated": true,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 17,
@@ -1762,8 +2162,8 @@
     },
     "tank10.png": {
       "frame": {
-        "x": 841,
-        "y": 891,
+        "x": 721,
+        "y": 808,
         "w": 65,
         "h": 75
       },
@@ -1782,8 +2182,8 @@
     },
     "tank11.png": {
       "frame": {
-        "x": 841,
-        "y": 968,
+        "x": 769,
+        "y": 517,
         "w": 75,
         "h": 75
       },
@@ -1802,12 +2202,12 @@
     },
     "tank12.png": {
       "frame": {
-        "x": 814,
-        "y": 147,
+        "x": 780,
+        "y": 244,
         "w": 76,
         "h": 75
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 1,
@@ -1822,8 +2222,8 @@
     },
     "tank13.png": {
       "frame": {
-        "x": 821,
-        "y": 384,
+        "x": 769,
+        "y": 594,
         "w": 67,
         "h": 75
       },
@@ -1842,7 +2242,7 @@
     },
     "tank14.png": {
       "frame": {
-        "x": 838,
+        "x": 848,
         "y": 734,
         "w": 58,
         "h": 78
@@ -1862,8 +2262,8 @@
     },
     "tank15.png": {
       "frame": {
-        "x": 822,
-        "y": 263,
+        "x": 788,
+        "y": 731,
         "w": 58,
         "h": 82
       },
@@ -1882,8 +2282,8 @@
     },
     "tank16.png": {
       "frame": {
-        "x": 778,
-        "y": 735,
+        "x": 846,
+        "y": 363,
         "w": 58,
         "h": 83
       },
@@ -1902,8 +2302,8 @@
     },
     "tank17.png": {
       "frame": {
-        "x": 781,
-        "y": 820,
+        "x": 846,
+        "y": 448,
         "w": 58,
         "h": 83
       },
@@ -1922,12 +2322,12 @@
     },
     "tank18.png": {
       "frame": {
-        "x": 806,
-        "y": 95,
+        "x": 788,
+        "y": 815,
         "w": 50,
         "h": 78
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 24,
@@ -2005,6 +2405,28 @@
       "groundpatch18.png",
       "groundpatch19.png"
     ],
+    "health": [
+      "health01.png",
+      "health02.png",
+      "health03.png",
+      "health04.png",
+      "health05.png",
+      "health06.png",
+      "health07.png",
+      "health08.png",
+      "health09.png",
+      "health10.png",
+      "health11.png",
+      "health12.png",
+      "health13.png",
+      "health14.png",
+      "health15.png",
+      "health16.png",
+      "health17.png",
+      "health18.png",
+      "health19.png",
+      "health20.png"
+    ],
     "hud": [
       "hud1.png",
       "hud2.png",
@@ -2071,10 +2493,10 @@
     "image": "sprites.png",
     "format": "RGBA8888",
     "size": {
-      "w": 1016,
-      "h": 1086
+      "w": 955,
+      "h": 1205
     },
     "scale": "1",
-    "smartupdate": "$TexturePacker:SmartUpdate:e09d820373352fe4e943a73d32c2dc4a:cbbee210c9debfb897bce3d4206e2e99:1eabdf11f75e3a4fe3147baf7b5be24b$"
+    "smartupdate": "$TexturePacker:SmartUpdate:dd68aded46fd5b1cd1bf749100117fb2:d6f3d48651f321c96840f3e7ceba4f2d:1eabdf11f75e3a4fe3147baf7b5be24b$"
   }
 }
