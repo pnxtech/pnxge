@@ -15,6 +15,7 @@ export default class HudController implements IPNXController{
   private heroAnim: PNXAnim;
   private healthAnim: PNXAnim;
   private scoreAnim: PNXTextSprite;
+  private gameoverAnim: PNXTextSprite;
 
   private destructionSequence: boolean = false;
   private destructionInterval: number = 40;
@@ -30,6 +31,8 @@ export default class HudController implements IPNXController{
     this.heroAnim = <PNXAnim>scene.getAnim('hero');
     this.healthAnim = <PNXAnim>scene.getAnim('health');
     this.scoreAnim = <PNXTextSprite>scene.getAnim('score');
+    this.gameoverAnim = <PNXTextSprite>scene.getAnim('gameover');
+    this.gameoverAnim.visible = false;
     this.anim.attachController(this);
   }
 
@@ -61,6 +64,7 @@ export default class HudController implements IPNXController{
       this.destructionDelay--;
       if (this.destructionDelay < 0) {
         this.anim.setFrame(3);
+        this.gameoverAnim.visible = true;
         this.destructionDelay = -1;
         this.destructionSequence = false;
       }
@@ -70,7 +74,7 @@ export default class HudController implements IPNXController{
     this.scoreAnim.text = zeroPad(this.scene.app.score, 5);
 
     let healthScore = 20 - (((this.heroAnim.health / 5) | 0) || 0);
-    if (healthScore === 20) {
+    if (healthScore >= 20) {
       healthScore = 19;
     }
     this.healthAnim.setFrame(healthScore);

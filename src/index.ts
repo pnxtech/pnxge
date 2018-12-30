@@ -1,20 +1,19 @@
-import * as PIXI from 'pixi.js';
 import PNXApplication from './PNXApplication';
 import PNXGameLoader from './PNXGameLoader';
-import TestScene from './testScene';
+import Level1Scene from './level1Scene';
 
 let SCENEWIDTH: number = 360;
 let SCENEHEIGHT: number = 360;
 
 export default class GameApp extends PNXApplication {
   private gameLoader: PNXGameLoader;
-  private scene: TestScene;
+  private scene: Level1Scene;
   private LEFTKEY: number = 37;
   private RIGHTKEY: number = 39;
 
   constructor() {
     super(SCENEWIDTH, SCENEHEIGHT);
-    this.scene = new TestScene(this);
+    this.scene = new Level1Scene(this);
 
     this.gameLoader = new PNXGameLoader(this.scene, 'level1');
     this.gameLoader.load('game.json', (resources: {}) => {

@@ -1,7 +1,7 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
-import {IProjectileObject, PNXProjectileManager} from './PNXProjectileManager';
-import {pcap} from './PNXMath';
+import {PNXProjectileManager} from './PNXProjectileManager';
+import {pcap, PNXRandom} from './PNXMath';
 import IPNXController from './PNXController';
 
 /**
@@ -11,7 +11,7 @@ import IPNXController from './PNXController';
 export default class SquidController implements IPNXController{
   private scene: PNXScene;
   private anim: PNXAnim;
-  private firingInterval: number = 40;
+  private firingInterval: number = 0;
   private firingDelay: number;
   private active: boolean = true;
 
@@ -24,6 +24,7 @@ export default class SquidController implements IPNXController{
     this.anim = <PNXAnim>scene.getAnim(name);
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
+    this.firingInterval = (new PNXRandom()).getRandomIntInclusive(200, 400);
     this.firingDelay = this.firingInterval;
   }
 
@@ -34,6 +35,9 @@ export default class SquidController implements IPNXController{
    * @return {void}
    */
   hitBy(anim: PNXAnim): void {
+    if (anim.type === 'bullet') {
+      return;
+    }
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       projectileManager.createProjectile({
@@ -54,7 +58,9 @@ export default class SquidController implements IPNXController{
       });
       this.active = false;
       this.anim.visible = false;
-      this.scene.app.score += this.anim.strength;
+      if (anim.type === 'hero-bullet') {
+        this.scene.app.score += this.anim.strength;
+      }
     }
   }
 

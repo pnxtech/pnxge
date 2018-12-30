@@ -34,6 +34,9 @@ export default class SeekerController implements IPNXController{
    * @description hit by anim (collision event handler)
    */
   hitBy(anim: PNXAnim): void {
+    if (anim.type === 'bullet') {
+      return;
+    }
     let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       projectileManager.createProjectile({
@@ -54,7 +57,9 @@ export default class SeekerController implements IPNXController{
       });
       this.active = false;
       this.anim.visible = false;
-      this.scene.app.score += this.anim.strength;
+      if (anim.type === 'hero-bullet') {
+        this.scene.app.score += this.anim.strength;
+      }
     }
   }
 

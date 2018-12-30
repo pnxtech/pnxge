@@ -8,10 +8,10 @@ import BeetleController from './beetleController';
 import HudController from './hudController';
 
 /**
- * @name TestScene
- * @description Sample test scene using the PNX Game Engine
+ * @name Level1Scene
+ * @description Level1 scene using the PNX Game Engine
  */
-export default class TestScene extends PNXScene {
+export default class Level1Scene extends PNXScene {
   protected projectileManager: PNXProjectileManager | undefined;
   private heroController: HeroController | undefined;
 
@@ -36,9 +36,15 @@ export default class TestScene extends PNXScene {
     this.attachProjectileManager(this.projectileManager);
     this.heroController = new HeroController('hero', this);
     new HudController('hud', this);
-    new SquidController('squid1', this);
-    new SeekerController('seeker1', this);
-    new BeetleController('beetle1', this);
+    for (let i = 0; i < 10; i++) {
+      new BeetleController(`beetle${i}`, this);
+    }
+    for (let i = 0; i < 4; i++) {
+      new SquidController(`squid${i}`, this);
+    }
+    for (let i = 0; i < 2; i++) {
+      new SeekerController(`seeker${i}`, this);
+    }
     super.start(resources);
   }
 
