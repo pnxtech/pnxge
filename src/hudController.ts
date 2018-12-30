@@ -1,8 +1,9 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
 import {PNXProjectileManager} from './PNXProjectileManager';
-import {pcap} from './PNXMath';
+import {pcap, zeroPad} from './PNXMath';
 import IPNXController from './PNXController';
+import PNXTextSprite from './PNXTextSprite';
 
 /**
  * @name HudController
@@ -12,6 +13,9 @@ export default class HudController implements IPNXController{
   private scene: PNXScene;
   private anim: PNXAnim;
   private heroAnim: PNXAnim;
+  private healthAnim: PNXAnim;
+  private scoreAnim: PNXTextSprite;
+
   private destructionSequence: boolean = false;
   private destructionInterval: number = 40;
   private destructionDelay: number = -1;
@@ -22,8 +26,10 @@ export default class HudController implements IPNXController{
    */
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
-    this.anim = scene.getAnim(name);
-    this.heroAnim = scene.getAnim('hero');
+    this.anim = <PNXAnim>scene.getAnim(name);
+    this.heroAnim = <PNXAnim>scene.getAnim('hero');
+    this.healthAnim = <PNXAnim>scene.getAnim('health');
+    this.scoreAnim = <PNXTextSprite>scene.getAnim('score');
     this.anim.attachController(this);
   }
 
@@ -59,6 +65,16 @@ export default class HudController implements IPNXController{
         this.destructionSequence = false;
       }
     }
+
+    // console.log(`score: ${this.scene.app.score}`);
+    this.scoreAnim.text = zeroPad(this.scene.app.score, 5);
+
+    let healthScore = 20 - (((this.heroAnim.health / 5) | 0) || 0);
+    if (healthScore === 20) {
+      healthScore = 19;
+    }
+    this.healthAnim.setFrame(healthScore);
+
     if (!this.destructionSequence && this.heroAnim.health < 1) {
       this.destructionSequence = true;
       this.destructionDelay = this.destructionInterval;

@@ -1,7 +1,9 @@
 import * as PIXI from 'pixi.js';
+import PNXApplication from './PNXApplication';
 import PNXAnim from './PNXAnim';
 import {IPNXAnimCompatible} from './PNXAnim';
 import { PNXProjectileManager } from './PNXProjectileManager';
+import PNXTextSprite from './PNXTextSprite';
 
 interface IAnimHash { [key: string]: PNXAnim};
 
@@ -10,7 +12,7 @@ interface IAnimHash { [key: string]: PNXAnim};
  * @description Phoenix Game Engine Scene class
  */
 export default class PNXScene {
-  public app: PIXI.Application;
+  public app: PNXApplication;
   protected sceneWidth: number;
   protected sceneHeight: number;
 
@@ -22,14 +24,12 @@ export default class PNXScene {
   /**
    * @name constructor
    * @description initialize scene
-   * @param {PIXI.Container} stage
-   * @param {number} width - scene width
-   * @param {number} height - scene height
+   * @param {PNXApplication} application
    */
-  constructor(app: PIXI.Application, width: number, height: number) {
+  constructor(app: PNXApplication) {
     this.app = app;
-    this.sceneWidth = width;
-    this.sceneHeight = height;
+    this.sceneWidth = app.width;
+    this.sceneHeight = app.height;
     this.stage = app.stage;
     this.ticker = app.ticker;
     this.anims = {};
@@ -94,9 +94,9 @@ export default class PNXScene {
   /**
    * @name getAnim
    * @description get anim by name
-   * @return {PNXAnim} anim
+   * @return {PNXTextSprite} anim
    */
-  getAnim(name: string): PNXAnim {
+  getAnim(name: string): PNXAnim | PNXTextSprite {
     return this.anims[name];
   }
 

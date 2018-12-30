@@ -593,7 +593,7 @@ export default class PNXAnim implements IPNXAnimCompatible {
       if (this.controller) {
         this.controller.hitBy(anim);
       }
-      console.log(`anim:${this.currentSequenceName} collided with anim:${anim.currentSequenceName}`);
+      // console.log(`anim:${this.currentSequenceName} collided with anim:${anim.currentSequenceName}`);
     }
   }
 

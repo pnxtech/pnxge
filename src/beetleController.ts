@@ -21,7 +21,7 @@ export default class SquidController implements IPNXController{
    */
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
-    this.anim = scene.getAnim(name);
+    this.anim = <PNXAnim>scene.getAnim(name);
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
     this.firingDelay = this.firingInterval;
@@ -54,6 +54,7 @@ export default class SquidController implements IPNXController{
       });
       this.active = false;
       this.anim.visible = false;
+      this.scene.app.score += this.anim.strength;
     }
   }
 

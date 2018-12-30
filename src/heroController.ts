@@ -24,7 +24,7 @@ export default class HeroController implements IPNXController {
    */
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
-    this.anim = scene.getAnim(name);
+    this.anim = <PNXAnim>scene.getAnim(name);
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
   }
@@ -39,7 +39,7 @@ export default class HeroController implements IPNXController {
     let explosionScale = 0.5;
     this.collisionClearCountdown = this.collisionClearInterval;
     this.anim.health -= anim.strength;
-    console.log(`hero health: ${this.anim.health}`);
+
     if (!this.anim.health) {
       explosionScale = 2;
       this.anim.setFrame(18);

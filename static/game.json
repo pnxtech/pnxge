@@ -1,7 +1,6 @@
 {
   "assets": [
     "sprites.json",
-    "title60pt.fnt",
     "digital40pt.fnt"
   ],
   "scenes": {
@@ -32,12 +31,12 @@
           "type": "text",
           "name": "title",
           "fontInfo": {
-            "font": "30px title60pt",
+            "font": "30px digital40pt",
             "align": "center"
           },
           "text": "Tyros",
-          "x": 142,
-          "y": 2,
+          "x": 140,
+          "y": 8,
           "z": 25000
         },
         {
@@ -49,7 +48,7 @@
           },
           "text": "00000",
           "x": 140,
-          "y": 326,
+          "y": 324,
           "z": 25000
         },
         {
@@ -58,26 +57,30 @@
           "atlas": "sprites.json",
           "sequence": "health",
           "animationSpeed": 0.1,
+          "frame": 0,
           "x": 180,
           "y": 322,
           "z": 25000,
-          "loop": true,
+          "loop": false,
           "rotation": 0,
           "collisionDetection": false,
           "health": 0,
           "strength": 0
         },
         {
-          "type": "tile",
-          "name": "background",
-          "file": "tile01.jpg",
-          "flip": true,
-          "tint4": "0x808080",
-          "tint3": "0xE0E0E0",
-          "tint2": "0xC0C0C0",
-          "tint1": "0xB0B0B0",
-          "tint0": "0xA0A0A0",
-          "tint": "0xE8E8E8"
+          "type": "character",
+          "name": "tile",
+          "atlas": "sprites.json",
+          "sequence": "tile",
+          "x": 180,
+          "y": 180,
+          "z": 0,
+          "loop": false,
+          "frame": 2,
+          "rotation": 0,
+          "collisionDetection": false,
+          "health": 0,
+          "strength": 0
         },
         {
           "type": "ground",

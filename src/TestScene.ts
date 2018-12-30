@@ -1,4 +1,4 @@
-import * as PIXI from 'pixi.js';
+import PNXApplication from './PNXApplication';
 import PNXScene from './PNXScene';
 import {PNXProjectileManager} from './PNXProjectileManager';
 import HeroController from './heroController';
@@ -6,7 +6,6 @@ import SquidController from './squidController';
 import SeekerController from './seekerController';
 import BeetleController from './beetleController';
 import HudController from './hudController';
-
 
 /**
  * @name TestScene
@@ -19,10 +18,10 @@ export default class TestScene extends PNXScene {
   /**
    * @name constructor
    * @description initialize scene
-   * @param {PIXI.Container} stage
+   * @param {PNXApplication} app
    */
-  constructor(app: PIXI.Application, width: number, height: number) {
-    super(app, width, height);
+  constructor(app: PNXApplication) {
+    super(app);
     this.app = app;
   }
 

@@ -1,25 +1,20 @@
 import * as PIXI from 'pixi.js';
-import TestScene from './testScene';
+import PNXApplication from './PNXApplication';
 import PNXGameLoader from './PNXGameLoader';
+import TestScene from './testScene';
 
-export default class PixiBoot extends PIXI.Application {
+let SCENEWIDTH: number = 360;
+let SCENEHEIGHT: number = 360;
+
+export default class GameApp extends PNXApplication {
   private gameLoader: PNXGameLoader;
   private scene: TestScene;
   private LEFTKEY: number = 37;
   private RIGHTKEY: number = 39;
-  private SCENEWIDTH: number = 360;
-  private SCENEHEIGHT: number = 360;
 
   constructor() {
-    super({
-      view: <HTMLCanvasElement>document.getElementById('canvas'),
-      backgroundColor: 0x000000,
-      width: 360,
-      height: 360
-    });
-    document.body.appendChild(this.view);
-
-    this.scene = new TestScene(this, this.SCENEWIDTH, this.SCENEHEIGHT);
+    super(SCENEWIDTH, SCENEHEIGHT);
+    this.scene = new TestScene(this);
 
     this.gameLoader = new PNXGameLoader(this.scene, 'level1');
     this.gameLoader.load('game.json', (resources: {}) => {
@@ -41,4 +36,4 @@ export default class PixiBoot extends PIXI.Application {
   }
 }
 
-new PixiBoot();
+new GameApp();

@@ -25,6 +25,18 @@ export function createID(): string {
 }
 
 /**
+ * @name zeroPad
+ * @description left zero pad a number
+ * @param {number} num - number to format
+ * @param {number} size - size of return string
+ * @return {string} zero padded number string
+ */
+export function zeroPad(num: number, size: number): string {
+  let s = "000000000" + num;
+  return s.substr(s.length-size);
+}
+
+/**
  * @name PNXAngle
  * @description Angle functions
  */

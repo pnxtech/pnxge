@@ -23,8 +23,8 @@ export default class SeekerController implements IPNXController{
    */
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
-    this.anim = scene.getAnim(name);
-    this.heroAnim = scene.getAnim('hero');
+    this.anim = <PNXAnim>scene.getAnim(name);
+    this.heroAnim = <PNXAnim>scene.getAnim('hero');
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
   }
@@ -54,6 +54,7 @@ export default class SeekerController implements IPNXController{
       });
       this.active = false;
       this.anim.visible = false;
+      this.scene.app.score += this.anim.strength;
     }
   }
 

@@ -24,3 +24,23 @@ https://www.bmglyph.com/
 #### Daz3D
 https://www.daz3d.com
 
+
+#### Background tiling
+
+Tiling background support:
+
+```
+        {
+          "type": "tile",
+          "name": "background",
+          "file": "tile01.jpg",
+          "flip": true,
+          "tint4": "0x808080",
+          "tint3": "0xE0E0E0",
+          "tint2": "0xC0C0C0",
+          "tint1": "0xB0B0B0",
+          "tint0": "0xA0A0A0",
+          "tint": "0xE8E8E8"
+        },
+```
+
