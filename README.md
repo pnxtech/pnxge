@@ -21,6 +21,8 @@ https://www.bmglyph.com/
 
 * Export format: Sparrow / Starling
 
+After publishing font files, load the .png file into Photoshop and export it as an 8bit file.  That will create a PNG color index which will reduce the png file by over half of its original size.
+
 #### Daz3D
 https://www.daz3d.com
 
