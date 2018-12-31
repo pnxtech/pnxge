@@ -1,6 +1,7 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
 import {PNXProjectileManager} from './PNXProjectileManager';
+import PNXSoundManager from './PNXSoundManager';
 import {PNXVector, PNXAngle} from './PNXMath';
 import IPNXController from './PNXController';
 
@@ -16,6 +17,7 @@ export default class SeekerController implements IPNXController{
   private heroVector: PNXVector = new PNXVector(0,0);
   private changeCourse: boolean = false;
   private active: boolean = true;
+  private soundManager: PNXSoundManager | undefined;
 
   /**
    * @name constructor
@@ -27,6 +29,7 @@ export default class SeekerController implements IPNXController{
     this.heroAnim = <PNXAnim>scene.getAnim('hero');
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
+    this.soundManager = this.scene.getSoundManager();
   }
 
   /**
@@ -55,6 +58,9 @@ export default class SeekerController implements IPNXController{
         rotation: this.anim.rotation,
         scale: 1
       });
+      if (this.soundManager) {
+        this.soundManager.play('exp1');
+      }
       this.active = false;
       this.anim.visible = false;
       if (anim.type === 'hero-bullet') {

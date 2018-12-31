@@ -3,6 +3,7 @@ import PNXApplication from './PNXApplication';
 import PNXAnim from './PNXAnim';
 import {IPNXAnimCompatible} from './PNXAnim';
 import { PNXProjectileManager } from './PNXProjectileManager';
+import PNXSoundManager from './PNXSoundManager';
 import PNXTextSprite from './PNXTextSprite';
 
 interface IAnimHash { [key: string]: PNXAnim};
@@ -20,6 +21,7 @@ export default class PNXScene {
   public ticker: PIXI.ticker.Ticker;
   public anims: IAnimHash;
   protected projectileManager: PNXProjectileManager | undefined;
+  protected soundManager: PNXSoundManager | undefined;
 
   /**
    * @name constructor
@@ -51,6 +53,24 @@ export default class PNXScene {
    */
   getProjectileManager(): PNXProjectileManager | undefined {
     return this.projectileManager;
+  }
+
+  /**
+   * @name attachSoundManager
+   * @description attach sound manager
+   * @return {void}
+   */
+  attachSoundManager(soundManager: PNXSoundManager): void {
+    this.soundManager = soundManager;
+  }
+
+  /**
+   * @name getSoundManager
+   * @description retrieve a sound manager instance or undefined
+   * @return {PNXSoundManager | undefined}
+   */
+  getSoundManager(): PNXSoundManager | undefined {
+    return this.soundManager;
   }
 
   /**

@@ -1,6 +1,7 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
 import {PNXProjectileManager} from './PNXProjectileManager';
+import PNXSoundManager from './PNXSoundManager';
 import {pcap, PNXRandom} from './PNXMath';
 import IPNXController from './PNXController';
 
@@ -14,6 +15,7 @@ export default class SquidController implements IPNXController{
   private firingInterval: number = 0;
   private firingDelay: number;
   private active: boolean = true;
+  private soundManager: PNXSoundManager | undefined;
 
   /**
    * @name constructor
@@ -26,6 +28,7 @@ export default class SquidController implements IPNXController{
     this.anim.collisionDetection = true;
     this.firingInterval = (new PNXRandom()).getRandomIntInclusive(200, 400);
     this.firingDelay = this.firingInterval;
+    this.soundManager = this.scene.getSoundManager();
   }
 
   /**
@@ -56,6 +59,9 @@ export default class SquidController implements IPNXController{
         rotation: this.anim.rotation,
         scale: 1
       });
+      if (this.soundManager) {
+        this.soundManager.play('exp1');
+      }
       this.active = false;
       this.anim.visible = false;
       if (anim.type === 'hero-bullet') {
@@ -90,6 +96,9 @@ export default class SquidController implements IPNXController{
         rotation,
         scale: 1
       });
+      if (this.soundManager) {
+        this.soundManager.play('enemyfire');
+      }
     }
   }
 

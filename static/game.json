@@ -1,6 +1,7 @@
 {
   "assets": [
     "sprites.json",
+    "sounds.json",
     "digital40pt.fnt",
     "digitaltech60pt.fnt"
   ],
@@ -28,6 +29,11 @@
     "level1": {
       "type": "level",
       "objects": [
+        {
+          "type": "sounds",
+          "atlas": "sounds.json",
+          "volume": 0.5
+        },
         {
           "type": "character",
           "name": "hud",

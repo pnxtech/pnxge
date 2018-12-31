@@ -4,7 +4,41 @@ PNXTech Game Engine
 
 Built on top of [PixiJS 4.8.1](https://pixijs.download/v4.8.1/docs/index.html)
 
+Also uses the Howler sound engine:
+https://github.com/goldfire/howler.js
+
 ## Tools
+
+#### AudioSprites
+
+Use Audio sprites: https://github.com/tonistiigi/audiosprite
+
+First install ffmpeg:
+
+```
+$ brew install ffmpeg --with-theora --with-libvorbis
+```
+Note: brew install step seems to take a while to install...
+
+Then install audiosprite:
+
+```
+$ npm install -g audiosprite
+```
+
+Build sounds in static folder using:
+
+```
+$ audiosprite --output sounds *.wav
+```
+
+https://www.nomisoft.co.uk/articles/audio-sprites-with-howler-js
+
+AudioSprites talk
+https://www.youtube.com/watch?v=8skJbjEh9SY
+
+Then define auduio sprites using:
+https://github.com/goldfire/howler.js#define-and-play-a-sound-sprite
 
 #### TexturePacker
 https://www.codeandweb.com/texturepacker

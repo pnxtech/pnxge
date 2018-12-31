@@ -3,6 +3,7 @@ import PNXScene from './PNXScene';
 import PNXAnim, { AnimType } from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
 import PNXTextSprite from './PNXTextSprite';
+import PNXSoundManager from './PNXSoundManager';
 
 interface ICallback { (resources: {}): void };
 interface ISceneDataHash { [key: string]: {
@@ -19,6 +20,7 @@ export default class PNXGameLoader {
   private sceneName: string;
   private sceneData: ISceneDataHash = {};
   private sceneObjects: ISceneObjectHash = {};
+  private soundManager: PNXSoundManager | undefined;
 
   /**
    * @name constructor
@@ -28,6 +30,7 @@ export default class PNXGameLoader {
     this.loader = new PIXI.loaders.Loader();
     this.sceneName = sceneName;
     this.parentScene = scene;
+    this.soundManager = undefined;
   }
 
   /**
@@ -48,6 +51,13 @@ export default class PNXGameLoader {
         let objectList = this.sceneData.objects;
         for (let obj of <any>objectList) {
           switch (obj.type) {
+            case 'sounds':
+              if (!this.soundManager) {
+                this.soundManager = new PNXSoundManager(resources[obj.atlas].data);
+                this.soundManager.volume = obj.volume;
+              }
+              this.parentScene.attachSoundManager(this.soundManager);
+              break;
             case 'tile':
               this.sceneObjects[obj.name] = new PNXBackgroundTile(this.parentScene, obj.file);
               this.sceneObjects[obj.name].type = obj.type;

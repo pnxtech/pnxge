@@ -1,8 +1,10 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
 import {PNXProjectileManager} from './PNXProjectileManager';
+import PNXSoundManager from './PNXSoundManager';
 import {pcap} from './PNXMath';
 import IPNXController from './PNXController';
+
 
 /**
  * @name HeroController
@@ -17,6 +19,7 @@ export default class HeroController implements IPNXController {
   private active: boolean = true;
   private collisionClearInterval: number = 100;
   private collisionClearCountdown: number = -1;
+  private soundManager: PNXSoundManager | undefined;
 
   /**
    * @name constructor
@@ -27,6 +30,7 @@ export default class HeroController implements IPNXController {
     this.anim = <PNXAnim>scene.getAnim(name);
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
+    this.soundManager = this.scene.getSoundManager();
   }
 
   /**
@@ -63,6 +67,9 @@ export default class HeroController implements IPNXController {
         rotation: this.anim.rotation,
         scale: explosionScale
       });
+      if (this.soundManager) {
+        this.soundManager.play('exp3');
+      }
     }
   }
 
@@ -95,6 +102,9 @@ export default class HeroController implements IPNXController {
         rotation,
         scale: 1
       });
+      if (this.soundManager) {
+        this.soundManager.play('tankfire');
+      }
     }
   }
 
