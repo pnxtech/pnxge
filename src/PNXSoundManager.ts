@@ -18,6 +18,7 @@ export default class PNXSoundManager {
     this.soundData = {
       src: soundObj.resources,
       preload: true,
+      autoplay: false,
       sprite: soundObj.spritemap
     }
     let spritemap = this.soundData.sprite;
@@ -39,6 +40,16 @@ export default class PNXSoundManager {
    */
   play(name: string): void {
     this.soundPlayer.play(name);
+  }
+
+  /**
+   * @name stop
+   * @description stop sound
+   * @param {string} name - name of sound
+   * @return {void}
+   */
+  stop(name: string): void {
+    this.soundPlayer.stop(name);
   }
 
   /**
