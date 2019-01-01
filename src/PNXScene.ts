@@ -92,6 +92,7 @@ export default class PNXScene {
    */
   closeSplashScreen(): void {
     if (this.spashScreen) {
+      this.stage.removeChild(this.spashScreen);
       this.spashScreen.visible = false;
     }
   }

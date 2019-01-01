@@ -38,9 +38,10 @@ export default class PNXGameLoader {
    * @name preload
    * @description preload game assets
    * @param {string} filename - game file name
+   * @param {ICallback} postPreLoaderHandler - handler to call on post preload
    * @return {void}
    */
-  preload(filename: string): void {
+  preload(filename: string, postPreLoaderHandler: ICallback): void {
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
@@ -50,6 +51,19 @@ export default class PNXGameLoader {
       }
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         this.resources = resources;
+        let objectList = this.sceneData.objects;
+        for (let obj of <any>objectList) {
+          switch (obj.type) {
+            case 'sounds':
+              if (!this.soundManager) {
+                this.soundManager = new PNXSoundManager(this.resources[obj.atlas].data);
+                this.soundManager.volume = obj.volume;
+              }
+              this.parentScene.attachSoundManager(this.soundManager);
+              break;
+          }
+        }
+        postPreLoaderHandler(this.resources);
       });
     });
   }
@@ -64,13 +78,6 @@ export default class PNXGameLoader {
     let objectList = this.sceneData.objects;
     for (let obj of <any>objectList) {
       switch (obj.type) {
-        case 'sounds':
-          if (!this.soundManager) {
-            this.soundManager = new PNXSoundManager(this.resources[obj.atlas].data);
-            this.soundManager.volume = obj.volume;
-          }
-          this.parentScene.attachSoundManager(this.soundManager);
-          break;
         case 'tile':
           this.sceneObjects[obj.name] = new PNXBackgroundTile(this.parentScene, obj.file);
           this.sceneObjects[obj.name].type = obj.type;

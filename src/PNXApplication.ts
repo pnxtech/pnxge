@@ -20,7 +20,7 @@ export default class PNXApplication extends PIXI.Application {
       view: <HTMLCanvasElement>document.getElementById('canvas'),
       width,
       height,
-      transparent: true
+      backgroundColor: 0x000000
     });
     document.body.appendChild(this.view);
     this.appWidth = width;
