@@ -559,8 +559,8 @@ export default class PNXAnim implements IPNXAnimCompatible {
     }
     this.currentSequence = <PNXAnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     if (this.currentSequence) {
-      this.currentX += this.directionX * this.velocityX;
-      this.currentY += this.directionY * this.velocityY;
+      this.currentX += (this.directionX * this.velocityX) * deltaTime;
+      this.currentY += (this.directionY * this.velocityY) * deltaTime;
       this.currentSequence.visible = this.currentVisible;
       this.currentSequence.loop = this.currentLoop;
       this.currentSequence.x = this.currentX;
