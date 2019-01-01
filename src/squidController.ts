@@ -97,7 +97,7 @@ export default class SquidController implements IPNXController{
         scale: 1
       });
       if (this.soundManager) {
-        this.soundManager.play('enemyfire');
+        this.soundManager.play('enemyfire2');
       }
     }
   }

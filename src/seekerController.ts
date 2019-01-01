@@ -18,6 +18,8 @@ export default class SeekerController implements IPNXController{
   private changeCourse: boolean = false;
   private active: boolean = true;
   private soundManager: PNXSoundManager | undefined;
+  private machineSoundDelay: number;
+  private machineSoundCount: number = 200;
 
   /**
    * @name constructor
@@ -30,6 +32,7 @@ export default class SeekerController implements IPNXController{
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
     this.soundManager = this.scene.getSoundManager();
+    this.machineSoundDelay = 10;
   }
 
   /**
@@ -60,6 +63,7 @@ export default class SeekerController implements IPNXController{
       });
       if (this.soundManager) {
         this.soundManager.play('exp1');
+        this.soundManager.stop('seeker');
       }
       this.active = false;
       this.anim.visible = false;
@@ -107,6 +111,16 @@ export default class SeekerController implements IPNXController{
       if ((this.anim.y - this.anim.height) > this.scene.width) {
         this.active = false;
         this.anim.visible = false;
+        if (this.soundManager) {
+          this.soundManager.stop('seeker');
+        }
+      }
+      if (this.active && this.anim.y > 0) {
+        this.machineSoundDelay--;
+        if (this.soundManager && this.machineSoundDelay === 0) {
+          this.soundManager.play('seeker');
+          this.machineSoundDelay = this.machineSoundCount;
+        }
       }
     }
   }
