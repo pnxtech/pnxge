@@ -22,6 +22,7 @@ export default class PNXScene {
   public anims: IAnimHash;
   protected projectileManager: PNXProjectileManager | undefined;
   protected soundManager: PNXSoundManager | undefined;
+  protected spashScreen: PIXI.Sprite | undefined;
 
   /**
    * @name constructor
@@ -71,6 +72,28 @@ export default class PNXScene {
    */
   getSoundManager(): PNXSoundManager | undefined {
     return this.soundManager;
+  }
+
+  /**
+   * @name loadSplashScreen
+   * @description load the scene's splash screen
+   * @param {string} filePath - file path to splash screen image
+   * @return {void}
+   */
+  loadSplashScreen(filePath: string): void {
+    this.spashScreen = PIXI.Sprite.fromImage(filePath);
+    this.stage.addChild(this.spashScreen);
+  }
+
+  /**
+   * @name closeSplashScreen
+   * @description close the scene's splash screen if any
+   * @return {void}
+   */
+  closeSplashScreen(): void {
+    if (this.spashScreen) {
+      this.spashScreen.visible = false;
+    }
   }
 
   /**

@@ -16,17 +16,23 @@ export default class GameApp extends PNXApplication {
     this.scene = new Level1Scene(this);
 
     this.gameLoader = new PNXGameLoader(this.scene, 'level1');
-    this.gameLoader.load('game.json', (resources: {}) => {
-      this.scene.start(resources);
-      document.addEventListener('keydown', (event) => {
-        if(event.keyCode === this.LEFTKEY) {
-          this.scene.moveLeft();
-        }
-        else if(event.keyCode === this.RIGHTKEY) {
-          this.scene.moveRight();
-        }
+    this.gameLoader.preload('game.json');
+    this.scene.loadSplashScreen('tyros-loading.png');
+    let timeout = setTimeout(() => {
+      clearTimeout(timeout);
+      this.scene.closeSplashScreen();
+      this.gameLoader.load((resources: {}) => {
+        this.scene.start(resources);
+        document.addEventListener('keydown', (event) => {
+          if(event.keyCode === this.LEFTKEY) {
+            this.scene.moveLeft();
+          }
+          else if(event.keyCode === this.RIGHTKEY) {
+            this.scene.moveRight();
+          }
+        });
       });
-    });
+    }, 2000);
 
     // let timer = setTimeout(() => {
     //   clearTimeout(timer);
@@ -36,3 +42,4 @@ export default class GameApp extends PNXApplication {
 }
 
 new GameApp();
+

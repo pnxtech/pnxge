@@ -34,8 +34,8 @@ export default class Level1Scene extends PNXScene {
   start(resources: {}): void {
     this.projectileManager = new PNXProjectileManager(this, 'sprites.json', resources);
     this.attachProjectileManager(this.projectileManager);
-    this.heroController = new HeroController('hero', this);
     new HudController('hud', this);
+    this.heroController = new HeroController('hero', this);
     for (let i = 0; i < 10; i++) {
       new BeetleController(`beetle${i}`, this);
     }

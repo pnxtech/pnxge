@@ -1,7 +1,6 @@
 import PNXAnim from './PNXAnim';
 import PNXScene from './PNXScene';
-import {PNXProjectileManager} from './PNXProjectileManager';
-import {pcap, zeroPad} from './PNXMath';
+import {zeroPad} from './PNXMath';
 import IPNXController from './PNXController';
 import PNXTextSprite from './PNXTextSprite';
 
