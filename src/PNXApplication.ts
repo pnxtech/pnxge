@@ -61,5 +61,13 @@ export default class PNXApplication extends PIXI.Application {
   set score(value: number) {
     this.gameScore = value;
   }
+
+  /**
+   * @name levelEnd
+   * @description level end handler
+   * @param {string} outcome - result of level ending
+   */
+  levelEnd(outcome: string): void {
+  }
 }
 

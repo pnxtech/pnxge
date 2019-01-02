@@ -41,6 +41,15 @@ export default class GameApp extends PNXApplication {
     //   this.scene.destroy();
     // }, 15000);
   }
+
+  /**
+   * @name levelEnd
+   * @description level end handler
+   * @param {string} outcome - result of level ending
+   */
+  levelEnd(outcome: string): void {
+  }
+
 }
 
 new GameApp();

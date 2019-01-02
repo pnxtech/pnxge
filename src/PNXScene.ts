@@ -7,6 +7,8 @@ import PNXSoundManager from './PNXSoundManager';
 import PNXTextSprite from './PNXTextSprite';
 
 interface IAnimHash { [key: string]: PNXAnim};
+interface IAnimCallback { (anim: PNXAnim): void };
+interface IAnimDoneCallback { (): void };
 
 /**
  * @name PNXScene
@@ -110,6 +112,16 @@ export default class PNXScene {
   }
 
   /**
+   * @name end
+   * @description scene end handler
+   * @param {string} outcome - result of scene ending
+   * @return {void}
+   */
+  end(outcome: string): void {
+    this.ticker.stop();
+  }
+
+  /**
    * @name addAnim
    * @description add an anim to the scene
    * @param {string} name - name of anim
@@ -160,6 +172,20 @@ export default class PNXScene {
    */
   get height() : number {
     return this.sceneHeight;
+  }
+
+  /**
+   * @name forEachAnim
+   * @description enumerate anims
+   * @param {IAnimCallback} callback - called for each anim
+   * @param {IAnimDoneCallback} done - called when done
+   * return {void}
+   */
+  forEachAnim(callback: IAnimCallback, done: IAnimDoneCallback): void {
+    Object.keys(this.anims).forEach((key) => {
+      callback(this.anims[key]);
+    });
+    done();
   }
 
   /**

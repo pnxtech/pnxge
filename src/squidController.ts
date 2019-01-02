@@ -25,6 +25,7 @@ export default class SquidController implements IPNXController{
     this.scene = scene;
     this.anim = <PNXAnim>scene.getAnim(name);
     this.anim.attachController(this);
+    this.anim.type = 'enemy';
     this.anim.collisionDetection = true;
     this.firingInterval = (new PNXRandom()).getRandomIntInclusive(200, 400);
     this.firingDelay = this.firingInterval;
@@ -115,7 +116,7 @@ export default class SquidController implements IPNXController{
         this.firingDelay = this.firingInterval;
         this.fire();
       }
-      if ((this.anim.y - this.anim.height) > this.scene.width) {
+      if ((this.anim.y - this.anim.height) > this.scene.height) {
         this.active = false;
         this.anim.visible = false;
       }

@@ -20,6 +20,7 @@ export default class HeroController implements IPNXController {
   private collisionClearInterval: number = 100;
   private collisionClearCountdown: number = -1;
   private soundManager: PNXSoundManager | undefined;
+  private destructionCountdown: number = 1000;
 
   /**
    * @name constructor
@@ -149,6 +150,12 @@ export default class HeroController implements IPNXController {
    * @return {void}
    */
   update(deltaTime: number): void {
+    if (!this.active) {
+      this.destructionCountdown--;
+      if (this.destructionCountdown === 0) {
+        this.anim.visible = false;
+      }
+    }
     if (this.collisionClearCountdown !== -1) {
       this.collisionClearCountdown--;
       if (this.collisionClearCountdown < 0) {

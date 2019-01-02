@@ -91,6 +91,18 @@
           "z": 25000
         },
         {
+          "type": "text",
+          "name": "levelcomplete",
+          "fontInfo": {
+            "font": "60px digitaltech60pt",
+            "align": "center"
+          },
+          "text": "LEVEL\nComplete",
+          "x": 50,
+          "y": 100,
+          "z": 25000
+        },
+        {
           "type": "character",
           "name": "health",
           "atlas": "sprites.json",

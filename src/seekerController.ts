@@ -30,6 +30,7 @@ export default class SeekerController implements IPNXController{
     this.anim = <PNXAnim>scene.getAnim(name);
     this.heroAnim = <PNXAnim>scene.getAnim('hero');
     this.anim.attachController(this);
+    this.anim.type = 'enemy';
     this.anim.collisionDetection = true;
     this.soundManager = this.scene.getSoundManager();
     this.machineSoundDelay = 10;
@@ -108,7 +109,7 @@ export default class SeekerController implements IPNXController{
         this.anim.vx = 1;
         this.anim.vy = 1;
       }
-      if ((this.anim.y - this.anim.height) > this.scene.width) {
+      if ((this.anim.y - this.anim.height) > this.scene.height) {
         this.active = false;
         this.anim.visible = false;
         if (this.soundManager) {
