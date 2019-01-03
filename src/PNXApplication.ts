@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import PNXEventManager from './PNXEventManager';
 
 /**
  * @name PNXApplication
@@ -8,6 +9,7 @@ export default class PNXApplication extends PIXI.Application {
   private appWidth: number = 0;
   private appHeight: number = 0;
   private gameScore: number = 0;
+  private appEventManager: PNXEventManager = new PNXEventManager();
 
   /**
    * @name constructor
@@ -52,6 +54,15 @@ export default class PNXApplication extends PIXI.Application {
    */
   get score(): number {
     return this.gameScore;
+  }
+
+  /**
+   * @name getEventManager
+   * @description get event manager instance
+   * @return {PNXEventManager}
+   */
+  getEventManager(): PNXEventManager {
+    return this.appEventManager;
   }
 
   /**

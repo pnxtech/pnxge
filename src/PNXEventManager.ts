@@ -8,10 +8,10 @@ interface IEventHash {
 };
 
 /**
- * @name PNXEvent
+ * @name PNXEventManager
  * @description Event system - allows for adding, removing and triggering system wide events
  */
-export default class PNXEvent {
+export default class PNXEventManager {
   private callBackData: IEventHash = {};
 
   /**
