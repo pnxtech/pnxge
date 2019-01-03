@@ -609,6 +609,8 @@ export default class PNXAnim implements IPNXAnimCompatible {
    * @return {void}
    */
   destroy(): void {
+    // TODO: check this: use of <any> might not be right - code below would work for arrays but not IHASH
+    // use this form: Object.keys(this.callBackData).forEach((key) => {}
     for (let animSequence of <any>this.animationSequence) {
       animSequence.sequence.visible = false;
       animSequence.sequence.destroy({
