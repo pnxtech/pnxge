@@ -3,6 +3,7 @@ import PNXScene from './PNXScene';
 import {zeroPad} from './PNXMath';
 import IPNXController from './PNXController';
 import PNXTextSprite from './PNXTextSprite';
+import PNXEventManager from './PNXEventManager';
 
 /**
  * @name HudController
@@ -20,6 +21,8 @@ export default class HudController implements IPNXController{
   private destructionSequence: boolean = false;
   private destructionInterval: number = 40;
   private destructionDelay: number = -1;
+  private eventManager: PNXEventManager;
+  private eventID: string = '';
 
   /**
    * @name constructor
@@ -27,6 +30,7 @@ export default class HudController implements IPNXController{
    */
   constructor(name: string, scene: PNXScene) {
     this.scene = scene;
+    this.eventManager = this.scene.app.getEventManager();
     this.anim = <PNXAnim>scene.getAnim(name);
     this.heroAnim = <PNXAnim>scene.getAnim('hero');
     this.healthAnim = <PNXAnim>scene.getAnim('health');
@@ -36,6 +40,10 @@ export default class HudController implements IPNXController{
     this.levelCompleteAnim = <PNXTextSprite>scene.getAnim('levelcomplete');
     this.levelCompleteAnim.visible = false;
 
+    this.anim.attachTouchHandler('hudTouchEvent', this.eventManager);
+    this.eventID = this.eventManager.addEventHandler('hudTouchEvent', (anim: PNXAnim) => {
+      anim.visible = false;
+    });
     this.anim.attachController(this);
   }
 
@@ -98,5 +106,13 @@ export default class HudController implements IPNXController{
       this.destructionSequence = true;
       this.destructionDelay = this.destructionInterval;
     }
+  }
+
+  /**
+   * @name destroy
+   * @description hud controller cleanup
+   */
+  destroy() {
+    this.eventManager.removeEventHandler(this.eventID);
   }
 }

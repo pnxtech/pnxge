@@ -123,4 +123,11 @@ export default class SquidController implements IPNXController{
       }
     }
   }
+
+  /**
+   * @name destroy
+   * @description controller cleanup
+   */
+  destroy() {
+  }
 }

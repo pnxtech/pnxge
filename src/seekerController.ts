@@ -125,4 +125,11 @@ export default class SeekerController implements IPNXController{
       }
     }
   }
+
+  /**
+   * @name destroy
+   * @description controller cleanup
+   */
+  destroy() {
+  }
 }

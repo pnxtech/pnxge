@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import PNXEventManager from './PNXEventManager';
 import PNXAnimatedSprite from './PNXAnimatedSprite';
 import IPNXController from './PNXController';
 import PNXScene from './PNXScene';
@@ -540,6 +541,25 @@ export default class PNXAnim implements IPNXAnimCompatible {
   setFrame(frameNumber: number): void {
     if (this.currentSequence) {
       this.currentSequence.gotoAndStop(frameNumber);
+    }
+  }
+
+  /**
+   * @name attachTouchHandler
+   * @description attach a touch (click, press, touch) handler for this anim
+   * @param {string} name - name of event
+   * @param {PNXEventManager} - instance of event eventManager
+   * @return {void}
+   */
+  attachTouchHandler(name: string, eventManager: PNXEventManager): void {
+    if (this.currentSequence) {
+      this.currentSequence.interactive = true;
+      this.currentSequence.on('click', () => {
+        eventManager.triggerEvent(name, this);
+      });
+      this.currentSequence.on('touchend', () => {
+        eventManager.triggerEvent(name, this);
+      });
     }
   }
 

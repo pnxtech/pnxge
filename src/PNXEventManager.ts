@@ -23,7 +23,13 @@ export default class PNXEventManager {
    */
   addEventHandler(name: string, callback: IEventCallback): string {
     let newID = createID();
-    this.callBackData[name][newID] = callback;
+    if (!this.callBackData[name]) {
+      this.callBackData[name] = {
+        [newID]: callback
+      };
+    } else {
+      this.callBackData[name][newID] = callback;
+    }
     return newID;
   }
 
@@ -54,7 +60,7 @@ export default class PNXEventManager {
     if (this.callBackData[name]) {
       Object.keys(this.callBackData[name]).forEach((id) => {
         this.callBackData[name][id](eventData);
-      })
+      });
     }
   }
 }

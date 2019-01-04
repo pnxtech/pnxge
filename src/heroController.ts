@@ -164,4 +164,11 @@ export default class HeroController implements IPNXController {
       }
     }
   }
+
+  /**
+   * @name destroy
+   * @description controller cleanup
+   */
+  destroy() {
+  }
 }
