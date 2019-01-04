@@ -1,9 +1,9 @@
-import PNXAnim from './PNXAnim';
-import PNXScene from './PNXScene';
-import {zeroPad} from './PNXMath';
-import IPNXController from './PNXController';
-import PNXTextSprite from './PNXTextSprite';
-import PNXEventManager from './PNXEventManager';
+import PNXAnim from './PNXGE/PNXAnim';
+import PNXScene from './PNXGE/PNXScene';
+import IPNXController from './PNXGE/PNXController';
+import PNXTextSprite from './PNXGE/PNXTextSprite';
+import PNXEventManager from './PNXGE/PNXEventManager';
+import {zeroPad} from './PNXGE/PNXMath';
 
 
 /**

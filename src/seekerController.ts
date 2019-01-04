@@ -1,9 +1,9 @@
-import PNXAnim from './PNXAnim';
-import PNXScene from './PNXScene';
-import {PNXProjectileManager} from './PNXProjectileManager';
-import PNXSoundManager from './PNXSoundManager';
-import {PNXVector, PNXAngle} from './PNXMath';
-import IPNXController from './PNXController';
+import PNXAnim from './PNXGE/PNXAnim';
+import PNXScene from './PNXGE/PNXScene';
+import PNXProjectileManager from './PNXGE/PNXProjectileManager';
+import PNXSoundManager from './PNXGE/PNXSoundManager';
+import IPNXController from './PNXGE/PNXController';
+import {PNXVector, PNXAngle} from './PNXGE/PNXMath';
 
 /**
  * @name SeekerController

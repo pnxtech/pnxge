@@ -1,9 +1,9 @@
-import PNXAnim from './PNXAnim';
-import PNXScene from './PNXScene';
-import {PNXProjectileManager} from './PNXProjectileManager';
-import PNXSoundManager from './PNXSoundManager';
-import {pcap, PNXRandom} from './PNXMath';
-import IPNXController from './PNXController';
+import PNXAnim from './PNXGE/PNXAnim';
+import PNXScene from './PNXGE/PNXScene';
+import PNXProjectileManager from './PNXGE/PNXProjectileManager';
+import PNXSoundManager from './PNXGE/PNXSoundManager';
+import IPNXController from './PNXGE/PNXController';
+import {pcap, PNXRandom} from './PNXGE/PNXMath';
 
 /**
  * @name BeetleController

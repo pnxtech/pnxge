@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
-import PNXAnim, {AnimType, IPNXAnimCompatible} from './PNXAnim';
+import IPNXAnimCompatible from './PNXAnimCompatible';
+import PNXAnim, {AnimType} from './PNXAnim';
 import {createID} from './PNXMath';
 
 /**

@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import PNXScene from './PNXScene';
 import PNXImage from './PNXImage';
-import PNXAnim, { AnimType } from './PNXAnim';
+import PNXAnim from './PNXAnim';
 import PNXBackgroundTile from './PNXBackgroundTile';
 import PNXTextSprite from './PNXTextSprite';
 import PNXSoundManager from './PNXSoundManager';

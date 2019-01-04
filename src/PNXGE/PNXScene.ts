@@ -3,7 +3,7 @@ import PNXApplication from './PNXApplication';
 import PNXAnim from './PNXAnim';
 import PNXImage from './PNXImage';
 import IPNXAnimCompatible from './PNXAnimCompatible';
-import { PNXProjectileManager } from './PNXProjectileManager';
+import PNXProjectileManager from './PNXProjectileManager';
 import PNXSoundManager from './PNXSoundManager';
 import PNXTextSprite from './PNXTextSprite';
 

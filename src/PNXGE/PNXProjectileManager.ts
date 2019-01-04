@@ -2,7 +2,7 @@ import PNXAnim from "./PNXAnim";
 import PNXScene from "./PNXScene";
 import {createID} from './PNXMath';
 
-export interface IProjectileObject {
+interface IProjectileObject {
   active?: boolean,
   anim?: PNXAnim,
   animSpeed?: number,
@@ -26,7 +26,7 @@ export interface IProjectileObject {
  * @name PNXProjectileManager
  * @description Create and manages projectiles
  */
-export class PNXProjectileManager {
+export default class PNXProjectileManager {
   private projectiles: IProjectileObject[] = [];
   private scene: PNXScene;
   private atlas: string;

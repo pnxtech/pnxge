@@ -1,5 +1,5 @@
-import PNXApplication from './PNXApplication';
-import PNXGameLoader from './PNXGameLoader';
+import PNXApplication from './PNXGE/PNXApplication';
+import PNXGameLoader from './PNXGE/PNXGameLoader';
 import Level1Scene from './level1Scene';
 
 let SCENEWIDTH: number = 360;
