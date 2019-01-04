@@ -4,6 +4,7 @@ import {zeroPad} from './PNXMath';
 import IPNXController from './PNXController';
 import PNXTextSprite from './PNXTextSprite';
 import PNXEventManager from './PNXEventManager';
+import { defaultCipherList } from 'constants';
 
 /**
  * @name HudController
@@ -12,6 +13,7 @@ import PNXEventManager from './PNXEventManager';
 export default class HudController implements IPNXController{
   private scene: PNXScene;
   private anim: PNXAnim;
+  private titleAnim: PNXAnim;
   private heroAnim: PNXAnim;
   private healthAnim: PNXAnim;
   private scoreAnim: PNXTextSprite;
@@ -23,6 +25,8 @@ export default class HudController implements IPNXController{
   private destructionDelay: number = -1;
   private eventManager: PNXEventManager;
   private eventID: string = '';
+  private hudUp: boolean = true;
+
 
   /**
    * @name constructor
@@ -33,6 +37,7 @@ export default class HudController implements IPNXController{
     this.eventManager = this.scene.app.getEventManager();
     this.anim = <PNXAnim>scene.getAnim(name);
     this.heroAnim = <PNXAnim>scene.getAnim('hero');
+    this.titleAnim = <PNXAnim>scene.getAnim('title');
     this.healthAnim = <PNXAnim>scene.getAnim('health');
     this.scoreAnim = <PNXTextSprite>scene.getAnim('score');
     this.gameoverAnim = <PNXTextSprite>scene.getAnim('gameover');
@@ -42,9 +47,23 @@ export default class HudController implements IPNXController{
 
     this.anim.attachTouchHandler('hudTouchEvent', this.eventManager);
     this.eventID = this.eventManager.addEventHandler('hudTouchEvent', (anim: PNXAnim) => {
-      anim.visible = false;
+      if (!this.gameoverAnim.visible) {
+        this.hudUp = !this.hudUp;
+        this.hudVisible(this.hudUp);
+      }
     });
     this.anim.attachController(this);
+  }
+
+  /**
+   * @name hudVisible
+   * @description show or hide hud
+   */
+  hudVisible(state: boolean): void {
+    this.anim.setFrame((state) ? 0 : 4);
+    this.titleAnim.visible = state;
+    this.scoreAnim.visible = state;
+    this.healthAnim.visible = state;
   }
 
   /**
@@ -70,6 +89,7 @@ export default class HudController implements IPNXController{
    * @return {void}
    */
   levelComplete(): void {
+    this.hudVisible(true);
     this.anim.setFrame(1);
     this.levelCompleteAnim.visible = true;
   }
@@ -84,6 +104,7 @@ export default class HudController implements IPNXController{
     if (this.destructionSequence) {
       this.destructionDelay--;
       if (this.destructionDelay < 0) {
+        this.hudVisible(true);
         this.scene.end('gameover');
         this.anim.setFrame(3);
         this.gameoverAnim.visible = true;
