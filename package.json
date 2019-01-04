@@ -2,7 +2,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html --out-dir bin --open",
-    "build": "rm -rf dist; parcel build index.html; rm dist/htmlwatchmask.png; rm dist/*.map;"
+    "build": "rm -rf dist; parcel build index.html; rm dist/*.map;"
   },
   "dependencies": {
     "howler": "^2.1.1",

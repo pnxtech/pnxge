@@ -40,7 +40,7 @@
           "name": "demo-overlay.png",
           "atlas": "sprites.json",
           "preload": true,
-          "visible": false,
+          "visible": true,
           "x": 0,
           "y": 0,
           "z": 50000
