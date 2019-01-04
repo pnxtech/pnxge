@@ -5,6 +5,7 @@ import IPNXController from './PNXController';
 import PNXTextSprite from './PNXTextSprite';
 import PNXEventManager from './PNXEventManager';
 
+
 /**
  * @name HudController
  * @description Hud Controller
@@ -44,14 +45,17 @@ export default class HudController implements IPNXController{
     this.levelCompleteAnim = <PNXTextSprite>scene.getAnim('levelcomplete');
     this.levelCompleteAnim.visible = false;
 
-    this.anim.attachTouchHandler('hudTouchEvent', this.eventManager);
-    this.eventID = this.eventManager.addEventHandler('hudTouchEvent', (anim: PNXAnim) => {
-      if (!this.gameoverAnim.visible) {
-        this.hudUp = !this.hudUp;
-        this.hudVisible(this.hudUp);
-      }
-    });
+    if (!this.scene.app.demo) {
+      this.anim.attachTouchHandler('hudTouchEvent', this.eventManager);
+      this.eventID = this.eventManager.addEventHandler('hudTouchEvent', (anim: PNXAnim) => {
+        if (!this.gameoverAnim.visible) {
+          this.hudUp = !this.hudUp;
+          this.hudVisible(this.hudUp);
+        }
+      });
+    }
     this.anim.attachController(this);
+    this.hudVisible(this.hudUp);
   }
 
   /**

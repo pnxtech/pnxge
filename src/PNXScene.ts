@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js';
 import PNXApplication from './PNXApplication';
 import PNXAnim from './PNXAnim';
-import {IPNXAnimCompatible} from './PNXAnim';
+import PNXImage from './PNXImage';
+import IPNXAnimCompatible from './PNXAnimCompatible';
 import { PNXProjectileManager } from './PNXProjectileManager';
 import PNXSoundManager from './PNXSoundManager';
 import PNXTextSprite from './PNXTextSprite';
@@ -24,7 +25,7 @@ export default class PNXScene {
   public anims: IAnimHash;
   protected projectileManager: PNXProjectileManager | undefined;
   protected soundManager: PNXSoundManager | undefined;
-  protected spashScreen: PIXI.Sprite | undefined;
+  protected spashScreen: PNXImage | undefined;
 
   /**
    * @name constructor
@@ -79,12 +80,12 @@ export default class PNXScene {
   /**
    * @name loadSplashScreen
    * @description load the scene's splash screen
-   * @param {string} filePath - file path to splash screen image
+   * @param {string} name - of anim from PNXGameLoader
    * @return {void}
    */
-  loadSplashScreen(filePath: string): void {
-    this.spashScreen = PIXI.Sprite.fromImage(filePath);
-    this.stage.addChild(this.spashScreen);
+  loadSplashScreen(name: string): void {
+    this.spashScreen = <PNXImage>this.getAnim(name);
+    this.spashScreen.visible = true;
   }
 
   /**
@@ -94,7 +95,6 @@ export default class PNXScene {
    */
   closeSplashScreen(): void {
     if (this.spashScreen) {
-      this.stage.removeChild(this.spashScreen);
       this.spashScreen.visible = false;
     }
   }
@@ -152,7 +152,7 @@ export default class PNXScene {
    * @description get anim by name
    * @return {PNXTextSprite} anim
    */
-  getAnim(name: string): PNXAnim | PNXTextSprite {
+  getAnim(name: string): PNXAnim | PNXImage | PNXTextSprite {
     return this.anims[name];
   }
 

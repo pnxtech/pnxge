@@ -35,6 +35,10 @@ export default class Level1Scene extends PNXScene {
    * @return {void}
    */
   start(resources: {}): void {
+    if (this.app.demo) {
+      let anim = this.getAnim('demo-overlay.png');
+      anim.visible = true;
+    }
     this.projectileManager = new PNXProjectileManager(this, 'sprites.json', resources);
     this.attachProjectileManager(this.projectileManager);
     this.hudController = new HudController('hud', this);

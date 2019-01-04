@@ -32,7 +32,28 @@
         {
           "type": "sounds",
           "atlas": "sounds.json",
-          "volume": 0.5
+          "volume": 0.5,
+          "preload": true
+        },
+        {
+          "type": "image",
+          "name": "demo-overlay.png",
+          "atlas": "sprites.json",
+          "preload": true,
+          "visible": false,
+          "x": 0,
+          "y": 0,
+          "z": 50000
+        },
+        {
+          "type": "image",
+          "name": "tyros-loading.png",
+          "atlas": "sprites.json",
+          "preload": true,
+          "visible": false,
+          "x": 0,
+          "y": 0,
+          "z": 40000
         },
         {
           "type": "character",

@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import IPNXAnimCompatible from './PNXAnimCompatible';
 import PNXEventManager from './PNXEventManager';
 import PNXAnimatedSprite from './PNXAnimatedSprite';
 import IPNXController from './PNXController';
@@ -11,16 +12,6 @@ interface IHash { [key: string]: {
   sequence: PNXAnimatedSprite
 }};
 
-export interface IPNXAnimCompatible {
-  anim?: PNXAnim | undefined,
-  id: string,
-  x: number,
-  y: number,
-  z: number,
-  type: string,
-  visible: boolean
-};
-
 export enum AnimType {
   HERO = 'hero',
   ENEMY = 'enemy',
@@ -28,7 +19,8 @@ export enum AnimType {
   EXPLOSION = 'explosion',
   BACKGROUND = 'background',
   GROUND = 'ground',
-  TEXT = 'text'
+  TEXT = 'text',
+  IMAGE = 'image'
 };
 
 /**

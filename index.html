@@ -1,53 +1,80 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Carlos Justiniano" />
+  <meta name="description" content="PNX GameEngine" />
   <title>PNX GameEngine</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral:100,200,300,400,500,600,700,800">
-  <link rel="stylesheet" href="styles/index.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="./styles/style.css" rel="stylesheet">
+  <link href="./styles/article.css" rel="stylesheet">
+  <!-- <link rel="icon" href="./image/favicon.ico"> -->
 </head>
 
 <body>
-  <div id="demo">
-    <div id="leftPanel">
-      <div id="watchmask"></div>
-      <canvas id="canvas"></canvas>
+  <article class="article container">
+    <div class="row">
+      <div class="col-sm-12">
+        <center>
+          <iframe id="demo" src="demo.html"></iframe>
+        </center>
+      </div>
     </div>
-    <div id="rightPanel">
-      <h2>Phoenix GameEngine Demo</h2>
-      <h3>Demo instructions</h3>
-      <ul>
-        <li>On mobile / tablets: watch demo only</li>
-        <li>On laptop / desktops: Click in watch window to give game focus then use the left and right arrow keys to position tank turret</li>
-        <li>Refresh page to restart demo</li>
-      </ul>
-      <h3>Engine features</h3>
-      <ul>
-        <li>Designed for use on web and Tizen platform (Samsung Gear watches)</li>
-        <li>Rendering using hardware accelerated WebGL</li>
-        <li>Audio playback using audiosprites and WebAudio</li>
-        <li>Animations and images packaged using texture atlas / sprite sheet</li>
-        <li>Animations are controlled using controller objects</li>
-        <li>Animations playback adjust to machine performance</li>
-        <li>Support for background tiles</li>
-        <li>Object Collision detection</li>
-        <li>Bitmap font support used by text sprites</li>
-        <li>Dedicated math library for trig functions</li>
-        <li>Managers:</li>
-        <ul>
-          <li>Asset preloader</li>
-          <li>Game preloader, data driven using a game.json file</li>
-          <li>Projectile manager</li>
-          <li>Event manager</li>
-        </ul>
-        <li>Built with TypeScript 3</li>
-      </ul>
-      <h3>Additional Info</h3>
-      <p>Engine is under development and being used as the basis for an upcoming game called Tyros</p>
-      <p>(c) 2019 - Carlos Justiniano (cjus34@gmail.com). All code and assets created and copyrighted by author</p>
-      <br/>
-      <br/>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="article-title">The Phoenix Game Engine</div>
+        <div class="article-subtitle"></div>
+        <div class="article-body">
+          <div class="row">
+            <h3>Demo instructions</h3>
+            <ul>
+              <li>On mobile / tablets you can only view the demo above</li>
+              <li>On laptop / desktops you cna use your keyboard. Click in watch window to give the game focus then use the left and right arrow keys
+                to position the tank turret</li>
+              <li>Refresh page to restart demo</li>
+            </ul>
+            <h3>Engine features</h3>
+            <ul>
+              <li>Designed for use on mobile web and Tizen platform (Samsung Gear watches)</li>
+              <li>Display: hardware accelerated WebGL</li>
+              <li>Audio: playback using audiosprites and WebAudio</li>
+              <li>Animations and images packaged using texture atlas / sprite sheet</li>
+              <li>Animations are controlled using controller objects</li>
+              <li>Animations playback adjust to machine performance</li>
+              <li>Support for background tiles</li>
+              <li>Object Collision detection</li>
+              <li>Bitmap font support used by text sprites</li>
+              <li>Dedicated math library for trig functions</li>
+              <li>Managers:</li>
+              <ul>
+                <li>Game assets preloader, data driven using a game.json file</li>
+                <li>Projectile manager</li>
+                <li>Event manager</li>
+              </ul>
+              <li>Built with TypeScript 3</li>
+            </ul>
+            <h3>Additional Info</h3>
+            <p>Engine is under development and being used as the basis for an upcoming game called Tyros</p>
+            <p>(c) 2019 - Carlos Justiniano (cjus34@gmail.com). All code and assets created and copyrighted by author</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <p class="copyright">Copyright 2019 <a class="footer-link" href="https://twitter.com/cjus" target="_blank">@cjus</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </body>
-<script src="src/index.ts"></script>
 </html>

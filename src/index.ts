@@ -4,6 +4,7 @@ import Level1Scene from './level1Scene';
 
 let SCENEWIDTH: number = 360;
 let SCENEHEIGHT: number = 360;
+let DEMO: boolean = true;
 
 export default class GameApp extends PNXApplication {
   private gameLoader: PNXGameLoader;
@@ -13,16 +14,17 @@ export default class GameApp extends PNXApplication {
 
   constructor() {
     super(SCENEWIDTH, SCENEHEIGHT);
+    this.demo = DEMO;
     this.scene = new Level1Scene(this);
-    this.scene.loadSplashScreen('tyros-loading.png');
 
     this.gameLoader = new PNXGameLoader(this.scene, 'level1');
     this.gameLoader.preload('game.json', (resources: {}) => {
+      this.scene.loadSplashScreen('tyros-loading.png');
       let timeout = setTimeout(() => {
         clearTimeout(timeout);
         this.gameLoader.load((resources: {}) => {
-          this.scene.closeSplashScreen();
           this.scene.start(resources);
+          this.scene.closeSplashScreen();
         });
       }, 2000);
     });

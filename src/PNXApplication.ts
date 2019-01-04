@@ -10,6 +10,7 @@ export default class PNXApplication extends PIXI.Application {
   private appHeight: number = 0;
   private gameScore: number = 0;
   private appEventManager: PNXEventManager = new PNXEventManager();
+  private isDemo: boolean = false;
 
   /**
    * @name constructor
@@ -27,6 +28,24 @@ export default class PNXApplication extends PIXI.Application {
     document.body.appendChild(this.view);
     this.appWidth = width;
     this.appHeight = height;
+  }
+
+  /**
+   * @name demo
+   * @description demo flag getter
+   * @return {boolean} true if demo
+   */
+  get demo(): boolean {
+    return this.isDemo;
+  }
+
+  /**
+   * @name demo
+   * @description demo setter
+   * @param {boolean} value if demo
+   */
+  set demo(value: boolean) {
+    this.isDemo = value;
   }
 
   /**
