@@ -4,7 +4,6 @@ import {zeroPad} from './PNXMath';
 import IPNXController from './PNXController';
 import PNXTextSprite from './PNXTextSprite';
 import PNXEventManager from './PNXEventManager';
-import { defaultCipherList } from 'constants';
 
 /**
  * @name HudController
