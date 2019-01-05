@@ -3,7 +3,8 @@
     "sprites.json",
     "sounds.json",
     "digital40pt.fnt",
-    "digitaltech60pt.fnt"
+    "digitaltech60pt.fnt",
+    "terminal20pt.fnt"
   ],
   "scenes": {
     "intro": {
