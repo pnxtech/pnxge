@@ -1,15 +1,15 @@
 import * as PIXI from 'pixi.js';
-import PNXEventManager from './PNXEventManager';
+import {EventManager} from './EventManager';
 
 /**
- * @name PNXApplication
- * @description PNX Application - top level game object
+ * @name Application
+ * @description  Application - top level game object
  */
-export default class PNXApplication extends PIXI.Application {
+export class Application extends PIXI.Application {
   private appWidth: number = 0;
   private appHeight: number = 0;
   private gameScore: number = 0;
-  private appEventManager: PNXEventManager = new PNXEventManager();
+  private appEventManager: EventManager = new EventManager();
   private isDemo: boolean = false;
 
   /**
@@ -78,9 +78,9 @@ export default class PNXApplication extends PIXI.Application {
   /**
    * @name getEventManager
    * @description get event manager instance
-   * @return {PNXEventManager}
+   * @return {EventManager}
    */
-  getEventManager(): PNXEventManager {
+  getEventManager(): EventManager {
     return this.appEventManager;
   }
 

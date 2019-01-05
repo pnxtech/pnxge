@@ -1,13 +1,12 @@
-import PNXApplication from './PNXGE/PNXApplication';
-import PNXGameLoader from './PNXGE/PNXGameLoader';
+import * as PNXGE from './PNXGE';
 import Level1Scene from './level1Scene';
 
 let SCENEWIDTH: number = 360;
 let SCENEHEIGHT: number = 360;
 let DEMO: boolean = true;
 
-export default class GameApp extends PNXApplication {
-  private gameLoader: PNXGameLoader;
+export default class GameApp extends PNXGE.Application {
+  private gameLoader: PNXGE.GameLoader;
   private scene: Level1Scene;
   private LEFTKEY: number = 37;
   private RIGHTKEY: number = 39;
@@ -17,7 +16,7 @@ export default class GameApp extends PNXApplication {
     this.demo = DEMO;
     this.scene = new Level1Scene(this);
 
-    this.gameLoader = new PNXGameLoader(this.scene, 'level1');
+    this.gameLoader = new PNXGE.GameLoader(this.scene, 'level1');
     this.gameLoader.preload('game.json', (resources: {}) => {
       this.scene.loadSplashScreen('tyros-loading.png');
       let timeout = setTimeout(() => {

@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
-import PNXScene from './PNXScene';
-import PNXImage from './PNXImage';
-import PNXAnim from './PNXAnim';
-import PNXBackgroundTile from './PNXBackgroundTile';
-import PNXTextSprite from './PNXTextSprite';
-import PNXSoundManager from './PNXSoundManager';
+import {Scene} from './Scene';
+import {Image} from './Image';
+import {Anim} from './Anim';
+import {BackgroundTile} from './BackgroundTile';
+import {TextSprite} from './TextSprite';
+import {SoundManager} from './SoundManager';
 
 interface ICallback { (resources: {}): void };
 interface ISceneDataHash { [key: string]: {
@@ -12,23 +12,23 @@ interface ISceneDataHash { [key: string]: {
   objects: []
 }};
 
-interface ISceneObjectHash { [key: string]: PNXAnim};
+interface ISceneObjectHash { [key: string]: Anim};
 
-export default class PNXGameLoader {
+export class GameLoader {
   private loader: PIXI.loaders.Loader;
   private gameConfig: any = {};
-  private parentScene: PNXScene;
+  private parentScene: Scene;
   private resources: any;
   private sceneName: string;
   private sceneData: ISceneDataHash = {};
   private sceneObjects: ISceneObjectHash = {};
-  private soundManager: PNXSoundManager | undefined;
+  private soundManager: SoundManager | undefined;
 
   /**
    * @name constructor
    * @description game loader
    */
-  constructor(scene: PNXScene, sceneName: string) {
+  constructor(scene: Scene, sceneName: string) {
     this.loader = new PIXI.loaders.Loader();
     this.sceneName = sceneName;
     this.parentScene = scene;
@@ -86,13 +86,13 @@ export default class PNXGameLoader {
         switch (obj.type) {
           case 'sounds':
             if (!this.soundManager) {
-              this.soundManager = new PNXSoundManager(this.resources[obj.atlas].data);
+              this.soundManager = new SoundManager(this.resources[obj.atlas].data);
               this.soundManager.volume = obj.volume;
             }
             this.parentScene.attachSoundManager(this.soundManager);
             break;
           case 'image':
-            this.sceneObjects[obj.name] = new PNXImage(this.parentScene, obj.name, this.resources[obj.atlas]);
+            this.sceneObjects[obj.name] = new Image(this.parentScene, obj.name, this.resources[obj.atlas]);
             this.sceneObjects[obj.name].type = obj.type;
             this.sceneObjects[obj.name].x = obj.x;
             this.sceneObjects[obj.name].y = obj.y;
@@ -101,7 +101,7 @@ export default class PNXGameLoader {
             this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
             break;
           case 'tile':
-            this.sceneObjects[obj.name] = new PNXBackgroundTile(this.parentScene, obj.file);
+            this.sceneObjects[obj.name] = new BackgroundTile(this.parentScene, obj.file);
             this.sceneObjects[obj.name].type = obj.type;
             this.sceneObjects[obj.name].flip(obj.flip || false);
             if (obj.tint) {
@@ -112,7 +112,7 @@ export default class PNXGameLoader {
             this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
             break;
           case 'text':
-            this.sceneObjects[obj.name] = new PNXTextSprite(this.parentScene, obj.text, obj.fontInfo);
+            this.sceneObjects[obj.name] = new TextSprite(this.parentScene, obj.text, obj.fontInfo);
             this.sceneObjects[obj.name].type = obj.type;
             this.sceneObjects[obj.name].x = obj.x;
             this.sceneObjects[obj.name].y = obj.y;
@@ -120,7 +120,7 @@ export default class PNXGameLoader {
             this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
             break;
           case 'character':
-            this.sceneObjects[obj.name] = new PNXAnim(this.parentScene);
+            this.sceneObjects[obj.name] = new Anim(this.parentScene);
             this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, this.resources);
             this.sceneObjects[obj.name].type = obj.type;
             this.sceneObjects[obj.name].x = obj.x;
@@ -150,7 +150,7 @@ export default class PNXGameLoader {
             this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
             break;
           case 'ground':
-            this.sceneObjects[obj.name] = new PNXAnim(this.parentScene);
+            this.sceneObjects[obj.name] = new Anim(this.parentScene);
             this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, this.resources);
             this.sceneObjects[obj.name].type = obj.type;
             this.sceneObjects[obj.name].x = obj.x;

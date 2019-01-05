@@ -1,38 +1,38 @@
 import * as PIXI from 'pixi.js';
-import PNXApplication from './PNXApplication';
-import PNXAnim from './PNXAnim';
-import PNXImage from './PNXImage';
-import IPNXAnimCompatible from './PNXAnimCompatible';
-import PNXProjectileManager from './PNXProjectileManager';
-import PNXSoundManager from './PNXSoundManager';
-import PNXTextSprite from './PNXTextSprite';
+import {Application} from './Application';
+import {Anim} from './Anim';
+import {Image} from './Image';
+import {IAnimCompatible} from './AnimCompatible';
+import {ProjectileManager} from './ProjectileManager';
+import {SoundManager} from './SoundManager';
+import {TextSprite} from './TextSprite';
 
-interface IAnimHash { [key: string]: PNXAnim};
-interface IAnimCallback { (anim: PNXAnim): void };
+interface IAnimHash { [key: string]: Anim};
+interface IAnimCallback { (anim: Anim): void };
 interface IAnimDoneCallback { (): void };
 
 /**
- * @name PNXScene
+ * @name Scene
  * @description Phoenix Game Engine Scene class
  */
-export default class PNXScene {
-  public app: PNXApplication;
+export class Scene {
+  public app: Application;
   protected sceneWidth: number;
   protected sceneHeight: number;
 
   public stage: PIXI.Container;
   public ticker: PIXI.ticker.Ticker;
   public anims: IAnimHash;
-  protected projectileManager: PNXProjectileManager | undefined;
-  protected soundManager: PNXSoundManager | undefined;
-  protected spashScreen: PNXImage | undefined;
+  protected projectileManager: ProjectileManager | undefined;
+  protected soundManager: SoundManager | undefined;
+  protected spashScreen: Image | undefined;
 
   /**
    * @name constructor
    * @description initialize scene
-   * @param {PNXApplication} application
+   * @param {Application} application
    */
-  constructor(app: PNXApplication) {
+  constructor(app: Application) {
     this.app = app;
     this.sceneWidth = app.width;
     this.sceneHeight = app.height;
@@ -46,16 +46,16 @@ export default class PNXScene {
    * @description attach a projectile manager
    * @return {void}
    */
-  attachProjectileManager(projectileManager: PNXProjectileManager): void {
+  attachProjectileManager(projectileManager: ProjectileManager): void {
     this.projectileManager = projectileManager;
   }
 
   /**
    * @name getProjectileManager
    * @description retrieve a projectile manager instance or undefined
-   * @return {PNXProjectileManager | undefined}
+   * @return {ProjectileManager | undefined}
    */
-  getProjectileManager(): PNXProjectileManager | undefined {
+  getProjectileManager(): ProjectileManager | undefined {
     return this.projectileManager;
   }
 
@@ -64,27 +64,27 @@ export default class PNXScene {
    * @description attach sound manager
    * @return {void}
    */
-  attachSoundManager(soundManager: PNXSoundManager): void {
+  attachSoundManager(soundManager: SoundManager): void {
     this.soundManager = soundManager;
   }
 
   /**
    * @name getSoundManager
    * @description retrieve a sound manager instance or undefined
-   * @return {PNXSoundManager | undefined}
+   * @return {SoundManager | undefined}
    */
-  getSoundManager(): PNXSoundManager | undefined {
+  getSoundManager(): SoundManager | undefined {
     return this.soundManager;
   }
 
   /**
    * @name loadSplashScreen
    * @description load the scene's splash screen
-   * @param {string} name - of anim from PNXGameLoader
+   * @param {string} name - of anim from GameLoader
    * @return {void}
    */
   loadSplashScreen(name: string): void {
-    this.spashScreen = <PNXImage>this.getAnim(name);
+    this.spashScreen = <Image>this.getAnim(name);
     this.spashScreen.visible = true;
   }
 
@@ -125,9 +125,9 @@ export default class PNXScene {
    * @name addAnim
    * @description add an anim to the scene
    * @param {string} name - name of anim
-   * @param {PNXAnim} anim - anim objec
+   * @param {Anim} anim - anim objec
    */
-  addAnim(name: string, anim: PNXAnim): void {
+  addAnim(name: string, anim: Anim): void {
     this.anims[name] = anim;
   }
 
@@ -150,9 +150,9 @@ export default class PNXScene {
   /**
    * @name getAnim
    * @description get anim by name
-   * @return {PNXTextSprite} anim
+   * @return {TextSprite} anim
    */
-  getAnim(name: string): PNXAnim | PNXImage | PNXTextSprite {
+  getAnim(name: string): Anim | Image | TextSprite {
     return this.anims[name];
   }
 
@@ -212,12 +212,12 @@ export default class PNXScene {
    */
   sortAnims(): void {
     let objectList: any = this.stage.children;
-    objectList.sort((a: IPNXAnimCompatible, b: IPNXAnimCompatible) => {
+    objectList.sort((a: IAnimCompatible, b: IAnimCompatible) => {
       if (!a.anim || !b.anim) {
         return 0;
       }
-      let first: IPNXAnimCompatible = <IPNXAnimCompatible>a.anim;
-      let second: IPNXAnimCompatible = <IPNXAnimCompatible>b.anim;
+      let first: IAnimCompatible = <IAnimCompatible>a.anim;
+      let second: IAnimCompatible = <IAnimCompatible>b.anim;
       return first.z - second.z;
     });
   }
@@ -226,11 +226,11 @@ export default class PNXScene {
    * @name hitTestRectangle
    * @description check whether two anim objects have collided
    * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
-   * @param {PNXAnim} a1 - first anim
-   * @param {PNXAnim} a2 - second anim
+   * @param {Anim} a1 - first anim
+   * @param {Anim} a2 - second anim
    * @return {boolean} bool - true if collision else false
    */
-  hitTestRectangle(a1: PNXAnim, a2: PNXAnim): boolean {
+  hitTestRectangle(a1: Anim, a2: Anim): boolean {
     // Find the half-widths and half-heights of each sprite
     let a1_halfWidth = 0;
     let a1_halfHeight = 0;

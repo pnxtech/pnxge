@@ -1,7 +1,4 @@
-import PNXApplication from './PNXGE/PNXApplication';
-import PNXScene from './PNXGE/PNXScene';
-import PNXAnim from './PNXGE/PNXAnim';
-import PNXProjectileManager from './PNXGE/PNXProjectileManager';
+import * as PNXGE from './PNXGE';
 import HeroController from './heroController';
 import SquidController from './squidController';
 import SeekerController from './seekerController';
@@ -11,19 +8,19 @@ import HudController from './hudController';
 
 /**
  * @name Level1Scene
- * @description Level1 scene using the PNX Game Engine
+ * @description Level1 scene using the  Game Engine
  */
-export default class Level1Scene extends PNXScene {
-  protected projectileManager: PNXProjectileManager | undefined;
+export default class Level1Scene extends PNXGE.Scene {
+  protected projectileManager: PNXGE.ProjectileManager | undefined;
   private heroController: HeroController | undefined;
   private hudController: HudController | undefined;
 
   /**
    * @name constructor
    * @description initialize scene
-   * @param {PNXApplication} app
+   * @param {Application} app
    */
-  constructor(app: PNXApplication) {
+  constructor(app: PNXGE.Application) {
     super(app);
     this.app = app;
   }
@@ -37,7 +34,7 @@ export default class Level1Scene extends PNXScene {
   start(resources: {}): void {
     let anim = this.getAnim('demo-overlay.png');
     anim.visible = this.app.demo;
-    this.projectileManager = new PNXProjectileManager(this, 'sprites.json', resources);
+    this.projectileManager = new PNXGE.ProjectileManager(this, 'sprites.json', resources);
     this.attachProjectileManager(this.projectileManager);
     this.hudController = new HudController('hud', this);
     this.heroController = new HeroController('hero', this);
@@ -65,7 +62,7 @@ export default class Level1Scene extends PNXScene {
     if (soundManager) {
       soundManager.volume = 0;
     }
-    this.forEachAnim((anim: PNXAnim) => {
+    this.forEachAnim((anim: PNXGE.Anim) => {
       if (anim.type === 'enemy') {
         anim.visible = false;
       }
@@ -108,7 +105,7 @@ export default class Level1Scene extends PNXScene {
    */
   update(deltaTime: number): void {
     let activeCount: number = 0;
-    this.forEachAnim((anim: PNXAnim) => {
+    this.forEachAnim((anim: PNXGE.Anim) => {
       if (anim.type === 'enemy' && anim.visible === true) {
         activeCount++;
       }

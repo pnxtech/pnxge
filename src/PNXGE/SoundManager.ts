@@ -1,10 +1,10 @@
 import {Howl, Howler} from 'howler';
 
 /**
- * @name PNXSoundManager
+ * @name SoundManager
  * @description sound manager
  */
-export default class PNXSoundManager {
+export class SoundManager {
   private soundPlayer: any;
   private soundData: any = {};
   private globalVolume: number = 0;

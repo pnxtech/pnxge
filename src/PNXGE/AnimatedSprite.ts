@@ -1,13 +1,13 @@
 import * as PIXI from 'pixi.js';
-import PNXAnim from './PNXAnim';
+import {Anim} from './Anim';
 
 /**
- * @name PNXAnimatedSprite
+ * @name AnimatedSprite
  * @description extends the PIXI AnimatedSprite to include additional anim fields
  * @note: uses PIXI AnimatedSprite https://pixijs.download/release/docs/PIXI.extras.AnimatedSprite.html
  */
-export default class PNXAnimatedSprite extends PIXI.extras.AnimatedSprite {
-  public anim: PNXAnim | undefined;
+export class AnimatedSprite extends PIXI.extras.AnimatedSprite {
+  public anim: Anim | undefined;
   constructor(textures: [], autoUpdate?: boolean | undefined) {
     super(textures, autoUpdate);
   }

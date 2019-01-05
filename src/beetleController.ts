@@ -1,34 +1,29 @@
-import PNXAnim from './PNXGE/PNXAnim';
-import PNXScene from './PNXGE/PNXScene';
-import PNXProjectileManager from './PNXGE/PNXProjectileManager';
-import PNXSoundManager from './PNXGE/PNXSoundManager';
-import IPNXController from './PNXGE/PNXController';
-import {pcap, PNXRandom} from './PNXGE/PNXMath';
+import * as PNXGE from './PNXGE';
 
 /**
  * @name BeetleController
  * @description Beetle Controller
  */
-export default class SquidController implements IPNXController{
-  private scene: PNXScene;
-  private anim: PNXAnim;
+export default class SquidController implements PNXGE.IController {
+  private scene: PNXGE.Scene;
+  private anim: PNXGE.Anim;
   private firingInterval: number = 0;
   private firingDelay: number;
   private active: boolean = true;
-  private soundManager: PNXSoundManager | undefined;
+  private soundManager: PNXGE.SoundManager | undefined;
 
 
   /**
    * @name constructor
    * @description class constructor
    */
-  constructor(name: string, scene: PNXScene) {
+  constructor(name: string, scene: PNXGE.Scene) {
     this.scene = scene;
-    this.anim = <PNXAnim>scene.getAnim(name);
+    this.anim = <PNXGE.Anim>scene.getAnim(name);
     this.anim.attachController(this);
     this.anim.type = 'enemy';
     this.anim.collisionDetection = true;
-    this.firingInterval = (new PNXRandom()).getRandomIntInclusive(200, 400);
+    this.firingInterval = (new PNXGE.Random()).getRandomIntInclusive(200, 400);
     this.firingDelay = this.firingInterval;
     this.soundManager = this.scene.getSoundManager();
   }
@@ -36,14 +31,14 @@ export default class SquidController implements IPNXController{
   /**
    * @name hitBy
    * @description hit by anim (collision event handler)
-   * @param {PNXAnim} anim
+   * @param {Anim} anim
    * @return {void}
    */
-  hitBy(anim: PNXAnim): void {
+  hitBy(anim: PNXGE.Anim): void {
     if (anim.type === 'bullet') {
       return;
     }
-    let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
+    let projectileManager: PNXGE.ProjectileManager = <PNXGE.ProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       projectileManager.createProjectile({
         name: 'explode',
@@ -78,7 +73,7 @@ export default class SquidController implements IPNXController{
    * @return {void}
    */
   fire(): void {
-    let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
+    let projectileManager: PNXGE.ProjectileManager = <PNXGE.ProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       let vLen = (this.anim.height * 0.5) - 2;
       let rotation = 0;
@@ -88,11 +83,11 @@ export default class SquidController implements IPNXController{
         strength: 10,
         collisionDetection: true,
         frame: 1,
-        x: pcap(this.anim.x - Math.sin(rotation) * vLen),
-        y: pcap(this.anim.y + Math.cos(rotation) * vLen),
+        x: PNXGE.pcap(this.anim.x - Math.sin(rotation) * vLen),
+        y: PNXGE.pcap(this.anim.y + Math.cos(rotation) * vLen),
         z: 9000,
-        dx: pcap(Math.sin(rotation)),
-        dy: pcap(Math.cos(rotation)),
+        dx: PNXGE.pcap(Math.sin(rotation)),
+        dy: PNXGE.pcap(Math.cos(rotation)),
         vx: 2,
         vy: 2,
         rotation,

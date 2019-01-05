@@ -1,34 +1,28 @@
-import PNXAnim from './PNXGE/PNXAnim';
-import PNXScene from './PNXGE/PNXScene';
-import PNXProjectileManager from './PNXGE/PNXProjectileManager';
-import PNXSoundManager from './PNXGE/PNXSoundManager';
-import IPNXController from './PNXGE/PNXController';
-import {pcap} from './PNXGE/PNXMath';
-
+import * as PNXGE from './PNXGE';
 
 /**
  * @name HeroController
  * @description Hero HeroController
  */
-export default class HeroController implements IPNXController {
-  private scene: PNXScene;
-  private anim: PNXAnim;
+export default class HeroController implements PNXGE.IController {
+  private scene: PNXGE.Scene;
+  private anim: PNXGE.Anim;
   private frames: number[] = [6, 5, 4, 3, 2, 1, 0, 16, 15, 14, 13, 12, 11];
   private rotation: number[] = [1.33, 1.84, 2.24, 2.66, 2.90, 3.10, 3.18, 3.22, 3.42, 3.66, 4.04, 4.48, 4.95];
   private frameIndex:number = 6;
   private active: boolean = true;
   private collisionClearInterval: number = 100;
   private collisionClearCountdown: number = -1;
-  private soundManager: PNXSoundManager | undefined;
+  private soundManager: PNXGE.SoundManager | undefined;
   private destructionCountdown: number = 1000;
 
   /**
    * @name constructor
    * @description class constructor
    */
-  constructor(name: string, scene: PNXScene) {
+  constructor(name: string, scene: PNXGE.Scene) {
     this.scene = scene;
-    this.anim = <PNXAnim>scene.getAnim(name);
+    this.anim = <PNXGE.Anim>scene.getAnim(name);
     this.anim.attachController(this);
     this.anim.collisionDetection = true;
     this.soundManager = this.scene.getSoundManager();
@@ -37,10 +31,10 @@ export default class HeroController implements IPNXController {
   /**
    * @name hitBy
    * @description hit by anim (collision event handler)
-   * @param {PNXAnim} anim
+   * @param {Anim} anim
    * @return {void}
    */
-  hitBy(anim: PNXAnim): void {
+  hitBy(anim: PNXGE.Anim): void {
     let explosionScale = 0.5;
     this.collisionClearCountdown = this.collisionClearInterval;
     this.anim.health -= anim.strength;
@@ -50,7 +44,7 @@ export default class HeroController implements IPNXController {
       this.anim.setFrame(18);
       this.active = false;
     }
-    let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
+    let projectileManager: PNXGE.ProjectileManager = <PNXGE.ProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       projectileManager.createProjectile({
         name: 'explode',
@@ -83,7 +77,7 @@ export default class HeroController implements IPNXController {
     if (!this.active) {
       return;
     }
-    let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
+    let projectileManager: PNXGE.ProjectileManager = <PNXGE.ProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       let vLen = (this.anim.height * 0.5) - 8;
       let rotation = this.rotation[this.frameIndex];
@@ -93,11 +87,11 @@ export default class HeroController implements IPNXController {
         strength: 100,
         collisionDetection: true,
         frame: 2,
-        x: pcap(this.anim.x - Math.sin(rotation) * vLen),
-        y: pcap(this.anim.y + Math.cos(rotation) * vLen),
+        x: PNXGE.pcap(this.anim.x - Math.sin(rotation) * vLen),
+        y: PNXGE.pcap(this.anim.y + Math.cos(rotation) * vLen),
         z: 9000,
-        dx: pcap(-Math.sin(rotation)),
-        dy: pcap(Math.cos(rotation)),
+        dx: PNXGE.pcap(-Math.sin(rotation)),
+        dy: PNXGE.pcap(Math.cos(rotation)),
         vx: 2,
         vy: 2,
         rotation,

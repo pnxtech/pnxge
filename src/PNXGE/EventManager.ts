@@ -1,4 +1,4 @@
-import {createID} from './PNXMath';
+import {createID} from './Math';
 
 interface IEventCallback { (eventData: any): void };
 interface IEventHash {
@@ -8,10 +8,10 @@ interface IEventHash {
 };
 
 /**
- * @name PNXEventManager
+ * @name EventManager
  * @description Event system - allows for adding, removing and triggering system wide events
  */
-export default class PNXEventManager {
+export class EventManager {
   private callBackData: IEventHash = {};
 
   /**

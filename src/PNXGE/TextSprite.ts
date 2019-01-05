@@ -1,33 +1,33 @@
 import * as PIXI from 'pixi.js';
-import PNXScene from './PNXScene';
-import IPNXAnimCompatible from './PNXAnimCompatible';
-import PNXAnim, {AnimType} from './PNXAnim';
-import {createID} from './PNXMath';
+import {Scene} from './Scene';
+import {IAnimCompatible} from './AnimCompatible';
+import {Anim, AnimType} from './Anim';
+import {createID} from './Math';
 
 /**
- * @name PNXTextSprite
+ * @name TextSprite
  * @description extends the PIXI BitmapText to include additional fields
  * @note: uses PIXI BitmapText
  */
-export default class PNXTextSprite extends PIXI.extras.BitmapText implements IPNXAnimCompatible {
+export class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatible {
   public id: string = createID();
   public zOrder: number = -1;
   public collisionDetection: boolean = false;
   public type: string = AnimType.TEXT;
-  protected scene: PNXScene;
-  public anim: PNXAnim;
+  protected scene: Scene;
+  public anim: Anim;
 
   /**
    * @name constructor
    * @description constructor pass throught to BitmapText
-   * @param {PNXScene} scene - referene to parent scene
+   * @param {Scene} scene - referene to parent scene
    * @param {string} text - text to display
    * @param {PIXI.extras.BitmapTextStyle} style - bitmap text styles
    */
-  constructor(scene: PNXScene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined) {
+  constructor(scene: Scene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined) {
     super(text, style);
     this.scene = scene;
-    this.anim = new PNXAnim(this.scene);
+    this.anim = new Anim(this.scene);
     this.scene.stage.addChild(this);
   }
 

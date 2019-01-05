@@ -1,6 +1,6 @@
 /**
- * @name PNXMath
- * @description PNX math library: a collection of math related classes
+ * @name Math
+ * @description  math library: a collection of math related classes
  */
 
 /**
@@ -37,10 +37,10 @@ export function zeroPad(num: number, size: number): string {
 }
 
 /**
- * @name PNXAngle
+ * @name Angle
  * @description Angle functions
  */
-export class PNXAngle {
+export class Angle {
   public HalfPI: number = Math.PI * 0.5;
 
   /**
@@ -67,38 +67,38 @@ export class PNXAngle {
    * @name vectorAngleFromDegrees
    * @description return a new angle vector based on degrees
    * @param {number} degrees
-   * @return {PNXVector} angleVector
+   * @return {Vector} angleVector
    */
-  vectorAngleFromDegrees(degrees: number): PNXVector {
+  vectorAngleFromDegrees(degrees: number): Vector {
     let radians: number = this.d2r(degrees);
-    return new PNXVector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+    return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
   }
 
   /**
    * @name vectorAngleFromRadians
    * @description return a new angle vector based on radians
    * @param {number} radians
-   * @return {PNXAngle} angleVector
+   * @return {Angle} angleVector
    */
-  vectorAngleFromRadians(radians: number): PNXVector {
-    return new PNXVector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+  vectorAngleFromRadians(radians: number): Vector {
+    return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
   }
 
   /**
    * @name angleFromVectors
    * @description compute angle from v1 vector to v2 vector
-   * @param {PNXVector} v1 - from (source) vector
-   * @param {PNXVector} v2 - to (target) vector
+   * @param {Vector} v1 - from (source) vector
+   * @param {Vector} v2 - to (target) vector
    * @return {number} angle - in radians
    * note:
-   *  let angle: PNXAngle = new PNXAngle();
+   *  let angle: Angle = new Angle();
    *  let radians = angle.angleFromVectors(
-   *    new PNXVector(this.explosionAnim.x, this.explosionAnim.y),
-   *    new PNXVector(this.turetAnim.x, this.turetAnim.y)
+   *    new Vector(this.explosionAnim.x, this.explosionAnim.y),
+   *    new Vector(this.turetAnim.x, this.turetAnim.y)
    *  );
    *  this.movementVector = angle.vectorAngleFromRadians(radians);
    */
-  angleFromVectors(v1: PNXVector, v2: PNXVector): number {
+  angleFromVectors(v1: Vector, v2: Vector): number {
     return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
   }
 
@@ -108,7 +108,7 @@ export class PNXAngle {
    * @return {number} random angle
    */
   randomAngleTop(): number {
-    let random = new PNXRandom();
+    let random = new Random();
     return pcap(random.getRandomInclusive(0, Math.PI) + this.HalfPI);
   }
 
@@ -118,16 +118,16 @@ export class PNXAngle {
    * @return {number} random angle
    */
   randomAngleBottom(): number {
-    let random = new PNXRandom();
+    let random = new Random();
     return pcap(random.getRandomInclusive(0, Math.PI) - this.HalfPI);
   }
 }
 
 /**
- * @name PNXPoint
+ * @name Point
  * @description Represent a point
  */
-export class PNXPoint {
+export class Point {
   public x: number;
   public y: number;
 
@@ -138,10 +138,10 @@ export class PNXPoint {
 }
 
 /**
- * @name PNXVector
+ * @name Vector
  * @description Represent a line (connection between to points)
  */
-export class PNXVector extends PNXPoint {
+export class Vector extends Point {
   /**
    * @name constructor
    * @description constructor
@@ -164,7 +164,7 @@ export class PNXVector extends PNXPoint {
    * @description returns the distance between this and another vector
    * @returns {number} distance
    */
-  public distance(otherVector: PNXVector): number {
+  public distance(otherVector: Vector): number {
     let vx = this.x - otherVector.x;
     let vy = this.y - otherVector.y;
     return pcap(Math.sqrt(vx * vx + vy * vy));
@@ -173,58 +173,58 @@ export class PNXVector extends PNXPoint {
   /**
    * @name negate
    * @description negates the current vector
-   * @return {PNXVector} returns a new negated vector
+   * @return {Vector} returns a new negated vector
    */
-  public negate(): PNXVector {
-    return new PNXVector(-this.x, -this.y);
+  public negate(): Vector {
+    return new Vector(-this.x, -this.y);
   }
 
   /**
    * @name add
    * @description adds vector to current vector
-   * @param {PNXVector} vector - to use in operation
-   * @return {PNXVector} returns a new vector
+   * @param {Vector} vector - to use in operation
+   * @return {Vector} returns a new vector
    */
-  public add(vector: PNXVector): PNXVector {
+  public add(vector: Vector): Vector {
     this.x += vector.x;
     this.y += vector.y;
-    return new PNXVector(this.x, this.y);
+    return new Vector(this.x, this.y);
   }
 
   /**
    * @name substract
    * @description substracts vector from current vector
-   * @param {PNXVector} vector - to use in operation
-   * @return {PNXVector} returns a new vector
+   * @param {Vector} vector - to use in operation
+   * @return {Vector} returns a new vector
    */
-  public substract(vector: PNXVector): PNXVector {
+  public substract(vector: Vector): Vector {
     this.x -= vector.x;
     this.y -= vector.y;
-    return new PNXVector(this.x, this.y);
+    return new Vector(this.x, this.y);
   }
 
   /**
    * @name multiply
    * @description multiplies vector with current vector
-   * @param {PNXVector} vector - to use in operation
-   * @return {PNXVector} returns a new vector
+   * @param {Vector} vector - to use in operation
+   * @return {Vector} returns a new vector
    */
-  public multiply(vector: PNXVector): PNXVector {
+  public multiply(vector: Vector): Vector {
     this.x *= vector.x;
     this.y *= vector.y;
-    return new PNXVector(this.x, this.y);
+    return new Vector(this.x, this.y);
   }
 
   /**
    * @name divide
    * @description divides vector with current vector
-   * @param {PNXVector} vector - to use in operation
-   * @return {PNXVector} returns a new vector
+   * @param {Vector} vector - to use in operation
+   * @return {Vector} returns a new vector
    */
-  public divide(vector: PNXVector): PNXVector {
+  public divide(vector: Vector): Vector {
     this.x /= vector.x;
     this.y /= vector.y;
-    return new PNXVector(pcap(this.x), pcap(this.y));
+    return new Vector(pcap(this.x), pcap(this.y));
   }
 
   /**
@@ -232,30 +232,30 @@ export class PNXVector extends PNXPoint {
    * @description determines whether current and other vector are "realtively" equal while avoiding rounding errors
    * @return {boolan} true if equal / false if not
    */
-  public equals(vector: PNXVector): boolean {
+  public equals(vector: Vector): boolean {
     return (pcap(Math.abs(this.x)) === pcap(Math.abs(vector.x)) &&
             pcap(Math.abs(this.y)) === pcap(Math.abs(vector.y)));
   }
 }
 
 /**
- * @name PNXLine
+ * @name Line
  * @description Represent a line (connection between to points)
  */
-export class PNXLine {
-  public pt1: PNXPoint;
-  public pt2: PNXPoint;
+export class Line {
+  public pt1: Point;
+  public pt2: Point;
   constructor(x1: number = 0, y1: number = 0, x2: number = 0, y2: number = 0) {
-    this.pt1 = new PNXPoint(x1, y1);
-    this.pt2 = new PNXPoint(x2, y2);
+    this.pt1 = new Point(x1, y1);
+    this.pt2 = new Point(x2, y2);
   }
 }
 
 /**
-* @name PNXRandom
+* @name Random
 * @description Random number functions. Borrowed from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 */
-export class PNXRandom {
+export class Random {
   /**
   * @name getRandom
   * @summary Returns a random number between 0 (inclusive) and 1 (exclusive)
@@ -307,18 +307,18 @@ export class PNXRandom {
 }
 
 /**
- * @name PNXCurve
+ * @name Curve
  * @description Generates curves points between two points and a control point
  */
-export class PNXCurve {
+export class Curve {
   protected totalSegments: number;
-  protected segmentList: PNXPoint[];
+  protected segmentList: Point[];
 
   /**
    * @name constructor
    * @description class contructor
    */
-  constructor(starting: PNXPoint, ending: PNXPoint, control: PNXPoint, segments: number) {
+  constructor(starting: Point, ending: Point, control: Point, segments: number) {
     this.totalSegments = segments;
     this.segmentList = new Array(this.totalSegments);
     this.generatePoints(starting, ending, control);
@@ -337,12 +337,12 @@ export class PNXCurve {
   /**
    * @name getPoints
    * @description get curve points
-   * @return {Array<PNXPoint>} array of points
+   * @return {Array<Point>} array of points
    */
-  public getPoints(): Array<PNXPoint> {
+  public getPoints(): Array<Point> {
     let newArray = new Array();
     for (let pt of this.segmentList) {
-      newArray.push(new PNXPoint(pt.x, pt.y));
+      newArray.push(new Point(pt.x, pt.y));
     }
     return newArray;
   }
@@ -350,36 +350,36 @@ export class PNXCurve {
   /**
    * @name distanceX
    * @description distance between two x components of a line
-   * @param {PNXLine} l - line
+   * @param {Line} l - line
    * @return {number} distance
    */
-  protected distanceX(l: PNXLine): number {
+  protected distanceX(l: Line): number {
     return pcap(l.pt2.x - l.pt1.x);
   }
 
   /**
    * @name distanceY
    * @description distance between two y components of a line
-   * @param {PNXLine} l - line
+   * @param {Line} l - line
    * @return {number} distance
    */
-  protected distanceY(l: PNXLine): number {
+  protected distanceY(l: Line): number {
     return pcap(l.pt2.y - l.pt1.y);
   }
 
   /**
    * @name intersect
    * @description determine point at which lines intersect
-   * @param {PNXLine} l1 - first line
-   * @param {PNXLine} l2 - second line
-   * @return {PNXPoint} - intersection point
+   * @param {Line} l1 - first line
+   * @param {Line} l2 - second line
+   * @return {Point} - intersection point
    */
-  protected intersect(l1: PNXLine, l2: PNXLine): PNXPoint {
+  protected intersect(l1: Line, l2: Line): Point {
     let m1: number;
     let b1: number;
     let m2: number;
     let b2: number;
-    let p: PNXPoint = new PNXPoint();
+    let p: Point = new Point();
 
     if (this.distanceX(l1) === 0) {
       p.x = l1.pt1.x;
@@ -405,14 +405,14 @@ export class PNXCurve {
   /**
    * @name generatePoints
    * @description generate curve points
-   * @param {PNXPoint} p1 - starting point
-   * @param {PNXPoint} p2 - end point
-   * @param {PNXPoint} p3 - control point
+   * @param {Point} p1 - starting point
+   * @param {Point} p2 - end point
+   * @param {Point} p3 - control point
    * @return {void}
    */
-  protected generatePoints(p1: PNXPoint, p2: PNXPoint, p3: PNXPoint): void {
-    let l1: PNXLine = new PNXLine(p1.x, p1.y, p3.x, p3.y);
-    let l2: PNXLine = new PNXLine(p3.x, p3.y, p2.x, p2.y);
+  protected generatePoints(p1: Point, p2: Point, p3: Point): void {
+    let l1: Line = new Line(p1.x, p1.y, p3.x, p3.y);
+    let l2: Line = new Line(p3.x, p3.y, p2.x, p2.y);
     let dx1: number = pcap(this.distanceX(l1) / (this.totalSegments + 1));
     let dx2: number = pcap(this.distanceX(l2) / (this.totalSegments + 1));
 
@@ -439,8 +439,8 @@ export class PNXCurve {
       dy2 = pcap(this.distanceY(l2) / (this.totalSegments + 1));
     }
 
-    let ls1: PNXLine = new PNXLine();
-    let ls2: PNXLine = new PNXLine();
+    let ls1: Line = new Line();
+    let ls2: Line = new Line();
     for (let i = 0; i < this.totalSegments; i++) {
       ls1.pt1.x = pcap(l1.pt1.x + (dx1 * i));
       ls1.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 1)));

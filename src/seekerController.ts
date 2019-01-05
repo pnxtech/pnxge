@@ -1,23 +1,18 @@
-import PNXAnim from './PNXGE/PNXAnim';
-import PNXScene from './PNXGE/PNXScene';
-import PNXProjectileManager from './PNXGE/PNXProjectileManager';
-import PNXSoundManager from './PNXGE/PNXSoundManager';
-import IPNXController from './PNXGE/PNXController';
-import {PNXVector, PNXAngle} from './PNXGE/PNXMath';
+import * as PNXGE from './PNXGE';
 
 /**
  * @name SeekerController
  * @description Seeker Controller
  */
-export default class SeekerController implements IPNXController{
-  private scene: PNXScene;
-  private anim: PNXAnim;
-  private heroAnim: PNXAnim;
-  private animVector: PNXVector = new PNXVector(0,0);
-  private heroVector: PNXVector = new PNXVector(0,0);
+export default class SeekerController implements PNXGE.IController{
+  private scene: PNXGE.Scene;
+  private anim: PNXGE.Anim;
+  private heroAnim: PNXGE.Anim;
+  private animVector: PNXGE.Vector = new PNXGE.Vector(0,0);
+  private heroVector: PNXGE.Vector = new PNXGE.Vector(0,0);
   private changeCourse: boolean = false;
   private active: boolean = true;
-  private soundManager: PNXSoundManager | undefined;
+  private soundManager: PNXGE.SoundManager | undefined;
   private machineSoundDelay: number;
   private machineSoundCount: number = 200;
 
@@ -25,10 +20,10 @@ export default class SeekerController implements IPNXController{
    * @name constructor
    * @description class constructor
    */
-  constructor(name: string, scene: PNXScene) {
+  constructor(name: string, scene: PNXGE.Scene) {
     this.scene = scene;
-    this.anim = <PNXAnim>scene.getAnim(name);
-    this.heroAnim = <PNXAnim>scene.getAnim('hero');
+    this.anim = <PNXGE.Anim>scene.getAnim(name);
+    this.heroAnim = <PNXGE.Anim>scene.getAnim('hero');
     this.anim.attachController(this);
     this.anim.type = 'enemy';
     this.anim.collisionDetection = true;
@@ -40,11 +35,11 @@ export default class SeekerController implements IPNXController{
    * @name hitBy
    * @description hit by anim (collision event handler)
    */
-  hitBy(anim: PNXAnim): void {
+  hitBy(anim: PNXGE.Anim): void {
     if (anim.type === 'bullet') {
       return;
     }
-    let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
+    let projectileManager: PNXGE.ProjectileManager = <PNXGE.ProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
       projectileManager.createProjectile({
         name: 'explode',
@@ -80,7 +75,7 @@ export default class SeekerController implements IPNXController{
    * @return {void}
    */
   fire(): void {
-    let projectileManager: PNXProjectileManager = <PNXProjectileManager>this.scene.getProjectileManager();
+    let projectileManager: PNXGE.ProjectileManager = <PNXGE.ProjectileManager>this.scene.getProjectileManager();
     if (projectileManager) {
     }
   }
@@ -100,7 +95,7 @@ export default class SeekerController implements IPNXController{
       let distance = this.animVector.distance(this.heroVector);
       if (!this.changeCourse && distance < 200) {
         this.changeCourse = true;
-        let angle = new PNXAngle();
+        let angle = new PNXGE.Angle();
         let course = angle.angleFromVectors(this.heroVector, this.animVector);
         this.anim.rotation = -course;
         let directionVector = angle.vectorAngleFromRadians(course);

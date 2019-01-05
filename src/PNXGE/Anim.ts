@@ -1,15 +1,15 @@
 import * as PIXI from 'pixi.js';
-import IPNXAnimCompatible from './PNXAnimCompatible';
-import PNXEventManager from './PNXEventManager';
-import PNXAnimatedSprite from './PNXAnimatedSprite';
-import IPNXController from './PNXController';
-import PNXScene from './PNXScene';
-import {createID} from './PNXMath';
+import {IAnimCompatible} from './AnimCompatible';
+import {EventManager} from './EventManager';
+import {AnimatedSprite} from './AnimatedSprite';
+import {IController} from './Controller';
+import {Scene} from './Scene';
+import {createID} from './Math';
 
 interface ICallback { (): void };
 interface IHash { [key: string]: {
   name: string,
-  sequence: PNXAnimatedSprite
+  sequence: AnimatedSprite
 }};
 
 export enum AnimType {
@@ -24,15 +24,15 @@ export enum AnimType {
 };
 
 /**
- * @name PNXAnim
+ * @name Anim
  * @description Phoenix Game Engine Anim class
  */
-export default class PNXAnim implements IPNXAnimCompatible {
+export class Anim implements IAnimCompatible {
   private animID: string = createID();
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
-  protected controller: IPNXController | undefined;
+  protected controller: IController | undefined;
   private currentX: number = 0;
   private currentY: number = 0;
   private currentZ: number = 0;
@@ -53,16 +53,16 @@ export default class PNXAnim implements IPNXAnimCompatible {
   private tint: number = 0;
   private animType: string = '';
   private currentCollisionDetection: boolean = false;
-  private animCollisionWith: PNXAnim | undefined;
-  protected scene: PNXScene;
+  private animCollisionWith: Anim | undefined;
+  protected scene: Scene;
   protected stage: PIXI.Container;
-  private currentSequence: PNXAnimatedSprite | undefined;
+  private currentSequence: AnimatedSprite | undefined;
 
   /**
    * @name constructor
    * @description binds Anim to Scene
    */
-  constructor(scene: PNXScene) {
+  constructor(scene: Scene) {
     this.scene = scene;
     this.stage = scene.stage;
   }
@@ -105,10 +105,10 @@ export default class PNXAnim implements IPNXAnimCompatible {
 
   /**
    * @name attachController
-   * @description attach a PNXController
+   * @description attach a Controller
    * @return {void}
    */
-  attachController(controller: IPNXController): void {
+  attachController(controller: IController): void {
     this.controller = controller;
   }
 
@@ -459,10 +459,10 @@ export default class PNXAnim implements IPNXAnimCompatible {
 
   /**
    * @name collisionWith
-   * @description return PNXAnim if collision else undefined
-   * @return {PNXAnim | undefined}
+   * @description return Anim if collision else undefined
+   * @return {Anim | undefined}
    */
-  collisionWith(): PNXAnim | undefined {
+  collisionWith(): Anim | undefined {
     return this.animCollisionWith;
   }
 
@@ -497,7 +497,7 @@ export default class PNXAnim implements IPNXAnimCompatible {
   loadSequence(name: string, atlas: string, resources: any): void {
     let sheet = resources[atlas].spritesheet;
     if (sheet) {
-      let sequence = new PNXAnimatedSprite(sheet.animations[name]);
+      let sequence = new AnimatedSprite(sheet.animations[name]);
       sequence.anim = this;
       sequence.visible = false;
       this.animationSequence[name] = {
@@ -520,7 +520,7 @@ export default class PNXAnim implements IPNXAnimCompatible {
     }
     this.lastSequenceName = sequenceName;
     this.currentSequenceName = sequenceName;
-    this.currentSequence = <PNXAnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
+    this.currentSequence = <AnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     this.currentSequence.gotoAndPlay(0);
   }
 
@@ -540,10 +540,10 @@ export default class PNXAnim implements IPNXAnimCompatible {
    * @name attachTouchHandler
    * @description attach a touch (click, press, touch) handler for this anim
    * @param {string} name - name of event
-   * @param {PNXEventManager} - instance of event eventManager
+   * @param {EventManager} - instance of event eventManager
    * @return {void}
    */
-  attachTouchHandler(name: string, eventManager: PNXEventManager): void {
+  attachTouchHandler(name: string, eventManager: EventManager): void {
     if (this.currentSequence) {
       this.currentSequence.interactive = true;
       this.currentSequence.on('click', () => {
@@ -569,7 +569,7 @@ export default class PNXAnim implements IPNXAnimCompatible {
     if (this.controller) {
       this.controller.update(deltaTime);
     }
-    this.currentSequence = <PNXAnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
+    this.currentSequence = <AnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     if (this.currentSequence) {
       this.currentX += (this.directionX * this.velocityX) * deltaTime;
       this.currentY += (this.directionY * this.velocityY) * deltaTime;
@@ -596,10 +596,10 @@ export default class PNXAnim implements IPNXAnimCompatible {
   /**
    * @name onCollision
    * @description trigged when this anim collides with another anim
-   * @param {PNXAnim} anim - anim with which collision has occured
+   * @param {Anim} anim - anim with which collision has occured
    * @return {void}
    */
-  onCollision(anim: PNXAnim): void {
+  onCollision(anim: Anim): void {
     this.animCollisionWith = anim;
     if (this.controller) {
       this.controller.hitBy(anim);

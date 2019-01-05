@@ -1,31 +1,31 @@
 import * as PIXI from 'pixi.js';
-import PNXAnim from './PNXAnim';
-import PNXScene from './PNXScene';
-import PNXTilingSprite from './PNXTilingSprite';
+import {Anim} from './Anim';
+import {Scene} from './Scene';
+import {TilingSprite} from './TilingSprite';
 
 /**
- * @name PNXBackgroundTile
+ * @name BackgroundTile
  * @description uses a texture to tile a background
  * @note: uses PIXI.extras.TilingSprite, image resource should
  * have an image size of a power of two for use with WebGL
  */
-export default class PNXBackgroundTile extends PNXAnim {
-  protected scene: PNXScene;
+export class BackgroundTile extends Anim {
+  protected scene: Scene;
   protected texture: PIXI.Texture;
-  protected tilingSprite: PNXTilingSprite;
+  protected tilingSprite: TilingSprite;
 
   /**
    * @name constructor
    * @description init class
-   * @param {PNXScene} parent scene
+   * @param {Scene} parent scene
    * @param {string} assetPath - path to image resource
    * @note image resource should have an image size of a power of two for use with WebGL
    */
-  constructor(scene: PNXScene, assetPath: string) {
+  constructor(scene: Scene, assetPath: string) {
     super(scene);
     this.scene = scene;
     this.texture = PIXI.Texture.fromImage(assetPath);
-    this.tilingSprite = new PNXTilingSprite(
+    this.tilingSprite = new TilingSprite(
       this.scene,
       this.texture,
       scene.app.screen.width,

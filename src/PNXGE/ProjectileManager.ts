@@ -1,10 +1,10 @@
-import PNXAnim from "./PNXAnim";
-import PNXScene from "./PNXScene";
-import {createID} from './PNXMath';
+import {Anim} from "./Anim";
+import {Scene} from "./Scene";
+import {createID} from './Math';
 
 interface IProjectileObject {
   active?: boolean,
-  anim?: PNXAnim,
+  anim?: Anim,
   animSpeed?: number,
   name: string,
   type: string,
@@ -23,12 +23,12 @@ interface IProjectileObject {
 };
 
 /**
- * @name PNXProjectileManager
+ * @name ProjectileManager
  * @description Create and manages projectiles
  */
-export default class PNXProjectileManager {
+export class ProjectileManager {
   private projectiles: IProjectileObject[] = [];
-  private scene: PNXScene;
+  private scene: Scene;
   private atlas: string;
   private resources: {};
 
@@ -36,7 +36,7 @@ export default class PNXProjectileManager {
    * @name constructor
    * @description class constructor
    */
-  constructor(scene: PNXScene, atlas: string, resources: {}) {
+  constructor(scene: Scene, atlas: string, resources: {}) {
     this.scene = scene;
     this.atlas = atlas;
     this.resources = resources;
@@ -58,7 +58,7 @@ export default class PNXProjectileManager {
       }
     }
     if (!projectile) {
-      let anim = new PNXAnim(this.scene);
+      let anim = new Anim(this.scene);
       projectile = {
         active: true,
         anim,

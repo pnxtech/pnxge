@@ -1,29 +1,23 @@
-import PNXAnim from './PNXGE/PNXAnim';
-import PNXScene from './PNXGE/PNXScene';
-import IPNXController from './PNXGE/PNXController';
-import PNXTextSprite from './PNXGE/PNXTextSprite';
-import PNXEventManager from './PNXGE/PNXEventManager';
-import {zeroPad} from './PNXGE/PNXMath';
-
+import * as PNXGE from './PNXGE';
 
 /**
  * @name HudController
  * @description Hud Controller
  */
-export default class HudController implements IPNXController{
-  private scene: PNXScene;
-  private anim: PNXAnim;
-  private titleAnim: PNXAnim;
-  private heroAnim: PNXAnim;
-  private healthAnim: PNXAnim;
-  private scoreAnim: PNXTextSprite;
-  private gameoverAnim: PNXTextSprite;
-  private levelCompleteAnim: PNXTextSprite;
+export default class HudController implements PNXGE.IController{
+  private scene: PNXGE.Scene;
+  private anim: PNXGE.Anim;
+  private titleAnim: PNXGE.Anim;
+  private heroAnim: PNXGE.Anim;
+  private healthAnim: PNXGE.Anim;
+  private scoreAnim: PNXGE.TextSprite;
+  private gameoverAnim: PNXGE.TextSprite;
+  private levelCompleteAnim: PNXGE.TextSprite;
 
   private destructionSequence: boolean = false;
   private destructionInterval: number = 40;
   private destructionDelay: number = -1;
-  private eventManager: PNXEventManager;
+  private eventManager: PNXGE.EventManager;
   private eventID: string = '';
   private hudUp: boolean = true;
 
@@ -32,22 +26,22 @@ export default class HudController implements IPNXController{
    * @name constructor
    * @description class constructor
    */
-  constructor(name: string, scene: PNXScene) {
+  constructor(name: string, scene: PNXGE.Scene) {
     this.scene = scene;
     this.eventManager = this.scene.app.getEventManager();
-    this.anim = <PNXAnim>scene.getAnim(name);
-    this.heroAnim = <PNXAnim>scene.getAnim('hero');
-    this.titleAnim = <PNXAnim>scene.getAnim('title');
-    this.healthAnim = <PNXAnim>scene.getAnim('health');
-    this.scoreAnim = <PNXTextSprite>scene.getAnim('score');
-    this.gameoverAnim = <PNXTextSprite>scene.getAnim('gameover');
+    this.anim = <PNXGE.Anim>scene.getAnim(name);
+    this.heroAnim = <PNXGE.Anim>scene.getAnim('hero');
+    this.titleAnim = <PNXGE.Anim>scene.getAnim('title');
+    this.healthAnim = <PNXGE.Anim>scene.getAnim('health');
+    this.scoreAnim = <PNXGE.TextSprite>scene.getAnim('score');
+    this.gameoverAnim = <PNXGE.TextSprite>scene.getAnim('gameover');
     this.gameoverAnim.visible = false;
-    this.levelCompleteAnim = <PNXTextSprite>scene.getAnim('levelcomplete');
+    this.levelCompleteAnim = <PNXGE.TextSprite>scene.getAnim('levelcomplete');
     this.levelCompleteAnim.visible = false;
 
     if (!this.scene.app.demo) {
       this.anim.attachTouchHandler('hudTouchEvent', this.eventManager);
-      this.eventID = this.eventManager.addEventHandler('hudTouchEvent', (anim: PNXAnim) => {
+      this.eventID = this.eventManager.addEventHandler('hudTouchEvent', (anim: PNXGE.Anim) => {
         if (!this.gameoverAnim.visible) {
           this.hudUp = !this.hudUp;
           this.hudVisible(this.hudUp);
@@ -72,10 +66,10 @@ export default class HudController implements IPNXController{
   /**
    * @name hitBy
    * @description hit by anim (collision event handler)
-   * @param {PNXAnim} anim
+   * @param {Anim} anim
    * @return {void}
    */
-  hitBy(anim: PNXAnim): void {
+  hitBy(anim: PNXGE.Anim): void {
   }
 
   /**
@@ -118,7 +112,7 @@ export default class HudController implements IPNXController{
     }
 
     // console.log(`score: ${this.scene.app.score}`);
-    this.scoreAnim.text = zeroPad(this.scene.app.score, 5);
+    this.scoreAnim.text = PNXGE.zeroPad(this.scene.app.score, 5);
 
     let healthScore = 20 - (((this.heroAnim.health / 5) | 0) || 0);
     if (healthScore >= 20) {

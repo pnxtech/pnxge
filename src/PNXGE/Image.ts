@@ -1,30 +1,30 @@
 import * as PIXI from 'pixi.js';
-import IPNXAnimCompatible from './PNXAnimCompatible';
-import {AnimType} from './PNXAnim';
-import PNXScene from './PNXScene';
-import {createID} from './PNXMath';
+import {IAnimCompatible} from './AnimCompatible';
+import {AnimType} from './Anim';
+import {Scene} from './Scene';
+import {createID} from './Math';
 
 
 /**
- * @name PNXImage
- * @description PNX image sprite
+ * @name Image
+ * @description  image sprite
  */
-export default class PNXImage extends PIXI.Sprite implements IPNXAnimCompatible {
+export class Image extends PIXI.Sprite implements IAnimCompatible {
   public id: string = createID();
   public collisionDetection: boolean = false;
   public type: string = AnimType.IMAGE;
-  public anim: PNXImage;
-  protected scene: PNXScene;
+  public anim: Image;
+  protected scene: Scene;
   private zOrder: number = 0;
 
   /**
    * @name constructor
    * @description constructor
-   * @param {PNXScene} scene - reference to parent scene
+   * @param {Scene} scene - reference to parent scene
    * @param {string} name - name of sequence
    * @param {object} resources - loaded resources
    */
-  constructor(scene: PNXScene, name: string, resources: any) {
+  constructor(scene: Scene, name: string, resources: any) {
     super(resources.textures[name]);
     this.anim = this;
     this.scene = scene;
