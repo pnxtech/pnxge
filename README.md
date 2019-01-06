@@ -80,3 +80,13 @@ Tiling background support:
         },
 ```
 
+#### File build post processing
+
+XML and JSON files are minified using the included pack.sh script which is utlized by npm package.json file.
+
+Requires these tools:
+
+```
+$ npm install -g muxml-cli
+$ npm install -g json-fmt
+```
