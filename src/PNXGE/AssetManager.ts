@@ -8,7 +8,7 @@ import {SoundManager} from './SoundManager';
 
 interface ICallback { (resources: {}): void };
 
-export class GameLoader {
+export class AssetManager {
   private loader: PIXI.loaders.Loader;
   private gameConfig: any = {};
   private resources: any;
@@ -16,7 +16,7 @@ export class GameLoader {
 
   /**
    * @name constructor
-   * @description game loader
+   * @description asset manager init
    */
   constructor() {
     this.loader = new PIXI.loaders.Loader();
@@ -53,6 +53,9 @@ export class GameLoader {
     let sceneData = this.gameConfig.scenes[sceneName];
     let objectList = sceneData.objects;
     for (let obj of <any>objectList) {
+      if (obj.extends) {
+        obj = this.mergeObjects(this.gameConfig.refs[obj.extends], obj);
+      }
       switch (obj.type) {
         case 'sounds':
           if (!this.soundManager) {
@@ -144,5 +147,22 @@ export class GameLoader {
     }
     scene.sortAnims();
     postPopulateHandler(this.resources);
+  }
+
+  /**
+   * @name mergeObjects
+   * @description merge objects. used as an ES5 replacement for the unavailable Object.assign
+   * @return {object} returns merged object
+   */
+  mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object {
+    let resObj: any = {};
+    for (let i=0; i < arguments.length; i += 1) {
+      let obj = arguments[i];
+      let keys = Object.keys(obj);
+      for (let j = 0; j < keys.length; j += 1) {
+          resObj[keys[j]] = obj[keys[j]];
+      }
+    }
+    return resObj;
   }
 }

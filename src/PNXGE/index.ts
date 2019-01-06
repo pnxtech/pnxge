@@ -5,7 +5,7 @@ export * from './Application';
 export * from './BackgroundTile';
 export * from './Controller';
 export * from './EventManager';
-export * from './GameLoader';
+export * from './AssetManager';
 export * from './Image';
 export * from './Math';
 export * from './ProjectileManager';

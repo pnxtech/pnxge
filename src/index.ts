@@ -9,7 +9,7 @@ let SCENEHEIGHT: number = 360;
 let DEMO: boolean = true;
 
 export default class GameApp extends PNXGE.Application {
-  private gameLoader: PNXGE.GameLoader;
+  private assetManager: PNXGE.AssetManager;
   private scene: PNXGE.Scene | undefined;
   private LEFTKEY: number = 37;
   private RIGHTKEY: number = 39;
@@ -18,9 +18,8 @@ export default class GameApp extends PNXGE.Application {
     super(SCENEWIDTH, SCENEHEIGHT);
     this.demo = DEMO;
 
-    this.gameLoader = new PNXGE.GameLoader();
-    this.gameLoader.init('game.json', (resources: {}) => {
-      // this.gameOverScene();
+    this.assetManager = new PNXGE.AssetManager();
+    this.assetManager.init('game.json', (resources: {}) => {
       this.loadTitleScene();
       this.rebindControls();
     });
@@ -78,7 +77,7 @@ export default class GameApp extends PNXGE.Application {
 
   loadTitleScene() {
     this.scene = new TitleScene(this);
-    this.gameLoader.populateScene(this.scene, 'title', (resources: {}) => {
+    this.assetManager.populateScene(this.scene, 'title', (resources: {}) => {
       if (this.scene) {
         this.scene.start(resources);
       }
@@ -87,7 +86,7 @@ export default class GameApp extends PNXGE.Application {
 
   loadLevel1Scene() {
     this.scene = new Level1Scene(this);
-    this.gameLoader.populateScene(this.scene, 'level1', (resources: {}) => {
+    this.assetManager.populateScene(this.scene, 'level1', (resources: {}) => {
       if (this.scene) {
         this.scene.start(resources);
       }
@@ -96,7 +95,7 @@ export default class GameApp extends PNXGE.Application {
 
   loadLevel1CompleteScene() {
     this.scene = new Level1CompleteScene(this);
-    this.gameLoader.populateScene(this.scene, 'level1Complete', (resources: {}) => {
+    this.assetManager.populateScene(this.scene, 'level1Complete', (resources: {}) => {
       if (this.scene) {
         this.scene.start(resources);
       }
@@ -105,7 +104,7 @@ export default class GameApp extends PNXGE.Application {
 
   gameOverScene() {
     this.scene = new GameoverScene(this);
-    this.gameLoader.populateScene(this.scene, 'gameover', (resources: {}) => {
+    this.assetManager.populateScene(this.scene, 'gameover', (resources: {}) => {
       if (this.scene) {
         this.scene.start(resources);
       }
