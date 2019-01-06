@@ -201,6 +201,23 @@
         }
       ]
     },
+    "loading": {
+      "type": "vignette",
+      "objects": [
+        {
+          "extends": "demo-overlay"
+        },
+        {
+          "type": "image",
+          "name": "tyros-loading.png",
+          "atlas": "sprites.json",
+          "visible": true,
+          "x": 0,
+          "y": 0,
+          "z": 40000
+        }
+      ]
+    },
     "gameover": {
       "type": "vignette",
       "objects": [
@@ -260,15 +277,6 @@
         },
         {
           "extends": "demo-overlay"
-        },
-        {
-          "type": "image",
-          "name": "tyros-loading.png",
-          "atlas": "sprites.json",
-          "visible": false,
-          "x": 0,
-          "y": 0,
-          "z": 40000
         },
         {
           "extends": "hud"

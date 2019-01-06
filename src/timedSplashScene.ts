@@ -1,18 +1,26 @@
 import * as PNXGE from './PNXGE';
 
 /**
- * @name Level1CompleteScene
- * @description Level1 Complete Scene
+ * @name TimedSplashScene
+ * @description Timed Splash scene
  */
-export default class Level1CompleteScene extends PNXGE.Scene {
+export default class TimedSplashScene extends PNXGE.Scene {
+  private delay: number;
+  private delayTimer: any;
+  private exitMessage: string;
+
   /**
    * @name constructor
    * @description initialize scene
    * @param {Application} app
+   * @param {number} delay - display delay in seconds
+   * @param {string} exitMessage - message to send on exit
    */
-  constructor(app: PNXGE.Application) {
+  constructor(app: PNXGE.Application, delay: number, exitMessage: string) {
     super(app);
     this.app = app;
+    this.delay = delay * 1000;
+    this.exitMessage = exitMessage;
   }
 
   /**
@@ -25,10 +33,10 @@ export default class Level1CompleteScene extends PNXGE.Scene {
     let anim = <PNXGE.Image>this.getAnim('demo-overlay.png');
     anim.visible = this.app.demo;
 
-    let timeOutID = setInterval(() => {
-      clearInterval(timeOutID);
-      this.end('level1CompleteSceneEnd');
-    }, 3000);
+    this.delayTimer = setInterval(() => {
+      clearInterval(this.delayTimer);
+      this.end(this.exitMessage);
+    }, this.delay);
 
     super.start(resources);
   }

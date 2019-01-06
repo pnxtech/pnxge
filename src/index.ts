@@ -1,8 +1,7 @@
 import * as PNXGE from './PNXGE';
+import TimedSplashScene from './timedSplashScene';
 import TitleScene from './titleScene';
 import Level1Scene from './level1Scene';
-import Level1CompleteScene from './level1CompleteScene';
-import GameoverScene from './gameoverScene';
 
 let SCENEWIDTH: number = 360;
 let SCENEHEIGHT: number = 360;
@@ -47,8 +46,9 @@ export default class GameApp extends PNXGE.Application {
 
   /**
    * @name sceneEnd
-   * @description scenne end handler
-   * @param {string} outcome - result of level ending
+   * @description scene end handler
+   * @param {string} outcome - result of scene ending
+   * @return {void}
    */
   sceneEnd(outcome: string): void {
     if (this.scene) {
@@ -57,16 +57,19 @@ export default class GameApp extends PNXGE.Application {
     }
     switch (outcome) {
       case 'titleSceneEnd':
+        this.loadTimedScene('loading', 'loadingEnd', 2);
+        break;
+      case 'loadingEnd':
         this.loadLevel1Scene();
         break;
       case 'gameover':
-        this.gameOverScene();
+        this.loadTimedScene('gameover', 'gameOverSceneEnd', 2);
         break;
       case 'gameOverSceneEnd':
         this.loadTitleScene();
         break;
       case 'level1SceneEnd':
-        this.loadLevel1CompleteScene();
+        this.loadTimedScene('level1Complete', 'level1CompleteSceneEnd', 2);
         break;
       case 'level1CompleteSceneEnd':
         this.loadTitleScene();
@@ -75,7 +78,29 @@ export default class GameApp extends PNXGE.Application {
     this.rebindControls();
   }
 
-  loadTitleScene() {
+  /**
+   * @name loadTimedScene
+   * @description load timed scene
+   * @param {string} sceneName - name of scene
+   * @param {string} exitMessage - message to send on exit
+   * @param {number} delay - delay in seconds
+   * @return {void}
+   */
+  loadTimedScene(sceneName: string, exitMessage: string, delay: number): void {
+    this.scene = new TimedSplashScene(this, delay, exitMessage);
+    this.assetManager.populateScene(this.scene, sceneName, (resources: {}) => {
+      if (this.scene) {
+        this.scene.start(resources);
+      }
+    });
+  }
+
+  /**
+   * @name loadTitleScene
+   * @description load title scene
+   * @return {void}
+   */
+  loadTitleScene(): void {
     this.scene = new TitleScene(this);
     this.assetManager.populateScene(this.scene, 'title', (resources: {}) => {
       if (this.scene) {
@@ -84,27 +109,14 @@ export default class GameApp extends PNXGE.Application {
     });
   }
 
-  loadLevel1Scene() {
+  /**
+   * @name loadLevel1Scene
+   * @description load level 1 scene
+   * @return {void}
+   */
+  loadLevel1Scene(): void {
     this.scene = new Level1Scene(this);
     this.assetManager.populateScene(this.scene, 'level1', (resources: {}) => {
-      if (this.scene) {
-        this.scene.start(resources);
-      }
-    });
-  }
-
-  loadLevel1CompleteScene() {
-    this.scene = new Level1CompleteScene(this);
-    this.assetManager.populateScene(this.scene, 'level1Complete', (resources: {}) => {
-      if (this.scene) {
-        this.scene.start(resources);
-      }
-    });
-  }
-
-  gameOverScene() {
-    this.scene = new GameoverScene(this);
-    this.assetManager.populateScene(this.scene, 'gameover', (resources: {}) => {
       if (this.scene) {
         this.scene.start(resources);
       }
