@@ -67,10 +67,7 @@ export default class Level1Scene extends PNXGE.Scene {
         anim.visible = false;
       }
     }, () => {});
-    if (this.hudController) {
-      this.hudController.levelComplete();
-    }
-    this.app.levelEnd(outcome);
+    this.app.sceneEnd(outcome);
   }
 
   /**
@@ -111,7 +108,7 @@ export default class Level1Scene extends PNXGE.Scene {
       }
     }, () => {
       if (activeCount === 0) {
-        this.end('complete');
+        this.end('level1SceneEnd');
         return;
       }
     });

@@ -11,8 +11,6 @@ export default class HudController implements PNXGE.IController{
   private heroAnim: PNXGE.Anim;
   private healthAnim: PNXGE.Anim;
   private scoreAnim: PNXGE.TextSprite;
-  private gameoverAnim: PNXGE.TextSprite;
-  private levelCompleteAnim: PNXGE.TextSprite;
 
   private destructionSequence: boolean = false;
   private destructionInterval: number = 40;
@@ -34,18 +32,12 @@ export default class HudController implements PNXGE.IController{
     this.titleAnim = <PNXGE.Anim>scene.getAnim('title');
     this.healthAnim = <PNXGE.Anim>scene.getAnim('health');
     this.scoreAnim = <PNXGE.TextSprite>scene.getAnim('score');
-    this.gameoverAnim = <PNXGE.TextSprite>scene.getAnim('gameover');
-    this.gameoverAnim.visible = false;
-    this.levelCompleteAnim = <PNXGE.TextSprite>scene.getAnim('levelcomplete');
-    this.levelCompleteAnim.visible = false;
 
     if (!this.scene.app.demo) {
       this.anim.attachTouchHandler('hudTouchEvent', this.eventManager);
       this.eventID = this.eventManager.addEventHandler('hudTouchEvent', (anim: PNXGE.Anim) => {
-        if (!this.gameoverAnim.visible) {
-          this.hudUp = !this.hudUp;
-          this.hudVisible(this.hudUp);
-        }
+        this.hudUp = !this.hudUp;
+        this.hudVisible(this.hudUp);
       });
     }
     this.anim.attachController(this);
@@ -81,17 +73,6 @@ export default class HudController implements PNXGE.IController{
   }
 
   /**
-   * @name levelComplete
-   * @description handle level complete
-   * @return {void}
-   */
-  levelComplete(): void {
-    this.hudVisible(true);
-    this.anim.setFrame(1);
-    this.levelCompleteAnim.visible = true;
-  }
-
-  /**
    * @name update
    * @description update the scene
    * @param {number} deltaTime
@@ -101,11 +82,7 @@ export default class HudController implements PNXGE.IController{
     if (this.destructionSequence) {
       this.destructionDelay--;
       if (this.destructionDelay < 0) {
-        this.hudVisible(true);
         this.scene.end('gameover');
-        this.anim.setFrame(3);
-        this.gameoverAnim.visible = true;
-        this.levelCompleteAnim.visible = false;
         this.destructionDelay = -1;
         this.destructionSequence = false;
       }

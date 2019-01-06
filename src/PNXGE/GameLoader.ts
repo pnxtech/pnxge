@@ -7,166 +7,142 @@ import {TextSprite} from './TextSprite';
 import {SoundManager} from './SoundManager';
 
 interface ICallback { (resources: {}): void };
-interface ISceneDataHash { [key: string]: {
-  type: string,
-  objects: []
-}};
-
-interface ISceneObjectHash { [key: string]: Anim};
 
 export class GameLoader {
   private loader: PIXI.loaders.Loader;
   private gameConfig: any = {};
-  private parentScene: Scene;
   private resources: any;
-  private sceneName: string;
-  private sceneData: ISceneDataHash = {};
-  private sceneObjects: ISceneObjectHash = {};
   private soundManager: SoundManager | undefined;
 
   /**
    * @name constructor
    * @description game loader
    */
-  constructor(scene: Scene, sceneName: string) {
+  constructor() {
     this.loader = new PIXI.loaders.Loader();
-    this.sceneName = sceneName;
-    this.parentScene = scene;
     this.soundManager = undefined;
   }
 
- /**
-   * @name preload
-   * @description preload game assets
-   * @param {string} filename - game file name
-   * @param {ICallback} postPreLoaderHandler - handler to call on post preload
-   * @return {void}
+  /**
+   * @name init
+   * @description initialize loader
    */
-  preload(filename: string, postPreLoaderHandler: ICallback): void {
+  init(filename: string, initComplete: ICallback): void {
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
-      this.sceneData = this.gameConfig.scenes[this.sceneName];
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);
       }
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         this.resources = resources;
-        this.loadAssets(true);
-        this.parentScene.sortAnims();
-        postPreLoaderHandler(this.resources);
+        initComplete(this.resources);
       });
     });
   }
 
   /**
-   * @name load
-   * @description load game assets
-   * @param {ICallback} postLoaderHandler - handler to call on post load
+   * @name populateScene
+   * @description populate Scene with resources
+   * @param {Scene} scene - scene reference
+   * @param {string} sceneName - name of scene
+   * @param {ICallback} postPopulateHandler - completion callback
    * @return {void}
    */
-  load(postLoaderHandler: ICallback): void {
-    this.loadAssets(false);
-    this.parentScene.sortAnims();
-    postLoaderHandler(this.resources);
-  }
-
-  /**
-   * @name loadAssets
-   * @description load assets based on preload param
-   * @param {boolean} preload - type of assets to load
-   */
-  loadAssets(preload: boolean): void {
-    let objectList = this.sceneData.objects;
+  populateScene(scene: Scene, sceneName: string, postPopulateHandler: ICallback): void {
+    let sceneData = this.gameConfig.scenes[sceneName];
+    let objectList = sceneData.objects;
     for (let obj of <any>objectList) {
-      if (!obj.preload) {
-        obj.preload = false;
-      }
-      if (obj.preload === preload) {
-        switch (obj.type) {
-          case 'sounds':
-            if (!this.soundManager) {
-              this.soundManager = new SoundManager(this.resources[obj.atlas].data);
-              this.soundManager.volume = obj.volume;
-            }
-            this.parentScene.attachSoundManager(this.soundManager);
-            break;
-          case 'image':
-            this.sceneObjects[obj.name] = new Image(this.parentScene, obj.name, this.resources[obj.atlas]);
-            this.sceneObjects[obj.name].type = obj.type;
-            this.sceneObjects[obj.name].x = obj.x;
-            this.sceneObjects[obj.name].y = obj.y;
-            this.sceneObjects[obj.name].z = obj.z;
-            this.sceneObjects[obj.name].visible = obj.visible;
-            this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
-            break;
-          case 'tile':
-            this.sceneObjects[obj.name] = new BackgroundTile(this.parentScene, obj.file);
-            this.sceneObjects[obj.name].type = obj.type;
-            this.sceneObjects[obj.name].flip(obj.flip || false);
+      switch (obj.type) {
+        case 'sounds':
+          if (!this.soundManager) {
+            this.soundManager = new SoundManager(this.resources[obj.atlas].data);
+            this.soundManager.volume = obj.volume;
+          }
+          scene.attachSoundManager(this.soundManager);
+          break;
+        case 'image': {
+            let image = new Image(scene, obj.name, this.resources[obj.atlas]);
+            image.type = obj.type;
+            image.x = obj.x;
+            image.y = obj.y;
+            image.z = obj.z;
+            image.visible = obj.visible;
+            scene.addAnim(obj.name, image);
+          }
+          break;
+        case 'tile':{
+            let backgroundTile = new BackgroundTile(scene, obj.file);
+            backgroundTile.type = obj.type;
+            backgroundTile.flip(obj.flip || false);
             if (obj.tint) {
-              this.sceneObjects[obj.name].setTint(parseInt(obj.tint, 16));
+              backgroundTile.setTint(parseInt(obj.tint, 16));
             }
-            this.sceneObjects[obj.name].sx = obj.sx || 1;
-            this.sceneObjects[obj.name].sy = obj.sy || 1;
-            this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
-            break;
-          case 'text':
-            this.sceneObjects[obj.name] = new TextSprite(this.parentScene, obj.text, obj.fontInfo);
-            this.sceneObjects[obj.name].type = obj.type;
-            this.sceneObjects[obj.name].x = obj.x;
-            this.sceneObjects[obj.name].y = obj.y;
-            this.sceneObjects[obj.name].z = obj.z;
-            this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
-            break;
-          case 'character':
-            this.sceneObjects[obj.name] = new Anim(this.parentScene);
-            this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, this.resources);
-            this.sceneObjects[obj.name].type = obj.type;
-            this.sceneObjects[obj.name].x = obj.x;
-            this.sceneObjects[obj.name].y = obj.y;
-            this.sceneObjects[obj.name].z = obj.z;
-            this.sceneObjects[obj.name].vx = obj.vx || 0;
-            this.sceneObjects[obj.name].vy = obj.vy || 0;
-            this.sceneObjects[obj.name].dx = obj.dx || 0;
-            this.sceneObjects[obj.name].dy = obj.dy || 0;
-            this.sceneObjects[obj.name].sx = obj.sx || 1;
-            this.sceneObjects[obj.name].sy = obj.sy || 1;
-            this.sceneObjects[obj.name].loop = obj.loop;
-            this.sceneObjects[obj.name].rotation = obj.rotation || 0;
-            this.sceneObjects[obj.name].health = obj.health;
-            this.sceneObjects[obj.name].strength = obj.strength;
-            this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
-            this.sceneObjects[obj.name].play(obj.sequence);
+            backgroundTile.sx = obj.sx || 1;
+            backgroundTile.sy = obj.sy || 1;
+            scene.addAnim(obj.name, backgroundTile);
+          }
+          break;
+        case 'text': {
+            let textSprite = new TextSprite(scene, obj.text, obj.fontInfo);
+            textSprite.type = obj.type;
+            textSprite.x = obj.x;
+            textSprite.y = obj.y;
+            textSprite.z = obj.z;
+            scene.addAnim(obj.name, textSprite);
+          }
+          break;
+        case 'character': {
+            let anim = new Anim(scene);
+            anim.loadSequence(obj.sequence, obj.atlas, this.resources);
+            anim.type = obj.type;
+            anim.x = obj.x;
+            anim.y = obj.y;
+            anim.z = obj.z;
+            anim.vx = obj.vx || 0;
+            anim.vy = obj.vy || 0;
+            anim.dx = obj.dx || 0;
+            anim.dy = obj.dy || 0;
+            anim.sx = obj.sx || 1;
+            anim.sy = obj.sy || 1;
+            anim.loop = obj.loop;
+            anim.rotation = obj.rotation || 0;
+            anim.health = obj.health;
+            anim.strength = obj.strength;
+            anim.collisionDetection = obj.collisionDetection;
+            anim.play(obj.sequence);
             if (obj.frame !== undefined) {
-              this.sceneObjects[obj.name].setFrame(obj.frame);
+              anim.setFrame(obj.frame);
             }
             if (obj.animationSpeed !== undefined) {
-              this.sceneObjects[obj.name].animationSpeed = obj.animationSpeed;
+              anim.animationSpeed = obj.animationSpeed;
             }
             if (obj.tint) {
-              this.sceneObjects[obj.name].setTint(parseInt(obj.tint, 16));
+              anim.setTint(parseInt(obj.tint, 16));
             }
-            this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
-            break;
-          case 'ground':
-            this.sceneObjects[obj.name] = new Anim(this.parentScene);
-            this.sceneObjects[obj.name].loadSequence(obj.sequence, obj.atlas, this.resources);
-            this.sceneObjects[obj.name].type = obj.type;
-            this.sceneObjects[obj.name].x = obj.x;
-            this.sceneObjects[obj.name].y = obj.y;
-            this.sceneObjects[obj.name].z = obj.z;
-            this.sceneObjects[obj.name].sx = obj.sx || 1;
-            this.sceneObjects[obj.name].sy = obj.sy || 1;
-            this.sceneObjects[obj.name].rotation = obj.rotation;
-            this.sceneObjects[obj.name].collisionDetection = obj.collisionDetection;
-            this.sceneObjects[obj.name].loop = obj.loop;
-            this.sceneObjects[obj.name].play(obj.sequence);
-            this.sceneObjects[obj.name].setFrame(obj.frame);
-            this.parentScene.addAnim(obj.name, this.sceneObjects[obj.name]);
-            break;
-        }
+            scene.addAnim(obj.name, anim);
+          }
+          break;
+        case 'ground': {
+            let anim = new Anim(scene);
+            anim.loadSequence(obj.sequence, obj.atlas, this.resources);
+            anim.type = obj.type;
+            anim.x = obj.x;
+            anim.y = obj.y;
+            anim.z = obj.z;
+            anim.sx = obj.sx || 1;
+            anim.sy = obj.sy || 1;
+            anim.rotation = obj.rotation;
+            anim.collisionDetection = obj.collisionDetection;
+            anim.loop = obj.loop;
+            anim.play(obj.sequence);
+            anim.setFrame(obj.frame);
+            scene.addAnim(obj.name, anim);
+          }
+          break;
       }
     }
+    scene.sortAnims();
+    postPopulateHandler(this.resources);
   }
 }

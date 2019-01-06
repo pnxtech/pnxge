@@ -28,6 +28,9 @@ export class Application extends PIXI.Application {
     document.body.appendChild(this.view);
     this.appWidth = width;
     this.appHeight = height;
+    this.ticker.add((deltaTime) => {
+      this.update(deltaTime);
+    });
   }
 
   /**
@@ -93,11 +96,32 @@ export class Application extends PIXI.Application {
   }
 
   /**
-   * @name levelEnd
-   * @description level end handler
+   * @name sceneEnd
+   * @description scene end handler
    * @param {string} outcome - result of level ending
    */
-  levelEnd(outcome: string): void {
+  sceneEnd(outcome: string): void {
+  }
+
+  /**
+   * @name update
+   * @description update the scene
+   * @param {number} deltaTime
+   * @return {void}
+   */
+  update(deltaTime: number): void {
+  }
+
+  /**
+   * @name destroy
+   * @description application cleanup
+   */
+  destroy() {
+    for (let texture in PIXI.utils.TextureCache) {
+      PIXI.utils.TextureCache[texture].destroy(true);
+    };
+    PIXI.loader.reset();
+    this.ticker.stop();
   }
 }
 

@@ -7,25 +7,93 @@
     "terminal20pt.fnt"
   ],
   "scenes": {
-    "intro": {
+    "title": {
       "type": "vignette",
-      "background": "level1-title.jpg",
-      "font": "title60pt.fnt",
-      "title": {
-        "text": "Level one",
-        "size": 72,
-        "tint": "0x004800"
-      },
-      "subTitle": {
-        "text": "Welcome to the battle",
-        "size": 48,
-        "tint": "0x004800"
-      },
-      "body": {
-        "text": "",
-        "size": 32,
-        "tint": "0x004800"
-      }
+      "objects": [
+        {
+          "type": "image",
+          "name": "demo-overlay.png",
+          "atlas": "sprites.json",
+          "preload": true,
+          "visible": true,
+          "x": 0,
+          "y": 0,
+          "z": 50000
+        },
+        {
+          "type": "image",
+          "name": "tyros-title.png",
+          "atlas": "sprites.json",
+          "preload": true,
+          "visible": true,
+          "x": 0,
+          "y": 0,
+          "z": 40000
+        }
+      ]
+    },
+    "gameover": {
+      "type": "vignette",
+      "objects": [
+        {
+          "type": "image",
+          "name": "demo-overlay.png",
+          "atlas": "sprites.json",
+          "preload": true,
+          "visible": true,
+          "x": 0,
+          "y": 0,
+          "z": 50000
+        },
+        {
+          "type": "text",
+          "name": "gameover",
+          "fontInfo": {
+            "font": "60px digitaltech60pt",
+            "align": "center"
+          },
+          "text": "GAME\nOVER",
+          "x": 108,
+          "y": 100,
+          "z": 25000
+        },
+        {
+          "type": "image",
+          "name": "hud4.png",
+          "atlas": "sprites.json",
+          "visible": true,
+          "x": 0,
+          "y": 0,
+          "z": 20000
+        }
+      ]
+    },
+    "level1Complete": {
+      "type": "vignette",
+      "objects": [
+        {
+          "type": "image",
+          "name": "demo-overlay.png",
+          "atlas": "sprites.json",
+          "preload": true,
+          "visible": true,
+          "x": 0,
+          "y": 0,
+          "z": 50000
+        },
+        {
+          "type": "text",
+          "name": "levelcomplete",
+          "fontInfo": {
+            "font": "60px digitaltech60pt",
+            "align": "center"
+          },
+          "text": "LEVEL\nComplete",
+          "x": 50,
+          "y": 100,
+          "z": 25000
+        }
+      ]
     },
     "level1": {
       "type": "level",
@@ -98,30 +166,6 @@
           "text": "00000",
           "x": 140,
           "y": 324,
-          "z": 25000
-        },
-        {
-          "type": "text",
-          "name": "gameover",
-          "fontInfo": {
-            "font": "60px digitaltech60pt",
-            "align": "center"
-          },
-          "text": "GAME\nOVER",
-          "x": 108,
-          "y": 100,
-          "z": 25000
-        },
-        {
-          "type": "text",
-          "name": "levelcomplete",
-          "fontInfo": {
-            "font": "60px digitaltech60pt",
-            "align": "center"
-          },
-          "text": "LEVEL\nComplete",
-          "x": 50,
-          "y": 100,
           "z": 25000
         },
         {

@@ -7,9 +7,10 @@ import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
 import {TextSprite} from './TextSprite';
 
-interface IAnimHash { [key: string]: Anim};
-interface IAnimCallback { (anim: Anim): void };
+interface IAnimHash { [key: string]: Anim | Image | TextSprite};
+interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
 interface IAnimDoneCallback { (): void };
+
 
 /**
  * @name Scene
@@ -21,11 +22,9 @@ export class Scene {
   protected sceneHeight: number;
 
   public stage: PIXI.Container;
-  public ticker: PIXI.ticker.Ticker;
   public anims: IAnimHash;
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
-  protected spashScreen: Image | undefined;
 
   /**
    * @name constructor
@@ -37,7 +36,6 @@ export class Scene {
     this.sceneWidth = app.width;
     this.sceneHeight = app.height;
     this.stage = app.stage;
-    this.ticker = app.ticker;
     this.anims = {};
   }
 
@@ -78,37 +76,12 @@ export class Scene {
   }
 
   /**
-   * @name loadSplashScreen
-   * @description load the scene's splash screen
-   * @param {string} name - of anim from GameLoader
-   * @return {void}
-   */
-  loadSplashScreen(name: string): void {
-    this.spashScreen = <Image>this.getAnim(name);
-    this.spashScreen.visible = true;
-  }
-
-  /**
-   * @name closeSplashScreen
-   * @description close the scene's splash screen if any
-   * @return {void}
-   */
-  closeSplashScreen(): void {
-    if (this.spashScreen) {
-      this.spashScreen.visible = false;
-    }
-  }
-
-  /**
    * @name start
    * @description start scene updates
    * @param {object} resources - loaded asset resources
    * @return {void}
    */
   start(resources: {}): void {
-    this.ticker.add((deltaTime) => {
-      this.update(deltaTime);
-    });
   }
 
   /**
@@ -118,16 +91,15 @@ export class Scene {
    * @return {void}
    */
   end(outcome: string): void {
-    this.ticker.stop();
   }
 
   /**
    * @name addAnim
    * @description add an anim to the scene
    * @param {string} name - name of anim
-   * @param {Anim} anim - anim objec
+   * @param {Anim | Image | TextSprite} anim - anim objec
    */
-  addAnim(name: string, anim: Anim): void {
+  addAnim(name: string, anim: Anim | Image | TextSprite): void {
     this.anims[name] = anim;
   }
 
@@ -283,33 +255,16 @@ export class Scene {
 
   /**
    * @name destroy
-   * @description remove Anim objects from scene and stage container
+   * @description remove Anim objects from scene
    * @return {void}
    */
   destroy(): void {
     for (let child of this.stage.children) {
-      child.renderable = false;
+      this.stage.removeChild(child);
     }
-
-    let interval = setInterval(() => {
-      clearInterval(interval);
-
-      this.ticker.stop();
-
-      for (let child of this.stage.children) {
-        this.stage.removeChild(child);
-      }
-
-      for (let texture in PIXI.utils.TextureCache) {
-        PIXI.utils.TextureCache[texture].destroy(true);
-      };
-
-      PIXI.loader.reset();
-
-      Object.keys(this.anims).forEach((key) => {
-        this.anims[key].destroy();
-      });
-    }, 2000);
+    Object.keys(this.anims).forEach((key) => {
+      this.anims[key].destroy();
+    });
   }
 }
 

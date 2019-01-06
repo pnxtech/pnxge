@@ -621,6 +621,9 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   destroy(): void {
+    if (this.controller) {
+      this.controller.destroy();
+    }
     // TODO: check this: use of <any> might not be right - code below would work for arrays but not IHASH
     // use this form: Object.keys(this.callBackData).forEach((key) => {}
     for (let animSequence of <any>this.animationSequence) {

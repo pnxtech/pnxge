@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import {IAnimCompatible} from './AnimCompatible';
 import {AnimType} from './Anim';
 import {Scene} from './Scene';
+import {EventManager} from './EventManager';
 import {createID} from './Math';
 
 
@@ -46,6 +47,23 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    */
   set z(z: number) {
     this.zOrder = z;
+  }
+
+  /**
+   * @name attachTouchHandler
+   * @description attach a touch (click, press, touch) handler for this anim
+   * @param {string} name - name of event
+   * @param {EventManager} - instance of event eventManager
+   * @return {void}
+   */
+  attachTouchHandler(name: string, eventManager: EventManager): void {
+    this.interactive = true;
+    this.on('click', () => {
+      eventManager.triggerEvent(name, this);
+    });
+    this.on('touchend', () => {
+      eventManager.triggerEvent(name, this);
+    });
   }
 
   /**
