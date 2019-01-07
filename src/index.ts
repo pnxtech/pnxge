@@ -17,30 +17,22 @@ export default class GameApp extends PNXGE.Application {
     super(SCENEWIDTH, SCENEHEIGHT);
     this.demo = DEMO;
 
-    this.assetManager = new PNXGE.AssetManager();
-    this.assetManager.init('game.json', (resources: {}) => {
-      this.loadTitleScene();
-      this.rebindControls();
-    });
-  }
-
-  /**
-   * @name rebindControls
-   * @description rebind keyboard controls
-   * @return {void}
-   */
-  rebindControls(): void {
     document.addEventListener('keydown', (event) => {
-      if(event.keyCode === this.LEFTKEY) {
+      if (event.keyCode === this.LEFTKEY) {
         if (this.scene) {
           this.scene.moveLeft();
         }
       }
-      else if(event.keyCode === this.RIGHTKEY) {
+      else if (event.keyCode === this.RIGHTKEY) {
         if (this.scene) {
           this.scene.moveRight();
         }
       }
+    });
+
+    this.assetManager = new PNXGE.AssetManager();
+    this.assetManager.init('game.json', (resources: {}) => {
+      this.loadTitleScene();
     });
   }
 
@@ -51,31 +43,35 @@ export default class GameApp extends PNXGE.Application {
    * @return {void}
    */
   sceneEnd(outcome: string): void {
-    if (this.scene) {
-      this.scene.destroy();
-      this.scene = undefined;
-    }
-    switch (outcome) {
-      case 'titleSceneEnd':
-        this.loadTimedScene('loading', 'loadingEnd', 2);
-        break;
-      case 'loadingEnd':
-        this.loadLevel1Scene();
-        break;
-      case 'gameover':
-        this.loadTimedScene('gameover', 'gameOverSceneEnd', 2);
-        break;
-      case 'gameOverSceneEnd':
-        this.loadTitleScene();
-        break;
-      case 'level1SceneEnd':
-        this.loadTimedScene('level1Complete', 'level1CompleteSceneEnd', 2);
-        break;
-      case 'level1CompleteSceneEnd':
-        this.loadTitleScene();
-        break;
-    }
-    this.rebindControls();
+    this.stopTimer();
+    let pauseTimer = setTimeout(() => {
+      clearTimeout(pauseTimer);
+      if (this.scene) {
+        this.scene.destroy();
+        this.scene = undefined;
+      }
+      switch (outcome) {
+        case 'titleSceneEnd':
+          this.loadTimedScene('loading', 'loadingEnd', 2);
+          break;
+        case 'loadingEnd':
+          this.loadLevel1Scene();
+          break;
+        case 'gameover':
+          this.loadTimedScene('gameover', 'gameOverSceneEnd', 2);
+          break;
+        case 'gameOverSceneEnd':
+          this.loadTitleScene();
+          break;
+        case 'level1SceneEnd':
+          this.loadTimedScene('level1Complete', 'level1CompleteSceneEnd', 2);
+          break;
+        case 'level1CompleteSceneEnd':
+          this.loadTitleScene();
+          break;
+      }
+      this.startTimer();
+    }, 0);
   }
 
   /**

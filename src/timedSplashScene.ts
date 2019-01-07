@@ -33,8 +33,8 @@ export default class TimedSplashScene extends PNXGE.Scene {
     let anim = <PNXGE.Image>this.getAnim('demo-overlay.png');
     anim.visible = this.app.demo;
 
-    this.delayTimer = setInterval(() => {
-      clearInterval(this.delayTimer);
+    this.delayTimer = setTimeout(() => {
+      clearTimeout(this.delayTimer);
       this.end(this.exitMessage);
     }, this.delay);
 

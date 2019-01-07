@@ -521,7 +521,9 @@ export class Anim implements IAnimCompatible {
     this.lastSequenceName = sequenceName;
     this.currentSequenceName = sequenceName;
     this.currentSequence = <AnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
-    this.currentSequence.gotoAndPlay(0);
+    if (this.currentSequence) {
+      this.currentSequence.gotoAndPlay(0);
+    }
   }
 
   /**
@@ -562,15 +564,16 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   update(deltaTime: number = 0): void {
-    if (!this.currentSequenceName) {
+    if (!this.currentSequenceName || this.currentSequenceName === '') {
       return;
     }
 
     if (this.controller) {
       this.controller.update(deltaTime);
     }
-    this.currentSequence = <AnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
-    if (this.currentSequence) {
+    let animSequenceEntry = this.animationSequence[this.currentSequenceName];
+    if (animSequenceEntry && animSequenceEntry.sequence) {
+      this.currentSequence = <AnimatedSprite>animSequenceEntry.sequence;
       this.currentX += (this.directionX * this.velocityX) * deltaTime;
       this.currentY += (this.directionY * this.velocityY) * deltaTime;
       this.currentSequence.visible = this.currentVisible;
@@ -624,15 +627,17 @@ export class Anim implements IAnimCompatible {
     if (this.controller) {
       this.controller.destroy();
     }
-    // TODO: check this: use of <any> might not be right - code below would work for arrays but not IHASH
-    // use this form: Object.keys(this.callBackData).forEach((key) => {}
-    for (let animSequence of <any>this.animationSequence) {
-      animSequence.sequence.visible = false;
-      animSequence.sequence.destroy({
+
+    Object.keys(this.animationSequence).forEach((name) => {
+      let sequence = this.animationSequence[name].sequence;
+      sequence.visible = false;
+      sequence.destroy({
         children: true,
         texture: false,
         baseTexture: false
       });
-    }
+    });
+
+    this.currentSequenceName = '';
   }
 }

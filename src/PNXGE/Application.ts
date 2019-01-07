@@ -96,6 +96,24 @@ export class Application extends PIXI.Application {
   }
 
   /**
+   * @name startTimer
+   * @description start timer loop
+   * @return {void}
+   */
+  startTimer(): void {
+    this.ticker.start();
+  }
+
+  /**
+   * @name stopTimer
+   * @description stop timer loop
+   * @return {void}
+   */
+  stopTimer(): void {
+    this.ticker.stop();
+  }
+
+  /**
    * @name sceneEnd
    * @description scene end handler
    * @param {string} outcome - result of level ending

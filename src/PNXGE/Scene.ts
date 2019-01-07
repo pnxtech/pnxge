@@ -167,14 +167,18 @@ export class Scene {
    * @return {void}
    */
   update(deltaTime: number): void {
-    Object.keys(this.anims).forEach((key) => {
-      this.anims[key].update(deltaTime);
-    });
-    if (this.projectileManager) {
-      this.projectileManager.update(deltaTime);
+    if (this.anims) {
+      Object.keys(this.anims).forEach((key) => {
+        if (this.anims[key]) {
+          this.anims[key].update(deltaTime);
+        }
+      });
+      if (this.projectileManager) {
+        this.projectileManager.update(deltaTime);
+      }
+      this.sortAnims();
+      this.collisionDetection();
     }
-    this.sortAnims();
-    this.collisionDetection();
   }
 
   /**
@@ -259,12 +263,12 @@ export class Scene {
    * @return {void}
    */
   destroy(): void {
-    for (let child of this.stage.children) {
-      this.stage.removeChild(child);
-    }
     Object.keys(this.anims).forEach((key) => {
       this.anims[key].destroy();
     });
+    for (let child of this.stage.children) {
+      this.stage.removeChild(child);
+    }
   }
 }
 
