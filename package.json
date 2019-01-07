@@ -1,20 +1,31 @@
 {
-  "license": "MIT",
+  "name": "@pnx/pnxge",
+  "version": "1.0.0",
+  "description": "The Phoenix Game Engine",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "parcel index.html --out-dir bin --open",
-    "build": "rm -rf dist; parcel build index.html; rm dist/*.map; ./pack.sh"
+    "build": "tsc"
   },
+  "repository": {
+   "type": "git",
+   "url": "git+https://github.com/pnxtech/pnxge.git"
+  },
+  "keywords": [],
+  "author": "Carlos Justiniano <cjus34@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+   "url": "https://github.com/pnxtech/pnxge/issues"
+  },
+  "homepage":"https://github.com/pnxtech/pnxge#readme",
   "dependencies": {
     "howler": "^2.1.1",
-    "muxml-cli": "^1.0.0",
     "pixi.js": "^4.8.2"
   },
   "devDependencies": {
     "@types/pixi.js": "^4.8.1",
     "@types/howler": "^2.0.5",
-    "parcel-bundler": "1.10.0",
-    "parcel-plugin-json-url-loader": "^0.1.1",
-    "parcel-plugin-static-files-copy": "^1.2.1",
     "typescript": "^3.0.3"
   }
 }
