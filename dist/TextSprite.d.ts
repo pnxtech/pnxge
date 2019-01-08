@@ -1,13 +1,12 @@
 import * as PIXI from 'pixi.js';
 import { Scene } from './Scene';
-import { IAnimCompatible } from './AnimCompatible';
 import { Anim } from './Anim';
 /**
  * @name TextSprite
  * @description extends the PIXI BitmapText to include additional fields
  * @note: uses PIXI BitmapText
  */
-export declare class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatible {
+export declare class TextSprite extends PIXI.extras.BitmapText {
     id: string;
     zOrder: number;
     collisionDetection: boolean;
@@ -22,28 +21,6 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements IAnimC
      * @param {PIXI.extras.BitmapTextStyle} style - bitmap text styles
      */
     constructor(scene: Scene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined);
-    /**
-     * @name text
-     * @description get text
-     * @return {string} text
-     */
-    /**
-    * @name text
-    * @description text setter
-    * @param {string} text
-    */
-    text: string;
-    /**
-     * @name visible
-     * @description visible getter
-     * @return {boolean} visible
-     */
-    /**
-    * @name visible
-    * @description visible setter
-    * @param {boolean} value
-    */
-    visible: boolean;
     /**
      * @name z
      * @description z position getter

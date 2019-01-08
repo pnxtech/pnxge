@@ -48,46 +48,6 @@ var TextSprite = /** @class */ (function (_super) {
         _this.scene.stage.addChild(_this);
         return _this;
     }
-    Object.defineProperty(TextSprite.prototype, "text", {
-        /**
-         * @name text
-         * @description get text
-         * @return {string} text
-         */
-        get: function () {
-            return this.text;
-        },
-        /**
-         * @name text
-         * @description text setter
-         * @param {string} text
-         */
-        set: function (value) {
-            this.text = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TextSprite.prototype, "visible", {
-        /**
-         * @name visible
-         * @description visible getter
-         * @return {boolean} visible
-         */
-        get: function () {
-            return this.visible;
-        },
-        /**
-         * @name visible
-         * @description visible setter
-         * @param {boolean} value
-         */
-        set: function (value) {
-            this.visible = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(TextSprite.prototype, "z", {
         /**
          * @name z
@@ -102,6 +62,7 @@ var TextSprite = /** @class */ (function (_super) {
          * @description z position setter
          */
         set: function (z) {
+            this.zOrder = z;
             this.anim.z = z;
         },
         enumerable: true,
