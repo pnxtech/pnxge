@@ -32,48 +32,13 @@ export class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatibl
   }
 
   /**
-   * @name text
-   * @description get text
-   * @return {string} text
-   */
-  get text(): string {
-    return this.text;
-  }
-
-  /**
-   * @name text
-   * @description text setter
-   * @param {string} text
-   */
-  set text(value: string) {
-    this.text = value;
-  }
-
-  /**
-   * @name visible
-   * @description visible getter
-   * @return {boolean} visible
-   */
-  get visible(): boolean {
-    return this.visible;
-  }
-
-  /**
-   * @name visible
-   * @description visible setter
-   * @param {boolean} value
-   */
-  set visible(value: boolean) {
-    this.visible = value;
-  }
-
-  /**
    * @name z
    * @description z position getter
    * @return {number} z position
    */
   get z(): number {
-    return this.anim.z;
+    // return this.anim.z;
+    return this.zOrder;
   }
 
   /**
@@ -81,7 +46,8 @@ export class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatibl
    * @description z position setter
    */
   set z(z: number) {
-    this.anim.z = z;
+    this.zOrder = z;
+    // this.anim.z = z;
   }
 
   /**
