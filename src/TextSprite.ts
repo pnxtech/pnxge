@@ -9,7 +9,7 @@ import {createID} from './Math';
  * @description extends the PIXI BitmapText to include additional fields
  * @note: uses PIXI BitmapText
  */
-export class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatible {
+export class TextSprite extends PIXI.extras.BitmapText {
   public id: string = createID();
   public zOrder: number = -1;
   public collisionDetection: boolean = false;
