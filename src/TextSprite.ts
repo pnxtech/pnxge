@@ -37,8 +37,7 @@ export class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatibl
    * @return {number} z position
    */
   get z(): number {
-    // return this.anim.z;
-    return this.zOrder;
+    return this.anim.z;
   }
 
   /**
@@ -47,7 +46,7 @@ export class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatibl
    */
   set z(z: number) {
     this.zOrder = z;
-    // this.anim.z = z;
+    this.anim.z = z;
   }
 
   /**
