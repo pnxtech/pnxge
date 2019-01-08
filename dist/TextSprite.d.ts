@@ -23,6 +23,28 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements IAnimC
      */
     constructor(scene: Scene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined);
     /**
+     * @name text
+     * @description get text
+     * @return {string} text
+     */
+    /**
+    * @name text
+    * @description text setter
+    * @param {string} text
+    */
+    text: string;
+    /**
+     * @name visible
+     * @description visible getter
+     * @return {boolean} visible
+     */
+    /**
+    * @name visible
+    * @description visible setter
+    * @param {boolean} value
+    */
+    visible: boolean;
+    /**
      * @name z
      * @description z position getter
      * @return {number} z position

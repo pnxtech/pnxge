@@ -1,6 +1,6 @@
 {
   "name": "@pnx/pnxge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Phoenix Game Engine",
   "private": true,
   "main": "dist/index.js",
@@ -9,16 +9,16 @@
     "build": "tsc"
   },
   "repository": {
-   "type": "git",
-   "url": "git+https://github.com/pnxtech/pnxge.git"
+    "type": "git",
+    "url": "git+https://github.com/pnxtech/pnxge.git"
   },
   "keywords": [],
   "author": "Carlos Justiniano <cjus34@gmail.com>",
   "license": "ISC",
   "bugs": {
-   "url": "https://github.com/pnxtech/pnxge/issues"
+    "url": "https://github.com/pnxtech/pnxge/issues"
   },
-  "homepage":"https://github.com/pnxtech/pnxge#readme",
+  "homepage": "https://github.com/pnxtech/pnxge#readme",
   "dependencies": {
     "howler": "^2.1.1",
     "pixi.js": "^4.8.2"

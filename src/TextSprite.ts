@@ -32,6 +32,42 @@ export class TextSprite extends PIXI.extras.BitmapText implements IAnimCompatibl
   }
 
   /**
+   * @name text
+   * @description get text
+   * @return {string} text
+   */
+  get text(): string {
+    return this.text;
+  }
+
+  /**
+   * @name text
+   * @description text setter
+   * @param {string} text
+   */
+  set text(value: string) {
+    this.text = value;
+  }
+
+  /**
+   * @name visible
+   * @description visible getter
+   * @return {boolean} visible
+   */
+  get visible(): boolean {
+    return this.visible;
+  }
+
+  /**
+   * @name visible
+   * @description visible setter
+   * @param {boolean} value
+   */
+  set visible(value: boolean) {
+    this.visible = value;
+  }
+
+  /**
    * @name z
    * @description z position getter
    * @return {number} z position
