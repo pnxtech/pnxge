@@ -46,7 +46,6 @@ var Anim = /** @class */ (function () {
         this.velocityY = 0;
         this.scaleX = 1;
         this.scaleY = 1;
-        this.flipState = false;
         this.tint = 0;
         this.animType = '';
         this.currentCollisionDetection = false;
@@ -85,7 +84,6 @@ var Anim = /** @class */ (function () {
         this.velocityY = 0;
         this.scaleX = 1;
         this.scaleY = 1;
-        this.flipState = false;
         this.tint = 0;
         this.animType = '';
         this.currentCollisionDetection = false;
@@ -497,15 +495,6 @@ var Anim = /** @class */ (function () {
         return this.animCollisionWith;
     };
     /**
-     * @name flip
-     * @description flip tile
-     * @param {state} boolean - true flip, else don't
-     * @return {void}
-     */
-    Anim.prototype.flip = function (state) {
-        this.flipState = state;
-    };
-    /**
      * @name setTint
      * @description set tint
      * @param {number} color - color tint
@@ -605,17 +594,11 @@ var Anim = /** @class */ (function () {
             this.currentSequence.loop = this.currentLoop;
             this.currentSequence.x = this.currentX;
             this.currentSequence.y = this.currentY;
-            // this.currentSequence.scale.x = this.scaleX;
-            // this.currentSequence.scale.y = this.scaleY;
+            this.currentSequence.scale.x = this.scaleX;
+            this.currentSequence.scale.y = this.scaleY;
             this.currentSequence.rotation = this.rotation;
             this.currentSequence.animationSpeed = this.animSpeed;
             this.currentSequence.anchor.set(this.animAnchor);
-            if (this.flipState) {
-                this.currentSequence.scale.x *= -1;
-            }
-            else {
-                this.currentSequence.scale.y *= -1;
-            }
             if (this.tint !== 0) {
                 this.currentSequence.tint = this.tint;
             }

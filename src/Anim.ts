@@ -49,7 +49,6 @@ export class Anim implements IAnimCompatible {
   private velocityY: number = 0;
   private scaleX: number = 1;
   private scaleY: number = 1;
-  private flipState: boolean = false;
   private tint: number = 0;
   private animType: string = '';
   private currentCollisionDetection: boolean = false;
@@ -96,7 +95,6 @@ export class Anim implements IAnimCompatible {
     this.velocityY = 0;
     this.scaleX = 1;
     this.scaleY = 1;
-    this.flipState = false;
     this.tint = 0;
     this.animType = '';
     this.currentCollisionDetection = false;
@@ -467,16 +465,6 @@ export class Anim implements IAnimCompatible {
   }
 
   /**
-   * @name flip
-   * @description flip tile
-   * @param {state} boolean - true flip, else don't
-   * @return {void}
-   */
-  flip(state: boolean): void {
-    this.flipState = state;
-  }
-
-  /**
    * @name setTint
    * @description set tint
    * @param {number} color - color tint
@@ -585,11 +573,6 @@ export class Anim implements IAnimCompatible {
       this.currentSequence.rotation = this.rotation;
       this.currentSequence.animationSpeed = this.animSpeed;
       this.currentSequence.anchor.set(this.animAnchor);
-      // if (this.flipState) {
-      //   this.currentSequence.scale.x *= -1;
-      // } else {
-      //   this.currentSequence.scale.y *= -1;
-      // }
       if (this.tint !== 0) {
         this.currentSequence.tint = this.tint;
       }

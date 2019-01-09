@@ -39,7 +39,6 @@ export declare class Anim implements IAnimCompatible {
     private velocityY;
     private scaleX;
     private scaleY;
-    private flipState;
     private tint;
     private animType;
     private currentCollisionDetection;
@@ -275,13 +274,6 @@ export declare class Anim implements IAnimCompatible {
      * @return {Anim | undefined}
      */
     collisionWith(): Anim | undefined;
-    /**
-     * @name flip
-     * @description flip tile
-     * @param {state} boolean - true flip, else don't
-     * @return {void}
-     */
-    flip(state: boolean): void;
     /**
      * @name setTint
      * @description set tint
