@@ -26,6 +26,8 @@ export class Scene {
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
 
+  private sceneStarted: boolean = false;
+
   /**
    * @name constructor
    * @description initialize scene
@@ -82,6 +84,7 @@ export class Scene {
    * @return {void}
    */
   start(resources: {}): void {
+    this.sceneStarted = true;
   }
 
   /**
@@ -91,6 +94,15 @@ export class Scene {
    * @return {void}
    */
   end(outcome: string): void {
+    this.sceneStarted = false;
+  }
+
+  /**
+   * @name hasSceneStarted
+   * @description determine whether the scene has been started
+   */
+  hasSceneStarted(): boolean {
+    return this.sceneStarted;
   }
 
   /**
@@ -167,6 +179,9 @@ export class Scene {
    * @return {void}
    */
   update(deltaTime: number): void {
+    if (!this.sceneStarted) {
+      return;
+    }
     if (this.anims) {
       Object.keys(this.anims).forEach((key) => {
         if (this.anims[key]) {

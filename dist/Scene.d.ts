@@ -26,6 +26,7 @@ export declare class Scene {
     anims: IAnimHash;
     protected projectileManager: ProjectileManager | undefined;
     protected soundManager: SoundManager | undefined;
+    private sceneStarted;
     /**
      * @name constructor
      * @description initialize scene
@@ -70,6 +71,11 @@ export declare class Scene {
      * @return {void}
      */
     end(outcome: string): void;
+    /**
+     * @name hasSceneStarted
+     * @description determine whether the scene has been started
+     */
+    hasSceneStarted(): boolean;
     /**
      * @name addAnim
      * @description add an anim to the scene

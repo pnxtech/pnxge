@@ -14,6 +14,7 @@ var Scene = /** @class */ (function () {
      * @param {Application} application
      */
     function Scene(app) {
+        this.sceneStarted = false;
         this.app = app;
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;
@@ -59,6 +60,7 @@ var Scene = /** @class */ (function () {
      * @return {void}
      */
     Scene.prototype.start = function (resources) {
+        this.sceneStarted = true;
     };
     /**
      * @name end
@@ -67,6 +69,14 @@ var Scene = /** @class */ (function () {
      * @return {void}
      */
     Scene.prototype.end = function (outcome) {
+        this.sceneStarted = false;
+    };
+    /**
+     * @name hasSceneStarted
+     * @description determine whether the scene has been started
+     */
+    Scene.prototype.hasSceneStarted = function () {
+        return this.sceneStarted;
     };
     /**
      * @name addAnim
@@ -145,6 +155,9 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.update = function (deltaTime) {
         var _this = this;
+        if (!this.sceneStarted) {
+            return;
+        }
         if (this.anims) {
             Object.keys(this.anims).forEach(function (key) {
                 if (_this.anims[key]) {

@@ -74,7 +74,7 @@ var AssetManager = /** @class */ (function () {
                         image.x = obj.x;
                         image.y = obj.y;
                         image.z = obj.z;
-                        image.visible = obj.visible;
+                        image.visible = obj.visible || false;
                         scene.addAnim(obj.name, image);
                     }
                     break;
@@ -117,6 +117,7 @@ var AssetManager = /** @class */ (function () {
                         anim.sy = obj.sy || 1;
                         anim.loop = obj.loop;
                         anim.rotation = obj.rotation || 0;
+                        anim.visible = obj.visible || false;
                         anim.health = obj.health;
                         anim.strength = obj.strength;
                         anim.collisionDetection = obj.collisionDetection;
