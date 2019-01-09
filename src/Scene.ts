@@ -11,6 +11,7 @@ interface IAnimHash { [key: string]: Anim | Image | TextSprite};
 interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
 interface IAnimDoneCallback { (): void };
 
+interface ITextsHash { [key: string]: string[]};
 
 /**
  * @name Scene
@@ -25,7 +26,7 @@ export class Scene {
   public anims: IAnimHash;
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
-  protected texts: {} = {};
+  protected texts: ITextsHash = {};
   private sceneStarted: boolean = false;
 
   /**
@@ -71,9 +72,10 @@ export class Scene {
   /**
    * @name attachTexts
    * @description attach asset texts data
+   * @param {ITextsHash} texts - texts object
    * @return {void}
    */
-  attachTexts(texts: {}): void {
+  attachTexts(texts: ITextsHash): void {
     this.texts = texts;
   }
 
