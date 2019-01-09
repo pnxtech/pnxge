@@ -580,8 +580,8 @@ export class Anim implements IAnimCompatible {
       this.currentSequence.loop = this.currentLoop;
       this.currentSequence.x = this.currentX;
       this.currentSequence.y = this.currentY;
-      this.currentSequence.scale.x = this.scaleX;
-      this.currentSequence.scale.y = this.scaleY;
+      // this.currentSequence.scale.x = this.scaleX;
+      // this.currentSequence.scale.y = this.scaleY;
       this.currentSequence.rotation = this.rotation;
       this.currentSequence.animationSpeed = this.animSpeed;
       this.currentSequence.anchor.set(this.animAnchor);
