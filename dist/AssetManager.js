@@ -52,6 +52,7 @@ var AssetManager = /** @class */ (function () {
      * @return {void}
      */
     AssetManager.prototype.populateScene = function (scene, sceneName, postPopulateHandler) {
+        scene.attachTexts(this.gameConfig.texts);
         var sceneData = this.gameConfig.scenes[sceneName];
         var objectList = sceneData.objects;
         for (var _i = 0, _a = objectList; _i < _a.length; _i++) {

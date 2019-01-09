@@ -26,6 +26,7 @@ export declare class Scene {
     anims: IAnimHash;
     protected projectileManager: ProjectileManager | undefined;
     protected soundManager: SoundManager | undefined;
+    protected texts: {};
     private sceneStarted;
     /**
      * @name constructor
@@ -51,6 +52,12 @@ export declare class Scene {
      * @return {void}
      */
     attachSoundManager(soundManager: SoundManager): void;
+    /**
+     * @name attachTexts
+     * @description attach asset texts data
+     * @return {void}
+     */
+    attachTexts(texts: {}): void;
     /**
      * @name getSoundManager
      * @description retrieve a sound manager instance or undefined

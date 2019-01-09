@@ -50,6 +50,7 @@ export class AssetManager {
    * @return {void}
    */
   populateScene(scene: Scene, sceneName: string, postPopulateHandler: ICallback): void {
+    scene.attachTexts(this.gameConfig.texts);
     let sceneData = this.gameConfig.scenes[sceneName];
     let objectList = sceneData.objects;
     for (let obj of <any>objectList) {

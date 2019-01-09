@@ -25,7 +25,7 @@ export class Scene {
   public anims: IAnimHash;
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
-
+  protected texts: {} = {};
   private sceneStarted: boolean = false;
 
   /**
@@ -66,6 +66,15 @@ export class Scene {
    */
   attachSoundManager(soundManager: SoundManager): void {
     this.soundManager = soundManager;
+  }
+
+  /**
+   * @name attachTexts
+   * @description attach asset texts data
+   * @return {void}
+   */
+  attachTexts(texts: {}): void {
+    this.texts = texts;
   }
 
   /**

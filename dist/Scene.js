@@ -14,6 +14,7 @@ var Scene = /** @class */ (function () {
      * @param {Application} application
      */
     function Scene(app) {
+        this.texts = {};
         this.sceneStarted = false;
         this.app = app;
         this.sceneWidth = app.width;
@@ -44,6 +45,14 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.attachSoundManager = function (soundManager) {
         this.soundManager = soundManager;
+    };
+    /**
+     * @name attachTexts
+     * @description attach asset texts data
+     * @return {void}
+     */
+    Scene.prototype.attachTexts = function (texts) {
+        this.texts = texts;
     };
     /**
      * @name getSoundManager
