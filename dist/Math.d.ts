@@ -260,3 +260,4 @@ export declare class Curve {
      */
     protected generatePoints(p1: Point, p2: Point, p3: Point): void;
 }
+//# sourceMappingURL=Math.d.ts.map

@@ -34,3 +34,4 @@ export declare class AssetManager {
     mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object;
 }
 export {};
+//# sourceMappingURL=AssetManager.d.ts.map

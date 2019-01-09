@@ -87,3 +87,4 @@ export declare class Application extends PIXI.Application {
      */
     destroy(): void;
 }
+//# sourceMappingURL=Application.d.ts.map

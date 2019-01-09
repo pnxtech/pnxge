@@ -32,3 +32,4 @@ export declare class EventManager {
     triggerEvent(name: string, eventData: any): void;
 }
 export {};
+//# sourceMappingURL=EventManager.d.ts.map

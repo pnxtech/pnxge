@@ -9,3 +9,4 @@ export declare class AnimatedSprite extends PIXI.extras.AnimatedSprite {
     anim: Anim | undefined;
     constructor(textures: [], autoUpdate?: boolean | undefined);
 }
+//# sourceMappingURL=AnimatedSprite.d.ts.map

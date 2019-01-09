@@ -87,3 +87,4 @@ var TextSprite = /** @class */ (function (_super) {
 }(PIXI.extras.BitmapText));
 exports.TextSprite = TextSprite;
 ;
+//# sourceMappingURL=TextSprite.js.map

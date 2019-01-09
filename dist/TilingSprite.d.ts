@@ -15,3 +15,4 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite {
     anim: Anim;
     constructor(scene: Scene, texture: PIXI.Texture, width: number, height: number);
 }
+//# sourceMappingURL=TilingSprite.d.ts.map

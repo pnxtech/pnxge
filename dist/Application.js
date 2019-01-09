@@ -171,3 +171,4 @@ var Application = /** @class */ (function (_super) {
     return Application;
 }(PIXI.Application));
 exports.Application = Application;
+//# sourceMappingURL=Application.js.map

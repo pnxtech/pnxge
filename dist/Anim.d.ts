@@ -347,3 +347,4 @@ export declare class Anim implements IAnimCompatible {
      */
     destroy(): void;
 }
+//# sourceMappingURL=Anim.d.ts.map

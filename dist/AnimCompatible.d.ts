@@ -9,3 +9,4 @@ export interface IAnimCompatible {
     type: string;
     visible: boolean;
 }
+//# sourceMappingURL=AnimCompatible.d.ts.map

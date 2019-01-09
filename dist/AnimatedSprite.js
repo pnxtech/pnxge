@@ -35,3 +35,4 @@ var AnimatedSprite = /** @class */ (function (_super) {
 }(PIXI.extras.AnimatedSprite));
 exports.AnimatedSprite = AnimatedSprite;
 ;
+//# sourceMappingURL=AnimatedSprite.js.map

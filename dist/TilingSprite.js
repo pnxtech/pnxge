@@ -45,3 +45,4 @@ var TilingSprite = /** @class */ (function (_super) {
 }(PIXI.extras.TilingSprite));
 exports.TilingSprite = TilingSprite;
 ;
+//# sourceMappingURL=TilingSprite.js.map

@@ -52,3 +52,4 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
      */
     destroy(): void;
 }
+//# sourceMappingURL=Image.d.ts.map

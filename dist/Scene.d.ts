@@ -151,3 +151,4 @@ export declare class Scene {
     destroy(): void;
 }
 export {};
+//# sourceMappingURL=Scene.d.ts.map

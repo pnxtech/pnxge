@@ -463,3 +463,4 @@ var Curve = /** @class */ (function () {
     return Curve;
 }());
 exports.Curve = Curve;
+//# sourceMappingURL=Math.js.map

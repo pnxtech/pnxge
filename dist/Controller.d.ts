@@ -8,3 +8,4 @@ export interface IController {
     update(deltaTime: number): void;
     destroy(): void;
 }
+//# sourceMappingURL=Controller.d.ts.map

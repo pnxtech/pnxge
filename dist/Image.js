@@ -101,3 +101,4 @@ var Image = /** @class */ (function (_super) {
     return Image;
 }(PIXI.Sprite));
 exports.Image = Image;
+//# sourceMappingURL=Image.js.map

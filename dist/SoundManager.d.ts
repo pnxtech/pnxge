@@ -38,3 +38,4 @@ export declare class SoundManager {
     */
     volume: number;
 }
+//# sourceMappingURL=SoundManager.d.ts.map

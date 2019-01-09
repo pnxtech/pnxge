@@ -13,3 +13,4 @@ export * from './Scene';
 export * from './SoundManager';
 export * from './TextSprite';
 export * from './TilingSprite';
+//# sourceMappingURL=index.d.ts.map

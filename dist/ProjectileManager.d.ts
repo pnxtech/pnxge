@@ -50,3 +50,4 @@ export declare class ProjectileManager {
     update(deltaTime: number): void;
 }
 export {};
+//# sourceMappingURL=ProjectileManager.d.ts.map

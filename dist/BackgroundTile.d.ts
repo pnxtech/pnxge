@@ -41,3 +41,4 @@ export declare class BackgroundTile extends Anim {
      */
     destroy(): void;
 }
+//# sourceMappingURL=BackgroundTile.d.ts.map

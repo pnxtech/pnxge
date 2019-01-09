@@ -44,3 +44,4 @@ export declare class TextSprite extends PIXI.extras.BitmapText {
      */
     destroy(): void;
 }
+//# sourceMappingURL=TextSprite.d.ts.map
