@@ -39,17 +39,13 @@ var EventManager = /** @class */ (function () {
      */
     EventManager.prototype.removeEventHandler = function (eventID) {
         var _this = this;
-        if (this.callBackData) {
-            Object.keys(this.callBackData).forEach(function (name) {
-                if (_this.callBackData[name]) {
-                    Object.keys(name).forEach(function (id) {
-                        if (id === eventID) {
-                            delete _this.callBackData[name][id];
-                        }
-                    });
+        Object.keys(this.callBackData).forEach(function (name) {
+            Object.keys(_this.callBackData[name]).forEach(function (id) {
+                if (id === eventID) {
+                    delete _this.callBackData[name][id];
                 }
             });
-        }
+        });
     };
     /**
      * @name triggerEvent
