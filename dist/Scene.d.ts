@@ -14,6 +14,9 @@ interface IAnimCallback {
 interface IAnimDoneCallback {
     (): void;
 }
+interface ITextsHash {
+    [key: string]: string[];
+}
 /**
  * @name Scene
  * @description Phoenix Game Engine Scene class
@@ -26,7 +29,7 @@ export declare class Scene {
     anims: IAnimHash;
     protected projectileManager: ProjectileManager | undefined;
     protected soundManager: SoundManager | undefined;
-    protected texts: {};
+    protected texts: ITextsHash;
     private sceneStarted;
     /**
      * @name constructor
@@ -55,9 +58,10 @@ export declare class Scene {
     /**
      * @name attachTexts
      * @description attach asset texts data
+     * @param {ITextsHash} texts - texts object
      * @return {void}
      */
-    attachTexts(texts: {}): void;
+    attachTexts(texts: ITextsHash): void;
     /**
      * @name getSoundManager
      * @description retrieve a sound manager instance or undefined

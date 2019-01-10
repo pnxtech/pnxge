@@ -40,13 +40,17 @@ export class EventManager {
    * @return {void}
    */
   removeEventHandler(eventID: string): void {
-    Object.keys(this.callBackData).forEach((name) => {
-      Object.keys(name).forEach((id) => {
-        if (id === eventID) {
-          delete this.callBackData[name][id];
+    if (this.callBackData) {
+      Object.keys(this.callBackData).forEach((name) => {
+        if (this.callBackData[name]) {
+          Object.keys(name).forEach((id) => {
+            if (id === eventID) {
+              delete this.callBackData[name][id];
+            }
+          });
         }
       });
-    });
+    }
   }
 
   /**

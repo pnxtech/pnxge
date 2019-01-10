@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 ;
 ;
 ;
+;
 /**
  * @name Scene
  * @description Phoenix Game Engine Scene class
@@ -49,6 +50,7 @@ var Scene = /** @class */ (function () {
     /**
      * @name attachTexts
      * @description attach asset texts data
+     * @param {ITextsHash} texts - texts object
      * @return {void}
      */
     Scene.prototype.attachTexts = function (texts) {
