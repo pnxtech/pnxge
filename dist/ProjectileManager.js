@@ -52,6 +52,7 @@ var ProjectileManager = /** @class */ (function () {
                 animSpeed: (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1,
                 frame: projectileInfo.frame,
                 rotation: projectileInfo.rotation,
+                rotationType: projectileInfo.rotationType,
                 scale: projectileInfo.scale
             };
             this.projectiles.push(projectile);
@@ -75,6 +76,7 @@ var ProjectileManager = /** @class */ (function () {
             projectile.animSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
             projectile.frame = projectileInfo.frame;
             projectile.rotation = projectileInfo.rotation;
+            projectile.rotationType = projectileInfo.rotationType;
             projectile.scale = projectileInfo.scale;
         }
         if (projectile && projectile.anim) {
@@ -113,6 +115,27 @@ var ProjectileManager = /** @class */ (function () {
             if (this.projectiles[i].active) {
                 var anim = this.projectiles[i].anim;
                 if (anim) {
+                    if (this.projectiles[i].rotationType) {
+                        var rotAmount = 0;
+                        switch (this.projectiles[i].rotationType) {
+                            case 'cw':
+                                rotAmount = anim.rotation;
+                                rotAmount += .01;
+                                if (rotAmount > 6.28) {
+                                    rotAmount = 0;
+                                }
+                                anim.rotation = rotAmount;
+                                break;
+                            case 'ccw':
+                                rotAmount = anim.rotation;
+                                rotAmount -= .01;
+                                if (rotAmount < 0) {
+                                    rotAmount = 6.28;
+                                }
+                                anim.rotation = rotAmount;
+                                break;
+                        }
+                    }
                     var hide = false;
                     if ((anim.x + anim.width) < 0 ||
                         (anim.y + anim.height) < 0 ||

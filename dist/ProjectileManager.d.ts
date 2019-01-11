@@ -9,6 +9,7 @@ interface IProjectileObject {
     strength: number;
     frame?: number;
     rotation: number;
+    rotationType?: string;
     scale: number;
     collisionDetection: boolean;
     x: number;
