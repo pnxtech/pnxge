@@ -53,6 +53,7 @@ var ProjectileManager = /** @class */ (function () {
                 frame: projectileInfo.frame,
                 rotation: projectileInfo.rotation,
                 rotationType: projectileInfo.rotationType,
+                rotationAmount: projectileInfo.rotationAmount,
                 scale: projectileInfo.scale
             };
             this.projectiles.push(projectile);
@@ -77,6 +78,7 @@ var ProjectileManager = /** @class */ (function () {
             projectile.frame = projectileInfo.frame;
             projectile.rotation = projectileInfo.rotation;
             projectile.rotationType = projectileInfo.rotationType;
+            projectile.rotationAmount = projectile.rotationAmount;
             projectile.scale = projectileInfo.scale;
         }
         if (projectile && projectile.anim) {
@@ -117,10 +119,11 @@ var ProjectileManager = /** @class */ (function () {
                 if (anim) {
                     if (this.projectiles[i].rotationType) {
                         var rotAmount = 0;
+                        var rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
                         switch (this.projectiles[i].rotationType) {
                             case 'cw':
                                 rotAmount = anim.rotation;
-                                rotAmount += .01;
+                                rotAmount += rotSpeedAmount;
                                 if (rotAmount > 6.28) {
                                     rotAmount = 0;
                                 }
@@ -128,7 +131,7 @@ var ProjectileManager = /** @class */ (function () {
                                 break;
                             case 'ccw':
                                 rotAmount = anim.rotation;
-                                rotAmount -= .01;
+                                rotAmount -= rotSpeedAmount;
                                 if (rotAmount < 0) {
                                     rotAmount = 6.28;
                                 }

@@ -12,6 +12,7 @@ interface IProjectileObject {
   frame?: number,
   rotation: number,
   rotationType?: string, // cw, ccw
+  rotationAmount?: number,
   scale: number,
   collisionDetection: boolean,
   x: number,
@@ -78,6 +79,7 @@ export class ProjectileManager {
         frame: projectileInfo.frame,
         rotation: projectileInfo.rotation,
         rotationType: projectileInfo.rotationType,
+        rotationAmount: projectileInfo.rotationAmount,
         scale: projectileInfo.scale
       };
       this.projectiles.push(<IProjectileObject>projectile);
@@ -101,6 +103,7 @@ export class ProjectileManager {
       projectile.frame = projectileInfo.frame;
       projectile.rotation = projectileInfo.rotation;
       projectile.rotationType = projectileInfo.rotationType;
+      projectile.rotationAmount = projectile.rotationAmount;
       projectile.scale = projectileInfo.scale;
     }
 
@@ -143,10 +146,11 @@ export class ProjectileManager {
         if (anim) {
           if (this.projectiles[i].rotationType) {
             let rotAmount = 0;
+            let rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
             switch (this.projectiles[i].rotationType) {
               case 'cw':
                 rotAmount = anim.rotation;
-                rotAmount += .01;
+                rotAmount += rotSpeedAmount;
                 if (rotAmount > 6.28) {
                   rotAmount = 0;
                 }
@@ -154,7 +158,7 @@ export class ProjectileManager {
                 break;
               case 'ccw':
                 rotAmount = anim.rotation;
-                rotAmount -= .01;
+                rotAmount -= rotSpeedAmount;
                 if (rotAmount < 0) {
                   rotAmount = 6.28;
                 }

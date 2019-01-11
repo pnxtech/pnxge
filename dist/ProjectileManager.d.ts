@@ -10,6 +10,7 @@ interface IProjectileObject {
     frame?: number;
     rotation: number;
     rotationType?: string;
+    rotationAmount?: number;
     scale: number;
     collisionDetection: boolean;
     x: number;
