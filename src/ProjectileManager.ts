@@ -52,7 +52,7 @@ export class ProjectileManager {
   createProjectile(projectileInfo: IProjectileObject): void {
     let projectile: IProjectileObject | undefined;
     for (let i = 0; i < this.projectiles.length; i++) {
-      if (this.projectiles[i].name === projectileInfo.name && !this.projectiles[i].active) {
+      if (this.projectiles[i].type === projectileInfo.type && !this.projectiles[i].active) {
         projectile = this.projectiles[i];
         break;
       }
