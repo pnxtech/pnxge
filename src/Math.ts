@@ -304,6 +304,15 @@ export class Random {
   getRandomInclusive(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
+
+  /**
+   * @name getRandomBoolean
+   * @description get a random true or false
+   * @return {boolean} boolean - true or false
+   */
+  getRandomBoolean(): boolean {
+    return (Math.random() * 10 > 5);
+  }
 }
 
 /**

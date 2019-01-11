@@ -311,6 +311,14 @@ var Random = /** @class */ (function () {
     Random.prototype.getRandomInclusive = function (min, max) {
         return Math.random() * (max - min) + min;
     };
+    /**
+     * @name getRandomBoolean
+     * @description get a random true or false
+     * @return {boolean} boolean - true or false
+     */
+    Random.prototype.getRandomBoolean = function () {
+        return (Math.random() * 10 > 5);
+    };
     return Random;
 }());
 exports.Random = Random;

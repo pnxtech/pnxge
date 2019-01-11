@@ -202,6 +202,12 @@ export declare class Random {
     * @return {number} num - number
     */
     getRandomInclusive(min: number, max: number): number;
+    /**
+     * @name getRandomBoolean
+     * @description get a random true or false
+     * @return {boolean} boolean - true or false
+     */
+    getRandomBoolean(): boolean;
 }
 /**
  * @name Curve
