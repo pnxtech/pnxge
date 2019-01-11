@@ -119,7 +119,7 @@ export class ProjectileManager {
       anim.sy = projectileInfo.scale;
       anim.collisionDetection = projectileInfo.collisionDetection;
 
-      if (projectile.frame) {
+      if (projectile.frame !== undefined) {
         anim.setFrame(projectile.frame);
       } else {
         anim.play(projectile.name);
