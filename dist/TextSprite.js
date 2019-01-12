@@ -75,6 +75,7 @@ var TextSprite = /** @class */ (function (_super) {
      * @return {void}
      */
     TextSprite.prototype.setTint = function (color) {
+        this.tint = color;
         this.anim.setTint(color);
     };
     /**

@@ -56,6 +56,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @return {void}
    */
   setTint(color: number):void {
+    this.tint = color;
     this.anim.setTint(color);
   }
 
