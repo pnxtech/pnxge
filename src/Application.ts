@@ -6,12 +6,12 @@ import {EventManager} from './EventManager';
  * @description  Application - top level game object
  */
 export class Application extends PIXI.Application {
-  private appWidth: number = 0;
-  private appHeight: number = 0;
-  private gameScore: number = 0;
-  private gameVolume: number = 0;
-  private appEventManager: EventManager = new EventManager();
-  private isDemo: boolean = false;
+  protected appWidth: number = 0;
+  protected appHeight: number = 0;
+  protected gameScore: number = 0;
+  protected gameVolume: number = 0;
+  protected appEventManager: EventManager = new EventManager();
+  protected isDemo: boolean = false;
 
   /**
    * @name constructor
@@ -71,15 +71,6 @@ export class Application extends PIXI.Application {
   }
 
   /**
-   * @name score
-   * @description score getter
-   * @return {number} score
-   */
-  get score(): number {
-    return this.gameScore;
-  }
-
-  /**
    * @name volume
    * @description volume getter
    * @return {number} current sound volume
@@ -104,6 +95,15 @@ export class Application extends PIXI.Application {
    */
   getEventManager(): EventManager {
     return this.appEventManager;
+  }
+
+  /**
+   * @name score
+   * @description score getter
+   * @return {number} score
+   */
+  get score(): number {
+    return this.gameScore;
   }
 
   /**

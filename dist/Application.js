@@ -99,25 +99,6 @@ var Application = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Application.prototype, "score", {
-        /**
-         * @name score
-         * @description score getter
-         * @return {number} score
-         */
-        get: function () {
-            return this.gameScore;
-        },
-        /**
-         * @name score
-         * @description score setter
-         */
-        set: function (value) {
-            this.gameScore = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(Application.prototype, "volume", {
         /**
          * @name volume
@@ -146,6 +127,25 @@ var Application = /** @class */ (function (_super) {
     Application.prototype.getEventManager = function () {
         return this.appEventManager;
     };
+    Object.defineProperty(Application.prototype, "score", {
+        /**
+         * @name score
+         * @description score getter
+         * @return {number} score
+         */
+        get: function () {
+            return this.gameScore;
+        },
+        /**
+         * @name score
+         * @description score setter
+         */
+        set: function (value) {
+            this.gameScore = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name startTimer
      * @description start timer loop
