@@ -76,6 +76,9 @@ var AssetManager = /** @class */ (function () {
                         image.y = obj.y;
                         image.z = obj.z;
                         image.visible = obj.visible || false;
+                        if (obj.tint) {
+                            image.tint = parseInt(obj.tint, 16);
+                        }
                         scene.addAnim(obj.name, image);
                     }
                     break;
@@ -99,6 +102,9 @@ var AssetManager = /** @class */ (function () {
                         textSprite.x = obj.x;
                         textSprite.y = obj.y;
                         textSprite.z = obj.z;
+                        if (obj.tint) {
+                            textSprite.setTint(parseInt(obj.tint, 16));
+                        }
                         scene.addAnim(obj.name, textSprite);
                     }
                     break;
@@ -148,6 +154,9 @@ var AssetManager = /** @class */ (function () {
                         anim.rotation = obj.rotation;
                         anim.collisionDetection = obj.collisionDetection;
                         anim.loop = obj.loop;
+                        if (obj.tint) {
+                            anim.setTint(parseInt(obj.tint, 16));
+                        }
                         anim.play(obj.sequence);
                         anim.setFrame(obj.frame);
                         scene.addAnim(obj.name, anim);

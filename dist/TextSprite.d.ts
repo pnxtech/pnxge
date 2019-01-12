@@ -32,11 +32,12 @@ export declare class TextSprite extends PIXI.extras.BitmapText {
     */
     z: number;
     /**
-     * @name tint
-     * @description tint setter
+     * @name setTint
+     * @description set tint
      * @param {number} color - color tint
+     * @return {void}
      */
-    tint: number;
+    setTint(color: number): void;
     /**
      * @name update
      * @description update handler

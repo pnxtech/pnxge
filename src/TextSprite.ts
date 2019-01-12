@@ -50,11 +50,12 @@ export class TextSprite extends PIXI.extras.BitmapText {
   }
 
   /**
-   * @name tint
-   * @description tint setter
+   * @name setTint
+   * @description set tint
    * @param {number} color - color tint
+   * @return {void}
    */
-  set tint(color: number) {
+  setTint(color: number):void {
     this.anim.setTint(color);
   }
 
