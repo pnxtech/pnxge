@@ -44,6 +44,7 @@ var Application = /** @class */ (function (_super) {
         _this.appWidth = 0;
         _this.appHeight = 0;
         _this.gameScore = 0;
+        _this.gameVolume = 0;
         _this.appEventManager = new EventManager_1.EventManager();
         _this.isDemo = false;
         document.body.appendChild(_this.view);
@@ -113,6 +114,26 @@ var Application = /** @class */ (function (_super) {
          */
         set: function (value) {
             this.gameScore = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Application.prototype, "volume", {
+        /**
+         * @name volume
+         * @description volume getter
+         * @return {number} current sound volume
+         */
+        get: function () {
+            return this.gameVolume;
+        },
+        /**
+         * @name volume
+         * @description volume setter
+         * @param {number} sound volume
+         */
+        set: function (value) {
+            this.gameVolume = value;
         },
         enumerable: true,
         configurable: true

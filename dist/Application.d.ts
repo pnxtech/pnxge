@@ -8,6 +8,7 @@ export declare class Application extends PIXI.Application {
     private appWidth;
     private appHeight;
     private gameScore;
+    private gameVolume;
     private appEventManager;
     private isDemo;
     /**
@@ -50,6 +51,17 @@ export declare class Application extends PIXI.Application {
     * @description score setter
     */
     score: number;
+    /**
+     * @name volume
+     * @description volume getter
+     * @return {number} current sound volume
+     */
+    /**
+    * @name volume
+    * @description volume setter
+    * @param {number} sound volume
+    */
+    volume: number;
     /**
      * @name getEventManager
      * @description get event manager instance
