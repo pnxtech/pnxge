@@ -68,6 +68,18 @@ var TextSprite = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TextSprite.prototype, "tint", {
+        /**
+         * @name tint
+         * @description tint setter
+         * @param {number} color - color tint
+         */
+        set: function (color) {
+            this.anim.setTint(color);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name update
      * @description update handler
