@@ -24,7 +24,9 @@ export class Application extends PIXI.Application {
       view: <HTMLCanvasElement>document.getElementById('canvas'),
       width,
       height,
-      backgroundColor: 0x000000
+      transparent: true,
+      forceFXAA: true,
+      antialias: true
     });
     document.body.appendChild(this.view);
     this.appWidth = width;

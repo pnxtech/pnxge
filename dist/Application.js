@@ -39,7 +39,9 @@ var Application = /** @class */ (function (_super) {
             view: document.getElementById('canvas'),
             width: width,
             height: height,
-            backgroundColor: 0x000000
+            transparent: true,
+            forceFXAA: true,
+            antialias: true
         }) || this;
         _this.appWidth = 0;
         _this.appHeight = 0;
