@@ -44,6 +44,17 @@ var AssetManager = /** @class */ (function () {
         });
     };
     /**
+     * @name getSoundEngine
+     * @description get sound engine
+     * @return {SoundManager | undefined}
+     */
+    AssetManager.prototype.getSoundEngine = function () {
+        if (this.soundManager) {
+            return this.soundManager;
+        }
+        return undefined;
+    };
+    /**
      * @name populateScene
      * @description populate Scene with resources
      * @param {Scene} scene - scene reference

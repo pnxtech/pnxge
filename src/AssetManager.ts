@@ -42,6 +42,18 @@ export class AssetManager {
   }
 
   /**
+   * @name getSoundEngine
+   * @description get sound engine
+   * @return {SoundManager | undefined}
+   */
+  getSoundEngine(): SoundManager | undefined {
+    if (this.soundManager) {
+      return this.soundManager;
+    }
+    return undefined;
+  }
+
+  /**
    * @name populateScene
    * @description populate Scene with resources
    * @param {Scene} scene - scene reference

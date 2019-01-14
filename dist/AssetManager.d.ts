@@ -1,4 +1,5 @@
 import { Scene } from './Scene';
+import { SoundManager } from './SoundManager';
 interface ICallback {
     (resources: {}): void;
 }
@@ -17,6 +18,12 @@ export declare class AssetManager {
      * @description initialize loader
      */
     init(filename: string, initComplete: ICallback): void;
+    /**
+     * @name getSoundEngine
+     * @description get sound engine
+     * @return {SoundManager | undefined}
+     */
+    getSoundEngine(): SoundManager | undefined;
     /**
      * @name populateScene
      * @description populate Scene with resources
