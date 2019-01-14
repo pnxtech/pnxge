@@ -38,7 +38,7 @@ export class SoundManager {
    * @param {string} name - name of sound
    * @return {number} soundID to be used with .stop()
    */
-  play(name: string): void {
+  play(name: string): number {
     return this.soundPlayer.play(name);
   }
 
