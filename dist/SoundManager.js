@@ -34,19 +34,19 @@ var SoundManager = /** @class */ (function () {
      * @name play
      * @description play sound
      * @param {string} name - name of sound
-     * @return {void}
+     * @return {number} soundID to be used with .stop()
      */
     SoundManager.prototype.play = function (name) {
-        this.soundPlayer.play(name);
+        return this.soundPlayer.play(name);
     };
     /**
      * @name stop
      * @description stop sound
-     * @param {string} name - name of sound
+     * @param {number} id - of sound abtained from the play method
      * @return {void}
      */
-    SoundManager.prototype.stop = function (name) {
-        this.soundPlayer.stop(name);
+    SoundManager.prototype.stop = function (id) {
+        this.soundPlayer.stop(id);
     };
     Object.defineProperty(SoundManager.prototype, "volume", {
         /**
