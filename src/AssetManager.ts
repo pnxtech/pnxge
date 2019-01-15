@@ -170,8 +170,8 @@ export class AssetManager {
   createCharacter(scene: Scene, obj: any): void {
     let count = (obj.count) ? obj.count : 1;
     for (let i = 0; i < count; i++) {
+      let newName = (count === 0) ? `${obj.name}` : `${obj.name}${i}`;
       let anim = new Anim(scene);
-      let newName = `${obj.name}${i}`;
       anim.loadSequence(obj.sequence, obj.atlas, this.resources);
       anim.type = obj.type;
       anim.x = obj.x;
@@ -199,7 +199,7 @@ export class AssetManager {
       if (obj.tint) {
         anim.setTint(parseInt(obj.tint, 16));
       }
-      scene.addAnim(obj.newName, anim);
+      scene.addAnim(newName, anim);
     }
   }
 }

@@ -174,8 +174,8 @@ var AssetManager = /** @class */ (function () {
     AssetManager.prototype.createCharacter = function (scene, obj) {
         var count = (obj.count) ? obj.count : 1;
         for (var i = 0; i < count; i++) {
+            var newName = (count === 0) ? "" + obj.name : "" + obj.name + i;
             var anim = new Anim_1.Anim(scene);
-            var newName = "" + obj.name + i;
             anim.loadSequence(obj.sequence, obj.atlas, this.resources);
             anim.type = obj.type;
             anim.x = obj.x;
@@ -203,7 +203,7 @@ var AssetManager = /** @class */ (function () {
             if (obj.tint) {
                 anim.setTint(parseInt(obj.tint, 16));
             }
-            scene.addAnim(obj.newName, anim);
+            scene.addAnim(newName, anim);
         }
     };
     return AssetManager;
