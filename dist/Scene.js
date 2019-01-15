@@ -15,10 +15,10 @@ var Scene = /** @class */ (function () {
      * @param {Application} application
      */
     function Scene(app) {
+        this.internalTick = 0;
         this.texts = {};
         this.actionList = {};
         this.sceneStarted = false;
-        this.internalTick = 0;
         this.app = app;
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;

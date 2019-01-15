@@ -25,12 +25,12 @@ export class Scene {
 
   public stage: PIXI.Container;
   public anims: IAnimHash;
+  protected internalTick: number = 0;
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
   protected texts: ITextsHash = {};
   protected actionList: IRecorderHash = {};
   private sceneStarted: boolean = false;
-  private internalTick: number = 0;
 
   /**
    * @name constructor

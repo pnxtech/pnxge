@@ -28,12 +28,12 @@ export declare class Scene {
     protected sceneHeight: number;
     stage: PIXI.Container;
     anims: IAnimHash;
+    protected internalTick: number;
     protected projectileManager: ProjectileManager | undefined;
     protected soundManager: SoundManager | undefined;
     protected texts: ITextsHash;
     protected actionList: IRecorderHash;
     private sceneStarted;
-    private internalTick;
     /**
      * @name constructor
      * @description initialize scene
