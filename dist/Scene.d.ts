@@ -5,6 +5,7 @@ import { Image } from './Image';
 import { ProjectileManager } from './ProjectileManager';
 import { SoundManager } from './SoundManager';
 import { TextSprite } from './TextSprite';
+import { IRecorderHash } from './Recorder';
 interface IAnimHash {
     [key: string]: Anim | Image | TextSprite;
 }
@@ -30,7 +31,9 @@ export declare class Scene {
     protected projectileManager: ProjectileManager | undefined;
     protected soundManager: SoundManager | undefined;
     protected texts: ITextsHash;
+    protected actionList: IRecorderHash;
     private sceneStarted;
+    private tick;
     /**
      * @name constructor
      * @description initialize scene
@@ -62,6 +65,13 @@ export declare class Scene {
      * @return {void}
      */
     attachTexts(texts: ITextsHash): void;
+    /**
+     * @name attachActions
+     * @description attach actions
+     * @param {IRecorderHash} actionList - output from PNXRecorder
+     * @return {void}
+     */
+    attachActions(actionList: IRecorderHash): void;
     /**
      * @name getSoundManager
      * @description retrieve a sound manager instance or undefined
@@ -129,7 +139,7 @@ export declare class Scene {
      * @description enumerate anims
      * @param {IAnimCallback} callback - called for each anim
      * @param {IAnimDoneCallback} done - called when done
-     * return {void}
+     * @return {void}
      */
     forEachAnim(callback: IAnimCallback, done: IAnimDoneCallback): void;
     /**

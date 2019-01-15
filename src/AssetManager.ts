@@ -70,6 +70,9 @@ export class AssetManager {
         obj = this.mergeObjects(this.gameConfig.refs[obj.extends], obj);
       }
       switch (obj.type) {
+        case 'actions':
+          scene.attachActions(obj.actions);
+          break;
         case 'sounds':
           if (!this.soundManager) {
             this.soundManager = new SoundManager(this.resources[obj.atlas].data);

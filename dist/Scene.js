@@ -16,7 +16,9 @@ var Scene = /** @class */ (function () {
      */
     function Scene(app) {
         this.texts = {};
+        this.actionList = {};
         this.sceneStarted = false;
+        this.tick = 0;
         this.app = app;
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;
@@ -55,6 +57,15 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.attachTexts = function (texts) {
         this.texts = texts;
+    };
+    /**
+     * @name attachActions
+     * @description attach actions
+     * @param {IRecorderHash} actionList - output from PNXRecorder
+     * @return {void}
+     */
+    Scene.prototype.attachActions = function (actionList) {
+        this.actionList = actionList;
     };
     /**
      * @name getSoundManager
@@ -149,7 +160,7 @@ var Scene = /** @class */ (function () {
      * @description enumerate anims
      * @param {IAnimCallback} callback - called for each anim
      * @param {IAnimDoneCallback} done - called when done
-     * return {void}
+     * @return {void}
      */
     Scene.prototype.forEachAnim = function (callback, done) {
         var _this = this;
@@ -166,6 +177,14 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.update = function (deltaTime) {
         var _this = this;
+        switch (this.actionList[this.tick++]) {
+            case 'left':
+                this.moveLeft();
+                break;
+            case 'right':
+                this.moveRight();
+                break;
+        }
         if (!this.sceneStarted) {
             return;
         }

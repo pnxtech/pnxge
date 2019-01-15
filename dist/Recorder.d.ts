@@ -1,4 +1,4 @@
-interface IRecorderHash {
+export interface IRecorderHash {
     [name: number]: string;
 }
 /**
@@ -35,5 +35,4 @@ export declare class Recorder {
      */
     update(): void;
 }
-export {};
 //# sourceMappingURL=Recorder.d.ts.map

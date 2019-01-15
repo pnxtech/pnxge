@@ -6,6 +6,7 @@ import {IAnimCompatible} from './AnimCompatible';
 import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
 import {TextSprite} from './TextSprite';
+import {IRecorderHash} from './Recorder';
 
 interface IAnimHash { [key: string]: Anim | Image | TextSprite};
 interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
@@ -27,7 +28,9 @@ export class Scene {
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
   protected texts: ITextsHash = {};
+  protected actionList: IRecorderHash = {};
   private sceneStarted: boolean = false;
+  private tick: number = 0;
 
   /**
    * @name constructor
@@ -77,6 +80,16 @@ export class Scene {
    */
   attachTexts(texts: ITextsHash): void {
     this.texts = texts;
+  }
+
+  /**
+   * @name attachActions
+   * @description attach actions
+   * @param {IRecorderHash} actionList - output from PNXRecorder
+   * @return {void}
+   */
+  attachActions(actionList: IRecorderHash): void {
+    this.actionList = actionList;
   }
 
   /**
@@ -174,7 +187,7 @@ export class Scene {
    * @description enumerate anims
    * @param {IAnimCallback} callback - called for each anim
    * @param {IAnimDoneCallback} done - called when done
-   * return {void}
+   * @return {void}
    */
   forEachAnim(callback: IAnimCallback, done: IAnimDoneCallback): void {
     Object.keys(this.anims).forEach((key) => {
@@ -190,6 +203,14 @@ export class Scene {
    * @return {void}
    */
   update(deltaTime: number): void {
+    switch (this.actionList[this.tick++]) {
+      case 'left':
+        this.moveLeft();
+        break;
+      case 'right':
+        this.moveRight();
+        break;
+    }
     if (!this.sceneStarted) {
       return;
     }

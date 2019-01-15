@@ -1,4 +1,4 @@
-interface IRecorderHash {
+export interface IRecorderHash {
   [name: number]: string
 }
 
