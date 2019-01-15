@@ -30,7 +30,7 @@ export class Scene {
   protected texts: ITextsHash = {};
   protected actionList: IRecorderHash = {};
   private sceneStarted: boolean = false;
-  private tick: number = 0;
+  private internalTick: number = 0;
 
   /**
    * @name constructor
@@ -130,6 +130,14 @@ export class Scene {
   }
 
   /**
+   * @name tick
+   * @description get internal tick count
+   */
+  get tick() {
+    return this.internalTick;
+  }
+
+  /**
    * @name addAnim
    * @description add an anim to the scene
    * @param {string} name - name of anim
@@ -203,7 +211,8 @@ export class Scene {
    * @return {void}
    */
   update(deltaTime: number): void {
-    switch (this.actionList[this.tick++]) {
+    this.internalTick++;
+    switch (this.actionList[this.internalTick]) {
       case 'left':
         this.moveLeft();
         break;

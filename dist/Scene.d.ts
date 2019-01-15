@@ -33,7 +33,7 @@ export declare class Scene {
     protected texts: ITextsHash;
     protected actionList: IRecorderHash;
     private sceneStarted;
-    private tick;
+    private internalTick;
     /**
      * @name constructor
      * @description initialize scene
@@ -97,6 +97,11 @@ export declare class Scene {
      * @description determine whether the scene has been started
      */
     hasSceneStarted(): boolean;
+    /**
+     * @name tick
+     * @description get internal tick count
+     */
+    readonly tick: number;
     /**
      * @name addAnim
      * @description add an anim to the scene

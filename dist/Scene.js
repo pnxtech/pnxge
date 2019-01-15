@@ -18,7 +18,7 @@ var Scene = /** @class */ (function () {
         this.texts = {};
         this.actionList = {};
         this.sceneStarted = false;
-        this.tick = 0;
+        this.internalTick = 0;
         this.app = app;
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;
@@ -100,6 +100,17 @@ var Scene = /** @class */ (function () {
     Scene.prototype.hasSceneStarted = function () {
         return this.sceneStarted;
     };
+    Object.defineProperty(Scene.prototype, "tick", {
+        /**
+         * @name tick
+         * @description get internal tick count
+         */
+        get: function () {
+            return this.internalTick;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name addAnim
      * @description add an anim to the scene
@@ -177,7 +188,8 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.update = function (deltaTime) {
         var _this = this;
-        switch (this.actionList[this.tick++]) {
+        this.internalTick++;
+        switch (this.actionList[this.internalTick]) {
             case 'left':
                 this.moveLeft();
                 break;
