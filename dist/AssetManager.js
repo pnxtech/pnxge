@@ -120,37 +120,7 @@ var AssetManager = /** @class */ (function () {
                     }
                     break;
                 case 'character':
-                    {
-                        var anim = new Anim_1.Anim(scene);
-                        anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-                        anim.type = obj.type;
-                        anim.x = obj.x;
-                        anim.y = obj.y;
-                        anim.z = obj.z;
-                        anim.vx = obj.vx || 0;
-                        anim.vy = obj.vy || 0;
-                        anim.dx = obj.dx || 0;
-                        anim.dy = obj.dy || 0;
-                        anim.sx = obj.sx || 1;
-                        anim.sy = obj.sy || 1;
-                        anim.loop = obj.loop;
-                        anim.rotation = obj.rotation || 0;
-                        anim.visible = obj.visible || false;
-                        anim.health = obj.health;
-                        anim.strength = obj.strength;
-                        anim.collisionDetection = obj.collisionDetection;
-                        anim.play(obj.sequence);
-                        if (obj.frame !== undefined) {
-                            anim.setFrame(obj.frame);
-                        }
-                        if (obj.animationSpeed !== undefined) {
-                            anim.animationSpeed = obj.animationSpeed;
-                        }
-                        if (obj.tint) {
-                            anim.setTint(parseInt(obj.tint, 16));
-                        }
-                        scene.addAnim(obj.name, anim);
-                    }
+                    this.createCharacter(scene, obj);
                     break;
                 case 'ground':
                     {
@@ -193,6 +163,48 @@ var AssetManager = /** @class */ (function () {
             }
         }
         return resObj;
+    };
+    /**
+     * @name createCharacter
+     * @description create an anim character
+     * @param {Scene} scene
+     * @param {object} obj
+     * @return {void}
+     */
+    AssetManager.prototype.createCharacter = function (scene, obj) {
+        var count = (obj.count) ? obj.count : 1;
+        for (var i = 0; i < count; i++) {
+            var anim = new Anim_1.Anim(scene);
+            var newName = "" + obj.name + i;
+            anim.loadSequence(obj.sequence, obj.atlas, this.resources);
+            anim.type = obj.type;
+            anim.x = obj.x;
+            anim.y = obj.y;
+            anim.z = obj.z;
+            anim.vx = obj.vx || 0;
+            anim.vy = obj.vy || 0;
+            anim.dx = obj.dx || 0;
+            anim.dy = obj.dy || 0;
+            anim.sx = obj.sx || 1;
+            anim.sy = obj.sy || 1;
+            anim.loop = obj.loop;
+            anim.rotation = obj.rotation || 0;
+            anim.visible = obj.visible || false;
+            anim.health = obj.health;
+            anim.strength = obj.strength;
+            anim.collisionDetection = obj.collisionDetection;
+            anim.play(obj.sequence);
+            if (obj.frame !== undefined) {
+                anim.setFrame(obj.frame);
+            }
+            if (obj.animationSpeed !== undefined) {
+                anim.animationSpeed = obj.animationSpeed;
+            }
+            if (obj.tint) {
+                anim.setTint(parseInt(obj.tint, 16));
+            }
+            scene.addAnim(obj.newName, anim);
+        }
     };
     return AssetManager;
 }());

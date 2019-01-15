@@ -114,37 +114,8 @@ export class AssetManager {
             scene.addAnim(obj.name, textSprite);
           }
           break;
-        case 'character': {
-            let anim = new Anim(scene);
-            anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-            anim.type = obj.type;
-            anim.x = obj.x;
-            anim.y = obj.y;
-            anim.z = obj.z;
-            anim.vx = obj.vx || 0;
-            anim.vy = obj.vy || 0;
-            anim.dx = obj.dx || 0;
-            anim.dy = obj.dy || 0;
-            anim.sx = obj.sx || 1;
-            anim.sy = obj.sy || 1;
-            anim.loop = obj.loop;
-            anim.rotation = obj.rotation || 0;
-            anim.visible = obj.visible || false;
-            anim.health = obj.health;
-            anim.strength = obj.strength;
-            anim.collisionDetection = obj.collisionDetection;
-            anim.play(obj.sequence);
-            if (obj.frame !== undefined) {
-              anim.setFrame(obj.frame);
-            }
-            if (obj.animationSpeed !== undefined) {
-              anim.animationSpeed = obj.animationSpeed;
-            }
-            if (obj.tint) {
-              anim.setTint(parseInt(obj.tint, 16));
-            }
-            scene.addAnim(obj.name, anim);
-          }
+        case 'character':
+          this.createCharacter(scene, obj);
           break;
         case 'ground': {
             let anim = new Anim(scene);
@@ -187,5 +158,48 @@ export class AssetManager {
       }
     }
     return resObj;
+  }
+
+  /**
+   * @name createCharacter
+   * @description create an anim character
+   * @param {Scene} scene
+   * @param {object} obj
+   * @return {void}
+   */
+  createCharacter(scene: Scene, obj: any): void {
+    let count = (obj.count) ? obj.count : 1;
+    for (let i = 0; i < count; i++) {
+      let anim = new Anim(scene);
+      let newName = `${obj.name}${i}`;
+      anim.loadSequence(obj.sequence, obj.atlas, this.resources);
+      anim.type = obj.type;
+      anim.x = obj.x;
+      anim.y = obj.y;
+      anim.z = obj.z;
+      anim.vx = obj.vx || 0;
+      anim.vy = obj.vy || 0;
+      anim.dx = obj.dx || 0;
+      anim.dy = obj.dy || 0;
+      anim.sx = obj.sx || 1;
+      anim.sy = obj.sy || 1;
+      anim.loop = obj.loop;
+      anim.rotation = obj.rotation || 0;
+      anim.visible = obj.visible || false;
+      anim.health = obj.health;
+      anim.strength = obj.strength;
+      anim.collisionDetection = obj.collisionDetection;
+      anim.play(obj.sequence);
+      if (obj.frame !== undefined) {
+        anim.setFrame(obj.frame);
+      }
+      if (obj.animationSpeed !== undefined) {
+        anim.animationSpeed = obj.animationSpeed;
+      }
+      if (obj.tint) {
+        anim.setTint(parseInt(obj.tint, 16));
+      }
+      scene.addAnim(obj.newName, anim);
+    }
   }
 }

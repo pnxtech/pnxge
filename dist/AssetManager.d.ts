@@ -39,6 +39,14 @@ export declare class AssetManager {
      * @return {object} returns merged object
      */
     mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object;
+    /**
+     * @name createCharacter
+     * @description create an anim character
+     * @param {Scene} scene
+     * @param {object} obj
+     * @return {void}
+     */
+    createCharacter(scene: Scene, obj: any): void;
 }
 export {};
 //# sourceMappingURL=AssetManager.d.ts.map
