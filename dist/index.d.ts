@@ -9,6 +9,7 @@ export * from './AssetManager';
 export * from './Image';
 export * from './Math';
 export * from './ProjectileManager';
+export * from './Recorder';
 export * from './Scene';
 export * from './SoundManager';
 export * from './TextSprite';
