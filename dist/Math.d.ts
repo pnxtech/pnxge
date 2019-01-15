@@ -208,6 +208,14 @@ export declare class Random {
      * @return {boolean} boolean - true or false
      */
     getRandomBoolean(): boolean;
+    /**
+     * @name getRandomFromCenter
+     * @description return a random number within a centered range
+     * @param {number} value - number to center range
+     * @param {number} width - number to determine width from center
+     * @return {number} random number
+     */
+    getRandomFromCenter(value: number, width: number): number;
 }
 /**
  * @name Curve

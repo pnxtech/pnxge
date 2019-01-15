@@ -313,6 +313,20 @@ export class Random {
   getRandomBoolean(): boolean {
     return (Math.random() * 10 > 5);
   }
+
+  /**
+   * @name getRandomFromCenter
+   * @description return a random number within a centered range
+   * @param {number} value - number to center range
+   * @param {number} width - number to determine width from center
+   * @return {number} random number
+   */
+  getRandomFromCenter(value: number, width: number): number {
+    let midWidth = (width * 0.5) | 0;
+    let low = value - midWidth;
+    let high = value + midWidth;
+    return this.getRandomIntInclusive(low, high);
+  }
 }
 
 /**
