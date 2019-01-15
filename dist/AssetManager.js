@@ -174,7 +174,7 @@ var AssetManager = /** @class */ (function () {
     AssetManager.prototype.createCharacter = function (scene, obj) {
         var count = (obj.count) ? obj.count : 1;
         for (var i = 0; i < count; i++) {
-            var newName = (count === 0) ? "" + obj.name : "" + obj.name + i;
+            var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
             var anim = new Anim_1.Anim(scene);
             anim.loadSequence(obj.sequence, obj.atlas, this.resources);
             anim.type = obj.type;
