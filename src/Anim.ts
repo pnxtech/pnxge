@@ -445,7 +445,7 @@ export class Anim implements IAnimCompatible {
    * @description type getter
    * @return {string} vy position
    */
-  get type() : string {
+  get type(): string {
     return this.animType;
   }
 

@@ -8,5 +8,16 @@ import { Anim } from './Anim';
 export declare class AnimatedSprite extends PIXI.extras.AnimatedSprite {
     anim: Anim | undefined;
     constructor(textures: [], autoUpdate?: boolean | undefined);
+    /**
+     * @name type
+     * @description type getter
+     * @return {string} type position
+     */
+    /**
+    * @name type
+    * @description type setter
+    * @param {string} value - anim type
+    */
+    type: string;
 }
 //# sourceMappingURL=AnimatedSprite.d.ts.map

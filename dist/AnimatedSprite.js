@@ -31,6 +31,31 @@ var AnimatedSprite = /** @class */ (function (_super) {
     function AnimatedSprite(textures, autoUpdate) {
         return _super.call(this, textures, autoUpdate) || this;
     }
+    Object.defineProperty(AnimatedSprite.prototype, "type", {
+        /**
+         * @name type
+         * @description type getter
+         * @return {string} type position
+         */
+        get: function () {
+            if (this.anim) {
+                return this.anim.type;
+            }
+            return '';
+        },
+        /**
+         * @name type
+         * @description type setter
+         * @param {string} value - anim type
+         */
+        set: function (value) {
+            if (this.anim) {
+                this.anim.type = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     return AnimatedSprite;
 }(PIXI.extras.AnimatedSprite));
 exports.AnimatedSprite = AnimatedSprite;
