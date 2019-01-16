@@ -55,7 +55,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @return {boolean} true if visible
    */
   get visible(): boolean {
-    return this.anim.visible;
+    return (this.anim) ? this.anim.visible : false;
   }
 
   /**
@@ -63,7 +63,9 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @description set visibility
    */
   set visible(value: boolean) {
-    this.anim.visible = value;
+    if (this.anim) {
+      this.anim.visible = value;
+    }
   }
 
   /**
