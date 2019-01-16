@@ -296,7 +296,7 @@ export class Scene {
     animRect.y = anim.y;
     for (let i = 0; i < steps; i++) {
       animRect.x += (anim.dx * anim.vx);
-      animRect.y += (anim.dx * anim.vx);
+      animRect.y += (anim.dy * anim.vy);
       let objectList: any = this.stage.children;
       for (let obj of objectList) {
         if (!obj.anim || !obj.anim.collisionDetection || !obj.anim.visible) {
