@@ -292,11 +292,11 @@ export class Scene {
    */
   lookAhead(anim: Anim, steps: number): Anim | Image | undefined {
     let animRect = anim.rect;
-    animRect.x = 0;
-    animRect.y = 0;
+    animRect.x = anim.x;
+    animRect.y = anim.y;
     for (let i = 0; i < steps; i++) {
-      animRect.x += anim.x + (anim.dx * anim.vx);
-      animRect.y += anim.y + (anim.dx * anim.vx);
+      animRect.x += (anim.dx * anim.vx);
+      animRect.y += (anim.dx * anim.vx);
       let objectList: any = this.stage.children;
       for (let obj of objectList) {
         if (!obj.anim || !obj.anim.collisionDetection || !obj.anim.visible) {

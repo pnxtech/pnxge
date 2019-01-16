@@ -268,11 +268,11 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.lookAhead = function (anim, steps) {
         var animRect = anim.rect;
-        animRect.x = 0;
-        animRect.y = 0;
+        animRect.x = anim.x;
+        animRect.y = anim.y;
         for (var i = 0; i < steps; i++) {
-            animRect.x += anim.x + (anim.dx * anim.vx);
-            animRect.y += anim.y + (anim.dx * anim.vx);
+            animRect.x += (anim.dx * anim.vx);
+            animRect.y += (anim.dx * anim.vx);
             var objectList = this.stage.children;
             for (var _i = 0, objectList_3 = objectList; _i < objectList_3.length; _i++) {
                 var obj = objectList_3[_i];
