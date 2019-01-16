@@ -250,7 +250,7 @@ var Scene = /** @class */ (function () {
                 if (obj1.anim.id === obj2.anim.id) {
                     continue;
                 }
-                if (obj1.rect.intersect(obj2.rect)) {
+                if (obj1.anim.rect.intersect(obj2.anim.rect)) {
                     obj1.anim.onCollision(obj2.anim);
                     obj2.anim.onCollision(obj1.anim);
                 }
