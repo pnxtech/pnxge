@@ -4,7 +4,7 @@ import {EventManager} from './EventManager';
 import {AnimatedSprite} from './AnimatedSprite';
 import {IController} from './Controller';
 import {Scene} from './Scene';
-import {createID} from './Math';
+import {createID, Rect} from './Math';
 
 interface ICallback { (): void };
 interface IHash { [key: string]: {
@@ -159,6 +159,22 @@ export class Anim implements IAnimCompatible {
    */
   set z(z: number) {
     this.currentZ = z;
+  }
+
+  /**
+   * @name rect
+   * @description rect getter
+   * @return {Rect} rect object from anim
+   */
+  get rect(): Rect {
+    if (this.currentSequence) {
+      return new Rect(
+        this.currentSequence.x,
+        this.currentSequence.y,
+        this.currentSequence.width,
+        this.currentSequence.height);
+    }
+    return new Rect(0, 0, 0, 0);
   }
 
   /**

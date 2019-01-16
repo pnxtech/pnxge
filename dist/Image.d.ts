@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { IAnimCompatible } from './AnimCompatible';
 import { Scene } from './Scene';
 import { EventManager } from './EventManager';
+import { Rect } from './Math';
 /**
  * @name Image
  * @description  image sprite
@@ -31,6 +32,12 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     * @description z position setter
     */
     z: number;
+    /**
+     * @name rect
+     * @description rect getter
+     * @return {Rect} rect object from anim
+     */
+    readonly rect: Rect;
     /**
      * @name attachTouchHandler
      * @description attach a touch (click, press, touch) handler for this anim

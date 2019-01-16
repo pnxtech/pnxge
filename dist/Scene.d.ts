@@ -161,15 +161,6 @@ export declare class Scene {
      */
     sortAnims(): void;
     /**
-     * @name hitTestRectangle
-     * @description check whether two anim objects have collided
-     * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
-     * @param {Anim} a1 - first anim
-     * @param {Anim} a2 - second anim
-     * @return {boolean} bool - true if collision else false
-     */
-    hitTestRectangle(a1: Anim, a2: Anim): boolean;
-    /**
      * @name collisionDetection
      * @description collision detection system. notifies anim object when they collide with other objects
      * @return {void}

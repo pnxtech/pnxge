@@ -3,7 +3,7 @@ import {IAnimCompatible} from './AnimCompatible';
 import {AnimType} from './Anim';
 import {Scene} from './Scene';
 import {EventManager} from './EventManager';
-import {createID} from './Math';
+import {createID, Rect} from './Math';
 
 
 /**
@@ -47,6 +47,20 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    */
   set z(z: number) {
     this.zOrder = z;
+  }
+
+  /**
+   * @name rect
+   * @description rect getter
+   * @return {Rect} rect object from anim
+   */
+  get rect(): Rect {
+    return new Rect(
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 
   /**

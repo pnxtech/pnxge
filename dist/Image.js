@@ -66,6 +66,18 @@ var Image = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Image.prototype, "rect", {
+        /**
+         * @name rect
+         * @description rect getter
+         * @return {Rect} rect object from anim
+         */
+        get: function () {
+            return new Math_1.Rect(this.x, this.y, this.width, this.height);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name attachTouchHandler
      * @description attach a touch (click, press, touch) handler for this anim

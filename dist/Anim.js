@@ -154,6 +154,21 @@ var Anim = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Anim.prototype, "rect", {
+        /**
+         * @name rect
+         * @description rect getter
+         * @return {Rect} rect object from anim
+         */
+        get: function () {
+            if (this.currentSequence) {
+                return new Math_1.Rect(this.currentSequence.x, this.currentSequence.y, this.currentSequence.width, this.currentSequence.height);
+            }
+            return new Math_1.Rect(0, 0, 0, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Anim.prototype, "visible", {
         /**
          * @name visible

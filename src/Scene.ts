@@ -256,39 +256,6 @@ export class Scene {
   }
 
   /**
-   * @name hitTestRectangle
-   * @description check whether two anim objects have collided
-   * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
-   * @param {Anim} a1 - first anim
-   * @param {Anim} a2 - second anim
-   * @return {boolean} bool - true if collision else false
-   */
-  hitTestRectangle(a1: Anim, a2: Anim): boolean {
-    // Find the half-widths and half-heights of each sprite
-    let a1_halfWidth = 0;
-    let a1_halfHeight = 0;
-    let a2_halfWidth = 0;
-    let a2_halfHeight = 0;
-
-    if (a1 && a2) {
-      a1_halfWidth = a1.width * 0.5;
-      a1_halfHeight = a1.height * 0.5;
-      a2_halfWidth = a2.width * 0.5;
-      a2_halfHeight = a2.height * 0.5;
-    }
-
-    // Calculate the distance vector between the sprites
-    let dx = Math.abs(a1.x - a2.x) * 2;
-    let dy = Math.abs(a1.y - a2.y) * 2;
-
-    // Figure out the combined half-widths and half-heights
-    let combinedHalfWidths = a1_halfWidth + a2_halfWidth;
-    let combinedHalfHeights = a1_halfHeight + a2_halfHeight;
-
-    return ((Math.abs(dx) < combinedHalfWidths) && (Math.abs(dy) < combinedHalfHeights)) ? true : false;
-  }
-
-  /**
    * @name collisionDetection
    * @description collision detection system. notifies anim object when they collide with other objects
    * @return {void}
@@ -306,10 +273,7 @@ export class Scene {
         if (obj1.anim.id === obj2.anim.id) {
           continue;
         }
-        let anim1Rect = new Rect(obj1.x, obj1.y, obj1.width, obj1.height);
-        let anim2Rect = new Rect(obj2.x, obj2.y, obj2.width, obj2.height);
-        if (anim1Rect.intersect(anim2Rect)) {
-          // if (this.hitTestRectangle(obj1, obj2)) {
+        if (obj1.rect.intersect(obj2.rect)) {
           obj1.anim.onCollision(obj2.anim);
           obj2.anim.onCollision(obj1.anim);
         }

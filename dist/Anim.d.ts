@@ -3,6 +3,7 @@ import { IAnimCompatible } from './AnimCompatible';
 import { EventManager } from './EventManager';
 import { IController } from './Controller';
 import { Scene } from './Scene';
+import { Rect } from './Math';
 export declare enum AnimType {
     HERO = "hero",
     ENEMY = "enemy",
@@ -98,6 +99,12 @@ export declare class Anim implements IAnimCompatible {
     * @description z position setter
     */
     z: number;
+    /**
+     * @name rect
+     * @description rect getter
+     * @return {Rect} rect object from anim
+     */
+    readonly rect: Rect;
     /**
      * @name visible
      * @description get visibility
