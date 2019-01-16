@@ -277,7 +277,7 @@ var Scene = /** @class */ (function () {
                 if (!obj.anim || !obj.anim.collisionDetection || !obj.anim.visible) {
                     continue;
                 }
-                if (obj.anim.id === obj.anim.id) {
+                if (anim.id === obj.anim.id) {
                     continue;
                 }
                 if (animRect.intersect(obj.anim.rect)) {
