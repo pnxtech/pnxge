@@ -64,7 +64,7 @@ export declare class Angle {
      * @param {Vector} v1 - from (source) vector
      * @param {Vector} v2 - to (target) vector
      * @return {number} angle - in radians
-     * note:
+     * @note
      *  let angle: Angle = new Angle();
      *  let radians = angle.angleFromVectors(
      *    new Vector(this.explosionAnim.x, this.explosionAnim.y),
@@ -94,6 +94,29 @@ export declare class Point {
     x: number;
     y: number;
     constructor(x?: number, y?: number);
+}
+/**
+ * @name Rect
+ * @description Rect class
+ */
+export declare class Rect {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    /**
+     * @name constructor
+     * @description init class
+     */
+    constructor(x: number, y: number, width: number, height: number);
+    /**
+     * @name intersect
+     * @description check whether this rect intersects with target rect
+     * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
+     * @param {Rect} targetRect
+     * @return {boolean} bool - true if collision else false
+     */
+    intersect(targetRect: Rect): boolean;
 }
 /**
  * @name Vector

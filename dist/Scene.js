@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Math_1 = require("./Math");
 ;
 ;
 ;
@@ -277,12 +278,29 @@ var Scene = /** @class */ (function () {
                 if (obj1.anim.id === obj2.anim.id) {
                     continue;
                 }
-                if (this.hitTestRectangle(obj1, obj2)) {
+                var anim1Rect = new Math_1.Rect(obj1.x, obj1.y, obj1.width, obj1.height);
+                var anim2Rect = new Math_1.Rect(obj2.x, obj2.y, obj2.width, obj2.height);
+                if (anim1Rect.intersect(anim2Rect)) {
+                    // if (this.hitTestRectangle(obj1, obj2)) {
                     obj1.anim.onCollision(obj2.anim);
                     obj2.anim.onCollision(obj1.anim);
                 }
             }
         }
+    };
+    /**
+     * @name lookAhead
+     * @description looks ahead for current anim to
+     * determine whether it will collide with another
+     * anim within the number of steps specified.
+     * @note uses the specified anim's direction and velocity vectors
+     * @param {Anim} anim - animation object
+     * @param {number} steps - number of steps to look ahead
+     * @return {Anim | Image | undefined} of potential collision
+     */
+    Scene.prototype.lookAhead = function (anim, steps) {
+        var animRect = new Math_1.Rect(anim.x, anim.y, anim.width, anim.height);
+        return undefined;
     };
     /**
      * @name destroy

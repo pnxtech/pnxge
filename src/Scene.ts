@@ -7,6 +7,7 @@ import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
 import {TextSprite} from './TextSprite';
 import {IRecorderHash} from './Recorder';
+import {Point, Rect} from './Math';
 
 interface IAnimHash { [key: string]: Anim | Image | TextSprite};
 interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
@@ -305,12 +306,30 @@ export class Scene {
         if (obj1.anim.id === obj2.anim.id) {
           continue;
         }
-        if (this.hitTestRectangle(obj1, obj2)) {
+        let anim1Rect = new Rect(obj1.x, obj1.y, obj1.width, obj1.height);
+        let anim2Rect = new Rect(obj2.x, obj2.y, obj2.width, obj2.height);
+        if (anim1Rect.intersect(anim2Rect)) {
+          // if (this.hitTestRectangle(obj1, obj2)) {
           obj1.anim.onCollision(obj2.anim);
           obj2.anim.onCollision(obj1.anim);
         }
       }
     }
+  }
+
+  /**
+   * @name lookAhead
+   * @description looks ahead for current anim to
+   * determine whether it will collide with another
+   * anim within the number of steps specified.
+   * @note uses the specified anim's direction and velocity vectors
+   * @param {Anim} anim - animation object
+   * @param {number} steps - number of steps to look ahead
+   * @return {Anim | Image | undefined} of potential collision
+   */
+  lookAhead(anim: Anim, steps: number): Anim | Image | undefined {
+    let animRect = new Rect(anim.x, anim.y, anim.width, anim.height);
+    return undefined;
   }
 
   /**

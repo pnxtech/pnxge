@@ -90,7 +90,7 @@ export class Angle {
    * @param {Vector} v1 - from (source) vector
    * @param {Vector} v2 - to (target) vector
    * @return {number} angle - in radians
-   * note:
+   * @note
    *  let angle: Angle = new Angle();
    *  let radians = angle.angleFromVectors(
    *    new Vector(this.explosionAnim.x, this.explosionAnim.y),
@@ -134,6 +134,58 @@ export class Point {
   constructor(x: number = 0, y:number = 0) {
     this.x = x;
     this.y = y;
+  }
+}
+
+/**
+ * @name Rect
+ * @description Rect class
+ */
+export class Rect {
+  public x: number;
+  public y: number;
+  public width: number;
+  public height: number;
+
+  /**
+   * @name constructor
+   * @description init class
+   */
+  constructor(x: number, y: number, width: number, height: number) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+
+  /**
+   * @name intersect
+   * @description check whether this rect intersects with target rect
+   * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
+   * @param {Rect} targetRect
+   * @return {boolean} bool - true if collision else false
+   */
+  intersect(targetRect: Rect): boolean {
+    // Find the half-widths and half-heights of each sprite
+    let a1_halfWidth = 0;
+    let a1_halfHeight = 0;
+    let a2_halfWidth = 0;
+    let a2_halfHeight = 0;
+
+    a1_halfWidth = this.width * 0.5;
+    a1_halfHeight = this.height * 0.5;
+    a2_halfWidth = targetRect.width * 0.5;
+    a2_halfHeight = targetRect.height * 0.5;
+
+    // Calculate the distance vector between the sprites
+    let dx = Math.abs(this.x - targetRect.x) * 2;
+    let dy = Math.abs(this.y - targetRect.y) * 2;
+
+    // Figure out the combined half-widths and half-heights
+    let combinedHalfWidths = a1_halfWidth + a2_halfWidth;
+    let combinedHalfHeights = a1_halfHeight + a2_halfHeight;
+
+    return ((Math.abs(dx) < combinedHalfWidths) && (Math.abs(dy) < combinedHalfHeights)) ? true : false;
   }
 }
 

@@ -101,7 +101,7 @@ var Angle = /** @class */ (function () {
      * @param {Vector} v1 - from (source) vector
      * @param {Vector} v2 - to (target) vector
      * @return {number} angle - in radians
-     * note:
+     * @note
      *  let angle: Angle = new Angle();
      *  let radians = angle.angleFromVectors(
      *    new Vector(this.explosionAnim.x, this.explosionAnim.y),
@@ -147,6 +147,49 @@ var Point = /** @class */ (function () {
     return Point;
 }());
 exports.Point = Point;
+/**
+ * @name Rect
+ * @description Rect class
+ */
+var Rect = /** @class */ (function () {
+    /**
+     * @name constructor
+     * @description init class
+     */
+    function Rect(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+    /**
+     * @name intersect
+     * @description check whether this rect intersects with target rect
+     * @note this algorithm relies on the fact that sprites are by default setup with an anchor of 0.5
+     * @param {Rect} targetRect
+     * @return {boolean} bool - true if collision else false
+     */
+    Rect.prototype.intersect = function (targetRect) {
+        // Find the half-widths and half-heights of each sprite
+        var a1_halfWidth = 0;
+        var a1_halfHeight = 0;
+        var a2_halfWidth = 0;
+        var a2_halfHeight = 0;
+        a1_halfWidth = this.width * 0.5;
+        a1_halfHeight = this.height * 0.5;
+        a2_halfWidth = targetRect.width * 0.5;
+        a2_halfHeight = targetRect.height * 0.5;
+        // Calculate the distance vector between the sprites
+        var dx = Math.abs(this.x - targetRect.x) * 2;
+        var dy = Math.abs(this.y - targetRect.y) * 2;
+        // Figure out the combined half-widths and half-heights
+        var combinedHalfWidths = a1_halfWidth + a2_halfWidth;
+        var combinedHalfHeights = a1_halfHeight + a2_halfHeight;
+        return ((Math.abs(dx) < combinedHalfWidths) && (Math.abs(dy) < combinedHalfHeights)) ? true : false;
+    };
+    return Rect;
+}());
+exports.Rect = Rect;
 /**
  * @name Vector
  * @description Represent a line (connection between to points)

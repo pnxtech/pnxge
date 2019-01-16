@@ -176,6 +176,17 @@ export declare class Scene {
      */
     collisionDetection(): void;
     /**
+     * @name lookAhead
+     * @description looks ahead for current anim to
+     * determine whether it will collide with another
+     * anim within the number of steps specified.
+     * @note uses the specified anim's direction and velocity vectors
+     * @param {Anim} anim - animation object
+     * @param {number} steps - number of steps to look ahead
+     * @return {Anim | Image | undefined} of potential collision
+     */
+    lookAhead(anim: Anim, steps: number): Anim | Image | undefined;
+    /**
      * @name destroy
      * @description remove Anim objects from scene
      * @return {void}
