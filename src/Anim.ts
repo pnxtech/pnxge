@@ -572,7 +572,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} deltaTime - delta time offset
    * @return {void}
    */
-  update(deltaTime: number = 0): void {
+  update(deltaTime: number): void {
     if (!this.currentSequenceName || this.currentSequenceName === '') {
       return;
     }
@@ -583,8 +583,8 @@ export class Anim implements IAnimCompatible {
     let animSequenceEntry = this.animationSequence[this.currentSequenceName];
     if (animSequenceEntry && animSequenceEntry.sequence) {
       this.currentSequence = <AnimatedSprite>animSequenceEntry.sequence;
-      this.currentX += (this.directionX * this.velocityX) * deltaTime;
-      this.currentY += (this.directionY * this.velocityY) * deltaTime;
+      this.currentX += this.directionX * (this.velocityX || 1) * deltaTime;
+      this.currentY += this.directionY * (this.velocityY || 1) * deltaTime;
       this.currentSequence.visible = this.currentVisible;
       this.currentSequence.loop = this.currentLoop;
       this.currentSequence.x = this.currentX;

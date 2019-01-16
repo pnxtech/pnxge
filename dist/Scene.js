@@ -271,8 +271,8 @@ var Scene = /** @class */ (function () {
         animRect.x = anim.x;
         animRect.y = anim.y;
         for (var i = 0; i < steps; i++) {
-            animRect.x += (anim.dx * anim.vx);
-            animRect.y += (anim.dy * anim.vy);
+            animRect.x += (anim.dx * (anim.vx || 1));
+            animRect.y += (anim.dy * (anim.vy || 1));
             var objectList = this.stage.children;
             for (var _i = 0, objectList_3 = objectList; _i < objectList_3.length; _i++) {
                 var obj = objectList_3[_i];

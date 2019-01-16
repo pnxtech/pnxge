@@ -600,7 +600,6 @@ var Anim = /** @class */ (function () {
      * @return {void}
      */
     Anim.prototype.update = function (deltaTime) {
-        if (deltaTime === void 0) { deltaTime = 0; }
         if (!this.currentSequenceName || this.currentSequenceName === '') {
             return;
         }
@@ -610,8 +609,8 @@ var Anim = /** @class */ (function () {
         var animSequenceEntry = this.animationSequence[this.currentSequenceName];
         if (animSequenceEntry && animSequenceEntry.sequence) {
             this.currentSequence = animSequenceEntry.sequence;
-            this.currentX += (this.directionX * this.velocityX) * deltaTime;
-            this.currentY += (this.directionY * this.velocityY) * deltaTime;
+            this.currentX += this.directionX * (this.velocityX || 1) * deltaTime;
+            this.currentY += this.directionY * (this.velocityY || 1) * deltaTime;
             this.currentSequence.visible = this.currentVisible;
             this.currentSequence.loop = this.currentLoop;
             this.currentSequence.x = this.currentX;

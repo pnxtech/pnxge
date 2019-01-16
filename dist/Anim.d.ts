@@ -327,7 +327,7 @@ export declare class Anim implements IAnimCompatible {
      * @param {number} deltaTime - delta time offset
      * @return {void}
      */
-    update(deltaTime?: number): void;
+    update(deltaTime: number): void;
     /**
      * @name onCollision
      * @description trigged when this anim collides with another anim
