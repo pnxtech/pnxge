@@ -34,6 +34,16 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     */
     z: number;
     /**
+     * @name visible
+     * @description get visibility
+     * @return {boolean} true if visible
+     */
+    /**
+    * @name visible
+    * @description set visibility
+    */
+    visible: boolean;
+    /**
      * @name rect
      * @description rect getter
      * @return {Rect} rect object from anim

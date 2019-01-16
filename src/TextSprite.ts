@@ -50,6 +50,23 @@ export class TextSprite extends PIXI.extras.BitmapText {
   }
 
   /**
+   * @name visible
+   * @description get visibility
+   * @return {boolean} true if visible
+   */
+  get visible(): boolean {
+    return this.anim.visible;
+  }
+
+  /**
+   * @name visible
+   * @description set visibility
+   */
+  set visible(value: boolean) {
+    this.anim.visible = value;
+  }
+
+  /**
    * @name setTint
    * @description set tint
    * @param {number} color - color tint
