@@ -292,6 +292,8 @@ export class Scene {
    */
   lookAhead(anim: Anim, steps: number): Anim | Image | undefined {
     let animRect = anim.rect;
+    animRect.x = 0;
+    animRect.y = 0;
     for (let i = 0; i < steps; i++) {
       animRect.x += anim.x + (anim.dx * anim.vx);
       animRect.y += anim.y + (anim.dx * anim.vx);
