@@ -374,6 +374,20 @@ export class Random {
    * @return {number} random number
    */
   getRandomFromCenter(value: number, width: number): number {
+    let midWidth = width * 0.5;
+    let low = value - midWidth;
+    let high = value + midWidth;
+    return this.getRandomInclusive(low, high);
+  }
+
+  /**
+   * @name getRandomIntFromCenter
+   * @description return a random number (integer) within a centered range
+   * @param {number} value - number to center range
+   * @param {number} width - number to determine width from center
+   * @return {number} random number
+   */
+  getRandomIntFromCenter(value: number, width: number): number {
     let midWidth = (width * 0.5) | 0;
     let low = value - midWidth;
     let high = value + midWidth;

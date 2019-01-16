@@ -370,6 +370,19 @@ var Random = /** @class */ (function () {
      * @return {number} random number
      */
     Random.prototype.getRandomFromCenter = function (value, width) {
+        var midWidth = width * 0.5;
+        var low = value - midWidth;
+        var high = value + midWidth;
+        return this.getRandomInclusive(low, high);
+    };
+    /**
+     * @name getRandomIntFromCenter
+     * @description return a random number (integer) within a centered range
+     * @param {number} value - number to center range
+     * @param {number} width - number to determine width from center
+     * @return {number} random number
+     */
+    Random.prototype.getRandomIntFromCenter = function (value, width) {
         var midWidth = (width * 0.5) | 0;
         var low = value - midWidth;
         var high = value + midWidth;
