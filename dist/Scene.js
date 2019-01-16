@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Math_1 = require("./Math");
 ;
 ;
 ;
@@ -268,7 +267,24 @@ var Scene = /** @class */ (function () {
      * @return {Anim | Image | undefined} of potential collision
      */
     Scene.prototype.lookAhead = function (anim, steps) {
-        var animRect = new Math_1.Rect(anim.x, anim.y, anim.width, anim.height);
+        var animRect = anim.rect;
+        for (var i = 0; i < steps; i++) {
+            animRect.x += anim.x + (anim.dx * anim.vx);
+            animRect.y += anim.y + (anim.dx * anim.vx);
+            var objectList = this.stage.children;
+            for (var _i = 0, objectList_3 = objectList; _i < objectList_3.length; _i++) {
+                var obj = objectList_3[_i];
+                if (!obj.anim || !obj.anim.collisionDetection || !obj.anim.visible) {
+                    continue;
+                }
+                if (obj.anim.id === obj.anim.id) {
+                    continue;
+                }
+                if (animRect.intersect(obj.anim.rect)) {
+                    return obj;
+                }
+            }
+        }
         return undefined;
     };
     /**

@@ -14,6 +14,7 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     anim: Image;
     protected scene: Scene;
     private zOrder;
+    private internalRect;
     /**
      * @name constructor
      * @description constructor

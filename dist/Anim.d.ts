@@ -40,6 +40,8 @@ export declare class Anim implements IAnimCompatible {
     private velocityY;
     private scaleX;
     private scaleY;
+    private internalRect;
+    private emptyRect;
     private tint;
     private animType;
     private currentCollisionDetection;

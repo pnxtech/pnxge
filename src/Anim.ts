@@ -49,6 +49,8 @@ export class Anim implements IAnimCompatible {
   private velocityY: number = 0;
   private scaleX: number = 1;
   private scaleY: number = 1;
+  private internalRect: Rect;
+  private emptyRect: Rect;
   private tint: number = 0;
   private animType: string = '';
   private currentCollisionDetection: boolean = false;
@@ -64,6 +66,8 @@ export class Anim implements IAnimCompatible {
   constructor(scene: Scene) {
     this.scene = scene;
     this.stage = scene.stage;
+    this.emptyRect = new Rect(0,0,0,0);
+    this.internalRect = new Rect(0,0,0,0);
   }
 
   /**
@@ -97,6 +101,7 @@ export class Anim implements IAnimCompatible {
     this.scaleY = 1;
     this.tint = 0;
     this.animType = '';
+    this.internalRect = new Rect(0,0,0,0);
     this.currentCollisionDetection = false;
     this.animCollisionWith = undefined;
   }
@@ -168,13 +173,13 @@ export class Anim implements IAnimCompatible {
    */
   get rect(): Rect {
     if (this.currentSequence) {
-      return new Rect(
-        this.currentSequence.x,
-        this.currentSequence.y,
-        this.currentSequence.width,
-        this.currentSequence.height);
+      this.internalRect.x = this.currentSequence.x;
+      this.internalRect.y = this.currentSequence.y;
+      this.internalRect.width = this.currentSequence.width;
+      this.internalRect.height = this.currentSequence.height;
+      return this.internalRect;
     }
-    return new Rect(0, 0, 0, 0);
+    return this.emptyRect;
   }
 
   /**

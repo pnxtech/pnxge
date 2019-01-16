@@ -7,7 +7,6 @@ import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
 import {TextSprite} from './TextSprite';
 import {IRecorderHash} from './Recorder';
-import {Point, Rect} from './Math';
 
 interface IAnimHash { [key: string]: Anim | Image | TextSprite};
 interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
@@ -292,7 +291,23 @@ export class Scene {
    * @return {Anim | Image | undefined} of potential collision
    */
   lookAhead(anim: Anim, steps: number): Anim | Image | undefined {
-    let animRect = new Rect(anim.x, anim.y, anim.width, anim.height);
+    let animRect = anim.rect;
+    for (let i = 0; i < steps; i++) {
+      animRect.x += anim.x + (anim.dx * anim.vx);
+      animRect.y += anim.y + (anim.dx * anim.vx);
+      let objectList: any = this.stage.children;
+      for (let obj of objectList) {
+        if (!obj.anim || !obj.anim.collisionDetection || !obj.anim.visible) {
+          continue;
+        }
+        if (obj.anim.id === obj.anim.id) {
+          continue;
+        }
+        if (animRect.intersect(obj.anim.rect)) {
+          return obj;
+        }
+      }
+    }
     return undefined;
   }
 

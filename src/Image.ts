@@ -17,6 +17,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
   public anim: Image;
   protected scene: Scene;
   private zOrder: number = 0;
+  private internalRect: Rect;
 
   /**
    * @name constructor
@@ -30,6 +31,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
     this.anim = this;
     this.scene = scene;
     scene.stage.addChild(this);
+    this.internalRect = new Rect(this.x, this.y, this.width, this.height);
   }
 
   /**
@@ -55,12 +57,11 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @return {Rect} rect object from anim
    */
   get rect(): Rect {
-    return new Rect(
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    );
+    this.internalRect.x = this.x;
+    this.internalRect.y = this.y;
+    this.internalRect.width = this.width;
+    this.internalRect.height = this.height;
+    return this.internalRect;
   }
 
   /**

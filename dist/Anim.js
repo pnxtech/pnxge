@@ -51,6 +51,8 @@ var Anim = /** @class */ (function () {
         this.currentCollisionDetection = false;
         this.scene = scene;
         this.stage = scene.stage;
+        this.emptyRect = new Math_1.Rect(0, 0, 0, 0);
+        this.internalRect = new Math_1.Rect(0, 0, 0, 0);
     }
     Object.defineProperty(Anim.prototype, "id", {
         /**
@@ -86,6 +88,7 @@ var Anim = /** @class */ (function () {
         this.scaleY = 1;
         this.tint = 0;
         this.animType = '';
+        this.internalRect = new Math_1.Rect(0, 0, 0, 0);
         this.currentCollisionDetection = false;
         this.animCollisionWith = undefined;
     };
@@ -162,9 +165,13 @@ var Anim = /** @class */ (function () {
          */
         get: function () {
             if (this.currentSequence) {
-                return new Math_1.Rect(this.currentSequence.x, this.currentSequence.y, this.currentSequence.width, this.currentSequence.height);
+                this.internalRect.x = this.currentSequence.x;
+                this.internalRect.y = this.currentSequence.y;
+                this.internalRect.width = this.currentSequence.width;
+                this.internalRect.height = this.currentSequence.height;
+                return this.internalRect;
             }
-            return new Math_1.Rect(0, 0, 0, 0);
+            return this.emptyRect;
         },
         enumerable: true,
         configurable: true

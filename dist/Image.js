@@ -45,6 +45,7 @@ var Image = /** @class */ (function (_super) {
         _this.anim = _this;
         _this.scene = scene;
         scene.stage.addChild(_this);
+        _this.internalRect = new Math_1.Rect(_this.x, _this.y, _this.width, _this.height);
         return _this;
     }
     Object.defineProperty(Image.prototype, "z", {
@@ -73,7 +74,11 @@ var Image = /** @class */ (function (_super) {
          * @return {Rect} rect object from anim
          */
         get: function () {
-            return new Math_1.Rect(this.x, this.y, this.width, this.height);
+            this.internalRect.x = this.x;
+            this.internalRect.y = this.y;
+            this.internalRect.width = this.width;
+            this.internalRect.height = this.height;
+            return this.internalRect;
         },
         enumerable: true,
         configurable: true
