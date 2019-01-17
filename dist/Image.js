@@ -74,14 +74,16 @@ var Image = /** @class */ (function (_super) {
          * @return {boolean} true if visible
          */
         get: function () {
-            return this.anim.visible;
+            return (this.anim) ? this.anim.visible : false;
         },
         /**
          * @name visible
          * @description set visibility
          */
         set: function (value) {
-            this.anim.visible = value;
+            if (this.anim) {
+                this.anim.visible = value;
+            }
         },
         enumerable: true,
         configurable: true

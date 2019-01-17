@@ -11,7 +11,7 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     id: string;
     collisionDetection: boolean;
     type: string;
-    anim: Image;
+    anim: Image | undefined;
     protected scene: Scene;
     private zOrder;
     private internalRect;

@@ -14,7 +14,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
   public id: string = createID();
   public collisionDetection: boolean = false;
   public type: string = AnimType.IMAGE;
-  public anim: Image;
+  public anim: Image | undefined;
   protected scene: Scene;
   private zOrder: number = 0;
   private internalRect: Rect;
@@ -57,7 +57,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @return {boolean} true if visible
    */
   get visible(): boolean {
-    return this.anim.visible;
+    return (this.anim) ? this.anim.visible : false;
   }
 
   /**
@@ -65,7 +65,9 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description set visibility
    */
   set visible(value: boolean) {
-    this.anim.visible = value;
+    if (this.anim) {
+      this.anim.visible = value;
+    }
   }
 
   /**
