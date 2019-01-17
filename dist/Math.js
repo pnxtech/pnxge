@@ -187,6 +187,22 @@ var Rect = /** @class */ (function () {
         var combinedHalfHeights = a1_halfHeight + a2_halfHeight;
         return ((Math.abs(dx) < combinedHalfWidths) && (Math.abs(dy) < combinedHalfHeights)) ? true : false;
     };
+    /**
+     * @name inflate
+     * @description increase a rect by adding padding
+     * @return {Rect} new inflated Rect
+     */
+    Rect.prototype.inflate = function (targetRect, padding) {
+        return new Rect(targetRect.x - padding, targetRect.y - padding, targetRect.width + padding, targetRect.height + padding);
+    };
+    /**
+     * @name deflate
+     * @description decrease a rect by removing padding
+     * @return {Rect} new deflated Rect
+     */
+    Rect.prototype.deflate = function (targetRect, padding) {
+        return new Rect(targetRect.x + padding, targetRect.y + padding, targetRect.width - padding, targetRect.height - padding);
+    };
     return Rect;
 }());
 exports.Rect = Rect;

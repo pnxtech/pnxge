@@ -187,6 +187,34 @@ export class Rect {
 
     return ((Math.abs(dx) < combinedHalfWidths) && (Math.abs(dy) < combinedHalfHeights)) ? true : false;
   }
+
+  /**
+   * @name inflate
+   * @description increase a rect by adding padding
+   * @return {Rect} new inflated Rect
+   */
+  inflate(targetRect: Rect, padding: number): Rect {
+    return new Rect(
+      targetRect.x - padding,
+      targetRect.y - padding,
+      targetRect.width + padding,
+      targetRect.height + padding
+    );
+  }
+
+  /**
+   * @name deflate
+   * @description decrease a rect by removing padding
+   * @return {Rect} new deflated Rect
+   */
+  deflate(targetRect: Rect, padding: number): Rect {
+    return new Rect(
+      targetRect.x + padding,
+      targetRect.y + padding,
+      targetRect.width - padding,
+      targetRect.height - padding
+    );
+  }
 }
 
 /**

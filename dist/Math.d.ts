@@ -117,6 +117,18 @@ export declare class Rect {
      * @return {boolean} bool - true if collision else false
      */
     intersect(targetRect: Rect): boolean;
+    /**
+     * @name inflate
+     * @description increase a rect by adding padding
+     * @return {Rect} new inflated Rect
+     */
+    inflate(targetRect: Rect, padding: number): Rect;
+    /**
+     * @name deflate
+     * @description decrease a rect by removing padding
+     * @return {Rect} new deflated Rect
+     */
+    deflate(targetRect: Rect, padding: number): Rect;
 }
 /**
  * @name Vector
