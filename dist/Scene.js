@@ -264,12 +264,20 @@ var Scene = /** @class */ (function () {
      * @note uses the specified anim's direction and velocity vectors
      * @param {Anim} anim - animation object
      * @param {number} steps - number of steps to look ahead
+     * @param {number} padding - padding to increase or decrease anim rect
      * @return {Anim | Image | undefined} of potential collision
      */
-    Scene.prototype.lookAhead = function (anim, steps) {
+    Scene.prototype.lookAhead = function (anim, steps, padding) {
+        if (padding === void 0) { padding = 0; }
         var animRect = anim.rect;
         animRect.x = anim.x;
         animRect.y = anim.y;
+        if (padding < 0) {
+            animRect.deflate(padding);
+        }
+        else if (padding > 0) {
+            animRect.inflate(padding);
+        }
         for (var i = 0; i < steps; i++) {
             animRect.x += (anim.dx * (anim.vx || 1));
             animRect.y += (anim.dy * (anim.vy || 1));

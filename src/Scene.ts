@@ -288,12 +288,18 @@ export class Scene {
    * @note uses the specified anim's direction and velocity vectors
    * @param {Anim} anim - animation object
    * @param {number} steps - number of steps to look ahead
+   * @param {number} padding - padding to increase or decrease anim rect
    * @return {Anim | Image | undefined} of potential collision
    */
-  lookAhead(anim: Anim, steps: number): Anim | Image | undefined {
+  lookAhead(anim: Anim, steps: number, padding: number = 0): Anim | Image | undefined {
     let animRect = anim.rect;
     animRect.x = anim.x;
     animRect.y = anim.y;
+    if (padding < 0) {
+      animRect.deflate(padding);
+    } else if (padding > 0) {
+      animRect.inflate(padding);
+    }
     for (let i = 0; i < steps; i++) {
       animRect.x += (anim.dx * (anim.vx || 1));
       animRect.y += (anim.dy * (anim.vy || 1));

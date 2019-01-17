@@ -190,18 +190,28 @@ var Rect = /** @class */ (function () {
     /**
      * @name inflate
      * @description increase a rect by adding padding
+     * @param {padding} padding to increase rect
      * @return {Rect} new inflated Rect
      */
-    Rect.prototype.inflate = function (targetRect, padding) {
-        return new Rect(targetRect.x - padding, targetRect.y - padding, targetRect.width + padding, targetRect.height + padding);
+    Rect.prototype.inflate = function (padding) {
+        this.x = this.x - padding;
+        this.y = this.y - padding;
+        this.width = this.width + padding;
+        this.height = this.height + padding;
+        return this;
     };
     /**
      * @name deflate
      * @description decrease a rect by removing padding
+     * @param {padding} padding to decrease rect
      * @return {Rect} new deflated Rect
      */
-    Rect.prototype.deflate = function (targetRect, padding) {
-        return new Rect(targetRect.x + padding, targetRect.y + padding, targetRect.width - padding, targetRect.height - padding);
+    Rect.prototype.deflate = function (padding) {
+        this.x = this.x + padding;
+        this.y = this.y + padding;
+        this.width = this.width - padding;
+        this.height = this.height - padding;
+        return this;
     };
     return Rect;
 }());

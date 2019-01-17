@@ -174,9 +174,10 @@ export declare class Scene {
      * @note uses the specified anim's direction and velocity vectors
      * @param {Anim} anim - animation object
      * @param {number} steps - number of steps to look ahead
+     * @param {number} padding - padding to increase or decrease anim rect
      * @return {Anim | Image | undefined} of potential collision
      */
-    lookAhead(anim: Anim, steps: number): Anim | Image | undefined;
+    lookAhead(anim: Anim, steps: number, padding?: number): Anim | Image | undefined;
     /**
      * @name destroy
      * @description remove Anim objects from scene

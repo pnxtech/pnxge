@@ -191,29 +191,29 @@ export class Rect {
   /**
    * @name inflate
    * @description increase a rect by adding padding
+   * @param {padding} padding to increase rect
    * @return {Rect} new inflated Rect
    */
-  inflate(targetRect: Rect, padding: number): Rect {
-    return new Rect(
-      targetRect.x - padding,
-      targetRect.y - padding,
-      targetRect.width + padding,
-      targetRect.height + padding
-    );
+  inflate(padding: number): Rect {
+    this.x = this.x - padding;
+    this.y = this.y - padding;
+    this.width = this.width + padding;
+    this.height = this.height + padding;
+    return this;
   }
 
   /**
    * @name deflate
    * @description decrease a rect by removing padding
+   * @param {padding} padding to decrease rect
    * @return {Rect} new deflated Rect
    */
-  deflate(targetRect: Rect, padding: number): Rect {
-    return new Rect(
-      targetRect.x + padding,
-      targetRect.y + padding,
-      targetRect.width - padding,
-      targetRect.height - padding
-    );
+  deflate(padding: number): Rect {
+    this.x = this.x + padding;
+    this.y = this.y + padding;
+    this.width = this.width - padding;
+    this.height = this.height - padding;
+    return this;
   }
 }
 

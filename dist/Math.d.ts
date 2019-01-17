@@ -120,15 +120,17 @@ export declare class Rect {
     /**
      * @name inflate
      * @description increase a rect by adding padding
+     * @param {padding} padding to increase rect
      * @return {Rect} new inflated Rect
      */
-    inflate(targetRect: Rect, padding: number): Rect;
+    inflate(padding: number): Rect;
     /**
      * @name deflate
      * @description decrease a rect by removing padding
+     * @param {padding} padding to decrease rect
      * @return {Rect} new deflated Rect
      */
-    deflate(targetRect: Rect, padding: number): Rect;
+    deflate(padding: number): Rect;
 }
 /**
  * @name Vector
