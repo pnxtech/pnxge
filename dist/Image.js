@@ -67,27 +67,6 @@ var Image = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Image.prototype, "visible", {
-        /**
-         * @name visible
-         * @description get visibility
-         * @return {boolean} true if visible
-         */
-        get: function () {
-            return (this.anim) ? this.anim.visible : false;
-        },
-        /**
-         * @name visible
-         * @description set visibility
-         */
-        set: function (value) {
-            if (this.anim) {
-                this.anim.visible = value;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(Image.prototype, "rect", {
         /**
          * @name rect
