@@ -53,6 +53,13 @@ export declare class Attribs {
      * @return {void}
      */
     clone(attribs: Attribs): void;
+    /**
+     * @name union
+     * @description return a union of shared attributes between this and other Attrib
+     * @param {Attribs} other Attribs object
+     * @return {string[]} array of matching attribute strings if any
+     */
+    union(attribs: Attribs): string[];
 }
 export {};
 //# sourceMappingURL=Attribs.d.ts.map

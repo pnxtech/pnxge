@@ -75,6 +75,21 @@ var Attribs = /** @class */ (function () {
     Attribs.prototype.clone = function (attribs) {
         this.hash = this.utils.mergeObjects({}, attribs.hash);
     };
+    /**
+     * @name union
+     * @description return a union of shared attributes between this and other Attrib
+     * @param {Attribs} other Attribs object
+     * @return {string[]} array of matching attribute strings if any
+     */
+    Attribs.prototype.union = function (attribs) {
+        var matches = [];
+        Object.keys(this.hash).forEach(function (name) {
+            if (attribs.has(name)) {
+                matches.push(name);
+            }
+        });
+        return matches;
+    };
     return Attribs;
 }());
 exports.Attribs = Attribs;

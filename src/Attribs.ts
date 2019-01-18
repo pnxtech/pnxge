@@ -84,4 +84,20 @@ export class Attribs {
   clone(attribs: Attribs): void {
     this.hash = <IAttribsHash>this.utils.mergeObjects({}, attribs.hash)
   }
+
+  /**
+   * @name union
+   * @description return a union of shared attributes between this and other Attrib
+   * @param {Attribs} other Attribs object
+   * @return {string[]} array of matching attribute strings if any
+   */
+  union(attribs: Attribs): string[] {
+    let matches: string[] = [];
+    Object.keys(this.hash).forEach((name) => {
+      if (attribs.has(name)) {
+        matches.push(name);
+      }
+    });
+    return matches;
+  }
 }
