@@ -89,6 +89,9 @@ export class AssetManager {
             image.x = obj.x;
             image.y = obj.y;
             image.z = obj.z;
+            if (obj.attribs) {
+              image.attribs.add(obj.attribs);
+            }
             image.visible = obj.visible || false;
             if (obj.tint) {
               image.tint = parseInt(obj.tint, 16);
@@ -105,6 +108,9 @@ export class AssetManager {
             }
             backgroundTile.sx = obj.sx || 1;
             backgroundTile.sy = obj.sy || 1;
+            if (obj.attribs) {
+              backgroundTile.attribs.add(obj.attribs);
+            }
             scene.addAnim(obj.name, backgroundTile);
           }
           break;
@@ -114,6 +120,9 @@ export class AssetManager {
             textSprite.x = obj.x;
             textSprite.y = obj.y;
             textSprite.z = obj.z;
+            if (obj.attribs) {
+              textSprite.attribs.add(obj.attribs);
+            }
             if (obj.tint) {
               textSprite.setTint(parseInt(obj.tint, 16));
             }
@@ -132,6 +141,9 @@ export class AssetManager {
             anim.z = obj.z;
             anim.sx = obj.sx || 1;
             anim.sy = obj.sy || 1;
+            if (obj.attribs) {
+              anim.attribs.add(obj.attribs);
+            }
             anim.rotation = obj.rotation;
             anim.collisionDetection = obj.collisionDetection;
             anim.loop = obj.loop;
@@ -172,6 +184,10 @@ export class AssetManager {
       anim.dy = obj.dy || 0;
       anim.sx = obj.sx || 1;
       anim.sy = obj.sy || 1;
+      if (obj.attribs) {
+        anim.attribs.add(obj.attribs);
+      }
+
       anim.loop = obj.loop;
       anim.rotation = obj.rotation || 0;
       anim.visible = obj.visible || false;
