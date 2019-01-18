@@ -22,6 +22,7 @@ var Scene = /** @class */ (function () {
         this.texts = {};
         this.actionList = {};
         this.sceneStarted = false;
+        this.benchmarkUpdate = false;
         this.app = app;
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;
@@ -102,6 +103,15 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.hasSceneStarted = function () {
         return this.sceneStarted;
+    };
+    /**
+     * @name benchmarking
+     * @description turn benchmarking on or off
+     * @note displays via console.log
+     * @return {void}
+     */
+    Scene.prototype.benchmarking = function (state) {
+        this.benchmarkUpdate = state;
     };
     Object.defineProperty(Scene.prototype, "tick", {
         /**
@@ -216,7 +226,9 @@ var Scene = /** @class */ (function () {
             this.sortAnims();
             this.collisionDetection();
         }
-        console.log("scene render time: " + Math_1.pcap(this.benchmark.elapsed()));
+        if (this.benchmarkUpdate) {
+            console.log("scene benchmark: " + Math_1.pcap(this.benchmark.elapsed()) + " ms");
+        }
     };
     /**
      * @name sortAnims

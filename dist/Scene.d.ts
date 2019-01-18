@@ -36,6 +36,7 @@ export declare class Scene {
     protected texts: ITextsHash;
     protected actionList: IRecorderHash;
     private sceneStarted;
+    private benchmarkUpdate;
     /**
      * @name constructor
      * @description initialize scene
@@ -99,6 +100,13 @@ export declare class Scene {
      * @description determine whether the scene has been started
      */
     hasSceneStarted(): boolean;
+    /**
+     * @name benchmarking
+     * @description turn benchmarking on or off
+     * @note displays via console.log
+     * @return {void}
+     */
+    benchmarking(state: boolean): void;
     /**
      * @name tick
      * @description get internal tick count

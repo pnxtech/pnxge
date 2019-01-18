@@ -33,6 +33,7 @@ export class Scene {
   protected texts: ITextsHash = {};
   protected actionList: IRecorderHash = {};
   private sceneStarted: boolean = false;
+  private benchmarkUpdate: boolean = false;
 
   /**
    * @name constructor
@@ -129,6 +130,16 @@ export class Scene {
    */
   hasSceneStarted(): boolean {
     return this.sceneStarted;
+  }
+
+  /**
+   * @name benchmarking
+   * @description turn benchmarking on or off
+   * @note displays via console.log
+   * @return {void}
+   */
+  benchmarking(state: boolean): void {
+    this.benchmarkUpdate = state;
   }
 
   /**
@@ -238,7 +249,9 @@ export class Scene {
       this.sortAnims();
       this.collisionDetection();
     }
-    console.log(`scene render time: ${pcap(this.benchmark.elapsed())}`);
+    if (this.benchmarkUpdate) {
+      console.log(`scene benchmark: ${pcap(this.benchmark.elapsed())} ms`);
+    }
   }
 
   /**
