@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Anim_1 = require("./Anim");
 var Utils_1 = require("./Utils");
 ;
+;
 /**
  * @name ProjectileManager
  * @description Create and manages projectiles
@@ -14,19 +15,19 @@ var ProjectileManager = /** @class */ (function () {
      */
     function ProjectileManager(scene, atlas, resources) {
         this.projectiles = [];
-        this.excludes = [];
         this.scene = scene;
         this.atlas = atlas;
         this.resources = resources;
+        this.collisionResolutionHandler = undefined;
     }
     /**
-     * @name setObjectExclusions
-     * @description set object attributes which should be excluded on collision detection
-     * @param {string[]} excludes
+     * @name registerCollisionResolutionHandler
+     * @description register a collision resolution callback handler
+     * @param {ICollisionResolutionCallback} callback
      * @return {void}
      */
-    ProjectileManager.prototype.setObjectExclusions = function (excludes) {
-        this.excludes = excludes.slice(0);
+    ProjectileManager.prototype.registerCollisionResolutionHandler = function (callback) {
+        this.collisionResolutionHandler = callback;
     };
     /**
      * @name createProjectile
@@ -160,14 +161,11 @@ var ProjectileManager = /** @class */ (function () {
                     }
                     var cwith = anim.collisionWith();
                     if (!hide && cwith && cwith.id !== anim.id) {
-                        hide = true;
-                    }
-                    if (this.excludes.length > 0) {
-                        for (var i_1 = 0; i_1 < this.excludes.length; i_1++) {
-                            if (cwith && cwith.attribs.has(this.excludes[i_1])) {
-                                hide = false;
-                                break;
-                            }
+                        if (this.collisionResolutionHandler) {
+                            hide = this.collisionResolutionHandler(anim, cwith);
+                        }
+                        else {
+                            hide = true;
                         }
                     }
                     if (hide) {

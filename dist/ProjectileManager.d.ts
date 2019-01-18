@@ -23,6 +23,9 @@ interface IProjectileObject {
     vx: number;
     vy: number;
 }
+export interface ICollisionResolutionCallback {
+    (projectileAnim: Anim, collisionAnim: Anim): boolean;
+}
 /**
  * @name ProjectileManager
  * @description Create and manages projectiles
@@ -32,19 +35,19 @@ export declare class ProjectileManager {
     private scene;
     private atlas;
     private resources;
-    private excludes;
+    private collisionResolutionHandler;
     /**
      * @name constructor
      * @description class constructor
      */
     constructor(scene: Scene, atlas: string, resources: {});
     /**
-     * @name setObjectExclusions
-     * @description set object attributes which should be excluded on collision detection
-     * @param {string[]} excludes
+     * @name registerCollisionResolutionHandler
+     * @description register a collision resolution callback handler
+     * @param {ICollisionResolutionCallback} callback
      * @return {void}
      */
-    setObjectExclusions(excludes: string[]): void;
+    registerCollisionResolutionHandler(callback: ICollisionResolutionCallback): void;
     /**
      * @name createProjectile
      * @description creates a projectile
