@@ -32,11 +32,19 @@ export declare class ProjectileManager {
     private scene;
     private atlas;
     private resources;
+    private excludes;
     /**
      * @name constructor
      * @description class constructor
      */
     constructor(scene: Scene, atlas: string, resources: {});
+    /**
+     * @name setObjectExclusions
+     * @description set object attributes which should be excluded on collision detection
+     * @param {string[]} excludes
+     * @return {void}
+     */
+    setObjectExclusions(excludes: string[]): void;
     /**
      * @name createProjectile
      * @description creates a projectile

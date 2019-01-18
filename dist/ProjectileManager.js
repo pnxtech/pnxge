@@ -14,10 +14,20 @@ var ProjectileManager = /** @class */ (function () {
      */
     function ProjectileManager(scene, atlas, resources) {
         this.projectiles = [];
+        this.excludes = [];
         this.scene = scene;
         this.atlas = atlas;
         this.resources = resources;
     }
+    /**
+     * @name setObjectExclusions
+     * @description set object attributes which should be excluded on collision detection
+     * @param {string[]} excludes
+     * @return {void}
+     */
+    ProjectileManager.prototype.setObjectExclusions = function (excludes) {
+        this.excludes = excludes.slice(0);
+    };
     /**
      * @name createProjectile
      * @description creates a projectile
@@ -151,6 +161,14 @@ var ProjectileManager = /** @class */ (function () {
                     var cwith = anim.collisionWith();
                     if (!hide && cwith && cwith.id !== anim.id) {
                         hide = true;
+                    }
+                    if (this.excludes.length > 0) {
+                        for (var i_1 = 0; i_1 < this.excludes.length; i_1++) {
+                            if (cwith && cwith.attribs.has(this.excludes[i_1])) {
+                                hide = false;
+                                break;
+                            }
+                        }
                     }
                     if (hide) {
                         this.projectiles[i].active = false;

@@ -35,6 +35,7 @@ export class ProjectileManager {
   private scene: Scene;
   private atlas: string;
   private resources: {};
+  private excludes: string[] = [];
 
   /**
    * @name constructor
@@ -44,6 +45,16 @@ export class ProjectileManager {
     this.scene = scene;
     this.atlas = atlas;
     this.resources = resources;
+  }
+
+  /**
+   * @name setObjectExclusions
+   * @description set object attributes which should be excluded on collision detection
+   * @param {string[]} excludes
+   * @return {void}
+   */
+  setObjectExclusions(excludes: string[]): void {
+    this.excludes = excludes.slice(0);
   }
 
   /**
@@ -180,6 +191,14 @@ export class ProjectileManager {
           let cwith = anim.collisionWith();
           if (!hide && cwith && cwith.id !== anim.id) {
             hide = true;
+          }
+          if (this.excludes.length > 0) {
+            for (let i = 0; i < this.excludes.length; i++) {
+              if (cwith && cwith.attribs.has(this.excludes[i])) {
+                hide = false;
+                break;
+              }
+            }
           }
           if (hide) {
             this.projectiles[i].active = false;
