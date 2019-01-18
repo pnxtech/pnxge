@@ -6,6 +6,7 @@ import { ProjectileManager } from './ProjectileManager';
 import { SoundManager } from './SoundManager';
 import { TextSprite } from './TextSprite';
 import { IRecorderHash } from './Recorder';
+import { Benchmark } from './Benchmark';
 interface IAnimHash {
     [key: string]: Anim | Image | TextSprite;
 }
@@ -26,6 +27,7 @@ export declare class Scene {
     app: Application;
     protected sceneWidth: number;
     protected sceneHeight: number;
+    protected benchmark: Benchmark;
     stage: PIXI.Container;
     anims: IAnimHash;
     protected internalTick: number;

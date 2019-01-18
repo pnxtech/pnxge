@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Math_1 = require("./Math");
+var Benchmark_1 = require("./Benchmark");
 ;
 ;
 ;
@@ -15,6 +17,7 @@ var Scene = /** @class */ (function () {
      * @param {Application} application
      */
     function Scene(app) {
+        this.benchmark = new Benchmark_1.Benchmark();
         this.internalTick = 0;
         this.texts = {};
         this.actionList = {};
@@ -188,6 +191,7 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.update = function (deltaTime) {
         var _this = this;
+        this.benchmark.begin();
         this.internalTick++;
         switch (this.actionList[this.internalTick]) {
             case 'left':
@@ -212,6 +216,7 @@ var Scene = /** @class */ (function () {
             this.sortAnims();
             this.collisionDetection();
         }
+        console.log("scene render time: " + Math_1.pcap(this.benchmark.elapsed()));
     };
     /**
      * @name sortAnims

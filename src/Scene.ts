@@ -7,6 +7,8 @@ import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
 import {TextSprite} from './TextSprite';
 import {IRecorderHash} from './Recorder';
+import {pcap} from './Math';
+import {Benchmark} from './Benchmark';
 
 interface IAnimHash { [key: string]: Anim | Image | TextSprite};
 interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
@@ -22,7 +24,7 @@ export class Scene {
   public app: Application;
   protected sceneWidth: number;
   protected sceneHeight: number;
-
+  protected benchmark: Benchmark = new Benchmark();
   public stage: PIXI.Container;
   public anims: IAnimHash;
   protected internalTick: number = 0;
@@ -211,6 +213,7 @@ export class Scene {
    * @return {void}
    */
   update(deltaTime: number): void {
+    this.benchmark.begin();
     this.internalTick++;
     switch (this.actionList[this.internalTick]) {
       case 'left':
@@ -235,6 +238,7 @@ export class Scene {
       this.sortAnims();
       this.collisionDetection();
     }
+    console.log(`scene render time: ${pcap(this.benchmark.elapsed())}`);
   }
 
   /**
