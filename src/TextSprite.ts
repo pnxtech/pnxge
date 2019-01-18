@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js';
 import {Scene} from './Scene';
 import {IAnimCompatible} from './AnimCompatible';
-import {Anim, AnimType} from './Anim';
-import {createID} from './Math';
+import {Anim} from './Anim';
+import {Utils} from './Utils';
+import {Attribs} from './Attribs';
 
 /**
  * @name TextSprite
@@ -10,12 +11,12 @@ import {createID} from './Math';
  * @note: uses PIXI BitmapText
  */
 export class TextSprite extends PIXI.extras.BitmapText {
-  public id: string = createID();
+  public id: string = (new Utils()).createID();
   public zOrder: number = -1;
   public collisionDetection: boolean = false;
-  public type: string = AnimType.TEXT;
   protected scene: Scene;
   public anim: Anim;
+  public attributes: Attribs;
 
   /**
    * @name constructor
@@ -29,6 +30,8 @@ export class TextSprite extends PIXI.extras.BitmapText {
     this.scene = scene;
     this.anim = new Anim(this.scene);
     this.scene.stage.addChild(this);
+    this.attributes = new Attribs();
+    this.attributes.add('text');
   }
 
   /**
@@ -47,6 +50,15 @@ export class TextSprite extends PIXI.extras.BitmapText {
   set z(z: number) {
     this.zOrder = z;
     this.anim.z = z;
+  }
+
+  /**
+   * @name get Attribs
+   * @description get attributes
+   * @return {Attribs} attributes
+   */
+  get attribs(): Attribs {
+    return this.attributes;
   }
 
   /**

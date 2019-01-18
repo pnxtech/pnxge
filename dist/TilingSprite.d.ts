@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Scene } from './Scene';
 import { Anim } from './Anim';
+import { Attribs } from './Attribs';
 /**
  * @name TilingSprite
  * @description extends the PIXI TilingSprite to include additional fields
@@ -11,8 +12,14 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite {
     vx: number;
     vy: number;
     collisionDetection: boolean;
-    type: string;
+    attributes: Attribs;
     anim: Anim;
     constructor(scene: Scene, texture: PIXI.Texture, width: number, height: number);
+    /**
+     * @name get Attribs
+     * @description get attributes
+     * @return {Attribs} attributes
+     */
+    readonly attribs: Attribs;
 }
 //# sourceMappingURL=TilingSprite.d.ts.map

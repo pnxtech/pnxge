@@ -3,6 +3,7 @@ import {Anim} from './Anim';
 import {Scene} from './Scene';
 import {TilingSprite} from './TilingSprite';
 
+
 /**
  * @name BackgroundTile
  * @description uses a texture to tile a background
@@ -41,7 +42,7 @@ export class BackgroundTile extends Anim {
     scene.stage.addChild(this.tilingSprite);
   }
 
-   /**
+  /**
    * @name flip
    * @description flip tile
    * @param {state} boolean - true flip, else don't

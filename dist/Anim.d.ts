@@ -4,21 +4,13 @@ import { EventManager } from './EventManager';
 import { IController } from './Controller';
 import { Scene } from './Scene';
 import { Rect } from './Math';
-export declare enum AnimType {
-    HERO = "hero",
-    ENEMY = "enemy",
-    BULLET = "bullet",
-    EXPLOSION = "explosion",
-    BACKGROUND = "background",
-    GROUND = "ground",
-    TEXT = "text",
-    IMAGE = "image"
-}
+import { Attribs } from './Attribs';
 /**
  * @name Anim
  * @description Phoenix Game Engine Anim class
  */
 export declare class Anim implements IAnimCompatible {
+    attributes: Attribs;
     private animID;
     private animationSequence;
     private lastSequenceName;
@@ -43,7 +35,6 @@ export declare class Anim implements IAnimCompatible {
     private internalRect;
     private emptyRect;
     private tint;
-    private animType;
     private currentCollisionDetection;
     private animCollisionWith;
     protected scene: Scene;
@@ -256,16 +247,11 @@ export declare class Anim implements IAnimCompatible {
     */
     loop: boolean;
     /**
-     * @name type
-     * @description type getter
-     * @return {string} vy position
+     * @name get Attribs
+     * @description get attribs bag
+     * @return {Attribs} attribs bag
      */
-    /**
-    * @name type
-    * @description type setter
-    * @param {string} value - anim type
-    */
-    type: string;
+    readonly attribs: Attribs;
     /**
      * @name collisionDetection
      * @description collisionDetection getter

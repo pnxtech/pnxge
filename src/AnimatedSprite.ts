@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import {Anim} from './Anim';
+import {Attribs} from './Attribs';
 
 /**
  * @name AnimatedSprite
@@ -8,30 +9,19 @@ import {Anim} from './Anim';
  */
 export class AnimatedSprite extends PIXI.extras.AnimatedSprite {
   public anim: Anim | undefined;
+  public attributes: Attribs;
+
   constructor(textures: [], autoUpdate?: boolean | undefined) {
     super(textures, autoUpdate);
+    this.attributes = new Attribs();
   }
 
   /**
-   * @name type
-   * @description type getter
-   * @return {string} type position
+   * @name getAttribs
+   * @description get attributes
+   * @return {Attribs} attributes
    */
-  get type(): string {
-    if (this.anim) {
-      return this.anim.type;
-    }
-    return '';
-  }
-
-  /**
-   * @name type
-   * @description type setter
-   * @param {string} value - anim type
-   */
-  set type(value: string) {
-    if (this.anim) {
-      this.anim.type = value;
-    }
+  get attribs(): Attribs {
+    return this.attributes;
   }
 };

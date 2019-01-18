@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Math_1 = require("./Math");
+var Utils_1 = require("./Utils");
 ;
 ;
 /**
@@ -20,7 +20,7 @@ var EventManager = /** @class */ (function () {
      */
     EventManager.prototype.addEventHandler = function (name, callback) {
         var _a;
-        var newID = Math_1.createID();
+        var newID = (new Utils_1.Utils).createID();
         if (!this.callBackData[name]) {
             this.callBackData[name] = (_a = {},
                 _a[newID] = callback,

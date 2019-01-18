@@ -21,8 +21,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
-var Anim_1 = require("./Anim");
 var Math_1 = require("./Math");
+var Utils_1 = require("./Utils");
+var Attribs_1 = require("./Attribs");
 /**
  * @name Image
  * @description  image sprite
@@ -38,14 +39,15 @@ var Image = /** @class */ (function (_super) {
      */
     function Image(scene, name, resources) {
         var _this = _super.call(this, resources.textures[name]) || this;
-        _this.id = Math_1.createID();
+        _this.id = (new Utils_1.Utils).createID();
         _this.collisionDetection = false;
-        _this.type = Anim_1.AnimType.IMAGE;
         _this.zOrder = 0;
         _this.anim = _this;
         _this.scene = scene;
         scene.stage.addChild(_this);
         _this.internalRect = new Math_1.Rect(_this.x, _this.y, _this.width, _this.height);
+        _this.attributes = new Attribs_1.Attribs();
+        _this.attributes.add('image');
         return _this;
     }
     Object.defineProperty(Image.prototype, "z", {
@@ -63,6 +65,18 @@ var Image = /** @class */ (function (_super) {
          */
         set: function (z) {
             this.zOrder = z;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "attribs", {
+        /**
+         * @name get attribs
+         * @description get attributes
+         * @return {Attribs} attributes
+         */
+        get: function () {
+            return this.attributes;
         },
         enumerable: true,
         configurable: true

@@ -4,7 +4,9 @@ import {EventManager} from './EventManager';
 import {AnimatedSprite} from './AnimatedSprite';
 import {IController} from './Controller';
 import {Scene} from './Scene';
-import {createID, Rect} from './Math';
+import {Rect} from './Math';
+import {Attribs} from './Attribs';
+import {Utils} from './Utils';
 
 interface ICallback { (): void };
 interface IHash { [key: string]: {
@@ -12,23 +14,13 @@ interface IHash { [key: string]: {
   sequence: AnimatedSprite
 }};
 
-export enum AnimType {
-  HERO = 'hero',
-  ENEMY = 'enemy',
-  BULLET = 'bullet',
-  EXPLOSION = 'explosion',
-  BACKGROUND = 'background',
-  GROUND = 'ground',
-  TEXT = 'text',
-  IMAGE = 'image'
-};
-
 /**
  * @name Anim
  * @description Phoenix Game Engine Anim class
  */
 export class Anim implements IAnimCompatible {
-  private animID: string = createID();
+  public attributes: Attribs;
+  private animID: string = (new Utils()).createID();
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
@@ -52,7 +44,6 @@ export class Anim implements IAnimCompatible {
   private internalRect: Rect;
   private emptyRect: Rect;
   private tint: number = 0;
-  private animType: string = '';
   private currentCollisionDetection: boolean = false;
   private animCollisionWith: Anim | undefined;
   protected scene: Scene;
@@ -66,6 +57,7 @@ export class Anim implements IAnimCompatible {
   constructor(scene: Scene) {
     this.scene = scene;
     this.stage = scene.stage;
+    this.attributes = new Attribs();
     this.emptyRect = new Rect(0,0,0,0);
     this.internalRect = new Rect(0,0,0,0);
   }
@@ -84,7 +76,7 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   reset(): void {
-    this.animID = createID();
+    this.animID = (new Utils()).createID();
     this.currentX = 0;
     this.currentY= 0;
     this.currentZ = 0;
@@ -100,7 +92,7 @@ export class Anim implements IAnimCompatible {
     this.scaleX = 1;
     this.scaleY = 1;
     this.tint = 0;
-    this.animType = '';
+    this.attributes.flush();
     this.internalRect = new Rect(0,0,0,0);
     this.currentCollisionDetection = false;
     this.animCollisionWith = undefined;
@@ -441,21 +433,12 @@ export class Anim implements IAnimCompatible {
   }
 
   /**
-   * @name type
-   * @description type getter
-   * @return {string} vy position
+   * @name get Attribs
+   * @description get attribs bag
+   * @return {Attribs} attribs bag
    */
-  get type(): string {
-    return this.animType;
-  }
-
-  /**
-   * @name type
-   * @description type setter
-   * @param {string} value - anim type
-   */
-  set type(value: string) {
-    this.animType = value;
+  get attribs(): Attribs {
+    return this.attributes;
   }
 
   /**

@@ -5,6 +5,7 @@ import {Anim} from './Anim';
 import {BackgroundTile} from './BackgroundTile';
 import {TextSprite} from './TextSprite';
 import {SoundManager} from './SoundManager';
+import {Utils} from './Utils';
 
 interface ICallback { (resources: {}): void };
 
@@ -13,6 +14,7 @@ export class AssetManager {
   private gameConfig: any = {};
   private resources: any;
   private soundManager: SoundManager | undefined;
+  private utils: Utils;
 
   /**
    * @name constructor
@@ -21,6 +23,7 @@ export class AssetManager {
   constructor() {
     this.loader = new PIXI.loaders.Loader();
     this.soundManager = undefined;
+    this.utils = new Utils();
   }
 
   /**
@@ -67,7 +70,7 @@ export class AssetManager {
     let objectList = sceneData.objects;
     for (let obj of <any>objectList) {
       if (obj.extends) {
-        obj = this.mergeObjects(this.gameConfig.refs[obj.extends], obj);
+        obj = this.utils.mergeObjects(this.gameConfig.refs[obj.extends], obj);
       }
       switch (obj.type) {
         case 'actions':
@@ -82,7 +85,7 @@ export class AssetManager {
           break;
         case 'image': {
             let image = new Image(scene, obj.name, this.resources[obj.atlas]);
-            image.type = obj.type;
+            image.attribs.add(obj.type);
             image.x = obj.x;
             image.y = obj.y;
             image.z = obj.z;
@@ -95,7 +98,7 @@ export class AssetManager {
           break;
         case 'tile':{
             let backgroundTile = new BackgroundTile(scene, obj.file);
-            backgroundTile.type = obj.type;
+            backgroundTile.attribs.add(obj.type);
             backgroundTile.flip(obj.flip || false);
             if (obj.tint) {
               backgroundTile.setTint(parseInt(obj.tint, 16));
@@ -107,7 +110,7 @@ export class AssetManager {
           break;
         case 'text': {
             let textSprite = new TextSprite(scene, obj.text, obj.fontInfo);
-            textSprite.type = obj.type;
+            textSprite.attribs.add(obj.type);
             textSprite.x = obj.x;
             textSprite.y = obj.y;
             textSprite.z = obj.z;
@@ -123,7 +126,7 @@ export class AssetManager {
         case 'ground': {
             let anim = new Anim(scene);
             anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-            anim.type = obj.type;
+            anim.attribs.add(obj.type);
             anim.x = obj.x;
             anim.y = obj.y;
             anim.z = obj.z;
@@ -147,23 +150,6 @@ export class AssetManager {
   }
 
   /**
-   * @name mergeObjects
-   * @description merge objects. used as an ES5 replacement for the unavailable Object.assign
-   * @return {object} returns merged object
-   */
-  mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object {
-    let resObj: any = {};
-    for (let i=0; i < arguments.length; i += 1) {
-      let obj = arguments[i];
-      let keys = Object.keys(obj);
-      for (let j = 0; j < keys.length; j += 1) {
-          resObj[keys[j]] = obj[keys[j]];
-      }
-    }
-    return resObj;
-  }
-
-  /**
    * @name createCharacter
    * @description create an anim character
    * @param {Scene} scene
@@ -176,7 +162,7 @@ export class AssetManager {
       let newName = (count === 1) ? `${obj.name}` : `${obj.name}${i}`;
       let anim = new Anim(scene);
       anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-      anim.type = obj.type;
+      anim.attribs.add(obj.type);
       anim.x = obj.x;
       anim.y = obj.y;
       anim.z = obj.z;

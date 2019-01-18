@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { Anim } from './Anim';
+import { Attribs } from './Attribs';
 /**
  * @name AnimatedSprite
  * @description extends the PIXI AnimatedSprite to include additional anim fields
@@ -7,17 +8,13 @@ import { Anim } from './Anim';
  */
 export declare class AnimatedSprite extends PIXI.extras.AnimatedSprite {
     anim: Anim | undefined;
+    attributes: Attribs;
     constructor(textures: [], autoUpdate?: boolean | undefined);
     /**
-     * @name type
-     * @description type getter
-     * @return {string} type position
+     * @name getAttribs
+     * @description get attributes
+     * @return {Attribs} attributes
      */
-    /**
-    * @name type
-    * @description type setter
-    * @param {string} value - anim type
-    */
-    type: string;
+    readonly attribs: Attribs;
 }
 //# sourceMappingURL=AnimatedSprite.d.ts.map

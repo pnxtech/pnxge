@@ -8,6 +8,7 @@ export declare class AssetManager {
     private gameConfig;
     private resources;
     private soundManager;
+    private utils;
     /**
      * @name constructor
      * @description asset manager init
@@ -33,12 +34,6 @@ export declare class AssetManager {
      * @return {void}
      */
     populateScene(scene: Scene, sceneName: string, postPopulateHandler: ICallback): void;
-    /**
-     * @name mergeObjects
-     * @description merge objects. used as an ES5 replacement for the unavailable Object.assign
-     * @return {object} returns merged object
-     */
-    mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object;
     /**
      * @name createCharacter
      * @description create an anim character

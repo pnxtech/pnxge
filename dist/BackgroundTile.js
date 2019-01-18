@@ -51,11 +51,11 @@ var BackgroundTile = /** @class */ (function (_super) {
         return _this;
     }
     /**
-    * @name flip
-    * @description flip tile
-    * @param {state} boolean - true flip, else don't
-    * @return {void}
-    */
+     * @name flip
+     * @description flip tile
+     * @param {state} boolean - true flip, else don't
+     * @return {void}
+     */
     BackgroundTile.prototype.flip = function (state) {
         if (state) {
             this.tilingSprite.scale.x *= -1;

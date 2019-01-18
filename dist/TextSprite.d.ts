@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Scene } from './Scene';
 import { Anim } from './Anim';
+import { Attribs } from './Attribs';
 /**
  * @name TextSprite
  * @description extends the PIXI BitmapText to include additional fields
@@ -10,9 +11,9 @@ export declare class TextSprite extends PIXI.extras.BitmapText {
     id: string;
     zOrder: number;
     collisionDetection: boolean;
-    type: string;
     protected scene: Scene;
     anim: Anim;
+    attributes: Attribs;
     /**
      * @name constructor
      * @description constructor pass throught to BitmapText
@@ -31,6 +32,12 @@ export declare class TextSprite extends PIXI.extras.BitmapText {
     * @description z position setter
     */
     z: number;
+    /**
+     * @name get Attribs
+     * @description get attributes
+     * @return {Attribs} attributes
+     */
+    readonly attribs: Attribs;
     /**
      * @name visible
      * @description get visibility

@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js';
 import {IAnimCompatible} from './AnimCompatible';
-import {AnimType} from './Anim';
 import {Scene} from './Scene';
 import {EventManager} from './EventManager';
-import {createID, Rect} from './Math';
+import {Rect} from './Math';
+import {Utils} from './Utils';
+import {Attribs} from './Attribs';
 
 
 /**
@@ -11,9 +12,9 @@ import {createID, Rect} from './Math';
  * @description  image sprite
  */
 export class Image extends PIXI.Sprite implements IAnimCompatible {
-  public id: string = createID();
+  public id: string = (new Utils).createID();
+  public attributes: Attribs;
   public collisionDetection: boolean = false;
-  public type: string = AnimType.IMAGE;
   public anim: Image | undefined;
   protected scene: Scene;
   private zOrder: number = 0;
@@ -32,6 +33,8 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
     this.scene = scene;
     scene.stage.addChild(this);
     this.internalRect = new Rect(this.x, this.y, this.width, this.height);
+    this.attributes = new Attribs();
+    this.attributes.add('image');
   }
 
   /**
@@ -49,6 +52,15 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    */
   set z(z: number) {
     this.zOrder = z;
+  }
+
+  /**
+   * @name get attribs
+   * @description get attributes
+   * @return {Attribs} attributes
+   */
+  get attribs(): Attribs {
+    return this.attributes;
   }
 
   /**

@@ -2,19 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var AnimatedSprite_1 = require("./AnimatedSprite");
 var Math_1 = require("./Math");
+var Attribs_1 = require("./Attribs");
+var Utils_1 = require("./Utils");
 ;
-;
-var AnimType;
-(function (AnimType) {
-    AnimType["HERO"] = "hero";
-    AnimType["ENEMY"] = "enemy";
-    AnimType["BULLET"] = "bullet";
-    AnimType["EXPLOSION"] = "explosion";
-    AnimType["BACKGROUND"] = "background";
-    AnimType["GROUND"] = "ground";
-    AnimType["TEXT"] = "text";
-    AnimType["IMAGE"] = "image";
-})(AnimType = exports.AnimType || (exports.AnimType = {}));
 ;
 /**
  * @name Anim
@@ -26,7 +16,7 @@ var Anim = /** @class */ (function () {
      * @description binds Anim to Scene
      */
     function Anim(scene) {
-        this.animID = Math_1.createID();
+        this.animID = (new Utils_1.Utils()).createID();
         this.animationSequence = {};
         this.lastSequenceName = '';
         this.currentSequenceName = '';
@@ -47,10 +37,10 @@ var Anim = /** @class */ (function () {
         this.scaleX = 1;
         this.scaleY = 1;
         this.tint = 0;
-        this.animType = '';
         this.currentCollisionDetection = false;
         this.scene = scene;
         this.stage = scene.stage;
+        this.attributes = new Attribs_1.Attribs();
         this.emptyRect = new Math_1.Rect(0, 0, 0, 0);
         this.internalRect = new Math_1.Rect(0, 0, 0, 0);
     }
@@ -71,7 +61,7 @@ var Anim = /** @class */ (function () {
      * @return {void}
      */
     Anim.prototype.reset = function () {
-        this.animID = Math_1.createID();
+        this.animID = (new Utils_1.Utils()).createID();
         this.currentX = 0;
         this.currentY = 0;
         this.currentZ = 0;
@@ -87,7 +77,7 @@ var Anim = /** @class */ (function () {
         this.scaleX = 1;
         this.scaleY = 1;
         this.tint = 0;
-        this.animType = '';
+        this.attributes.flush();
         this.internalRect = new Math_1.Rect(0, 0, 0, 0);
         this.currentCollisionDetection = false;
         this.animCollisionWith = undefined;
@@ -468,22 +458,14 @@ var Anim = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Anim.prototype, "type", {
+    Object.defineProperty(Anim.prototype, "attribs", {
         /**
-         * @name type
-         * @description type getter
-         * @return {string} vy position
+         * @name get Attribs
+         * @description get attribs bag
+         * @return {Attribs} attribs bag
          */
         get: function () {
-            return this.animType;
-        },
-        /**
-         * @name type
-         * @description type setter
-         * @param {string} value - anim type
-         */
-        set: function (value) {
-            this.animType = value;
+            return this.attributes;
         },
         enumerable: true,
         configurable: true

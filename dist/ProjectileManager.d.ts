@@ -1,11 +1,13 @@
 import { Anim } from "./Anim";
 import { Scene } from "./Scene";
+import { Attribs } from './Attribs';
 interface IProjectileObject {
     active?: boolean;
     anim?: Anim;
     animSpeed?: number;
     name: string;
     type: string;
+    attribs: Attribs;
     strength: number;
     frame?: number;
     rotation: number;

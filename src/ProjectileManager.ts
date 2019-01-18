@@ -1,6 +1,7 @@
 import {Anim} from "./Anim";
 import {Scene} from "./Scene";
-import {createID} from './Math';
+import {Utils} from './Utils';
+import {Attribs} from './Attribs';
 
 interface IProjectileObject {
   active?: boolean,
@@ -8,6 +9,7 @@ interface IProjectileObject {
   animSpeed?: number,
   name: string,
   type: string,
+  attribs: Attribs,
   strength: number,
   frame?: number,
   rotation: number,
@@ -61,11 +63,13 @@ export class ProjectileManager {
     }
     if (!projectile) {
       let anim = new Anim(this.scene);
+      let attribs = projectileInfo.attribs;
       projectile = {
         active: true,
         anim,
         name: projectileInfo.name,
         type: projectileInfo.type,
+        attribs: projectileInfo.attribs,
         strength: projectileInfo.strength,
         x: projectileInfo.x,
         y: projectileInfo.y,
@@ -85,7 +89,7 @@ export class ProjectileManager {
       this.projectiles.push(<IProjectileObject>projectile);
       anim.loadSequence(projectile.name, this.atlas, this.resources);
       anim.play(projectile.name);
-      this.scene.addAnim(createID(), anim);
+      this.scene.addAnim((new Utils()).createID(), anim);
     } else {
       projectile.active = true;
       projectile.name = projectileInfo.name;
@@ -110,7 +114,7 @@ export class ProjectileManager {
     if (projectile && projectile.anim) {
       let anim = projectile.anim;
       anim.visible = true;
-      anim.type = projectileInfo.type,
+      anim.attribs.clone(projectileInfo.attribs),
       anim.strength = projectileInfo.strength,
       anim.x = projectileInfo.x;
       anim.y = projectileInfo.y;

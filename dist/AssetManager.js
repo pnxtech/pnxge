@@ -13,6 +13,7 @@ var Anim_1 = require("./Anim");
 var BackgroundTile_1 = require("./BackgroundTile");
 var TextSprite_1 = require("./TextSprite");
 var SoundManager_1 = require("./SoundManager");
+var Utils_1 = require("./Utils");
 ;
 var AssetManager = /** @class */ (function () {
     /**
@@ -23,6 +24,7 @@ var AssetManager = /** @class */ (function () {
         this.gameConfig = {};
         this.loader = new PIXI.loaders.Loader();
         this.soundManager = undefined;
+        this.utils = new Utils_1.Utils();
     }
     /**
      * @name init
@@ -69,7 +71,7 @@ var AssetManager = /** @class */ (function () {
         for (var _i = 0, _a = objectList; _i < _a.length; _i++) {
             var obj = _a[_i];
             if (obj.extends) {
-                obj = this.mergeObjects(this.gameConfig.refs[obj.extends], obj);
+                obj = this.utils.mergeObjects(this.gameConfig.refs[obj.extends], obj);
             }
             switch (obj.type) {
                 case 'actions':
@@ -85,7 +87,7 @@ var AssetManager = /** @class */ (function () {
                 case 'image':
                     {
                         var image = new Image_1.Image(scene, obj.name, this.resources[obj.atlas]);
-                        image.type = obj.type;
+                        image.attribs.add(obj.type);
                         image.x = obj.x;
                         image.y = obj.y;
                         image.z = obj.z;
@@ -99,7 +101,7 @@ var AssetManager = /** @class */ (function () {
                 case 'tile':
                     {
                         var backgroundTile = new BackgroundTile_1.BackgroundTile(scene, obj.file);
-                        backgroundTile.type = obj.type;
+                        backgroundTile.attribs.add(obj.type);
                         backgroundTile.flip(obj.flip || false);
                         if (obj.tint) {
                             backgroundTile.setTint(parseInt(obj.tint, 16));
@@ -112,7 +114,7 @@ var AssetManager = /** @class */ (function () {
                 case 'text':
                     {
                         var textSprite = new TextSprite_1.TextSprite(scene, obj.text, obj.fontInfo);
-                        textSprite.type = obj.type;
+                        textSprite.attribs.add(obj.type);
                         textSprite.x = obj.x;
                         textSprite.y = obj.y;
                         textSprite.z = obj.z;
@@ -129,7 +131,7 @@ var AssetManager = /** @class */ (function () {
                     {
                         var anim = new Anim_1.Anim(scene);
                         anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-                        anim.type = obj.type;
+                        anim.attribs.add(obj.type);
                         anim.x = obj.x;
                         anim.y = obj.y;
                         anim.z = obj.z;
@@ -152,22 +154,6 @@ var AssetManager = /** @class */ (function () {
         postPopulateHandler(this.resources);
     };
     /**
-     * @name mergeObjects
-     * @description merge objects. used as an ES5 replacement for the unavailable Object.assign
-     * @return {object} returns merged object
-     */
-    AssetManager.prototype.mergeObjects = function (arg1, arg2, arg3) {
-        var resObj = {};
-        for (var i = 0; i < arguments.length; i += 1) {
-            var obj = arguments[i];
-            var keys = Object.keys(obj);
-            for (var j = 0; j < keys.length; j += 1) {
-                resObj[keys[j]] = obj[keys[j]];
-            }
-        }
-        return resObj;
-    };
-    /**
      * @name createCharacter
      * @description create an anim character
      * @param {Scene} scene
@@ -180,7 +166,7 @@ var AssetManager = /** @class */ (function () {
             var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
             var anim = new Anim_1.Anim(scene);
             anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-            anim.type = obj.type;
+            anim.attribs.add(obj.type);
             anim.x = obj.x;
             anim.y = obj.y;
             anim.z = obj.z;

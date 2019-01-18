@@ -21,8 +21,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
-var Math_1 = require("./Math");
+var Utils_1 = require("./Utils");
 var Anim_1 = require("./Anim");
+var Attribs_1 = require("./Attribs");
 /**
  * @name TilingSprite
  * @description extends the PIXI TilingSprite to include additional fields
@@ -32,15 +33,28 @@ var TilingSprite = /** @class */ (function (_super) {
     __extends(TilingSprite, _super);
     function TilingSprite(scene, texture, width, height) {
         var _this = _super.call(this, texture, width, height) || this;
-        _this.id = Math_1.createID();
+        _this.id = (new Utils_1.Utils()).createID();
         _this.vx = 0; // velocityX
         _this.vy = 0; // velocityY
         _this.collisionDetection = false;
-        _this.type = Anim_1.AnimType.BACKGROUND;
         _this.anim = new Anim_1.Anim(scene);
         _this.anim.z = -1;
+        _this.attributes = new Attribs_1.Attribs();
+        _this.attributes.add('background');
         return _this;
     }
+    Object.defineProperty(TilingSprite.prototype, "attribs", {
+        /**
+         * @name get Attribs
+         * @description get attributes
+         * @return {Attribs} attributes
+         */
+        get: function () {
+            return this.attributes;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return TilingSprite;
 }(PIXI.extras.TilingSprite));
 exports.TilingSprite = TilingSprite;

@@ -1,6 +1,6 @@
 /**
  * @name Math
- * @description  math library: a collection of math related classes
+ * @description math library: a collection of math related classes
  */
 /**
  * @name pcap
@@ -10,20 +10,6 @@
  * @return {number} capped value
  */
 export declare function pcap(value: number | string): number;
-/**
- * @name createID
- * @description create a unique ID
- * @return {string} unique ID
- */
-export declare function createID(): string;
-/**
- * @name zeroPad
- * @description left zero pad a number
- * @param {number} num - number to format
- * @param {number} size - size of return string
- * @return {string} zero padded number string
- */
-export declare function zeroPad(num: number, size: number): string;
 /**
  * @name Angle
  * @description Angle functions

@@ -1,4 +1,4 @@
-import {createID} from './Math';
+import {Utils} from './Utils';
 
 interface IEventCallback { (eventData: any): void };
 interface IEventHash {
@@ -22,7 +22,7 @@ export class EventManager {
    * @return {string} ID of newly added event handler
    */
   addEventHandler(name: string, callback: IEventCallback): string {
-    let newID = createID();
+    let newID = (new Utils).createID();
     if (!this.callBackData[name]) {
       this.callBackData[name] = {
         [newID]: callback

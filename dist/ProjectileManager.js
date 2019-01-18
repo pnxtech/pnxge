@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Anim_1 = require("./Anim");
-var Math_1 = require("./Math");
+var Utils_1 = require("./Utils");
 ;
 /**
  * @name ProjectileManager
@@ -35,11 +35,13 @@ var ProjectileManager = /** @class */ (function () {
         }
         if (!projectile) {
             var anim = new Anim_1.Anim(this.scene);
+            var attribs = projectileInfo.attribs;
             projectile = {
                 active: true,
                 anim: anim,
                 name: projectileInfo.name,
                 type: projectileInfo.type,
+                attribs: projectileInfo.attribs,
                 strength: projectileInfo.strength,
                 x: projectileInfo.x,
                 y: projectileInfo.y,
@@ -59,7 +61,7 @@ var ProjectileManager = /** @class */ (function () {
             this.projectiles.push(projectile);
             anim.loadSequence(projectile.name, this.atlas, this.resources);
             anim.play(projectile.name);
-            this.scene.addAnim(Math_1.createID(), anim);
+            this.scene.addAnim((new Utils_1.Utils()).createID(), anim);
         }
         else {
             projectile.active = true;
@@ -84,7 +86,7 @@ var ProjectileManager = /** @class */ (function () {
         if (projectile && projectile.anim) {
             var anim = projectile.anim;
             anim.visible = true;
-            anim.type = projectileInfo.type,
+            anim.attribs.clone(projectileInfo.attribs),
                 anim.strength = projectileInfo.strength,
                 anim.x = projectileInfo.x;
             anim.y = projectileInfo.y;

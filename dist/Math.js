@@ -1,7 +1,7 @@
 "use strict";
 /**
  * @name Math
- * @description  math library: a collection of math related classes
+ * @description math library: a collection of math related classes
  */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -29,27 +29,6 @@ function pcap(value) {
     return Number(num.toPrecision(7));
 }
 exports.pcap = pcap;
-/**
- * @name createID
- * @description create a unique ID
- * @return {string} unique ID
- */
-function createID() {
-    return (Math.floor(Math.random() * (new Date()).getTime()).toString(36));
-}
-exports.createID = createID;
-/**
- * @name zeroPad
- * @description left zero pad a number
- * @param {number} num - number to format
- * @param {number} size - size of return string
- * @return {string} zero padded number string
- */
-function zeroPad(num, size) {
-    var s = "000000000" + num;
-    return s.substr(s.length - size);
-}
-exports.zeroPad = zeroPad;
 /**
  * @name Angle
  * @description Angle functions

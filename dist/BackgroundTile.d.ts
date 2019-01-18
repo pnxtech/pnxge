@@ -21,11 +21,11 @@ export declare class BackgroundTile extends Anim {
      */
     constructor(scene: Scene, assetPath: string);
     /**
-    * @name flip
-    * @description flip tile
-    * @param {state} boolean - true flip, else don't
-    * @return {void}
-    */
+     * @name flip
+     * @description flip tile
+     * @param {state} boolean - true flip, else don't
+     * @return {void}
+     */
     flip(state: boolean): void;
     /**
      * @name setTint

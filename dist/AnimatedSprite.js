@@ -21,6 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
+var Attribs_1 = require("./Attribs");
 /**
  * @name AnimatedSprite
  * @description extends the PIXI AnimatedSprite to include additional anim fields
@@ -29,29 +30,18 @@ var PIXI = __importStar(require("pixi.js"));
 var AnimatedSprite = /** @class */ (function (_super) {
     __extends(AnimatedSprite, _super);
     function AnimatedSprite(textures, autoUpdate) {
-        return _super.call(this, textures, autoUpdate) || this;
+        var _this = _super.call(this, textures, autoUpdate) || this;
+        _this.attributes = new Attribs_1.Attribs();
+        return _this;
     }
-    Object.defineProperty(AnimatedSprite.prototype, "type", {
+    Object.defineProperty(AnimatedSprite.prototype, "attribs", {
         /**
-         * @name type
-         * @description type getter
-         * @return {string} type position
+         * @name getAttribs
+         * @description get attributes
+         * @return {Attribs} attributes
          */
         get: function () {
-            if (this.anim) {
-                return this.anim.type;
-            }
-            return '';
-        },
-        /**
-         * @name type
-         * @description type setter
-         * @param {string} value - anim type
-         */
-        set: function (value) {
-            if (this.anim) {
-                this.anim.type = value;
-            }
+            return this.attributes;
         },
         enumerable: true,
         configurable: true

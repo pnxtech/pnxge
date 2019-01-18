@@ -1,6 +1,6 @@
 /**
  * @name Math
- * @description  math library: a collection of math related classes
+ * @description math library: a collection of math related classes
  */
 
 /**
@@ -13,27 +13,6 @@
 export function pcap(value: number | string): number {
   let num: number = parseFloat(`${value}`);
   return Number(num.toPrecision(7));
-}
-
-/**
- * @name createID
- * @description create a unique ID
- * @return {string} unique ID
- */
-export function createID(): string {
-  return (Math.floor(Math.random() * (new Date()).getTime()).toString(36));
-}
-
-/**
- * @name zeroPad
- * @description left zero pad a number
- * @param {number} num - number to format
- * @param {number} size - size of return string
- * @return {string} zero padded number string
- */
-export function zeroPad(num: number, size: number): string {
-  let s = "000000000" + num;
-  return s.substr(s.length-size);
 }
 
 /**

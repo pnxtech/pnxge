@@ -22,7 +22,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
 var Anim_1 = require("./Anim");
-var Math_1 = require("./Math");
+var Utils_1 = require("./Utils");
+var Attribs_1 = require("./Attribs");
 /**
  * @name TextSprite
  * @description extends the PIXI BitmapText to include additional fields
@@ -39,13 +40,14 @@ var TextSprite = /** @class */ (function (_super) {
      */
     function TextSprite(scene, text, style) {
         var _this = _super.call(this, text, style) || this;
-        _this.id = Math_1.createID();
+        _this.id = (new Utils_1.Utils()).createID();
         _this.zOrder = -1;
         _this.collisionDetection = false;
-        _this.type = Anim_1.AnimType.TEXT;
         _this.scene = scene;
         _this.anim = new Anim_1.Anim(_this.scene);
         _this.scene.stage.addChild(_this);
+        _this.attributes = new Attribs_1.Attribs();
+        _this.attributes.add('text');
         return _this;
     }
     Object.defineProperty(TextSprite.prototype, "z", {
@@ -64,6 +66,18 @@ var TextSprite = /** @class */ (function (_super) {
         set: function (z) {
             this.zOrder = z;
             this.anim.z = z;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TextSprite.prototype, "attribs", {
+        /**
+         * @name get Attribs
+         * @description get attributes
+         * @return {Attribs} attributes
+         */
+        get: function () {
+            return this.attributes;
         },
         enumerable: true,
         configurable: true

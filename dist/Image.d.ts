@@ -3,14 +3,15 @@ import { IAnimCompatible } from './AnimCompatible';
 import { Scene } from './Scene';
 import { EventManager } from './EventManager';
 import { Rect } from './Math';
+import { Attribs } from './Attribs';
 /**
  * @name Image
  * @description  image sprite
  */
 export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     id: string;
+    attributes: Attribs;
     collisionDetection: boolean;
-    type: string;
     anim: Image | undefined;
     protected scene: Scene;
     private zOrder;
@@ -33,6 +34,12 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     * @description z position setter
     */
     z: number;
+    /**
+     * @name get attribs
+     * @description get attributes
+     * @return {Attribs} attributes
+     */
+    readonly attribs: Attribs;
     /**
      * @name rect
      * @description rect getter
