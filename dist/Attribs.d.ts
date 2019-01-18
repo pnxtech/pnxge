@@ -16,10 +16,10 @@ export declare class Attribs {
     /**
      * @name add
      * @description add an attribute
-     * @param {string} attrib - attribute name
+     * @param {string | string[]} attrib - attribute name(s)
      * @return {void}
      */
-    add(attrib: string): void;
+    add(attribs: string | string[]): void;
     /**
      * @name remove
      * @description remove an attribute

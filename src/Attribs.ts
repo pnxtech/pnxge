@@ -24,11 +24,17 @@ export class Attribs {
   /**
    * @name add
    * @description add an attribute
-   * @param {string} attrib - attribute name
+   * @param {string | string[]} attrib - attribute name(s)
    * @return {void}
    */
-  add(attrib: string): void {
-    this.hash[attrib] = true;
+  add(attribs: string | string[]): void {
+    if (typeof attribs !== 'string') {
+      attribs.forEach((value) => {
+        this.hash[value] = true;
+      })
+    } else {
+      this.hash[attribs] = true;
+    }
   }
 
   /**

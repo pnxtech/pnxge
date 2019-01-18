@@ -18,11 +18,19 @@ var Attribs = /** @class */ (function () {
     /**
      * @name add
      * @description add an attribute
-     * @param {string} attrib - attribute name
+     * @param {string | string[]} attrib - attribute name(s)
      * @return {void}
      */
-    Attribs.prototype.add = function (attrib) {
-        this.hash[attrib] = true;
+    Attribs.prototype.add = function (attribs) {
+        var _this = this;
+        if (typeof attribs !== 'string') {
+            attribs.forEach(function (value) {
+                _this.hash[value] = true;
+            });
+        }
+        else {
+            this.hash[attribs] = true;
+        }
     };
     /**
      * @name remove
