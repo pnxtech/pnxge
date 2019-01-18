@@ -10,10 +10,15 @@ var Attribs = /** @class */ (function () {
     /**
      * @name constructor
      * @description class initializer
+     * @param {string | string[] | undefined} attribs - optional attributes for initilization
      */
-    function Attribs() {
+    function Attribs(attribs) {
+        if (attribs === void 0) { attribs = undefined; }
         this.hash = {};
         this.utils = new Utils_1.Utils();
+        if (attribs !== undefined) {
+            this.add(attribs);
+        }
     }
     /**
      * @name add

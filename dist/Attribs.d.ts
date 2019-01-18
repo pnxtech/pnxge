@@ -11,8 +11,9 @@ export declare class Attribs {
     /**
      * @name constructor
      * @description class initializer
+     * @param {string | string[] | undefined} attribs - optional attributes for initilization
      */
-    constructor();
+    constructor(attribs?: string | string[] | undefined);
     /**
      * @name add
      * @description add an attribute

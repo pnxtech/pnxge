@@ -15,10 +15,14 @@ export class Attribs {
   /**
    * @name constructor
    * @description class initializer
+   * @param {string | string[] | undefined} attribs - optional attributes for initilization
    */
-  constructor() {
+  constructor(attribs: string | string[] | undefined = undefined) {
     this.hash = {};
     this.utils = new Utils();
+    if (attribs !== undefined) {
+      this.add(attribs);
+    }
   }
 
   /**
