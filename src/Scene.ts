@@ -329,7 +329,7 @@ export class Scene {
           continue;
         }
         if (animRect.intersect(obj.anim.rect)) {
-          return obj;
+          return obj.anim;
         }
       }
     }
