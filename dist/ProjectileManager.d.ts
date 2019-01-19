@@ -10,6 +10,7 @@ interface IProjectileObject {
     attribs: Attribs;
     strength: number;
     frame?: number;
+    cacheFrame: boolean;
     rotation: number;
     rotationType?: string;
     rotationAmount?: number;

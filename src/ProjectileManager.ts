@@ -12,6 +12,7 @@ interface IProjectileObject {
   attribs: Attribs,
   strength: number,
   frame?: number,
+  cacheFrame: boolean,
   rotation: number,
   rotationType?: string, // cw, ccw
   rotationAmount?: number,
@@ -85,6 +86,7 @@ export class ProjectileManager {
         type: projectileInfo.type,
         attribs: projectileInfo.attribs,
         strength: projectileInfo.strength,
+        cacheFrame: projectileInfo.cacheFrame,
         x: projectileInfo.x,
         y: projectileInfo.y,
         z: projectileInfo.z,
@@ -109,6 +111,7 @@ export class ProjectileManager {
       projectile.name = projectileInfo.name;
       projectile.type = projectileInfo.type;
       projectile.strength = projectileInfo.strength;
+      projectile.cacheFrame = projectileInfo.cacheFrame;
       projectile.x = projectileInfo.x;
       projectile.y = projectileInfo.y;
       projectile.z = projectileInfo.z;
@@ -130,6 +133,7 @@ export class ProjectileManager {
       anim.visible = true;
       anim.attribs.clone(projectileInfo.attribs),
       anim.strength = projectileInfo.strength,
+      anim.setCacheAsBitmap(projectile.cacheFrame);
       anim.x = projectileInfo.x;
       anim.y = projectileInfo.y;
       anim.z = projectileInfo.z;

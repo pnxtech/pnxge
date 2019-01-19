@@ -90,6 +90,17 @@ var Anim = /** @class */ (function () {
     Anim.prototype.attachController = function (controller) {
         this.controller = controller;
     };
+    /**
+     * @name setCacheAsBitmap
+     * @description set cache as bitmap optimization. Should not be used when animation is intended.
+     * @param {boolean} cache - true if yes cache, else false
+     * @return {void}
+     */
+    Anim.prototype.setCacheAsBitmap = function (cache) {
+        if (this.currentSequence) {
+            this.currentSequence.cacheAsBitmap = cache;
+        }
+    };
     Object.defineProperty(Anim.prototype, "x", {
         /**
          * @name x
@@ -525,7 +536,6 @@ var Anim = /** @class */ (function () {
                 name: name,
                 sequence: sequence
             };
-            sequence.cacheAsBitmap = true;
             this.stage.addChild(sequence);
         }
     };

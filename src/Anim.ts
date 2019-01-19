@@ -108,6 +108,18 @@ export class Anim implements IAnimCompatible {
   }
 
   /**
+   * @name setCacheAsBitmap
+   * @description set cache as bitmap optimization. Should not be used when animation is intended.
+   * @param {boolean} cache - true if yes cache, else false
+   * @return {void}
+   */
+  setCacheAsBitmap(cache: boolean): void {
+    if (this.currentSequence) {
+      this.currentSequence.cacheAsBitmap = cache;
+    }
+  }
+
+  /**
    * @name x
    * @description x position getter
    * @return {number} x position
@@ -495,7 +507,6 @@ export class Anim implements IAnimCompatible {
         name,
         sequence
       };
-      sequence.cacheAsBitmap = true;
       this.stage.addChild(sequence);
     }
   }
