@@ -40,8 +40,8 @@ var Application = /** @class */ (function (_super) {
             width: width,
             height: height,
             transparent: true,
-            forceFXAA: true,
-            antialias: true
+            forceFXAA: false,
+            antialias: false
         }) || this;
         _this.appWidth = 0;
         _this.appHeight = 0;
@@ -51,6 +51,8 @@ var Application = /** @class */ (function (_super) {
         _this.isDemo = false;
         _this.frames = 0;
         _this.FPS = 0;
+        _this.WebGL = PIXI.utils.isWebGLSupported();
+        PIXI.utils.skipHello();
         document.body.appendChild(_this.view);
         _this.appWidth = width;
         _this.appHeight = height;
@@ -79,6 +81,18 @@ var Application = /** @class */ (function (_super) {
          */
         set: function (value) {
             this.isDemo = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Application.prototype, "usingWebGL", {
+        /**
+         * @name usingWebGL
+         * @description reports on whether WebGL is supported
+         * @return {boolean} true if WebGL, else false
+         */
+        get: function () {
+            return this.WebGL;
         },
         enumerable: true,
         configurable: true

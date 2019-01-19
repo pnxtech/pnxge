@@ -14,6 +14,7 @@ export class Application extends PIXI.Application {
   protected isDemo: boolean = false;
   private frames: number = 0;
   private FPS: number = 0;
+  private WebGL: boolean;
 
   /**
    * @name constructor
@@ -27,9 +28,11 @@ export class Application extends PIXI.Application {
       width,
       height,
       transparent: true,
-      forceFXAA: true,
-      antialias: true
+      forceFXAA: false,
+      antialias: false
     });
+    this.WebGL = PIXI.utils.isWebGLSupported();
+    PIXI.utils.skipHello();
     document.body.appendChild(this.view);
     this.appWidth = width;
     this.appHeight = height;
@@ -58,6 +61,15 @@ export class Application extends PIXI.Application {
    */
   set demo(value: boolean) {
     this.isDemo = value;
+  }
+
+  /**
+   * @name usingWebGL
+   * @description reports on whether WebGL is supported
+   * @return {boolean} true if WebGL, else false
+   */
+  get usingWebGL(): boolean {
+    return this.WebGL;
   }
 
   /**

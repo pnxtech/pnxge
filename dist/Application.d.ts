@@ -13,6 +13,7 @@ export declare class Application extends PIXI.Application {
     protected isDemo: boolean;
     private frames;
     private FPS;
+    private WebGL;
     /**
      * @name constructor
      * @description class constructor
@@ -31,6 +32,12 @@ export declare class Application extends PIXI.Application {
     * @param {boolean} value if demo
     */
     demo: boolean;
+    /**
+     * @name usingWebGL
+     * @description reports on whether WebGL is supported
+     * @return {boolean} true if WebGL, else false
+     */
+    readonly usingWebGL: boolean;
     /**
      * @name speed
      * @description get the underlying game speed. 1 = 60 FPS
