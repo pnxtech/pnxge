@@ -11,6 +11,8 @@ export declare class Application extends PIXI.Application {
     protected gameVolume: number;
     protected appEventManager: EventManager;
     protected isDemo: boolean;
+    private frames;
+    private FPS;
     /**
      * @name constructor
      * @description class constructor
@@ -91,6 +93,18 @@ export declare class Application extends PIXI.Application {
      * @return {void}
      */
     stopTimer(): void;
+    /**
+     * @name fps
+     * @description get current frames per second. requires that the ftpTick() call be made after a frame update
+     * @return {number} fps
+     */
+    readonly fps: number;
+    /**
+     * @name ftpTick
+     * @description called to update the internal FPS. Should be called in top level application render loop
+     * @return {void}
+     */
+    fpsTick(): void;
     /**
      * @name sceneEnd
      * @description scene end handler

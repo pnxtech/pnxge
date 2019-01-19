@@ -12,6 +12,8 @@ export class Application extends PIXI.Application {
   protected gameVolume: number = 0;
   protected appEventManager: EventManager = new EventManager();
   protected isDemo: boolean = false;
+  private frames: number = 0;
+  private FPS: number = 0;
 
   /**
    * @name constructor
@@ -34,6 +36,10 @@ export class Application extends PIXI.Application {
     this.ticker.add((deltaTime) => {
       this.update(deltaTime);
     });
+    setInterval(() => {
+      this.FPS = this.frames;
+      this.frames = 0;
+    }, 1000);
   }
 
   /**
@@ -150,6 +156,24 @@ export class Application extends PIXI.Application {
    */
   stopTimer(): void {
     this.ticker.stop();
+  }
+
+  /**
+   * @name fps
+   * @description get current frames per second. requires that the ftpTick() call be made after a frame update
+   * @return {number} fps
+   */
+  get fps(): number {
+    return this.fps;
+  }
+
+  /**
+   * @name ftpTick
+   * @description called to update the internal FPS. Should be called in top level application render loop
+   * @return {void}
+   */
+  fpsTick(): void {
+    this.frames++;
   }
 
   /**

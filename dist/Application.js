@@ -49,12 +49,18 @@ var Application = /** @class */ (function (_super) {
         _this.gameVolume = 0;
         _this.appEventManager = new EventManager_1.EventManager();
         _this.isDemo = false;
+        _this.frames = 0;
+        _this.FPS = 0;
         document.body.appendChild(_this.view);
         _this.appWidth = width;
         _this.appHeight = height;
         _this.ticker.add(function (deltaTime) {
             _this.update(deltaTime);
         });
+        setInterval(function () {
+            _this.FPS = _this.frames;
+            _this.frames = 0;
+        }, 1000);
         return _this;
     }
     Object.defineProperty(Application.prototype, "demo", {
@@ -183,6 +189,26 @@ var Application = /** @class */ (function (_super) {
      */
     Application.prototype.stopTimer = function () {
         this.ticker.stop();
+    };
+    Object.defineProperty(Application.prototype, "fps", {
+        /**
+         * @name fps
+         * @description get current frames per second. requires that the ftpTick() call be made after a frame update
+         * @return {number} fps
+         */
+        get: function () {
+            return this.fps;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @name ftpTick
+     * @description called to update the internal FPS. Should be called in top level application render loop
+     * @return {void}
+     */
+    Application.prototype.fpsTick = function () {
+        this.frames++;
     };
     /**
      * @name sceneEnd
