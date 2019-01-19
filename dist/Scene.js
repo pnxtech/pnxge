@@ -295,14 +295,17 @@ var Scene = /** @class */ (function () {
         }
         for (var i = 0; i < steps; i++) {
             animRect.x += (anim.dx * (anim.vx || 1));
-            animRect.y += (anim.dy * (anim.vy || 1));
+            animRect.y += (anim.dy * (anim.vy || 1)) + (anim.height * 0.5);
             var objectList = this.stage.children;
             for (var _i = 0, objectList_3 = objectList; _i < objectList_3.length; _i++) {
                 var obj = objectList_3[_i];
-                if (!obj.anim || !obj.anim.collisionDetection || !obj.anim.visible) {
+                if (!obj.anim || !obj.anim.visible) {
                     continue;
                 }
-                if (anim.id === obj.anim.id) {
+                else if (!obj.anim.collisionDetection) {
+                    continue;
+                }
+                else if (anim.id === obj.anim.id) {
                     continue;
                 }
                 if (animRect.intersect(obj.anim.rect)) {

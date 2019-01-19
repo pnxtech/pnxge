@@ -317,13 +317,14 @@ export class Scene {
     }
     for (let i = 0; i < steps; i++) {
       animRect.x += (anim.dx * (anim.vx || 1));
-      animRect.y += (anim.dy * (anim.vy || 1));
+      animRect.y += (anim.dy * (anim.vy || 1)) + (anim.height * 0.5);
       let objectList: any = this.stage.children;
       for (let obj of objectList) {
-        if (!obj.anim || !obj.anim.collisionDetection || !obj.anim.visible) {
+        if (!obj.anim || !obj.anim.visible) {
           continue;
-        }
-        if (anim.id === obj.anim.id) {
+        } else if (!obj.anim.collisionDetection) {
+          continue;
+        } else if (anim.id === obj.anim.id) {
           continue;
         }
         if (animRect.intersect(obj.anim.rect)) {
