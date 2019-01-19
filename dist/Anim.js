@@ -525,6 +525,7 @@ var Anim = /** @class */ (function () {
                 name: name,
                 sequence: sequence
             };
+            sequence.cacheAsBitmap = true;
             this.stage.addChild(sequence);
         }
     };

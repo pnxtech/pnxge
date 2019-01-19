@@ -38,7 +38,7 @@ export class BackgroundTile extends Anim {
 
     this.tilingSprite.x = this.tilingSprite.width / 2;
     this.tilingSprite.y = this.tilingSprite.height / 2;
-
+    this.tilingSprite.cacheAsBitmap = true;
     scene.stage.addChild(this.tilingSprite);
   }
 

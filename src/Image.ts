@@ -35,6 +35,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
     this.internalRect = new Rect(this.x, this.y, this.width, this.height);
     this.attributes = new Attribs();
     this.attributes.add('image');
+    this.cacheAsBitmap = true;
   }
 
   /**

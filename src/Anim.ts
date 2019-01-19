@@ -255,7 +255,6 @@ export class Anim implements IAnimCompatible {
     this.animSpeed = speed;
   }
 
-
   /**
    * @name strength
    * @description get current strength
@@ -496,6 +495,7 @@ export class Anim implements IAnimCompatible {
         name,
         sequence
       };
+      sequence.cacheAsBitmap = true;
       this.stage.addChild(sequence);
     }
   }

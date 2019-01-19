@@ -48,6 +48,7 @@ var Image = /** @class */ (function (_super) {
         _this.internalRect = new Math_1.Rect(_this.x, _this.y, _this.width, _this.height);
         _this.attributes = new Attribs_1.Attribs();
         _this.attributes.add('image');
+        _this.cacheAsBitmap = true;
         return _this;
     }
     Object.defineProperty(Image.prototype, "z", {

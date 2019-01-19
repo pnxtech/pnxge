@@ -47,6 +47,7 @@ var BackgroundTile = /** @class */ (function (_super) {
         _this.tilingSprite.anchor.y = 0.5;
         _this.tilingSprite.x = _this.tilingSprite.width / 2;
         _this.tilingSprite.y = _this.tilingSprite.height / 2;
+        _this.tilingSprite.cacheAsBitmap = true;
         scene.stage.addChild(_this.tilingSprite);
         return _this;
     }
