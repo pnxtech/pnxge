@@ -164,7 +164,7 @@ export class Application extends PIXI.Application {
    * @return {number} fps
    */
   get fps(): number {
-    return this.fps;
+    return this.FPS;
   }
 
   /**

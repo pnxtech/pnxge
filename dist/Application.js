@@ -197,7 +197,7 @@ var Application = /** @class */ (function (_super) {
          * @return {number} fps
          */
         get: function () {
-            return this.fps;
+            return this.FPS;
         },
         enumerable: true,
         configurable: true
