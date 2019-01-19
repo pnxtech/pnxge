@@ -111,6 +111,7 @@ var AssetManager = /** @class */ (function () {
                         }
                         backgroundTile.sx = obj.sx || 1;
                         backgroundTile.sy = obj.sy || 1;
+                        backgroundTile.visible = obj.visible || false;
                         if (obj.attribs) {
                             backgroundTile.attribs.add(obj.attribs);
                         }
@@ -124,6 +125,7 @@ var AssetManager = /** @class */ (function () {
                         textSprite.x = obj.x;
                         textSprite.y = obj.y;
                         textSprite.z = obj.z;
+                        textSprite.visible = obj.visible || false;
                         if (obj.attribs) {
                             textSprite.attribs.add(obj.attribs);
                         }
@@ -151,6 +153,7 @@ var AssetManager = /** @class */ (function () {
                         }
                         anim.rotation = obj.rotation;
                         anim.collisionDetection = obj.collisionDetection;
+                        anim.visible = obj.visible || false;
                         anim.loop = obj.loop;
                         if (obj.tint) {
                             anim.setTint(parseInt(obj.tint, 16));
