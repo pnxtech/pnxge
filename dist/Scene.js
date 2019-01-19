@@ -201,7 +201,7 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.update = function (deltaTime) {
         var _this = this;
-        this.benchmark.begin();
+        this.benchmarkUpdate && this.benchmark.begin();
         this.internalTick++;
         switch (this.actionList[this.internalTick]) {
             case 'left':
@@ -226,9 +226,7 @@ var Scene = /** @class */ (function () {
             this.sortAnims();
             this.collisionDetection();
         }
-        if (this.benchmarkUpdate) {
-            console.log("scene benchmark: " + Math_1.pcap(this.benchmark.elapsed()) + " ms");
-        }
+        this.benchmarkUpdate && console.log("scene benchmark: " + Math_1.pcap(this.benchmark.elapsed()) + " ms");
     };
     /**
      * @name sortAnims

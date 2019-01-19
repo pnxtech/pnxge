@@ -224,7 +224,7 @@ export class Scene {
    * @return {void}
    */
   update(deltaTime: number): void {
-    this.benchmark.begin();
+    this.benchmarkUpdate && this.benchmark.begin();
     this.internalTick++;
     switch (this.actionList[this.internalTick]) {
       case 'left':
@@ -249,9 +249,7 @@ export class Scene {
       this.sortAnims();
       this.collisionDetection();
     }
-    if (this.benchmarkUpdate) {
-      console.log(`scene benchmark: ${pcap(this.benchmark.elapsed())} ms`);
-    }
+    this.benchmarkUpdate && console.log(`scene benchmark: ${pcap(this.benchmark.elapsed())} ms`);
   }
 
   /**
