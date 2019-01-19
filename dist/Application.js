@@ -40,8 +40,8 @@ var Application = /** @class */ (function (_super) {
             width: width,
             height: height,
             transparent: true,
-            forceFXAA: false,
-            antialias: false
+            forceFXAA: true,
+            antialias: true
         }) || this;
         _this.appWidth = 0;
         _this.appHeight = 0;

@@ -28,8 +28,8 @@ export class Application extends PIXI.Application {
       width,
       height,
       transparent: true,
-      forceFXAA: false,
-      antialias: false
+      forceFXAA: true,
+      antialias: true
     });
     this.WebGL = PIXI.utils.isWebGLSupported();
     PIXI.utils.skipHello();
