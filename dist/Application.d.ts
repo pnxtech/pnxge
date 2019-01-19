@@ -30,6 +30,17 @@ export declare class Application extends PIXI.Application {
     */
     demo: boolean;
     /**
+     * @name speed
+     * @description get the underlying game speed. 1 = 60 FPS
+     * @return {number} speed factor
+     */
+    /**
+    * @name speed
+    * @description set the underlying game speed. 1 = 60 FPS, 2 = 120 FPS etc...
+    * @param {number} value - speed factor
+    */
+    speed: number;
+    /**
      * @name width
      * @description width getter
      * @return {number} width

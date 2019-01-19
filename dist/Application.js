@@ -77,6 +77,26 @@ var Application = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Application.prototype, "speed", {
+        /**
+         * @name speed
+         * @description get the underlying game speed. 1 = 60 FPS
+         * @return {number} speed factor
+         */
+        get: function () {
+            return this.ticker.speed;
+        },
+        /**
+         * @name speed
+         * @description set the underlying game speed. 1 = 60 FPS, 2 = 120 FPS etc...
+         * @param {number} value - speed factor
+         */
+        set: function (value) {
+            this.ticker.speed = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Application.prototype, "width", {
         /**
          * @name width

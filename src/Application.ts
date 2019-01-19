@@ -55,6 +55,24 @@ export class Application extends PIXI.Application {
   }
 
   /**
+   * @name speed
+   * @description get the underlying game speed. 1 = 60 FPS
+   * @return {number} speed factor
+   */
+  get speed(): number {
+    return this.ticker.speed;
+  }
+
+  /**
+   * @name speed
+   * @description set the underlying game speed. 1 = 60 FPS, 2 = 120 FPS etc...
+   * @param {number} value - speed factor
+   */
+  set speed(value: number) {
+    this.ticker.speed = value;
+  }
+
+  /**
    * @name width
    * @description width getter
    * @return {number} width
