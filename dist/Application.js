@@ -22,6 +22,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
 var EventManager_1 = require("./EventManager");
+PIXI.utils.skipHello();
 /**
  * @name Application
  * @description  Application - top level game object
@@ -52,7 +53,6 @@ var Application = /** @class */ (function (_super) {
         _this.frames = 0;
         _this.FPS = 0;
         _this.WebGL = PIXI.utils.isWebGLSupported();
-        PIXI.utils.skipHello();
         document.body.appendChild(_this.view);
         _this.appWidth = width;
         _this.appHeight = height;

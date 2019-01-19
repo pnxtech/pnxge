@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js';
 import {EventManager} from './EventManager';
 
+PIXI.utils.skipHello();
+
 /**
  * @name Application
  * @description  Application - top level game object
@@ -32,7 +34,6 @@ export class Application extends PIXI.Application {
       antialias: true
     });
     this.WebGL = PIXI.utils.isWebGLSupported();
-    PIXI.utils.skipHello();
     document.body.appendChild(this.view);
     this.appWidth = width;
     this.appHeight = height;
