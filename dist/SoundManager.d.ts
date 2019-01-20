@@ -13,6 +13,12 @@ export declare class SoundManager {
      */
     constructor(soundObj: any);
     /**
+     * @name reload
+     * @description reload sound data. useful after an unload()
+     * @return {void}
+     */
+    reload(): void;
+    /**
      * @name play
      * @description play sound
      * @param {string} name - name of sound

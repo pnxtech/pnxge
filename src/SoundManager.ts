@@ -21,6 +21,19 @@ export class SoundManager {
       autoplay: false,
       sprite: soundObj.spritemap
     }
+    this.reload();
+  }
+
+  /**
+   * @name reload
+   * @description reload sound data. useful after an unload()
+   * @return {void}
+   */
+  reload(): void {
+    this.unload();
+    if (this.soundPlayer) {
+      delete this.soundPlayer;
+    }
     let spritemap = this.soundData.sprite;
     Object.keys(spritemap).forEach((item: any) => {
       spritemap[item] = [

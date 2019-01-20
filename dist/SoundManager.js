@@ -20,6 +20,18 @@ var SoundManager = /** @class */ (function () {
             autoplay: false,
             sprite: soundObj.spritemap
         };
+        this.reload();
+    }
+    /**
+     * @name reload
+     * @description reload sound data. useful after an unload()
+     * @return {void}
+     */
+    SoundManager.prototype.reload = function () {
+        this.unload();
+        if (this.soundPlayer) {
+            delete this.soundPlayer;
+        }
         var spritemap = this.soundData.sprite;
         Object.keys(spritemap).forEach(function (item) {
             spritemap[item] = [
@@ -29,7 +41,7 @@ var SoundManager = /** @class */ (function () {
             ];
         });
         this.soundPlayer = new howler_1.Howl(this.soundData);
-    }
+    };
     /**
      * @name play
      * @description play sound
