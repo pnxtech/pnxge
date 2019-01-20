@@ -333,10 +333,15 @@ var Random = /** @class */ (function () {
     };
     /**
     * @name getRandomInt
-    * @summary Returns a random integer between min (included) and max (excluded)
+    * @summary Returns a random integer between min (included) and max (excluded). If min and max are zero then a random int is chosen
     * @return {number} num - number
     */
     Random.prototype.getRandomInt = function (min, max) {
+        if (min === void 0) { min = 0; }
+        if (max === void 0) { max = 0; }
+        if (min === 0 && max === 0) {
+            return ~~(Math.random() * 1e6);
+        }
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;

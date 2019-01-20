@@ -209,10 +209,10 @@ export declare class Random {
     getRandomArbitrary(min: number, max: number): number;
     /**
     * @name getRandomInt
-    * @summary Returns a random integer between min (included) and max (excluded)
+    * @summary Returns a random integer between min (included) and max (excluded). If min and max are zero then a random int is chosen
     * @return {number} num - number
     */
-    getRandomInt(min: number, max: number): number;
+    getRandomInt(min?: number, max?: number): number;
     /**
     * @name getRandomIntInclusive
     * @summary Returns a random integer between min (included) and max (included)
