@@ -109,6 +109,7 @@ var Application = /** @class */ (function (_super) {
         /**
          * @name speed
          * @description set the underlying game speed. 1 = 60 FPS, 2 = 120 FPS etc...
+         * @note affects only the delta value sent to update()
          * @param {number} value - speed factor
          */
         set: function (value) {

@@ -70,4 +70,13 @@ export class SoundManager {
     this.globalVolume = value;
     Howler.volume(value);
   }
+
+  /**
+   * @name mute
+   * @description mute or unmute all sounds
+   * @param {boolean} value - true to mute, false to unmute
+   */
+  set mute(value: boolean) {
+    Howler.mute(value);
+  }
 }

@@ -37,5 +37,11 @@ export declare class SoundManager {
     * @param {number} value - volume level 0 - 1
     */
     volume: number;
+    /**
+     * @name mute
+     * @description mute or unmute all sounds
+     * @param {boolean} value - true to mute, false to unmute
+     */
+    mute: boolean;
 }
 //# sourceMappingURL=SoundManager.d.ts.map

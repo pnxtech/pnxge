@@ -69,6 +69,18 @@ var SoundManager = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(SoundManager.prototype, "mute", {
+        /**
+         * @name mute
+         * @description mute or unmute all sounds
+         * @param {boolean} value - true to mute, false to unmute
+         */
+        set: function (value) {
+            howler_1.Howler.mute(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return SoundManager;
 }());
 exports.SoundManager = SoundManager;
