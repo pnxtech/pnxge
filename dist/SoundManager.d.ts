@@ -1,6 +1,7 @@
 /**
  * @name SoundManager
  * @description sound manager
+ * @note: Uses: https://github.com/goldfire/howler.js/
  */
 export declare class SoundManager {
     private soundPlayer;
@@ -13,18 +14,12 @@ export declare class SoundManager {
      */
     constructor(soundObj: any);
     /**
-     * @name reload
-     * @description reload sound data. useful after an unload()
-     * @return {void}
-     */
-    reload(): void;
-    /**
      * @name play
      * @description play sound
-     * @param {string} name - name of sound
+     * @param {string | number} id - name or id of sound
      * @return {number} soundID to be used with .stop()
      */
-    play(name: string): number;
+    play(id: string | number): number;
     /**
      * @name stop
      * @description stop sound

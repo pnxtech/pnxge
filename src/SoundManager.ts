@@ -3,6 +3,7 @@ import {Howl, Howler} from 'howler';
 /**
  * @name SoundManager
  * @description sound manager
+ * @note: Uses: https://github.com/goldfire/howler.js/
  */
 export class SoundManager {
   private soundPlayer: any;
@@ -21,19 +22,6 @@ export class SoundManager {
       autoplay: false,
       sprite: soundObj.spritemap
     }
-    this.reload();
-  }
-
-  /**
-   * @name reload
-   * @description reload sound data. useful after an unload()
-   * @return {void}
-   */
-  reload(): void {
-    this.unload();
-    if (this.soundPlayer) {
-      delete this.soundPlayer;
-    }
     let spritemap = this.soundData.sprite;
     Object.keys(spritemap).forEach((item: any) => {
       spritemap[item] = [
@@ -48,11 +36,11 @@ export class SoundManager {
   /**
    * @name play
    * @description play sound
-   * @param {string} name - name of sound
+   * @param {string | number} id - name or id of sound
    * @return {number} soundID to be used with .stop()
    */
-  play(name: string): number {
-    return this.soundPlayer.play(name);
+  play(id: string | number): number {
+    return this.soundPlayer.play(id);
   }
 
   /**

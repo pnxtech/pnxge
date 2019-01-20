@@ -4,6 +4,7 @@ var howler_1 = require("howler");
 /**
  * @name SoundManager
  * @description sound manager
+ * @note: Uses: https://github.com/goldfire/howler.js/
  */
 var SoundManager = /** @class */ (function () {
     /**
@@ -20,18 +21,6 @@ var SoundManager = /** @class */ (function () {
             autoplay: false,
             sprite: soundObj.spritemap
         };
-        this.reload();
-    }
-    /**
-     * @name reload
-     * @description reload sound data. useful after an unload()
-     * @return {void}
-     */
-    SoundManager.prototype.reload = function () {
-        this.unload();
-        if (this.soundPlayer) {
-            delete this.soundPlayer;
-        }
         var spritemap = this.soundData.sprite;
         Object.keys(spritemap).forEach(function (item) {
             spritemap[item] = [
@@ -41,15 +30,15 @@ var SoundManager = /** @class */ (function () {
             ];
         });
         this.soundPlayer = new howler_1.Howl(this.soundData);
-    };
+    }
     /**
      * @name play
      * @description play sound
-     * @param {string} name - name of sound
+     * @param {string | number} id - name or id of sound
      * @return {number} soundID to be used with .stop()
      */
-    SoundManager.prototype.play = function (name) {
-        return this.soundPlayer.play(name);
+    SoundManager.prototype.play = function (id) {
+        return this.soundPlayer.play(id);
     };
     /**
      * @name stop
