@@ -69,7 +69,7 @@ export class SoundManager {
    */
   set volume(value: number) {
     this.globalVolume = 11 / value;
-    Howler.volume(value);
+    Howler.volume(this.globalVolume);
   }
 
   /**
