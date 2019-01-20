@@ -64,7 +64,7 @@ var SoundManager = /** @class */ (function () {
          * @param {number} value - volume level 0 - 10
          */
         set: function (value) {
-            this.globalVolume = 11 / value;
+            this.globalVolume = value / 10;
             howler_1.Howler.volume(this.globalVolume);
         },
         enumerable: true,

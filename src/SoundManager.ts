@@ -68,7 +68,7 @@ export class SoundManager {
    * @param {number} value - volume level 0 - 10
    */
   set volume(value: number) {
-    this.globalVolume = 11 / value;
+    this.globalVolume = value / 10;
     Howler.volume(this.globalVolume);
   }
 
