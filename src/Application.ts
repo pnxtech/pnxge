@@ -17,6 +17,7 @@ export class Application extends PIXI.Application {
   private frames: number = 0;
   private FPS: number = 0;
   private WebGL: boolean;
+  private appEnvironment: string = '';
 
   /**
    * @name constructor
@@ -62,6 +63,24 @@ export class Application extends PIXI.Application {
    */
   set demo(value: boolean) {
     this.isDemo = value;
+  }
+
+  /**
+   * @name environment
+   * @description set operating environment
+   * @param {string} value - environment string
+   */
+  set environment(value: string) {
+    this.appEnvironment = value;
+  }
+
+  /**
+   * @name
+   * @description get operating environment
+   * @retunn {string} operating environment string
+   */
+  get environment(): string {
+    return this.appEnvironment;
   }
 
   /**

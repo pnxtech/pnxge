@@ -52,6 +52,7 @@ var Application = /** @class */ (function (_super) {
         _this.isDemo = false;
         _this.frames = 0;
         _this.FPS = 0;
+        _this.appEnvironment = '';
         _this.WebGL = PIXI.utils.isWebGLSupported();
         document.body.appendChild(_this.view);
         _this.appWidth = width;
@@ -81,6 +82,26 @@ var Application = /** @class */ (function (_super) {
          */
         set: function (value) {
             this.isDemo = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Application.prototype, "environment", {
+        /**
+         * @name
+         * @description get operating environment
+         * @retunn {string} operating environment string
+         */
+        get: function () {
+            return this.appEnvironment;
+        },
+        /**
+         * @name environment
+         * @description set operating environment
+         * @param {string} value - environment string
+         */
+        set: function (value) {
+            this.appEnvironment = value;
         },
         enumerable: true,
         configurable: true

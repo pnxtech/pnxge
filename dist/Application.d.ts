@@ -14,6 +14,7 @@ export declare class Application extends PIXI.Application {
     private frames;
     private FPS;
     private WebGL;
+    private appEnvironment;
     /**
      * @name constructor
      * @description class constructor
@@ -32,6 +33,17 @@ export declare class Application extends PIXI.Application {
     * @param {boolean} value if demo
     */
     demo: boolean;
+    /**
+     * @name environment
+     * @description set operating environment
+     * @param {string} value - environment string
+     */
+    /**
+    * @name
+    * @description get operating environment
+    * @retunn {string} operating environment string
+    */
+    environment: string;
     /**
      * @name usingWebGL
      * @description reports on whether WebGL is supported
