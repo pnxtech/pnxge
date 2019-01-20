@@ -34,7 +34,8 @@ export declare class SoundManager {
     /**
     * @name volume
     * @description set global volume
-    * @param {number} value - volume level 0 - 1
+    * @note: 0 = muted 10 = max volume
+    * @param {number} value - volume level 0 - 10
     */
     volume: number;
     /**

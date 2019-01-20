@@ -60,10 +60,11 @@ var SoundManager = /** @class */ (function () {
         /**
          * @name volume
          * @description set global volume
-         * @param {number} value - volume level 0 - 1
+         * @note: 0 = muted 10 = max volume
+         * @param {number} value - volume level 0 - 10
          */
         set: function (value) {
-            this.globalVolume = value;
+            this.globalVolume = 11 / value;
             howler_1.Howler.volume(value);
         },
         enumerable: true,
