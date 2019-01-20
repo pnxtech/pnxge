@@ -44,5 +44,11 @@ export declare class SoundManager {
      * @param {boolean} value - true to mute, false to unmute
      */
     mute: boolean;
+    /**
+     * @name unload
+     * @description stop all sounds and unload sound cache
+     * @return {void}
+     */
+    unload(): void;
 }
 //# sourceMappingURL=SoundManager.d.ts.map

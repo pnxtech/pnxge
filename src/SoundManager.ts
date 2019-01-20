@@ -80,4 +80,13 @@ export class SoundManager {
   set mute(value: boolean) {
     Howler.mute(value);
   }
+
+  /**
+   * @name unload
+   * @description stop all sounds and unload sound cache
+   * @return {void}
+   */
+  unload(): void {
+    Howler.unload();
+  }
 }

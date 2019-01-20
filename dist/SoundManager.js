@@ -82,6 +82,14 @@ var SoundManager = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @name unload
+     * @description stop all sounds and unload sound cache
+     * @return {void}
+     */
+    SoundManager.prototype.unload = function () {
+        howler_1.Howler.unload();
+    };
     return SoundManager;
 }());
 exports.SoundManager = SoundManager;
