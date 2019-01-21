@@ -58,6 +58,8 @@ var BackgroundTile = /** @class */ (function (_super) {
      * @return {void}
      */
     BackgroundTile.prototype.flip = function (state) {
+        this.tilingSprite.anchor.x = 0.5;
+        this.tilingSprite.anchor.y = 0.5;
         if (state) {
             this.tilingSprite.scale.x *= -1;
         }

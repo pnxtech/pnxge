@@ -49,6 +49,8 @@ export class BackgroundTile extends Anim {
    * @return {void}
    */
   flip(state: boolean): void {
+    this.tilingSprite.anchor.x = 0.5;
+    this.tilingSprite.anchor.y = 0.5;
     if (state) {
       this.tilingSprite.scale.x *= -1;
     } else {
