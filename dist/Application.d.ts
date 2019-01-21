@@ -7,15 +7,14 @@ import { EventManager } from './EventManager';
 export declare class Application extends PIXI.Application {
     protected appWidth: number;
     protected appHeight: number;
-    protected gameScore: number;
-    protected gameVolume: number;
     protected appEventManager: EventManager;
     protected isDemo: boolean;
     protected isDebug: boolean;
     private frames;
     private FPS;
     private WebGL;
-    private appEnvironment;
+    private utils;
+    private appState;
     /**
      * @name constructor
      * @description class constructor
@@ -46,16 +45,16 @@ export declare class Application extends PIXI.Application {
     */
     debug: boolean;
     /**
-     * @name environment
-     * @description set operating environment
-     * @param {string} value - environment string
+     * @name state
+     * @description state getter
+     * @return {object}
      */
     /**
-    * @name
-    * @description get operating environment
-    * @retunn {string} operating environment string
+    * @name state
+    * @description state setter
+    * @param {object} data - object to be merged with state
     */
-    environment: string;
+    state: {};
     /**
      * @name usingWebGL
      * @description reports on whether WebGL is supported
@@ -87,32 +86,11 @@ export declare class Application extends PIXI.Application {
      */
     readonly height: number;
     /**
-     * @name volume
-     * @description volume getter
-     * @return {number} current sound volume
-     */
-    /**
-    * @name volume
-    * @description volume setter
-    * @param {number} sound volume
-    */
-    volume: number;
-    /**
      * @name getEventManager
      * @description get event manager instance
      * @return {EventManager}
      */
     getEventManager(): EventManager;
-    /**
-     * @name score
-     * @description score getter
-     * @return {number} score
-     */
-    /**
-    * @name score
-    * @description score setter
-    */
-    score: number;
     /**
      * @name startTimer
      * @description start timer loop

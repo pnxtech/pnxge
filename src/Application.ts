@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import {EventManager} from './EventManager';
+import {Utils} from './Utils';
 
 PIXI.utils.skipHello();
 
@@ -10,15 +11,14 @@ PIXI.utils.skipHello();
 export class Application extends PIXI.Application {
   protected appWidth: number = 0;
   protected appHeight: number = 0;
-  protected gameScore: number = 0;
-  protected gameVolume: number = 0;
   protected appEventManager: EventManager = new EventManager();
   protected isDemo: boolean = false;
   protected isDebug: boolean = false;
   private frames: number = 0;
   private FPS: number = 0;
   private WebGL: boolean;
-  private appEnvironment: string = '';
+  private utils: Utils;
+  private appState: {} = {};
 
   /**
    * @name constructor
@@ -35,6 +35,7 @@ export class Application extends PIXI.Application {
       forceFXAA: true,
       antialias: true
     });
+    this.utils = new Utils();
     this.WebGL = PIXI.utils.isWebGLSupported();
     document.body.appendChild(this.view);
     this.appWidth = width;
@@ -85,21 +86,22 @@ export class Application extends PIXI.Application {
   }
 
   /**
-   * @name environment
-   * @description set operating environment
-   * @param {string} value - environment string
+   * @name state
+   * @description state getter
+   * @return {object}
    */
-  set environment(value: string) {
-    this.appEnvironment = value;
+  get state(): {} {
+    return this.appState;
   }
 
   /**
-   * @name
-   * @description get operating environment
-   * @retunn {string} operating environment string
+   * @name state
+   * @description state setter
+   * @param {object} data - object to be merged with state
    */
-  get environment(): string {
-    return this.appEnvironment;
+  set state(data: {}) {
+    let newState = this.utils.mergeObjects(this.appState, data);
+    this.appState = newState;
   }
 
   /**
@@ -149,47 +151,12 @@ export class Application extends PIXI.Application {
   }
 
   /**
-   * @name volume
-   * @description volume getter
-   * @return {number} current sound volume
-   */
-  get volume(): number {
-    return this.gameVolume;
-  }
-
-  /**
-   * @name volume
-   * @description volume setter
-   * @param {number} sound volume
-   */
-  set volume(value: number) {
-    this.gameVolume = value;
-  }
-
-  /**
    * @name getEventManager
    * @description get event manager instance
    * @return {EventManager}
    */
   getEventManager(): EventManager {
     return this.appEventManager;
-  }
-
-  /**
-   * @name score
-   * @description score getter
-   * @return {number} score
-   */
-  get score(): number {
-    return this.gameScore;
-  }
-
-  /**
-   * @name score
-   * @description score setter
-   */
-  set score(value: number) {
-    this.gameScore = value;
   }
 
   /**

@@ -22,6 +22,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
 var EventManager_1 = require("./EventManager");
+var Utils_1 = require("./Utils");
 PIXI.utils.skipHello();
 /**
  * @name Application
@@ -46,14 +47,13 @@ var Application = /** @class */ (function (_super) {
         }) || this;
         _this.appWidth = 0;
         _this.appHeight = 0;
-        _this.gameScore = 0;
-        _this.gameVolume = 0;
         _this.appEventManager = new EventManager_1.EventManager();
         _this.isDemo = false;
         _this.isDebug = false;
         _this.frames = 0;
         _this.FPS = 0;
-        _this.appEnvironment = '';
+        _this.appState = {};
+        _this.utils = new Utils_1.Utils();
         _this.WebGL = PIXI.utils.isWebGLSupported();
         document.body.appendChild(_this.view);
         _this.appWidth = width;
@@ -107,22 +107,23 @@ var Application = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Application.prototype, "environment", {
+    Object.defineProperty(Application.prototype, "state", {
         /**
-         * @name
-         * @description get operating environment
-         * @retunn {string} operating environment string
+         * @name state
+         * @description state getter
+         * @return {object}
          */
         get: function () {
-            return this.appEnvironment;
+            return this.appState;
         },
         /**
-         * @name environment
-         * @description set operating environment
-         * @param {string} value - environment string
+         * @name state
+         * @description state setter
+         * @param {object} data - object to be merged with state
          */
-        set: function (value) {
-            this.appEnvironment = value;
+        set: function (data) {
+            var newState = this.utils.mergeObjects(this.appState, data);
+            this.appState = newState;
         },
         enumerable: true,
         configurable: true
@@ -184,26 +185,6 @@ var Application = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Application.prototype, "volume", {
-        /**
-         * @name volume
-         * @description volume getter
-         * @return {number} current sound volume
-         */
-        get: function () {
-            return this.gameVolume;
-        },
-        /**
-         * @name volume
-         * @description volume setter
-         * @param {number} sound volume
-         */
-        set: function (value) {
-            this.gameVolume = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @name getEventManager
      * @description get event manager instance
@@ -212,25 +193,6 @@ var Application = /** @class */ (function (_super) {
     Application.prototype.getEventManager = function () {
         return this.appEventManager;
     };
-    Object.defineProperty(Application.prototype, "score", {
-        /**
-         * @name score
-         * @description score getter
-         * @return {number} score
-         */
-        get: function () {
-            return this.gameScore;
-        },
-        /**
-         * @name score
-         * @description score setter
-         */
-        set: function (value) {
-            this.gameScore = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @name startTimer
      * @description start timer loop
