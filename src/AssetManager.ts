@@ -89,6 +89,7 @@ export class AssetManager {
             image.x = obj.x;
             image.y = obj.y;
             image.z = obj.z;
+            image.rotation = obj.rotation;
             if (obj.attribs) {
               image.attribs.add(obj.attribs);
             }
