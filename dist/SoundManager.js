@@ -15,6 +15,7 @@ var SoundManager = /** @class */ (function () {
     function SoundManager(soundObj) {
         this.soundData = {};
         this.globalVolume = 0;
+        this.disabled = false;
         this.soundData = {
             src: soundObj.resources,
             preload: true,
@@ -32,6 +33,18 @@ var SoundManager = /** @class */ (function () {
         });
         this.soundPlayer = new howler_1.Howl(this.soundData);
     }
+    Object.defineProperty(SoundManager.prototype, "disableSoundEngine", {
+        /**
+         * @name disableSoundEngine
+         * @description disable the sound engine (done when the underlying hardware doesn't support audio.)
+         * @param {boolean} value - true to disable, else false
+         */
+        set: function (value) {
+            this.disabled = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name play
      * @description play sound
@@ -39,6 +52,9 @@ var SoundManager = /** @class */ (function () {
      * @return {void}
      */
     SoundManager.prototype.play = function (name) {
+        if (this.disabled) {
+            return;
+        }
         this.stop(name);
         this.soundData.sprite[name].id = this.soundPlayer.play(name);
         return;
@@ -50,6 +66,9 @@ var SoundManager = /** @class */ (function () {
      * @return {void}
      */
     SoundManager.prototype.stop = function (name) {
+        if (this.disabled) {
+            return;
+        }
         if (this.soundData.sprite[name].id) {
             this.soundPlayer.stop(this.soundData.sprite[name].id);
         }

@@ -9,6 +9,7 @@ export class SoundManager {
   private soundPlayer: any;
   private soundData: any = {};
   private globalVolume: number = 0;
+  private disabled: boolean = false;
 
   /**
    * @name constructor
@@ -35,12 +36,24 @@ export class SoundManager {
   }
 
   /**
+   * @name disableSoundEngine
+   * @description disable the sound engine (done when the underlying hardware doesn't support audio.)
+   * @param {boolean} value - true to disable, else false
+   */
+  set disableSoundEngine(value: boolean) {
+    this.disabled = value;
+  }
+
+  /**
    * @name play
    * @description play sound
    * @param {string} name of sound
    * @return {void}
    */
   play(name: string): void {
+    if (this.disabled) {
+      return;
+    }
     this.stop(name);
     this.soundData.sprite[name].id = this.soundPlayer.play(name);
     return
@@ -53,6 +66,9 @@ export class SoundManager {
    * @return {void}
    */
   stop(name: string): void {
+    if (this.disabled) {
+      return;
+    }
     if (this.soundData.sprite[name].id) {
       this.soundPlayer.stop(this.soundData.sprite[name].id);
     }

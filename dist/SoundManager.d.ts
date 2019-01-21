@@ -7,12 +7,19 @@ export declare class SoundManager {
     private soundPlayer;
     private soundData;
     private globalVolume;
+    private disabled;
     /**
      * @name constructor
      * @description class constructor
      * @note remaps audiosprite generated sound sprite data to the format that howler.js requires
      */
     constructor(soundObj: any);
+    /**
+     * @name disableSoundEngine
+     * @description disable the sound engine (done when the underlying hardware doesn't support audio.)
+     * @param {boolean} value - true to disable, else false
+     */
+    disableSoundEngine: boolean;
     /**
      * @name play
      * @description play sound
