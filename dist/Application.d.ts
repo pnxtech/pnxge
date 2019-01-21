@@ -11,6 +11,7 @@ export declare class Application extends PIXI.Application {
     protected gameVolume: number;
     protected appEventManager: EventManager;
     protected isDemo: boolean;
+    protected isDebug: boolean;
     private frames;
     private FPS;
     private WebGL;
@@ -33,6 +34,17 @@ export declare class Application extends PIXI.Application {
     * @param {boolean} value if demo
     */
     demo: boolean;
+    /**
+     * @name debug
+     * @description debug flag getter
+     * @return {boolean} true if debug
+     */
+    /**
+    * @name debug
+    * @description debug setter
+    * @param {boolean} value if debug
+    */
+    debug: boolean;
     /**
      * @name environment
      * @description set operating environment

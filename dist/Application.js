@@ -50,6 +50,7 @@ var Application = /** @class */ (function (_super) {
         _this.gameVolume = 0;
         _this.appEventManager = new EventManager_1.EventManager();
         _this.isDemo = false;
+        _this.isDebug = false;
         _this.frames = 0;
         _this.FPS = 0;
         _this.appEnvironment = '';
@@ -82,6 +83,26 @@ var Application = /** @class */ (function (_super) {
          */
         set: function (value) {
             this.isDemo = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Application.prototype, "debug", {
+        /**
+         * @name debug
+         * @description debug flag getter
+         * @return {boolean} true if debug
+         */
+        get: function () {
+            return this.isDebug;
+        },
+        /**
+         * @name debug
+         * @description debug setter
+         * @param {boolean} value if debug
+         */
+        set: function (value) {
+            this.isDebug = value;
         },
         enumerable: true,
         configurable: true

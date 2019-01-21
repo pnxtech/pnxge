@@ -14,6 +14,7 @@ export class Application extends PIXI.Application {
   protected gameVolume: number = 0;
   protected appEventManager: EventManager = new EventManager();
   protected isDemo: boolean = false;
+  protected isDebug: boolean = false;
   private frames: number = 0;
   private FPS: number = 0;
   private WebGL: boolean;
@@ -63,6 +64,24 @@ export class Application extends PIXI.Application {
    */
   set demo(value: boolean) {
     this.isDemo = value;
+  }
+
+  /**
+   * @name debug
+   * @description debug flag getter
+   * @return {boolean} true if debug
+   */
+  get debug(): boolean {
+    return this.isDebug;
+  }
+
+  /**
+   * @name debug
+   * @description debug setter
+   * @param {boolean} value if debug
+   */
+  set debug(value: boolean) {
+    this.isDebug = value;
   }
 
   /**
