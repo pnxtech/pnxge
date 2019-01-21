@@ -93,7 +93,7 @@ export class AssetManager {
             if (obj.attribs) {
               image.attribs.add(obj.attribs);
             }
-            image.visible = obj.visible || false;
+            image.visible = obj.visible || true;
             if (obj.tint) {
               image.tint = parseInt(obj.tint, 16);
             }
@@ -109,7 +109,7 @@ export class AssetManager {
             }
             backgroundTile.sx = obj.sx || 1;
             backgroundTile.sy = obj.sy || 1;
-            backgroundTile.visible = obj.visible || false;
+            backgroundTile.visible = obj.visible || true;
             if (obj.attribs) {
               backgroundTile.attribs.add(obj.attribs);
             }
@@ -122,7 +122,7 @@ export class AssetManager {
             textSprite.x = obj.x;
             textSprite.y = obj.y;
             textSprite.z = obj.z;
-            textSprite.visible = obj.visible || false;
+            textSprite.visible = obj.visible || true;
             if (obj.attribs) {
               textSprite.attribs.add(obj.attribs);
             }
@@ -149,7 +149,7 @@ export class AssetManager {
             }
             anim.rotation = obj.rotation;
             anim.collisionDetection = obj.collisionDetection;
-            anim.visible = obj.visible || false;
+            anim.visible = obj.visible || true;
             anim.loop = obj.loop;
             if (obj.tint) {
               anim.setTint(parseInt(obj.tint, 16));
@@ -193,7 +193,7 @@ export class AssetManager {
       }
       anim.loop = obj.loop;
       anim.rotation = obj.rotation || 0;
-      anim.visible = obj.visible || false;
+      anim.visible = obj.visible || true;
       anim.health = obj.health;
       anim.strength = obj.strength;
       anim.collisionDetection = obj.collisionDetection;
