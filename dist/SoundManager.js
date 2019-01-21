@@ -19,7 +19,7 @@ var SoundManager = /** @class */ (function () {
             src: soundObj.resources,
             preload: true,
             autoplay: false,
-            pool: 100,
+            pool: 10,
             sprite: soundObj.spritemap
         };
         var spritemap = this.soundData.sprite;
@@ -35,20 +35,24 @@ var SoundManager = /** @class */ (function () {
     /**
      * @name play
      * @description play sound
-     * @param {string | number} id - name or id of sound
-     * @return {number} soundID to be used with .stop()
+     * @param {string} name of sound
+     * @return {void}
      */
-    SoundManager.prototype.play = function (id) {
-        return this.soundPlayer.play(id);
+    SoundManager.prototype.play = function (name) {
+        this.stop(name);
+        this.soundData.sprite[name].id = this.soundPlayer.play(name);
+        return;
     };
     /**
      * @name stop
      * @description stop sound
-     * @param {number} id - of sound abtained from the play method
+     * @param {string} name of sound
      * @return {void}
      */
-    SoundManager.prototype.stop = function (id) {
-        this.soundPlayer.stop(id);
+    SoundManager.prototype.stop = function (name) {
+        if (this.soundData.sprite[name].id) {
+            this.soundPlayer.stop(this.soundData.sprite[name].id);
+        }
     };
     Object.defineProperty(SoundManager.prototype, "volume", {
         /**

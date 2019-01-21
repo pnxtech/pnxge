@@ -16,17 +16,17 @@ export declare class SoundManager {
     /**
      * @name play
      * @description play sound
-     * @param {string | number} id - name or id of sound
-     * @return {number} soundID to be used with .stop()
+     * @param {string} name of sound
+     * @return {void}
      */
-    play(id: string | number): number;
+    play(name: string): void;
     /**
      * @name stop
      * @description stop sound
-     * @param {number} id - of sound abtained from the play method
+     * @param {string} name of sound
      * @return {void}
      */
-    stop(id: number): void;
+    stop(name: string): void;
     /**
      * @name volume
      * @description set global volume

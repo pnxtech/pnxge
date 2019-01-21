@@ -20,7 +20,7 @@ export class SoundManager {
       src: soundObj.resources,
       preload: true,
       autoplay: false,
-      pool: 100,
+      pool: 10,
       sprite: soundObj.spritemap
     }
     let spritemap = this.soundData.sprite;
@@ -37,21 +37,25 @@ export class SoundManager {
   /**
    * @name play
    * @description play sound
-   * @param {string | number} id - name or id of sound
-   * @return {number} soundID to be used with .stop()
+   * @param {string} name of sound
+   * @return {void}
    */
-  play(id: string | number): number {
-    return this.soundPlayer.play(id);
+  play(name: string): void {
+    this.stop(name);
+    this.soundData.sprite[name].id = this.soundPlayer.play(name);
+    return
   }
 
   /**
    * @name stop
    * @description stop sound
-   * @param {number} id - of sound abtained from the play method
+   * @param {string} name of sound
    * @return {void}
    */
-  stop(id: number): void {
-    this.soundPlayer.stop(id);
+  stop(name: string): void {
+    if (this.soundData.sprite[name].id) {
+      this.soundPlayer.stop(this.soundData.sprite[name].id);
+    }
   }
 
   /**
