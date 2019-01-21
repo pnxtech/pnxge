@@ -122,12 +122,22 @@ var Application = /** @class */ (function (_super) {
          * @param {object} data - object to be merged with state
          */
         set: function (data) {
-            var newState = this.utils.mergeObjects(this.appState, data);
-            this.appState = newState;
+            this.appState = data;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * @name setState
+     * @description merges object entries in to application state
+     * @param {object} data - object to be merged with state
+     * @return {object} new application state
+     */
+    Application.prototype.setState = function (data) {
+        var newState = this.utils.mergeObjects(this.appState, data);
+        this.appState = newState;
+        return this.appState;
+    };
     Object.defineProperty(Application.prototype, "usingWebGL", {
         /**
          * @name usingWebGL
