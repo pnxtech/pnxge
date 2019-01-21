@@ -52,16 +52,16 @@ export declare class Application extends PIXI.Application {
     /**
     * @name state
     * @description state setter
-    * @param {object} data - object to be merged with state
+    * @param {any} data - object to be merged with state
     */
-    state: {};
+    state: any;
     /**
      * @name setState
      * @description merges object entries in to application state
      * @param {object} data - object to be merged with state
      * @return {object} new application state
      */
-    setState(data: {}): {};
+    setState(data: any): any;
     /**
      * @name usingWebGL
      * @description reports on whether WebGL is supported

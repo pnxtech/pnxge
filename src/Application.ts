@@ -90,16 +90,16 @@ export class Application extends PIXI.Application {
    * @description state getter
    * @return {object}
    */
-  get state(): {} {
+  get state(): any {
     return this.appState;
   }
 
   /**
    * @name state
    * @description state setter
-   * @param {object} data - object to be merged with state
+   * @param {any} data - object to be merged with state
    */
-  set state(data: {}) {
+  set state(data: any) {
     this.appState = data;
   }
 
@@ -109,7 +109,7 @@ export class Application extends PIXI.Application {
    * @param {object} data - object to be merged with state
    * @return {object} new application state
    */
-  setState(data: {}): {} {
+  setState(data: any): any {
     let newState = this.utils.mergeObjects(this.appState, data);
     this.appState = newState;
     return this.appState;

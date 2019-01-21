@@ -119,7 +119,7 @@ var Application = /** @class */ (function (_super) {
         /**
          * @name state
          * @description state setter
-         * @param {object} data - object to be merged with state
+         * @param {any} data - object to be merged with state
          */
         set: function (data) {
             this.appState = data;
