@@ -19,6 +19,7 @@ var SoundManager = /** @class */ (function () {
             src: soundObj.resources,
             preload: true,
             autoplay: false,
+            pool: 100,
             sprite: soundObj.spritemap
         };
         var spritemap = this.soundData.sprite;

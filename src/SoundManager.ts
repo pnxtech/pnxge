@@ -20,6 +20,7 @@ export class SoundManager {
       src: soundObj.resources,
       preload: true,
       autoplay: false,
+      pool: 100,
       sprite: soundObj.spritemap
     }
     let spritemap = this.soundData.sprite;
