@@ -83,22 +83,8 @@ export class AssetManager {
           }
           scene.attachSoundManager(this.soundManager);
           break;
-        case 'image': {
-            let image = new Image(scene, obj.name, this.resources[obj.atlas]);
-            image.attribs.add(obj.type);
-            image.x = obj.x;
-            image.y = obj.y;
-            image.z = obj.z;
-            image.rotation = obj.rotation || 0;
-            if (obj.attribs) {
-              image.attribs.add(obj.attribs);
-            }
-            image.visible = obj.visible || true;
-            if (obj.tint) {
-              image.tint = parseInt(obj.tint, 16);
-            }
-            scene.addAnim(obj.name, image);
-          }
+        case 'image':
+          this.createImage(scene, obj);
           break;
         case 'tile':{
             let backgroundTile = new BackgroundTile(scene, obj.file);
@@ -208,6 +194,34 @@ export class AssetManager {
         anim.setTint(parseInt(obj.tint, 16));
       }
       scene.addAnim(newName, anim);
+    }
+  }
+
+  /**
+   * @name createImage
+   * @description create an image
+   * @param {Scene} scene
+   * @param {object} obj
+   * @return {void}
+   */
+  createImage(scene: Scene, obj: any) : void {
+    let count = (obj.count) ? obj.count : 1;
+    for (let i = 0; i < count; i++) {
+      let newName = (count === 1) ? `${obj.name}` : `${obj.name}${i}`;
+      let image = new Image(scene, obj.name, this.resources[obj.atlas]);
+      image.attribs.add(obj.type);
+      image.x = obj.x;
+      image.y = obj.y;
+      image.z = obj.z;
+      image.rotation = obj.rotation || 0;
+      if (obj.attribs) {
+        image.attribs.add(obj.attribs);
+      }
+      image.visible = obj.visible || true;
+      if (obj.tint) {
+        image.tint = parseInt(obj.tint, 16);
+      }
+      scene.addAnim(newName, image);
     }
   }
 }

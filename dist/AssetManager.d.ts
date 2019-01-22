@@ -42,6 +42,14 @@ export declare class AssetManager {
      * @return {void}
      */
     createCharacter(scene: Scene, obj: any): void;
+    /**
+     * @name createImage
+     * @description create an image
+     * @param {Scene} scene
+     * @param {object} obj
+     * @return {void}
+     */
+    createImage(scene: Scene, obj: any): void;
 }
 export {};
 //# sourceMappingURL=AssetManager.d.ts.map

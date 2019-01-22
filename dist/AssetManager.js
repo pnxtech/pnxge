@@ -85,22 +85,7 @@ var AssetManager = /** @class */ (function () {
                     scene.attachSoundManager(this.soundManager);
                     break;
                 case 'image':
-                    {
-                        var image = new Image_1.Image(scene, obj.name, this.resources[obj.atlas]);
-                        image.attribs.add(obj.type);
-                        image.x = obj.x;
-                        image.y = obj.y;
-                        image.z = obj.z;
-                        image.rotation = obj.rotation || 0;
-                        if (obj.attribs) {
-                            image.attribs.add(obj.attribs);
-                        }
-                        image.visible = obj.visible || true;
-                        if (obj.tint) {
-                            image.tint = parseInt(obj.tint, 16);
-                        }
-                        scene.addAnim(obj.name, image);
-                    }
+                    this.createImage(scene, obj);
                     break;
                 case 'tile':
                     {
@@ -212,6 +197,33 @@ var AssetManager = /** @class */ (function () {
                 anim.setTint(parseInt(obj.tint, 16));
             }
             scene.addAnim(newName, anim);
+        }
+    };
+    /**
+     * @name createImage
+     * @description create an image
+     * @param {Scene} scene
+     * @param {object} obj
+     * @return {void}
+     */
+    AssetManager.prototype.createImage = function (scene, obj) {
+        var count = (obj.count) ? obj.count : 1;
+        for (var i = 0; i < count; i++) {
+            var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
+            var image = new Image_1.Image(scene, obj.name, this.resources[obj.atlas]);
+            image.attribs.add(obj.type);
+            image.x = obj.x;
+            image.y = obj.y;
+            image.z = obj.z;
+            image.rotation = obj.rotation || 0;
+            if (obj.attribs) {
+                image.attribs.add(obj.attribs);
+            }
+            image.visible = obj.visible || true;
+            if (obj.tint) {
+                image.tint = parseInt(obj.tint, 16);
+            }
+            scene.addAnim(newName, image);
         }
     };
     return AssetManager;
