@@ -46,7 +46,6 @@ var ProjectileManager = /** @class */ (function () {
         }
         if (!projectile) {
             var anim = new Anim_1.Anim(this.scene);
-            var attribs = projectileInfo.attribs;
             projectile = {
                 active: true,
                 anim: anim,

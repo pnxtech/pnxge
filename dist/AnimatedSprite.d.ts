@@ -8,7 +8,7 @@ import { Attribs } from './Attribs';
  */
 export declare class AnimatedSprite extends PIXI.extras.AnimatedSprite {
     anim: Anim | undefined;
-    attributes: Attribs;
+    private _attribs;
     constructor(textures: [], autoUpdate?: boolean | undefined);
     /**
      * @name getAttribs

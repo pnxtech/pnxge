@@ -9,11 +9,11 @@ import {Attribs} from './Attribs';
  */
 export class AnimatedSprite extends PIXI.extras.AnimatedSprite {
   public anim: Anim | undefined;
-  public attributes: Attribs;
+  private _attribs: Attribs;
 
   constructor(textures: [], autoUpdate?: boolean | undefined) {
     super(textures, autoUpdate);
-    this.attributes = new Attribs();
+    this._attribs = new Attribs();
   }
 
   /**
@@ -22,6 +22,6 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite {
    * @return {Attribs} attributes
    */
   get attribs(): Attribs {
-    return this.attributes;
+    return this._attribs;
   }
 };

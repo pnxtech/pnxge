@@ -31,7 +31,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
     __extends(AnimatedSprite, _super);
     function AnimatedSprite(textures, autoUpdate) {
         var _this = _super.call(this, textures, autoUpdate) || this;
-        _this.attributes = new Attribs_1.Attribs();
+        _this._attribs = new Attribs_1.Attribs();
         return _this;
     }
     Object.defineProperty(AnimatedSprite.prototype, "attribs", {
@@ -41,7 +41,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
          * @return {Attribs} attributes
          */
         get: function () {
-            return this.attributes;
+            return this._attribs;
         },
         enumerable: true,
         configurable: true

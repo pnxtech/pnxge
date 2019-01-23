@@ -39,8 +39,8 @@ var TilingSprite = /** @class */ (function (_super) {
         _this.collisionDetection = false;
         _this.anim = new Anim_1.Anim(scene);
         _this.anim.z = -1;
-        _this.attributes = new Attribs_1.Attribs();
-        _this.attributes.add('background');
+        _this._attribs = new Attribs_1.Attribs();
+        _this._attribs.add('background');
         return _this;
     }
     Object.defineProperty(TilingSprite.prototype, "attribs", {
@@ -50,7 +50,7 @@ var TilingSprite = /** @class */ (function (_super) {
          * @return {Attribs} attributes
          */
         get: function () {
-            return this.attributes;
+            return this._attribs;
         },
         enumerable: true,
         configurable: true

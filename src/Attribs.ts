@@ -9,7 +9,7 @@ interface IAttribsHash {
  * @description attributes
  */
 export class Attribs {
-  public hash: IAttribsHash;
+  private hash: IAttribsHash;
   private utils: Utils;
 
   /**

@@ -16,26 +16,26 @@ var Anim = /** @class */ (function () {
      * @description binds Anim to Scene
      */
     function Anim(scene) {
-        this.animID = (new Utils_1.Utils()).createID();
+        this._id = (new Utils_1.Utils()).createID();
         this.animationSequence = {};
         this.lastSequenceName = '';
         this.currentSequenceName = '';
-        this.currentX = 0;
-        this.currentY = 0;
-        this.currentZ = 0;
-        this.currentLoop = false;
-        this.currentRotation = 0;
-        this.currentVisible = true;
-        this.currentHealth = 0;
-        this.currentStrength = 0;
-        this.animSpeed = 1;
-        this.animAnchor = .5;
-        this.directionX = 0;
-        this.directionY = 0;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.scaleX = 1;
-        this.scaleY = 1;
+        this._x = 0;
+        this._y = 0;
+        this._z = 0;
+        this._loop = false;
+        this._rotation = 0;
+        this._visible = true;
+        this._health = 0;
+        this._strength = 0;
+        this._speed = 1;
+        this._anchor = .5;
+        this._dx = 0;
+        this._dy = 0;
+        this._vx = 0;
+        this._vy = 0;
+        this._sx = 1;
+        this._sy = 1;
         this.tint = 0;
         this.currentCollisionDetection = false;
         this.scene = scene;
@@ -50,7 +50,7 @@ var Anim = /** @class */ (function () {
          * @description get anin id
          */
         get: function () {
-            return this.animID;
+            return this._id;
         },
         enumerable: true,
         configurable: true
@@ -61,21 +61,21 @@ var Anim = /** @class */ (function () {
      * @return {void}
      */
     Anim.prototype.reset = function () {
-        this.animID = (new Utils_1.Utils()).createID();
-        this.currentX = 0;
-        this.currentY = 0;
-        this.currentZ = 0;
-        this.currentLoop = false;
-        this.currentRotation = 0;
-        this.currentVisible = true;
-        this.animSpeed = 1;
-        this.animAnchor = .5;
-        this.directionX = 0;
-        this.directionY = 0;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.scaleX = 1;
-        this.scaleY = 1;
+        this._id = (new Utils_1.Utils()).createID();
+        this._x = 0;
+        this._y = 0;
+        this._z = 0;
+        this._loop = false;
+        this._rotation = 0;
+        this._visible = true;
+        this._speed = 1;
+        this._anchor = .5;
+        this._dx = 0;
+        this._dy = 0;
+        this._vx = 0;
+        this._vy = 0;
+        this._sx = 1;
+        this._sy = 1;
         this.tint = 0;
         this.attributes.flush();
         this.internalRect = new Math_1.Rect(0, 0, 0, 0);
@@ -108,14 +108,14 @@ var Anim = /** @class */ (function () {
          * @return {number} x position
          */
         get: function () {
-            return this.currentX;
+            return this._x;
         },
         /**
          * @name x
          * @description x position setter
          */
         set: function (x) {
-            this.currentX = x;
+            this._x = x;
         },
         enumerable: true,
         configurable: true
@@ -127,14 +127,14 @@ var Anim = /** @class */ (function () {
          * @return {number} y position
          */
         get: function () {
-            return this.currentY;
+            return this._y;
         },
         /**
          * @name y
          * @description y position setter
          */
         set: function (y) {
-            this.currentY = y;
+            this._y = y;
         },
         enumerable: true,
         configurable: true
@@ -146,14 +146,14 @@ var Anim = /** @class */ (function () {
          * @return {number} z position
          */
         get: function () {
-            return this.currentZ;
+            return this._z;
         },
         /**
          * @name z
          * @description z position setter
          */
         set: function (z) {
-            this.currentZ = z;
+            this._z = z;
         },
         enumerable: true,
         configurable: true
@@ -184,14 +184,14 @@ var Anim = /** @class */ (function () {
          * @return {boolean} true if visible
          */
         get: function () {
-            return this.currentVisible;
+            return this._visible;
         },
         /**
          * @name visible
          * @description set visibility
          */
         set: function (value) {
-            this.currentVisible = value;
+            this._visible = value;
         },
         enumerable: true,
         configurable: true
@@ -241,14 +241,14 @@ var Anim = /** @class */ (function () {
          * @return {number} rotation position
          */
         get: function () {
-            return this.currentRotation;
+            return this._rotation;
         },
         /**
          * @name rotation
          * @description rotation setter
          */
         set: function (value) {
-            this.currentRotation = value;
+            this._rotation = value;
         },
         enumerable: true,
         configurable: true
@@ -260,14 +260,14 @@ var Anim = /** @class */ (function () {
          * @return {number} animation speed
          */
         get: function () {
-            return this.animSpeed;
+            return this._speed;
         },
         /**
          * @name animationSpeed
          * @description animationSpeed setter
          */
         set: function (speed) {
-            this.animSpeed = speed;
+            this._speed = speed;
         },
         enumerable: true,
         configurable: true
@@ -279,7 +279,7 @@ var Anim = /** @class */ (function () {
          * @return {number} strength
          */
         get: function () {
-            return this.currentStrength;
+            return this._strength;
         },
         /**
          * @name strength
@@ -287,7 +287,7 @@ var Anim = /** @class */ (function () {
          * @param {number} value - strength
          */
         set: function (value) {
-            this.currentStrength = value;
+            this._strength = value;
         },
         enumerable: true,
         configurable: true
@@ -299,7 +299,7 @@ var Anim = /** @class */ (function () {
          * @return {number} health
          */
         get: function () {
-            return this.currentHealth;
+            return this._health;
         },
         /**
          * @name health
@@ -307,7 +307,7 @@ var Anim = /** @class */ (function () {
          * @param {number} value - health
          */
         set: function (value) {
-            this.currentHealth = value;
+            this._health = value;
             ;
         },
         enumerable: true,
@@ -320,14 +320,14 @@ var Anim = /** @class */ (function () {
          * @return {number} scale x
          */
         get: function () {
-            return this.scaleX;
+            return this._sx;
         },
         /**
          * @name sx
          * @description set anim scale x
          */
         set: function (value) {
-            this.scaleX = value;
+            this._sx = value;
         },
         enumerable: true,
         configurable: true
@@ -339,14 +339,14 @@ var Anim = /** @class */ (function () {
          * @return {number} scale y
          */
         get: function () {
-            return this.scaleY;
+            return this._sy;
         },
         /**
          * @name sy
          * @description set anim scale y
          */
         set: function (value) {
-            this.scaleY = value;
+            this._sy = value;
         },
         enumerable: true,
         configurable: true
@@ -358,14 +358,14 @@ var Anim = /** @class */ (function () {
          * @return {number} anchor position
          */
         get: function () {
-            return this.animAnchor;
+            return this._anchor;
         },
         /**
          * @name anchor
          * @description anchor setter
          */
         set: function (value) {
-            this.animAnchor = value;
+            this._anchor = value;
         },
         enumerable: true,
         configurable: true
@@ -377,7 +377,7 @@ var Anim = /** @class */ (function () {
          * @return {number} dx - direction X
          */
         get: function () {
-            return this.directionX;
+            return this._dx;
         },
         /**
          * @name dx
@@ -385,7 +385,7 @@ var Anim = /** @class */ (function () {
          * @param {number} value - direction X
          */
         set: function (value) {
-            this.directionX = value;
+            this._dx = value;
         },
         enumerable: true,
         configurable: true
@@ -397,7 +397,7 @@ var Anim = /** @class */ (function () {
          * @return {number} dy - direction Y
          */
         get: function () {
-            return this.directionY;
+            return this._dy;
         },
         /**
          * @name dy
@@ -405,7 +405,7 @@ var Anim = /** @class */ (function () {
          * @param {number} value - direction Y
          */
         set: function (value) {
-            this.directionY = value;
+            this._dy = value;
         },
         enumerable: true,
         configurable: true
@@ -417,7 +417,7 @@ var Anim = /** @class */ (function () {
          * @return {number} vx - velocity X
          */
         get: function () {
-            return this.velocityX;
+            return this._vx;
         },
         /**
          * @name vx
@@ -425,7 +425,7 @@ var Anim = /** @class */ (function () {
          * @param {number} value - velocity X
          */
         set: function (value) {
-            this.velocityX = value;
+            this._vx = value;
         },
         enumerable: true,
         configurable: true
@@ -437,7 +437,7 @@ var Anim = /** @class */ (function () {
          * @return {number} vy - velocity Y
          */
         get: function () {
-            return this.velocityY;
+            return this._vy;
         },
         /**
          * @name vy
@@ -445,7 +445,7 @@ var Anim = /** @class */ (function () {
          * @param {number} value - velocity Y
          */
         set: function (value) {
-            this.velocityY = value;
+            this._vy = value;
         },
         enumerable: true,
         configurable: true
@@ -457,14 +457,14 @@ var Anim = /** @class */ (function () {
          * @return {boolean}
          */
         get: function () {
-            return this.currentLoop;
+            return this._loop;
         },
         /**
          * @name loop
          * @description set animation loop state
          */
         set: function (value) {
-            this.currentLoop = value;
+            this._loop = value;
         },
         enumerable: true,
         configurable: true
@@ -602,17 +602,17 @@ var Anim = /** @class */ (function () {
         var animSequenceEntry = this.animationSequence[this.currentSequenceName];
         if (animSequenceEntry && animSequenceEntry.sequence) {
             this.currentSequence = animSequenceEntry.sequence;
-            this.currentX += this.directionX * (this.velocityX || 1) * deltaTime;
-            this.currentY += this.directionY * (this.velocityY || 1) * deltaTime;
-            this.currentSequence.visible = this.currentVisible;
-            this.currentSequence.loop = this.currentLoop;
-            this.currentSequence.x = this.currentX;
-            this.currentSequence.y = this.currentY;
-            this.currentSequence.scale.x = this.scaleX;
-            this.currentSequence.scale.y = this.scaleY;
+            this._x += this._dx * (this._vx || 1) * deltaTime;
+            this._y += this._dy * (this._vy || 1) * deltaTime;
+            this.currentSequence.visible = this._visible;
+            this.currentSequence.loop = this._loop;
+            this.currentSequence.x = this._x;
+            this.currentSequence.y = this._y;
+            this.currentSequence.scale.x = this._sx;
+            this.currentSequence.scale.y = this._sy;
             this.currentSequence.rotation = this.rotation;
-            this.currentSequence.animationSpeed = this.animSpeed;
-            this.currentSequence.anchor.set(this.animAnchor);
+            this.currentSequence.animationSpeed = this._speed;
+            this.currentSequence.anchor.set(this._anchor);
             if (this.tint !== 0) {
                 this.currentSequence.tint = this.tint;
             }

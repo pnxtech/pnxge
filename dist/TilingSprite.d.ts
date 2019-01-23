@@ -12,8 +12,8 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite {
     vx: number;
     vy: number;
     collisionDetection: boolean;
-    attributes: Attribs;
     anim: Anim;
+    private _attribs;
     constructor(scene: Scene, texture: PIXI.Texture, width: number, height: number);
     /**
      * @name get Attribs

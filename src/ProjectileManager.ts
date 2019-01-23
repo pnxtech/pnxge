@@ -78,7 +78,6 @@ export class ProjectileManager {
     }
     if (!projectile) {
       let anim = new Anim(this.scene);
-      let attribs = projectileInfo.attribs;
       projectile = {
         active: true,
         anim,

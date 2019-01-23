@@ -8,8 +8,8 @@ export declare class Application extends PIXI.Application {
     protected appWidth: number;
     protected appHeight: number;
     protected appEventManager: EventManager;
-    protected isDemo: boolean;
-    protected isDebug: boolean;
+    protected _demo: boolean;
+    protected _debug: boolean;
     private frames;
     private FPS;
     private WebGL;

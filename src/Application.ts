@@ -12,8 +12,8 @@ export class Application extends PIXI.Application {
   protected appWidth: number = 0;
   protected appHeight: number = 0;
   protected appEventManager: EventManager = new EventManager();
-  protected isDemo: boolean = false;
-  protected isDebug: boolean = false;
+  protected _demo: boolean = false;
+  protected _debug: boolean = false;
   private frames: number = 0;
   private FPS: number = 0;
   private WebGL: boolean;
@@ -32,8 +32,8 @@ export class Application extends PIXI.Application {
       width,
       height,
       transparent: true,
-      forceFXAA: true,
-      antialias: true
+      forceFXAA: false,
+      antialias: false
     });
     this.utils = new Utils();
     this.WebGL = PIXI.utils.isWebGLSupported();
@@ -55,7 +55,7 @@ export class Application extends PIXI.Application {
    * @return {boolean} true if demo
    */
   get demo(): boolean {
-    return this.isDemo;
+    return this._demo;
   }
 
   /**
@@ -64,7 +64,7 @@ export class Application extends PIXI.Application {
    * @param {boolean} value if demo
    */
   set demo(value: boolean) {
-    this.isDemo = value;
+    this._demo = value;
   }
 
   /**
@@ -73,7 +73,7 @@ export class Application extends PIXI.Application {
    * @return {boolean} true if debug
    */
   get debug(): boolean {
-    return this.isDebug;
+    return this._debug;
   }
 
   /**
@@ -82,7 +82,7 @@ export class Application extends PIXI.Application {
    * @param {boolean} value if debug
    */
   set debug(value: boolean) {
-    this.isDebug = value;
+    this._debug = value;
   }
 
   /**

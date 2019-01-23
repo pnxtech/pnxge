@@ -20,27 +20,27 @@ interface IHash { [key: string]: {
  */
 export class Anim implements IAnimCompatible {
   public attributes: Attribs;
-  private animID: string = (new Utils()).createID();
+  private _id: string = (new Utils()).createID();
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
   protected controller: IController | undefined;
-  private currentX: number = 0;
-  private currentY: number = 0;
-  private currentZ: number = 0;
-  private currentLoop: boolean = false;
-  private currentRotation: number = 0;
-  private currentVisible: boolean = true;
-  private currentHealth: number = 0;
-  private currentStrength: number = 0;
-  private animSpeed: number = 1;
-  private animAnchor: number = .5;
-  private directionX: number = 0;
-  private directionY: number = 0;
-  private velocityX: number = 0;
-  private velocityY: number = 0;
-  private scaleX: number = 1;
-  private scaleY: number = 1;
+  private _x: number = 0;
+  private _y: number = 0;
+  private _z: number = 0;
+  private _loop: boolean = false;
+  private _rotation: number = 0;
+  private _visible: boolean = true;
+  private _health: number = 0;
+  private _strength: number = 0;
+  private _speed: number = 1;
+  private _anchor: number = .5;
+  private _dx: number = 0;
+  private _dy: number = 0;
+  private _vx: number = 0;
+  private _vy: number = 0;
+  private _sx: number = 1;
+  private _sy: number = 1;
   private internalRect: Rect;
   private emptyRect: Rect;
   private tint: number = 0;
@@ -67,7 +67,7 @@ export class Anim implements IAnimCompatible {
    * @description get anin id
    */
   get id(): string {
-    return this.animID;
+    return this._id;
   }
 
   /**
@@ -76,21 +76,21 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   reset(): void {
-    this.animID = (new Utils()).createID();
-    this.currentX = 0;
-    this.currentY= 0;
-    this.currentZ = 0;
-    this.currentLoop = false;
-    this.currentRotation = 0;
-    this.currentVisible = true;
-    this.animSpeed = 1;
-    this.animAnchor = .5;
-    this.directionX = 0;
-    this.directionY = 0;
-    this.velocityX = 0;
-    this.velocityY = 0;
-    this.scaleX = 1;
-    this.scaleY = 1;
+    this._id = (new Utils()).createID();
+    this._x = 0;
+    this._y= 0;
+    this._z = 0;
+    this._loop = false;
+    this._rotation = 0;
+    this._visible = true;
+    this._speed = 1;
+    this._anchor = .5;
+    this._dx = 0;
+    this._dy = 0;
+    this._vx = 0;
+    this._vy = 0;
+    this._sx = 1;
+    this._sy = 1;
     this.tint = 0;
     this.attributes.flush();
     this.internalRect = new Rect(0,0,0,0);
@@ -125,7 +125,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} x position
    */
   get x(): number {
-    return this.currentX;
+    return this._x;
   }
 
   /**
@@ -133,7 +133,7 @@ export class Anim implements IAnimCompatible {
    * @description x position setter
    */
   set x(x: number) {
-    this.currentX = x;
+    this._x = x;
   }
 
   /**
@@ -142,7 +142,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} y position
    */
   get y(): number {
-    return this.currentY;
+    return this._y;
   }
 
   /**
@@ -150,7 +150,7 @@ export class Anim implements IAnimCompatible {
    * @description y position setter
    */
   set y(y: number) {
-    this.currentY = y;
+    this._y = y;
   }
 
   /**
@@ -159,7 +159,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} z position
    */
   get z(): number {
-    return this.currentZ;
+    return this._z;
   }
 
   /**
@@ -167,7 +167,7 @@ export class Anim implements IAnimCompatible {
    * @description z position setter
    */
   set z(z: number) {
-    this.currentZ = z;
+    this._z = z;
   }
 
   /**
@@ -192,7 +192,7 @@ export class Anim implements IAnimCompatible {
    * @return {boolean} true if visible
    */
   get visible(): boolean {
-    return this.currentVisible;
+    return this._visible;
   }
 
   /**
@@ -200,7 +200,7 @@ export class Anim implements IAnimCompatible {
    * @description set visibility
    */
   set visible(value: boolean) {
-    this.currentVisible = value;
+    this._visible = value;
   }
 
   /**
@@ -239,7 +239,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} rotation position
    */
   get rotation(): number {
-    return this.currentRotation;
+    return this._rotation;
   }
 
   /**
@@ -247,7 +247,7 @@ export class Anim implements IAnimCompatible {
    * @description rotation setter
    */
   set rotation(value: number) {
-    this.currentRotation = value;
+    this._rotation = value;
   }
 
   /**
@@ -256,7 +256,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} animation speed
    */
   get animationSpeed() : number {
-    return this.animSpeed;
+    return this._speed;
   }
 
   /**
@@ -264,7 +264,7 @@ export class Anim implements IAnimCompatible {
    * @description animationSpeed setter
    */
   set animationSpeed(speed: number) {
-    this.animSpeed = speed;
+    this._speed = speed;
   }
 
   /**
@@ -273,7 +273,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} strength
    */
   get strength(): number {
-    return this.currentStrength;
+    return this._strength;
   }
 
   /**
@@ -282,7 +282,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} value - strength
    */
   set strength(value: number) {
-    this.currentStrength = value;
+    this._strength = value;
   }
 
   /**
@@ -291,7 +291,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} health
    */
   get health(): number {
-    return this.currentHealth;
+    return this._health;
   }
 
   /**
@@ -300,7 +300,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} value - health
    */
   set health(value: number) {
-    this.currentHealth = value;;
+    this._health = value;;
   }
 
   /**
@@ -309,7 +309,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} scale x
    */
   get sx(): number {
-    return this.scaleX;
+    return this._sx;
   }
 
   /**
@@ -318,7 +318,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} scale y
    */
   get sy(): number {
-    return this.scaleY;
+    return this._sy;
   }
 
   /**
@@ -326,7 +326,7 @@ export class Anim implements IAnimCompatible {
    * @description set anim scale x
    */
   set sx(value: number) {
-    this.scaleX = value;
+    this._sx = value;
   }
 
   /**
@@ -334,7 +334,7 @@ export class Anim implements IAnimCompatible {
    * @description set anim scale y
    */
   set sy(value: number) {
-    this.scaleY = value;
+    this._sy = value;
   }
 
   /**
@@ -343,7 +343,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} anchor position
    */
   get anchor(): number {
-    return this.animAnchor;
+    return this._anchor;
   }
 
   /**
@@ -351,7 +351,7 @@ export class Anim implements IAnimCompatible {
    * @description anchor setter
    */
   set anchor(value: number) {
-    this.animAnchor = value;
+    this._anchor = value;
   }
 
   /**
@@ -360,7 +360,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} dx - direction X
    */
   get dx() : number {
-    return this.directionX;
+    return this._dx;
   }
 
   /**
@@ -369,7 +369,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} value - direction X
    */
   set dx(value: number) {
-    this.directionX = value;
+    this._dx = value;
   }
 
   /**
@@ -378,7 +378,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} dy - direction Y
    */
   get dy() : number {
-    return this.directionY;
+    return this._dy;
   }
 
   /**
@@ -387,7 +387,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} value - direction Y
    */
   set dy(value: number) {
-    this.directionY = value;
+    this._dy = value;
   }
 
   /**
@@ -396,7 +396,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} vx - velocity X
    */
   get vx() : number {
-    return this.velocityX;
+    return this._vx;
   }
 
   /**
@@ -405,7 +405,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} value - velocity X
    */
   set vx(value: number) {
-    this.velocityX = value;
+    this._vx = value;
   }
 
   /**
@@ -414,7 +414,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} vy - velocity Y
    */
   get vy() : number {
-    return this.velocityY;
+    return this._vy;
   }
 
   /**
@@ -423,7 +423,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} value - velocity Y
    */
   set vy(value: number) {
-    this.velocityY = value;
+    this._vy = value;
   }
 
   /**
@@ -432,7 +432,7 @@ export class Anim implements IAnimCompatible {
    * @return {boolean}
    */
   get loop(): boolean {
-    return this.currentLoop;
+    return this._loop;
   }
 
   /**
@@ -440,7 +440,7 @@ export class Anim implements IAnimCompatible {
    * @description set animation loop state
    */
   set loop(value: boolean) {
-    this.currentLoop = value;
+    this._loop = value;
   }
 
   /**
@@ -577,17 +577,17 @@ export class Anim implements IAnimCompatible {
     let animSequenceEntry = this.animationSequence[this.currentSequenceName];
     if (animSequenceEntry && animSequenceEntry.sequence) {
       this.currentSequence = <AnimatedSprite>animSequenceEntry.sequence;
-      this.currentX += this.directionX * (this.velocityX || 1) * deltaTime;
-      this.currentY += this.directionY * (this.velocityY || 1) * deltaTime;
-      this.currentSequence.visible = this.currentVisible;
-      this.currentSequence.loop = this.currentLoop;
-      this.currentSequence.x = this.currentX;
-      this.currentSequence.y = this.currentY;
-      this.currentSequence.scale.x = this.scaleX;
-      this.currentSequence.scale.y = this.scaleY;
+      this._x += this._dx * (this._vx || 1) * deltaTime;
+      this._y += this._dy * (this._vy || 1) * deltaTime;
+      this.currentSequence.visible = this._visible;
+      this.currentSequence.loop = this._loop;
+      this.currentSequence.x = this._x;
+      this.currentSequence.y = this._y;
+      this.currentSequence.scale.x = this._sx;
+      this.currentSequence.scale.y = this._sy;
       this.currentSequence.rotation = this.rotation;
-      this.currentSequence.animationSpeed = this.animSpeed;
-      this.currentSequence.anchor.set(this.animAnchor);
+      this.currentSequence.animationSpeed = this._speed;
+      this.currentSequence.anchor.set(this._anchor);
       if (this.tint !== 0) {
         this.currentSequence.tint = this.tint;
       }

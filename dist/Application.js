@@ -42,14 +42,14 @@ var Application = /** @class */ (function (_super) {
             width: width,
             height: height,
             transparent: true,
-            forceFXAA: true,
-            antialias: true
+            forceFXAA: false,
+            antialias: false
         }) || this;
         _this.appWidth = 0;
         _this.appHeight = 0;
         _this.appEventManager = new EventManager_1.EventManager();
-        _this.isDemo = false;
-        _this.isDebug = false;
+        _this._demo = false;
+        _this._debug = false;
         _this.frames = 0;
         _this.FPS = 0;
         _this.appState = {};
@@ -74,7 +74,7 @@ var Application = /** @class */ (function (_super) {
          * @return {boolean} true if demo
          */
         get: function () {
-            return this.isDemo;
+            return this._demo;
         },
         /**
          * @name demo
@@ -82,7 +82,7 @@ var Application = /** @class */ (function (_super) {
          * @param {boolean} value if demo
          */
         set: function (value) {
-            this.isDemo = value;
+            this._demo = value;
         },
         enumerable: true,
         configurable: true
@@ -94,7 +94,7 @@ var Application = /** @class */ (function (_super) {
          * @return {boolean} true if debug
          */
         get: function () {
-            return this.isDebug;
+            return this._debug;
         },
         /**
          * @name debug
@@ -102,7 +102,7 @@ var Application = /** @class */ (function (_super) {
          * @param {boolean} value if debug
          */
         set: function (value) {
-            this.isDebug = value;
+            this._debug = value;
         },
         enumerable: true,
         configurable: true

@@ -1,12 +1,9 @@
-interface IAttribsHash {
-    [name: string]: boolean;
-}
 /**
  * @name Attribs
  * @description attributes
  */
 export declare class Attribs {
-    hash: IAttribsHash;
+    private hash;
     private utils;
     /**
      * @name constructor
@@ -62,5 +59,4 @@ export declare class Attribs {
      */
     union(attribs: Attribs): string[];
 }
-export {};
 //# sourceMappingURL=Attribs.d.ts.map

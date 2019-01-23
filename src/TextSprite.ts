@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js';
 import {Scene} from './Scene';
-import {IAnimCompatible} from './AnimCompatible';
 import {Anim} from './Anim';
 import {Utils} from './Utils';
 import {Attribs} from './Attribs';

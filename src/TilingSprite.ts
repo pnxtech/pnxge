@@ -14,15 +14,15 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
   public vx: number = 0; // velocityX
   public vy: number = 0; // velocityY
   public collisionDetection: boolean = false;
-  public attributes: Attribs;
   public anim: Anim;
+  private _attribs: Attribs;
 
   constructor(scene: Scene, texture: PIXI.Texture, width: number, height: number) {
     super(texture, width, height);
     this.anim = new Anim(scene);
     this.anim.z = -1;
-    this.attributes = new Attribs();
-    this.attributes.add('background');
+    this._attribs = new Attribs();
+    this._attribs.add('background');
   }
 
   /**
@@ -31,6 +31,6 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @return {Attribs} attributes
    */
   get attribs(): Attribs {
-    return this.attributes;
+    return this._attribs;
   }
 };
