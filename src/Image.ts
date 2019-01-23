@@ -18,6 +18,11 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
   public anim: Image | undefined;
   protected scene: Scene;
   private zOrder: number = 0;
+  private directionX: number = 0;
+  private directionY: number = 0;
+  private velocityX: number = 0;
+  private velocityY: number = 0;
+
   private internalRect: Rect;
 
   /**
@@ -53,6 +58,78 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    */
   set z(z: number) {
     this.zOrder = z;
+  }
+
+  /**
+   * @name dx
+   * @description direction X getter
+   * @return {number} dx - direction X
+   */
+  get dx() : number {
+    return this.directionX;
+  }
+
+  /**
+   * @name dx
+   * @description direction X setter
+   * @param {number} value - direction X
+   */
+  set dx(value: number) {
+    this.directionX = value;
+  }
+
+  /**
+   * @name dy
+   * @description direction Y getter
+   * @return {number} dy - direction Y
+   */
+  get dy() : number {
+    return this.directionY;
+  }
+
+  /**
+   * @name dy
+   * @description direction Y setter
+   * @param {number} value - direction Y
+   */
+  set dy(value: number) {
+    this.directionY = value;
+  }
+
+  /**
+   * @name vx
+   * @description velocity X getter
+   * @return {number} vx - velocity X
+   */
+  get vx() : number {
+    return this.velocityX;
+  }
+
+  /**
+   * @name vx
+   * @description velocity X setter
+   * @param {number} value - velocity X
+   */
+  set vx(value: number) {
+    this.velocityX = value;
+  }
+
+  /**
+   * @name vy
+   * @description velocity Y getter
+   * @return {number} vy - velocity Y
+   */
+  get vy() : number {
+    return this.velocityY;
+  }
+
+  /**
+   * @name vy
+   * @description velocity Y setter
+   * @param {number} value - velocity Y
+   */
+  set vy(value: number) {
+    this.velocityY = value;
   }
 
   /**
@@ -101,6 +178,8 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @return {void}
    */
   update(deltaTime: number): void {
+    this.x += this.dx * (this.vx || 1) * deltaTime;
+    this.y += this.dy * (this.vy || 1) * deltaTime;
   }
 
   /**

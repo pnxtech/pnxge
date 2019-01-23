@@ -15,6 +15,10 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     anim: Image | undefined;
     protected scene: Scene;
     private zOrder;
+    private directionX;
+    private directionY;
+    private velocityX;
+    private velocityY;
     private internalRect;
     /**
      * @name constructor
@@ -34,6 +38,50 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     * @description z position setter
     */
     z: number;
+    /**
+     * @name dx
+     * @description direction X getter
+     * @return {number} dx - direction X
+     */
+    /**
+    * @name dx
+    * @description direction X setter
+    * @param {number} value - direction X
+    */
+    dx: number;
+    /**
+     * @name dy
+     * @description direction Y getter
+     * @return {number} dy - direction Y
+     */
+    /**
+    * @name dy
+    * @description direction Y setter
+    * @param {number} value - direction Y
+    */
+    dy: number;
+    /**
+     * @name vx
+     * @description velocity X getter
+     * @return {number} vx - velocity X
+     */
+    /**
+    * @name vx
+    * @description velocity X setter
+    * @param {number} value - velocity X
+    */
+    vx: number;
+    /**
+     * @name vy
+     * @description velocity Y getter
+     * @return {number} vy - velocity Y
+     */
+    /**
+    * @name vy
+    * @description velocity Y setter
+    * @param {number} value - velocity Y
+    */
+    vy: number;
     /**
      * @name get attribs
      * @description get attributes

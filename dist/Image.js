@@ -42,6 +42,10 @@ var Image = /** @class */ (function (_super) {
         _this.id = (new Utils_1.Utils).createID();
         _this.collisionDetection = false;
         _this.zOrder = 0;
+        _this.directionX = 0;
+        _this.directionY = 0;
+        _this.velocityX = 0;
+        _this.velocityY = 0;
         _this.anim = _this;
         _this.scene = scene;
         scene.stage.addChild(_this);
@@ -66,6 +70,86 @@ var Image = /** @class */ (function (_super) {
          */
         set: function (z) {
             this.zOrder = z;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "dx", {
+        /**
+         * @name dx
+         * @description direction X getter
+         * @return {number} dx - direction X
+         */
+        get: function () {
+            return this.directionX;
+        },
+        /**
+         * @name dx
+         * @description direction X setter
+         * @param {number} value - direction X
+         */
+        set: function (value) {
+            this.directionX = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "dy", {
+        /**
+         * @name dy
+         * @description direction Y getter
+         * @return {number} dy - direction Y
+         */
+        get: function () {
+            return this.directionY;
+        },
+        /**
+         * @name dy
+         * @description direction Y setter
+         * @param {number} value - direction Y
+         */
+        set: function (value) {
+            this.directionY = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "vx", {
+        /**
+         * @name vx
+         * @description velocity X getter
+         * @return {number} vx - velocity X
+         */
+        get: function () {
+            return this.velocityX;
+        },
+        /**
+         * @name vx
+         * @description velocity X setter
+         * @param {number} value - velocity X
+         */
+        set: function (value) {
+            this.velocityX = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "vy", {
+        /**
+         * @name vy
+         * @description velocity Y getter
+         * @return {number} vy - velocity Y
+         */
+        get: function () {
+            return this.velocityY;
+        },
+        /**
+         * @name vy
+         * @description velocity Y setter
+         * @param {number} value - velocity Y
+         */
+        set: function (value) {
+            this.velocityY = value;
         },
         enumerable: true,
         configurable: true
@@ -122,6 +206,8 @@ var Image = /** @class */ (function (_super) {
      * @return {void}
      */
     Image.prototype.update = function (deltaTime) {
+        this.x += this.dx * (this.vx || 1) * deltaTime;
+        this.y += this.dy * (this.vy || 1) * deltaTime;
     };
     /**
      * @name destroy
