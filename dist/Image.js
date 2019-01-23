@@ -41,11 +41,11 @@ var Image = /** @class */ (function (_super) {
         var _this = _super.call(this, resources.textures[name]) || this;
         _this.id = (new Utils_1.Utils).createID();
         _this.collisionDetection = false;
-        _this.zOrder = 0;
-        _this.directionX = 0;
-        _this.directionY = 0;
-        _this.velocityX = 0;
-        _this.velocityY = 0;
+        _this._z = 0;
+        _this._dx = 0;
+        _this._dy = 0;
+        _this._vx = 0;
+        _this._vy = 0;
         _this.anim = _this;
         _this.scene = scene;
         scene.stage.addChild(_this);
@@ -55,6 +55,44 @@ var Image = /** @class */ (function (_super) {
         _this.cacheAsBitmap = true;
         return _this;
     }
+    Object.defineProperty(Image.prototype, "x", {
+        /**
+         * @name x
+         * @description x position getter
+         * @return {number} x position
+         */
+        get: function () {
+            return this.anim.x;
+        },
+        /**
+         * @name x
+         * @description x position setter
+         */
+        set: function (x) {
+            this.anim.x = x;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "y", {
+        /**
+         * @name y
+         * @description y position getter
+         * @return {number} y position
+         */
+        get: function () {
+            return this.anim.y;
+        },
+        /**
+         * @name y
+         * @description y position setter
+         */
+        set: function (y) {
+            this.anim.y = y;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Image.prototype, "z", {
         /**
          * @name z
@@ -62,14 +100,14 @@ var Image = /** @class */ (function (_super) {
          * @return {number} z position
          */
         get: function () {
-            return this.zOrder;
+            return this._z;
         },
         /**
          * @name z
          * @description z position setter
          */
         set: function (z) {
-            this.zOrder = z;
+            this._z = z;
         },
         enumerable: true,
         configurable: true
@@ -81,7 +119,7 @@ var Image = /** @class */ (function (_super) {
          * @return {number} dx - direction X
          */
         get: function () {
-            return this.directionX;
+            return this._dx;
         },
         /**
          * @name dx
@@ -89,7 +127,7 @@ var Image = /** @class */ (function (_super) {
          * @param {number} value - direction X
          */
         set: function (value) {
-            this.directionX = value;
+            this._dx = value;
         },
         enumerable: true,
         configurable: true
@@ -101,7 +139,7 @@ var Image = /** @class */ (function (_super) {
          * @return {number} dy - direction Y
          */
         get: function () {
-            return this.directionY;
+            return this._dy;
         },
         /**
          * @name dy
@@ -109,7 +147,7 @@ var Image = /** @class */ (function (_super) {
          * @param {number} value - direction Y
          */
         set: function (value) {
-            this.directionY = value;
+            this._dy = value;
         },
         enumerable: true,
         configurable: true
@@ -121,7 +159,7 @@ var Image = /** @class */ (function (_super) {
          * @return {number} vx - velocity X
          */
         get: function () {
-            return this.velocityX;
+            return this._vx;
         },
         /**
          * @name vx
@@ -129,7 +167,7 @@ var Image = /** @class */ (function (_super) {
          * @param {number} value - velocity X
          */
         set: function (value) {
-            this.velocityX = value;
+            this._vx = value;
         },
         enumerable: true,
         configurable: true
@@ -141,7 +179,7 @@ var Image = /** @class */ (function (_super) {
          * @return {number} vy - velocity Y
          */
         get: function () {
-            return this.velocityY;
+            return this._vy;
         },
         /**
          * @name vy
@@ -149,7 +187,114 @@ var Image = /** @class */ (function (_super) {
          * @param {number} value - velocity Y
          */
         set: function (value) {
-            this.velocityY = value;
+            this._vy = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "visible", {
+        /**
+         * @name visible
+         * @description get visibility
+         * @return {boolean} true if visible
+         */
+        get: function () {
+            return this.anim.visible;
+        },
+        /**
+         * @name visible
+         * @description set visibility
+         */
+        set: function (value) {
+            this.anim.visible = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "width", {
+        /**
+         * @name width
+         * @description get the anim width
+         * @return {number} anim width
+         */
+        get: function () {
+            return this.anim.width;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "height", {
+        /**
+         * @name height
+         * @description get the anim height
+         * @return {number} anim height
+         */
+        get: function () {
+            return this.anim.height;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @name setAnchor
+     * @description set the anchor.x and .y value
+     */
+    Image.prototype.setAnchor = function (value) {
+        this.anim.anchor.set(value);
+    };
+    Object.defineProperty(Image.prototype, "rotation", {
+        /**
+         * @name rotation
+         * @description rotation getter
+         * @return {number} rotation position
+         */
+        get: function () {
+            return this.anim.rotation;
+        },
+        /**
+         * @name rotation
+         * @description rotation setter
+         */
+        set: function (value) {
+            this.anim.rotation = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "sx", {
+        /**
+         * @name sx
+         * @description get anim scale x
+         * @return {number} scale x
+         */
+        get: function () {
+            return this.anim.sx;
+        },
+        /**
+         * @name sx
+         * @description set anim scale x
+         */
+        set: function (value) {
+            this.anim.sx = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Image.prototype, "sy", {
+        /**
+         * @name sy
+         * @description get anim scale y
+         * @return {number} scale y
+         */
+        get: function () {
+            return this.anim.sy;
+        },
+        /**
+         * @name sy
+         * @description set anim scale y
+         */
+        set: function (value) {
+            this.anim.sy = value;
         },
         enumerable: true,
         configurable: true

@@ -12,13 +12,13 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     id: string;
     attributes: Attribs;
     collisionDetection: boolean;
-    anim: Image | undefined;
+    anim: Image;
     protected scene: Scene;
-    private zOrder;
-    private directionX;
-    private directionY;
-    private velocityX;
-    private velocityY;
+    private _z;
+    private _dx;
+    private _dy;
+    private _vx;
+    private _vy;
     private internalRect;
     /**
      * @name constructor
@@ -28,6 +28,26 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
      * @param {object} resources - loaded resources
      */
     constructor(scene: Scene, name: string, resources: any);
+    /**
+     * @name x
+     * @description x position getter
+     * @return {number} x position
+     */
+    /**
+    * @name x
+    * @description x position setter
+    */
+    x: number;
+    /**
+     * @name y
+     * @description y position getter
+     * @return {number} y position
+     */
+    /**
+    * @name y
+    * @description y position setter
+    */
+    y: number;
     /**
      * @name z
      * @description z position getter
@@ -82,6 +102,63 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
     * @param {number} value - velocity Y
     */
     vy: number;
+    /**
+     * @name visible
+     * @description get visibility
+     * @return {boolean} true if visible
+     */
+    /**
+    * @name visible
+    * @description set visibility
+    */
+    visible: boolean;
+    /**
+     * @name width
+     * @description get the anim width
+     * @return {number} anim width
+     */
+    readonly width: number;
+    /**
+     * @name height
+     * @description get the anim height
+     * @return {number} anim height
+     */
+    readonly height: number;
+    /**
+     * @name setAnchor
+     * @description set the anchor.x and .y value
+     */
+    setAnchor(value: number): void;
+    /**
+     * @name rotation
+     * @description rotation getter
+     * @return {number} rotation position
+     */
+    /**
+    * @name rotation
+    * @description rotation setter
+    */
+    rotation: number;
+    /**
+     * @name sx
+     * @description get anim scale x
+     * @return {number} scale x
+     */
+    /**
+    * @name sx
+    * @description set anim scale x
+    */
+    sx: number;
+    /**
+     * @name sy
+     * @description get anim scale y
+     * @return {number} scale y
+     */
+    /**
+    * @name sy
+    * @description set anim scale y
+    */
+    sy: number;
     /**
      * @name get attribs
      * @description get attributes

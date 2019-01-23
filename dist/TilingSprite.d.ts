@@ -13,7 +13,6 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite {
     anim: Anim;
     private _attribs;
     private _z;
-    private _internalAnchor;
     private _dx;
     private _dy;
     private _vx;

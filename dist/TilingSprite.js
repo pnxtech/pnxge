@@ -36,7 +36,6 @@ var TilingSprite = /** @class */ (function (_super) {
         _this.id = (new Utils_1.Utils()).createID();
         _this.collisionDetection = false;
         _this._z = 0;
-        _this._internalAnchor = .5;
         _this._dx = 0;
         _this._dy = 0;
         _this._vx = 0;
