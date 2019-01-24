@@ -65,7 +65,11 @@ var AssetManager = /** @class */ (function () {
      * @return {void}
      */
     AssetManager.prototype.populateScene = function (scene, sceneName, postPopulateHandler) {
-        scene.attachTexts(this.gameConfig.texts);
+        if (this.gameConfig.texts) {
+            scene.setState({
+                texts: this.gameConfig.texts
+            });
+        }
         var sceneData = this.gameConfig.scenes[sceneName];
         var objectList = sceneData.objects;
         for (var _i = 0, _a = objectList; _i < _a.length; _i++) {
@@ -74,8 +78,13 @@ var AssetManager = /** @class */ (function () {
                 obj = this.utils.mergeObjects(this.gameConfig.refs[obj.extends], obj);
             }
             switch (obj.type) {
+                case 'data':
+                    scene.setState(obj.data);
+                    break;
                 case 'actions':
-                    scene.attachActions(obj.actions);
+                    scene.setState({
+                        actions: obj.actions
+                    });
                     break;
                 case 'sounds':
                     if (!this.soundManager) {

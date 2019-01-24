@@ -65,7 +65,11 @@ export class AssetManager {
    * @return {void}
    */
   populateScene(scene: Scene, sceneName: string, postPopulateHandler: ICallback): void {
-    scene.attachTexts(this.gameConfig.texts);
+    if (this.gameConfig.texts) {
+      scene.setState({
+        texts: this.gameConfig.texts
+      });
+    }
     let sceneData = this.gameConfig.scenes[sceneName];
     let objectList = sceneData.objects;
     for (let obj of <any>objectList) {
@@ -73,8 +77,13 @@ export class AssetManager {
         obj = this.utils.mergeObjects(this.gameConfig.refs[obj.extends], obj);
       }
       switch (obj.type) {
+        case 'data':
+          scene.setState(obj.data);
+          break;
         case 'actions':
-          scene.attachActions(obj.actions);
+          scene.setState({
+            actions: obj.actions
+          })
           break;
         case 'sounds':
           if (!this.soundManager) {

@@ -14,6 +14,7 @@ export * from './ProjectileManager';
 export * from './Recorder';
 export * from './Scene';
 export * from './SoundManager';
+export * from './State';
 export * from './TextSprite';
 export * from './TilingSprite';
 export * from './Utils';

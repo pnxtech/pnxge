@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Math_1 = require("./Math");
 var Benchmark_1 = require("./Benchmark");
-;
+var State_1 = require("./State");
 ;
 ;
 ;
@@ -19,11 +19,10 @@ var Scene = /** @class */ (function () {
     function Scene(app) {
         this.benchmark = new Benchmark_1.Benchmark();
         this.internalTick = 0;
-        this.texts = {};
-        this.actionList = {};
         this.sceneStarted = false;
         this.benchmarkUpdate = false;
         this.app = app;
+        this._state = new State_1.State();
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;
         this.stage = app.stage;
@@ -53,23 +52,35 @@ var Scene = /** @class */ (function () {
     Scene.prototype.attachSoundManager = function (soundManager) {
         this.soundManager = soundManager;
     };
+    Object.defineProperty(Scene.prototype, "state", {
+        /**
+         * @name state
+         * @description state getter
+         * @return {object}
+         */
+        get: function () {
+            return this._state.state;
+        },
+        /**
+         * @name state
+         * @description state setter
+         * @param {any} data - object to be merged with state
+         */
+        set: function (data) {
+            this._state.state = data;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
-     * @name attachTexts
-     * @description attach asset texts data
-     * @param {ITextsHash} texts - texts object
-     * @return {void}
+     * @name setState
+     * @description merges object entries in to application state
+     * @param {object} data - object to be merged with state
+     * @return {object} new application state
      */
-    Scene.prototype.attachTexts = function (texts) {
-        this.texts = texts;
-    };
-    /**
-     * @name attachActions
-     * @description attach actions
-     * @param {IRecorderHash} actionList - output from PNXRecorder
-     * @return {void}
-     */
-    Scene.prototype.attachActions = function (actionList) {
-        this.actionList = actionList;
+    Scene.prototype.setState = function (data) {
+        this._state.setState(data);
+        return this._state.state;
     };
     /**
      * @name getSoundManager
@@ -203,13 +214,15 @@ var Scene = /** @class */ (function () {
         var _this = this;
         this.benchmarkUpdate && this.benchmark.begin();
         this.internalTick++;
-        switch (this.actionList[this.internalTick]) {
-            case 'left':
-                this.moveLeft();
-                break;
-            case 'right':
-                this.moveRight();
-                break;
+        if (this._state.state.actionList) {
+            switch (this._state.state.actionList[this.internalTick]) {
+                case 'left':
+                    this.moveLeft();
+                    break;
+                case 'right':
+                    this.moveRight();
+                    break;
+            }
         }
         if (!this.sceneStarted) {
             return;

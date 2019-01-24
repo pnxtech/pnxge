@@ -5,7 +5,6 @@ import { Image } from './Image';
 import { ProjectileManager } from './ProjectileManager';
 import { SoundManager } from './SoundManager';
 import { TextSprite } from './TextSprite';
-import { IRecorderHash } from './Recorder';
 import { Benchmark } from './Benchmark';
 interface IAnimHash {
     [key: string]: Anim | Image | TextSprite;
@@ -16,15 +15,13 @@ interface IAnimCallback {
 interface IAnimDoneCallback {
     (): void;
 }
-interface ITextsHash {
-    [key: string]: string[];
-}
 /**
  * @name Scene
  * @description Phoenix Game Engine Scene class
  */
 export declare class Scene {
     app: Application;
+    private _state;
     protected sceneWidth: number;
     protected sceneHeight: number;
     protected benchmark: Benchmark;
@@ -33,8 +30,6 @@ export declare class Scene {
     protected internalTick: number;
     protected projectileManager: ProjectileManager | undefined;
     protected soundManager: SoundManager | undefined;
-    protected texts: ITextsHash;
-    protected actionList: IRecorderHash;
     private sceneStarted;
     private benchmarkUpdate;
     /**
@@ -62,19 +57,23 @@ export declare class Scene {
      */
     attachSoundManager(soundManager: SoundManager): void;
     /**
-     * @name attachTexts
-     * @description attach asset texts data
-     * @param {ITextsHash} texts - texts object
-     * @return {void}
+     * @name state
+     * @description state getter
+     * @return {object}
      */
-    attachTexts(texts: ITextsHash): void;
     /**
-     * @name attachActions
-     * @description attach actions
-     * @param {IRecorderHash} actionList - output from PNXRecorder
-     * @return {void}
+    * @name state
+    * @description state setter
+    * @param {any} data - object to be merged with state
+    */
+    state: any;
+    /**
+     * @name setState
+     * @description merges object entries in to application state
+     * @param {object} data - object to be merged with state
+     * @return {object} new application state
      */
-    attachActions(actionList: IRecorderHash): void;
+    setState(data: any): any;
     /**
      * @name getSoundManager
      * @description retrieve a sound manager instance or undefined

@@ -23,6 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
 var EventManager_1 = require("./EventManager");
 var Utils_1 = require("./Utils");
+var State_1 = require("./State");
 PIXI.utils.skipHello();
 /**
  * @name Application
@@ -52,7 +53,7 @@ var Application = /** @class */ (function (_super) {
         _this._debug = false;
         _this.frames = 0;
         _this.FPS = 0;
-        _this.appState = {};
+        _this._state = new State_1.State();
         _this.utils = new Utils_1.Utils();
         _this.WebGL = PIXI.utils.isWebGLSupported();
         document.body.appendChild(_this.view);
@@ -114,7 +115,7 @@ var Application = /** @class */ (function (_super) {
          * @return {object}
          */
         get: function () {
-            return this.appState;
+            return this._state.state;
         },
         /**
          * @name state
@@ -122,7 +123,7 @@ var Application = /** @class */ (function (_super) {
          * @param {any} data - object to be merged with state
          */
         set: function (data) {
-            this.appState = data;
+            this._state.state = data;
         },
         enumerable: true,
         configurable: true
@@ -134,9 +135,8 @@ var Application = /** @class */ (function (_super) {
      * @return {object} new application state
      */
     Application.prototype.setState = function (data) {
-        var newState = this.utils.mergeObjects(this.appState, data);
-        this.appState = newState;
-        return this.appState;
+        this._state.setState(data);
+        return this._state.state;
     };
     Object.defineProperty(Application.prototype, "usingWebGL", {
         /**

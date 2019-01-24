@@ -9,12 +9,11 @@ import {TextSprite} from './TextSprite';
 import {IRecorderHash} from './Recorder';
 import {pcap} from './Math';
 import {Benchmark} from './Benchmark';
+import {State} from './State';
 
 interface IAnimHash { [key: string]: Anim | Image | TextSprite};
 interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
 interface IAnimDoneCallback { (): void };
-
-interface ITextsHash { [key: string]: string[]};
 
 /**
  * @name Scene
@@ -22,6 +21,7 @@ interface ITextsHash { [key: string]: string[]};
  */
 export class Scene {
   public app: Application;
+  private _state: State;
   protected sceneWidth: number;
   protected sceneHeight: number;
   protected benchmark: Benchmark = new Benchmark();
@@ -30,8 +30,6 @@ export class Scene {
   protected internalTick: number = 0;
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
-  protected texts: ITextsHash = {};
-  protected actionList: IRecorderHash = {};
   private sceneStarted: boolean = false;
   private benchmarkUpdate: boolean = false;
 
@@ -42,6 +40,7 @@ export class Scene {
    */
   constructor(app: Application) {
     this.app = app;
+    this._state = new State();
     this.sceneWidth = app.width;
     this.sceneHeight = app.height;
     this.stage = app.stage;
@@ -76,23 +75,32 @@ export class Scene {
   }
 
   /**
-   * @name attachTexts
-   * @description attach asset texts data
-   * @param {ITextsHash} texts - texts object
-   * @return {void}
+   * @name state
+   * @description state getter
+   * @return {object}
    */
-  attachTexts(texts: ITextsHash): void {
-    this.texts = texts;
+  get state(): any {
+    return this._state.state;
   }
 
   /**
-   * @name attachActions
-   * @description attach actions
-   * @param {IRecorderHash} actionList - output from PNXRecorder
-   * @return {void}
+   * @name state
+   * @description state setter
+   * @param {any} data - object to be merged with state
    */
-  attachActions(actionList: IRecorderHash): void {
-    this.actionList = actionList;
+  set state(data: any) {
+    this._state.state = data;
+  }
+
+  /**
+   * @name setState
+   * @description merges object entries in to application state
+   * @param {object} data - object to be merged with state
+   * @return {object} new application state
+   */
+  setState(data: any): any {
+    this._state.setState(data);
+    return this._state.state;
   }
 
   /**
@@ -226,13 +234,15 @@ export class Scene {
   update(deltaTime: number): void {
     this.benchmarkUpdate && this.benchmark.begin();
     this.internalTick++;
-    switch (this.actionList[this.internalTick]) {
-      case 'left':
-        this.moveLeft();
-        break;
-      case 'right':
-        this.moveRight();
-        break;
+    if (this._state.state.actionList) {
+      switch (this._state.state.actionList[this.internalTick]) {
+        case 'left':
+          this.moveLeft();
+          break;
+        case 'right':
+          this.moveRight();
+          break;
+      }
     }
     if (!this.sceneStarted) {
       return;

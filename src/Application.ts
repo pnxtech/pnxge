@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import {EventManager} from './EventManager';
 import {Utils} from './Utils';
+import {State} from './State';
 
 PIXI.utils.skipHello();
 
@@ -18,7 +19,7 @@ export class Application extends PIXI.Application {
   private FPS: number = 0;
   private WebGL: boolean;
   private utils: Utils;
-  private appState: {} = {};
+  private _state: State;
 
   /**
    * @name constructor
@@ -35,6 +36,7 @@ export class Application extends PIXI.Application {
       forceFXAA: false,
       antialias: false
     });
+    this._state = new State();
     this.utils = new Utils();
     this.WebGL = PIXI.utils.isWebGLSupported();
     document.body.appendChild(this.view);
@@ -91,7 +93,7 @@ export class Application extends PIXI.Application {
    * @return {object}
    */
   get state(): any {
-    return this.appState;
+    return this._state.state;
   }
 
   /**
@@ -100,7 +102,7 @@ export class Application extends PIXI.Application {
    * @param {any} data - object to be merged with state
    */
   set state(data: any) {
-    this.appState = data;
+    this._state.state = data;
   }
 
   /**
@@ -110,9 +112,8 @@ export class Application extends PIXI.Application {
    * @return {object} new application state
    */
   setState(data: any): any {
-    let newState = this.utils.mergeObjects(this.appState, data);
-    this.appState = newState;
-    return this.appState;
+    this._state.setState(data);
+    return this._state.state;
   }
 
   /**
