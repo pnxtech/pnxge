@@ -44,40 +44,6 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
   }
 
   /**
-   * @name x
-   * @description x position getter
-   * @return {number} x position
-   */
-  get x(): number {
-    return this.anim.x;
-  }
-
-  /**
-   * @name x
-   * @description x position setter
-   */
-  set x(x: number) {
-    this.anim.x = x;
-  }
-
-  /**
-   * @name y
-   * @description y position getter
-   * @return {number} y position
-   */
-  get y(): number {
-    return this.anim.y;
-  }
-
-  /**
-   * @name y
-   * @description y position setter
-   */
-  set y(y: number) {
-    this.anim.y = y;
-  }
-
-  /**
    * @name z
    * @description z position getter
    * @return {number} z position

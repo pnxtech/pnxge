@@ -29,26 +29,6 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
      */
     constructor(scene: Scene, name: string, resources: any);
     /**
-     * @name x
-     * @description x position getter
-     * @return {number} x position
-     */
-    /**
-    * @name x
-    * @description x position setter
-    */
-    x: number;
-    /**
-     * @name y
-     * @description y position getter
-     * @return {number} y position
-     */
-    /**
-    * @name y
-    * @description y position setter
-    */
-    y: number;
-    /**
      * @name z
      * @description z position getter
      * @return {number} z position

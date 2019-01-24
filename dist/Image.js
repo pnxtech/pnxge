@@ -55,44 +55,6 @@ var Image = /** @class */ (function (_super) {
         _this.cacheAsBitmap = true;
         return _this;
     }
-    Object.defineProperty(Image.prototype, "x", {
-        /**
-         * @name x
-         * @description x position getter
-         * @return {number} x position
-         */
-        get: function () {
-            return this.anim.x;
-        },
-        /**
-         * @name x
-         * @description x position setter
-         */
-        set: function (x) {
-            this.anim.x = x;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Image.prototype, "y", {
-        /**
-         * @name y
-         * @description y position getter
-         * @return {number} y position
-         */
-        get: function () {
-            return this.anim.y;
-        },
-        /**
-         * @name y
-         * @description y position setter
-         */
-        set: function (y) {
-            this.anim.y = y;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(Image.prototype, "z", {
         /**
          * @name z
