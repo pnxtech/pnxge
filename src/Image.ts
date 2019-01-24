@@ -36,7 +36,6 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
     super(resources.textures[name]);
     this.anim = this;
     this.scene = scene;
-    // scene.stage.addChild(this);
     this.internalRect = new Rect(this.x, this.y, this.width, this.height);
     this.attributes = new Attribs();
     this.attributes.add('image');
@@ -133,99 +132,11 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
   }
 
   /**
-   * @name visible
-   * @description get visibility
-   * @return {boolean} true if visible
-   */
-  get visible(): boolean {
-    return this.anim.visible;
-  }
-
-  /**
-   * @name visible
-   * @description set visibility
-   */
-  set visible(value: boolean) {
-    if (this.anim) {
-      this.anim.visible = value;
-    }
-  }
-
-  /**
-   * @name width
-   * @description get the anim width
-   * @return {number} anim width
-   */
-  get width(): number {
-    return this.anim.width;
-  }
-
-  /**
-   * @name height
-   * @description get the anim height
-   * @return {number} anim height
-   */
-  get height(): number {
-    return this.anim.height;
-  }
-
-  /**
    * @name setAnchor
    * @description set the anchor.x and .y value
    */
   setAnchor(value: number): void {
     this.anim.anchor.set(value);
-  }
-
-  /**
-   * @name rotation
-   * @description rotation getter
-   * @return {number} rotation position
-   */
-  get rotation(): number {
-    return this.anim.rotation;
-  }
-
-  /**
-   * @name rotation
-   * @description rotation setter
-   */
-  set rotation(value: number) {
-    this.anim.rotation = value;
-  }
-
-  /**
-   * @name sx
-   * @description get anim scale x
-   * @return {number} scale x
-   */
-  get sx(): number {
-    return this.anim.sx;
-  }
-
-  /**
-   * @name sy
-   * @description get anim scale y
-   * @return {number} scale y
-   */
-  get sy(): number {
-    return this.anim.sy;
-  }
-
-  /**
-   * @name sx
-   * @description set anim scale x
-   */
-  set sx(value: number) {
-    this.anim.sx = value;
-  }
-
-  /**
-   * @name sy
-   * @description set anim scale y
-   */
-  set sy(value: number) {
-    this.anim.sy = value;
   }
 
   /**
@@ -283,6 +194,5 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description cleanup
    */
   destroy() {
-    // this.scene.stage.removeChild(this);
   }
 }

@@ -48,7 +48,6 @@ var Image = /** @class */ (function (_super) {
         _this._vy = 0;
         _this.anim = _this;
         _this.scene = scene;
-        // scene.stage.addChild(this);
         _this.internalRect = new Math_1.Rect(_this.x, _this.y, _this.width, _this.height);
         _this.attributes = new Attribs_1.Attribs();
         _this.attributes.add('image');
@@ -154,51 +153,6 @@ var Image = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Image.prototype, "visible", {
-        /**
-         * @name visible
-         * @description get visibility
-         * @return {boolean} true if visible
-         */
-        get: function () {
-            return this.anim.visible;
-        },
-        /**
-         * @name visible
-         * @description set visibility
-         */
-        set: function (value) {
-            if (this.anim) {
-                this.anim.visible = value;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Image.prototype, "width", {
-        /**
-         * @name width
-         * @description get the anim width
-         * @return {number} anim width
-         */
-        get: function () {
-            return this.anim.width;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Image.prototype, "height", {
-        /**
-         * @name height
-         * @description get the anim height
-         * @return {number} anim height
-         */
-        get: function () {
-            return this.anim.height;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @name setAnchor
      * @description set the anchor.x and .y value
@@ -206,63 +160,6 @@ var Image = /** @class */ (function (_super) {
     Image.prototype.setAnchor = function (value) {
         this.anim.anchor.set(value);
     };
-    Object.defineProperty(Image.prototype, "rotation", {
-        /**
-         * @name rotation
-         * @description rotation getter
-         * @return {number} rotation position
-         */
-        get: function () {
-            return this.anim.rotation;
-        },
-        /**
-         * @name rotation
-         * @description rotation setter
-         */
-        set: function (value) {
-            this.anim.rotation = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Image.prototype, "sx", {
-        /**
-         * @name sx
-         * @description get anim scale x
-         * @return {number} scale x
-         */
-        get: function () {
-            return this.anim.sx;
-        },
-        /**
-         * @name sx
-         * @description set anim scale x
-         */
-        set: function (value) {
-            this.anim.sx = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Image.prototype, "sy", {
-        /**
-         * @name sy
-         * @description get anim scale y
-         * @return {number} scale y
-         */
-        get: function () {
-            return this.anim.sy;
-        },
-        /**
-         * @name sy
-         * @description set anim scale y
-         */
-        set: function (value) {
-            this.anim.sy = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(Image.prototype, "attribs", {
         /**
          * @name get attribs
@@ -323,7 +220,6 @@ var Image = /** @class */ (function (_super) {
      * @description cleanup
      */
     Image.prototype.destroy = function () {
-        // this.scene.stage.removeChild(this);
     };
     return Image;
 }(PIXI.Sprite));
