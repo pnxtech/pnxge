@@ -79,7 +79,8 @@ var AssetManager = /** @class */ (function () {
             }
             switch (obj.type) {
                 case 'data':
-                    scene.setState(obj.data);
+                    delete obj.type;
+                    scene.setState(obj);
                     break;
                 case 'actions':
                     scene.setState({
