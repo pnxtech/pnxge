@@ -36,7 +36,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
     super(resources.textures[name]);
     this.anim = this;
     this.scene = scene;
-    scene.stage.addChild(this);
+    // scene.stage.addChild(this);
     this.internalRect = new Rect(this.x, this.y, this.width, this.height);
     this.attributes = new Attribs();
     this.attributes.add('image');
@@ -315,6 +315,6 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description cleanup
    */
   destroy() {
-    this.scene.stage.removeChild(this);
+    // this.scene.stage.removeChild(this);
   }
 }
