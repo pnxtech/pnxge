@@ -48,6 +48,7 @@ var Image = /** @class */ (function (_super) {
         _this._vy = 0;
         _this.anim = _this;
         _this.scene = scene;
+        scene.stage.addChild(_this);
         _this.internalRect = new Math_1.Rect(_this.x, _this.y, _this.width, _this.height);
         _this.attributes = new Attribs_1.Attribs();
         _this.attributes.add('image');
@@ -220,6 +221,7 @@ var Image = /** @class */ (function (_super) {
      * @description cleanup
      */
     Image.prototype.destroy = function () {
+        this.scene.stage.removeChild(this);
     };
     return Image;
 }(PIXI.Sprite));
