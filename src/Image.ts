@@ -180,7 +180,9 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description set visibility
    */
   set visible(value: boolean) {
-    this.anim.visible = value;
+    if (this.anim) {
+      this.anim.visible = value;
+    }
   }
 
   /**

@@ -206,7 +206,9 @@ var Image = /** @class */ (function (_super) {
          * @description set visibility
          */
         set: function (value) {
-            this.anim.visible = value;
+            if (this.anim) {
+                this.anim.visible = value;
+            }
         },
         enumerable: true,
         configurable: true
