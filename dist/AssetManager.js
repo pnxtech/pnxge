@@ -35,6 +35,9 @@ var AssetManager = /** @class */ (function () {
         this.loader.add(filename);
         this.loader.load(function (_loader, resources) {
             _this.gameConfig = resources[filename].data;
+            if (_this.gameConfig._dist) {
+                _this.gameConfig = _this.unpack(_this.gameConfig);
+            }
             for (var _i = 0, _a = _this.gameConfig.assets; _i < _a.length; _i++) {
                 var asset = _a[_i];
                 _this.loader.add(asset);
@@ -44,6 +47,27 @@ var AssetManager = /** @class */ (function () {
                 initComplete(_this.resources);
             });
         });
+    };
+    /**
+     * @name unpack
+     * @description uncompresses stringified JSON that was compressed with the compress method.
+     * @note see https://github.com/cjus/simple-json-pack#readme
+     * @param {any} data - JS object
+     * @return {any} uncompressed JS object
+     */
+    AssetManager.prototype.unpack = function (data) {
+        var strData = '';
+        if (data._dict) {
+            var _dict_1 = this.utils.mergeObjects({}, data._dict);
+            delete data._dict;
+            strData = JSON.stringify(data);
+            Object.keys(_dict_1).forEach(function (key) {
+                var searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                var replacePattern = _dict_1[key];
+                strData = strData.replace(new RegExp("\"" + searchPattern + "\"", 'g'), "\"" + replacePattern + "\"");
+            });
+        }
+        return (strData.length) ? JSON.parse(strData) : data;
     };
     /**
      * @name getSoundEngine

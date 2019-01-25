@@ -20,6 +20,14 @@ export declare class AssetManager {
      */
     init(filename: string, initComplete: ICallback): void;
     /**
+     * @name unpack
+     * @description uncompresses stringified JSON that was compressed with the compress method.
+     * @note see https://github.com/cjus/simple-json-pack#readme
+     * @param {any} data - JS object
+     * @return {any} uncompressed JS object
+     */
+    unpack(data: any): any;
+    /**
      * @name getSoundEngine
      * @description get sound engine
      * @return {SoundManager | undefined}

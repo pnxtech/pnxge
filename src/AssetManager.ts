@@ -34,6 +34,9 @@ export class AssetManager {
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
+      if (this.gameConfig._dist) {
+        this.gameConfig = this.unpack(this.gameConfig);
+      }
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);
       }
@@ -42,6 +45,28 @@ export class AssetManager {
         initComplete(this.resources);
       });
     });
+  }
+
+  /**
+   * @name unpack
+   * @description uncompresses stringified JSON that was compressed with the compress method.
+   * @note see https://github.com/cjus/simple-json-pack#readme
+   * @param {any} data - JS object
+   * @return {any} uncompressed JS object
+   */
+  unpack(data: any): any {
+    let strData: string = '';
+    if (data._dict) {
+      let _dict: any = this.utils.mergeObjects({}, data._dict);
+      delete data._dict;
+      strData = JSON.stringify(data);
+      Object.keys(_dict).forEach((key) => {
+        let searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        let replacePattern = _dict[key];
+        strData = strData.replace(new RegExp(`"${searchPattern}"`, 'g'), `"${replacePattern}"`);
+      });
+    }
+    return (strData.length) ? JSON.parse(strData) : data;
   }
 
   /**
