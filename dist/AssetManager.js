@@ -43,13 +43,16 @@ var AssetManager = /** @class */ (function () {
                 var asset = _a[_i];
                 _this.loader.add(asset);
             }
+            _this.loader.pre(function (resource, next) {
+                next();
+            });
             _this.loader.load(function (_loader, resources) {
                 _this.resources = resources;
-                Object.keys(_this.resources).forEach(function (key) {
-                    if (key.indexOf('.json') > -1 && _this.resources[key].data._dict) {
-                        _this.resources[key].data = _this.unpack(_this.resources[key].data);
-                    }
-                });
+                // Object.keys(this.resources).forEach((key) => {
+                //   if (key.indexOf('.json') > -1 && this.resources[key].data._dict) {
+                //     this.resources[key].data = this.unpack(this.resources[key].data);
+                //   }
+                // });
                 initComplete(_this.resources);
             });
         });

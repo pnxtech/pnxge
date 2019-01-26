@@ -41,13 +41,17 @@ export class AssetManager {
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);
       }
+      this.loader.pre((resource: any, next: any) => {
+
+        next();
+      });
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         this.resources = resources;
-        Object.keys(this.resources).forEach((key) => {
-          if (key.indexOf('.json') > -1 && this.resources[key].data._dict) {
-            this.resources[key].data = this.unpack(this.resources[key].data);
-          }
-        });
+        // Object.keys(this.resources).forEach((key) => {
+        //   if (key.indexOf('.json') > -1 && this.resources[key].data._dict) {
+        //     this.resources[key].data = this.unpack(this.resources[key].data);
+        //   }
+        // });
         initComplete(this.resources);
       });
     });
