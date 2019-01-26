@@ -36,6 +36,7 @@ export class AssetManager {
       this.gameConfig = resources[filename].data;
       if (this.gameConfig._dict) {
         this.gameConfig = this.unpack(this.gameConfig);
+        resources[filename].data = this.gameConfig;
       }
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);

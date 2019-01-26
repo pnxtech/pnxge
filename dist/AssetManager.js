@@ -37,6 +37,7 @@ var AssetManager = /** @class */ (function () {
             _this.gameConfig = resources[filename].data;
             if (_this.gameConfig._dict) {
                 _this.gameConfig = _this.unpack(_this.gameConfig);
+                resources[filename].data = _this.gameConfig;
             }
             for (var _i = 0, _a = _this.gameConfig.assets; _i < _a.length; _i++) {
                 var asset = _a[_i];
