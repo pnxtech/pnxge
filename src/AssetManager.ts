@@ -31,6 +31,7 @@ export class AssetManager {
    * @description initialize loader
    */
   init(filename: string, initComplete: ICallback): void {
+    let requeue: string[] = [];
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
@@ -44,13 +45,23 @@ export class AssetManager {
       this.loader.use((resource: any, next: any) => {
         if (resource.extension === 'json' && resource.data._dict) {
           resource.data = this.unpack(resource.data);
-          this.loader.add(resource.name);
+          requeue.push(resource.name);
         }
         next();
       });
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
-        this.resources = resources;
-        initComplete(this.resources);
+        if (requeue.length > 0) {
+          requeue.forEach((name) => {
+            this.loader.add(name);
+          });
+          this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
+            this.resources = resources;
+            initComplete(this.resources);
+          });
+        } else {
+          this.resources = resources;
+          initComplete(this.resources);
+        }
       });
     });
   }

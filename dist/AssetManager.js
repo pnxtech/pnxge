@@ -32,6 +32,7 @@ var AssetManager = /** @class */ (function () {
      */
     AssetManager.prototype.init = function (filename, initComplete) {
         var _this = this;
+        var requeue = [];
         this.loader.add(filename);
         this.loader.load(function (_loader, resources) {
             _this.gameConfig = resources[filename].data;
@@ -46,13 +47,24 @@ var AssetManager = /** @class */ (function () {
             _this.loader.use(function (resource, next) {
                 if (resource.extension === 'json' && resource.data._dict) {
                     resource.data = _this.unpack(resource.data);
-                    _this.loader.add(resource.name);
+                    requeue.push(resource.name);
                 }
                 next();
             });
             _this.loader.load(function (_loader, resources) {
-                _this.resources = resources;
-                initComplete(_this.resources);
+                if (requeue.length > 0) {
+                    requeue.forEach(function (name) {
+                        _this.loader.add(name);
+                    });
+                    _this.loader.load(function (_loader, resources) {
+                        _this.resources = resources;
+                        initComplete(_this.resources);
+                    });
+                }
+                else {
+                    _this.resources = resources;
+                    initComplete(_this.resources);
+                }
             });
         });
     };
