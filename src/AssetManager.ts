@@ -41,7 +41,7 @@ export class AssetManager {
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);
       }
-      this.loader.pre((resource: any, next: any) => {
+      this.loader.use((resource: any, next: any) => {
 
         next();
       });
