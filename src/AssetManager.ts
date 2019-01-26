@@ -42,6 +42,11 @@ export class AssetManager {
       }
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         this.resources = resources;
+        Object.keys(this.resources).forEach((key) => {
+          if (key.indexOf('.json') > -1 && this.resources[key]._dict) {
+            this.resources[key].data = this.unpack(this.resources[key].data);
+          }
+        });
         initComplete(this.resources);
       });
     });

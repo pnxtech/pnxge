@@ -44,6 +44,11 @@ var AssetManager = /** @class */ (function () {
             }
             _this.loader.load(function (_loader, resources) {
                 _this.resources = resources;
+                Object.keys(_this.resources).forEach(function (key) {
+                    if (key.indexOf('.json') > -1 && _this.resources[key]._dict) {
+                        _this.resources[key].data = _this.unpack(_this.resources[key].data);
+                    }
+                });
                 initComplete(_this.resources);
             });
         });
