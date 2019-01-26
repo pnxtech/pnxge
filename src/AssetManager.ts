@@ -41,6 +41,9 @@ export class AssetManager {
       for (let asset of this.gameConfig.assets) {
         this.loader.add(asset);
       }
+      this.loader.pre((resource: any, next: any) => {
+        next();
+      });
       this.loader.use((resource: any, next: any) => {
         if (resource.extension === 'json' && resource.data._dict) {
           resource.data = this.unpack(resource.data);

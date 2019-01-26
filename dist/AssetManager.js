@@ -43,6 +43,9 @@ var AssetManager = /** @class */ (function () {
                 var asset = _a[_i];
                 _this.loader.add(asset);
             }
+            _this.loader.pre(function (resource, next) {
+                next();
+            });
             _this.loader.use(function (resource, next) {
                 if (resource.extension === 'json' && resource.data._dict) {
                     resource.data = _this.unpack(resource.data);
