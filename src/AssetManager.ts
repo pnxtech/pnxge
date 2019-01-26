@@ -34,7 +34,7 @@ export class AssetManager {
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
-      if (this.gameConfig._dist) {
+      if (this.gameConfig._dict) {
         this.gameConfig = this.unpack(this.gameConfig);
       }
       for (let asset of this.gameConfig.assets) {

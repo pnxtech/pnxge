@@ -35,7 +35,7 @@ var AssetManager = /** @class */ (function () {
         this.loader.add(filename);
         this.loader.load(function (_loader, resources) {
             _this.gameConfig = resources[filename].data;
-            if (_this.gameConfig._dist) {
+            if (_this.gameConfig._dict) {
                 _this.gameConfig = _this.unpack(_this.gameConfig);
             }
             for (var _i = 0, _a = _this.gameConfig.assets; _i < _a.length; _i++) {
