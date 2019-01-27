@@ -72,7 +72,7 @@ export class AssetManager {
       delete data._dict;
       strData = JSON.stringify(data);
       Object.keys(_dict).forEach((key) => {
-        this.utils.fastStringReplace(strData, key, _dict[key]);
+        strData = this.utils.fastStringReplace(strData, key, _dict[key]);
         // let searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         // let replacePattern = _dict[key];
         // strData = strData.replace(new RegExp(`"${searchPattern}"`, 'g'), `"${replacePattern}"`);

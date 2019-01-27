@@ -74,7 +74,7 @@ var AssetManager = /** @class */ (function () {
             delete data._dict;
             strData = JSON.stringify(data);
             Object.keys(_dict_1).forEach(function (key) {
-                _this.utils.fastStringReplace(strData, key, _dict_1[key]);
+                strData = _this.utils.fastStringReplace(strData, key, _dict_1[key]);
                 // let searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 // let replacePattern = _dict[key];
                 // strData = strData.replace(new RegExp(`"${searchPattern}"`, 'g'), `"${replacePattern}"`);
