@@ -182,6 +182,8 @@ var AssetManager = /** @class */ (function () {
                         if (obj.attribs) {
                             anim.attribs.add(obj.attribs);
                         }
+                        anim.health = obj.health;
+                        anim.strength = obj.strength;
                         anim.rotation = obj.rotation;
                         anim.collisionDetection = obj.collisionDetection;
                         anim.visible = obj.visible || true;
