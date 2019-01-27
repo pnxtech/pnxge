@@ -46,7 +46,6 @@ var AssetManager = /** @class */ (function () {
             _this.loader.use(function (resource, next) {
                 if (resource.extension === 'json' && resource.data._dict) {
                     resource.data = _this.unpack(resource.data);
-                    return;
                 }
                 next();
             });

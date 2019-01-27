@@ -44,14 +44,13 @@ export class AssetManager {
       this.loader.use((resource: any, next: any) => {
         if (resource.extension === 'json' && resource.data._dict) {
           resource.data = this.unpack(resource.data);
-          return;
         }
         next();
       });
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         this.resources = resources;
         initComplete(this.resources);
-    });
+      });
     });
   }
 
