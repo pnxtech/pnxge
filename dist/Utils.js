@@ -50,13 +50,7 @@ var Utils = /** @class */ (function () {
      * @return {string} transformed string
      */
     Utils.prototype.fastStringReplace = function (subject, search, replace) {
-        var index = -1, offset = 0;
-        var result = '';
-        while ((index = subject.indexOf(search, offset)) !== -1) {
-            result += subject.substring(offset, index) + replace;
-            offset = index + search.length;
-        }
-        return result + search.substring(offset);
+        return subject.split(search).join(replace);
     };
     return Utils;
 }());

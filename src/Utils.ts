@@ -49,12 +49,6 @@ export class Utils {
    * @return {string} transformed string
    */
   fastStringReplace(subject: string, search: string, replace: string): string {
-    let index = -1, offset = 0;
-    let result = '';
-    while ((index = subject.indexOf(search, offset)) !== -1) {
-      result += subject.substring(offset, index) + replace;
-      offset = index + search.length;
-    }
-    return result + search.substring(offset);
+    return subject.split(search).join(replace);
   }
 }
