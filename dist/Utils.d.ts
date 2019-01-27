@@ -22,14 +22,5 @@ export declare class Utils {
      * @return {object} returns merged object
      */
     mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object;
-    /**
-     * @name fastStringReplace
-     * @description fast string replace
-     * @param {string} subject - string to be sub/searched and replaced
-     * @param {string} search - string to search for
-     * @param {string} replace - string to replace with
-     * @return {string} transformed string
-     */
-    fastStringReplace(subject: string, search: string, replace: string): string;
 }
 //# sourceMappingURL=Utils.d.ts.map

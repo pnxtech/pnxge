@@ -6,7 +6,6 @@ import {BackgroundTile} from './BackgroundTile';
 import {TextSprite} from './TextSprite';
 import {SoundManager} from './SoundManager';
 import {Utils} from './Utils';
-import {Benchmark} from './Benchmark';
 
 interface ICallback { (resources: {}): void };
 
@@ -32,8 +31,6 @@ export class AssetManager {
    * @description initialize loader
    */
   init(filename: string, initComplete: ICallback): void {
-    let benchmark = new Benchmark();
-    benchmark.begin();
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
@@ -52,7 +49,6 @@ export class AssetManager {
       });
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         this.resources = resources;
-        console.log(`Assets loaded in ${benchmark.elapsed()} ms`);
         initComplete(this.resources);
       });
     });
@@ -61,7 +57,8 @@ export class AssetManager {
   /**
    * @name unpack
    * @description uncompresses stringified JSON that was compressed with the compress method.
-   * @note see https://github.com/cjus/simple-json-pack#readme
+   * @note see https://github.com/cjus/simple-json-pack#readme string replace implementation
+   * is faster than the array/split/join method: https://jsperf.com/fastest-string-replace
    * @param {any} data - JS object
    * @return {any} uncompressed JS object
    */
@@ -72,10 +69,8 @@ export class AssetManager {
       delete data._dict;
       strData = JSON.stringify(data);
       Object.keys(_dict).forEach((key) => {
-        //let searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        // let replacePattern = _dict[key];
-        // strData = strData.replace(new RegExp(`"${searchPattern}"`, 'g'), `"${replacePattern}"`);
-        strData = this.utils.fastStringReplace(strData, `"${key}"`, `"${_dict[key]}"`);
+        let searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        strData = strData.replace(new RegExp(`"${searchPattern}"`, 'g'), `"${_dict[key]}"`);
       });
     }
     return (strData.length) ? JSON.parse(strData) : data;

@@ -22,7 +22,8 @@ export declare class AssetManager {
     /**
      * @name unpack
      * @description uncompresses stringified JSON that was compressed with the compress method.
-     * @note see https://github.com/cjus/simple-json-pack#readme
+     * @note see https://github.com/cjus/simple-json-pack#readme string replace implementation
+     * is faster than the array/split/join method: https://jsperf.com/fastest-string-replace
      * @param {any} data - JS object
      * @return {any} uncompressed JS object
      */

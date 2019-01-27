@@ -34,21 +34,9 @@ export class Utils {
       let obj = arguments[i];
       let keys = Object.keys(obj);
       for (let j = 0; j < keys.length; j += 1) {
-          resObj[keys[j]] = obj[keys[j]];
+        resObj[keys[j]] = obj[keys[j]];
       }
     }
     return resObj;
-  }
-
-  /**
-   * @name fastStringReplace
-   * @description fast string replace
-   * @param {string} subject - string to be sub/searched and replaced
-   * @param {string} search - string to search for
-   * @param {string} replace - string to replace with
-   * @return {string} transformed string
-   */
-  fastStringReplace(subject: string, search: string, replace: string): string {
-    return subject.split(search).join(replace);
   }
 }
