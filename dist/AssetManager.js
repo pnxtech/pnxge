@@ -67,15 +67,17 @@ var AssetManager = /** @class */ (function () {
      * @return {any} uncompressed JS object
      */
     AssetManager.prototype.unpack = function (data) {
+        var _this = this;
         var strData = '';
         if (data._dict) {
             var _dict_1 = this.utils.mergeObjects({}, data._dict);
             delete data._dict;
             strData = JSON.stringify(data);
             Object.keys(_dict_1).forEach(function (key) {
-                var searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                var replacePattern = _dict_1[key];
-                strData = strData.replace(new RegExp("\"" + searchPattern + "\"", 'g'), "\"" + replacePattern + "\"");
+                _this.utils.fastStringReplace(strData, key, _dict_1[key]);
+                // let searchPattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // let replacePattern = _dict[key];
+                // strData = strData.replace(new RegExp(`"${searchPattern}"`, 'g'), `"${replacePattern}"`);
             });
         }
         return (strData.length) ? JSON.parse(strData) : data;
