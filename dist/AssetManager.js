@@ -14,6 +14,7 @@ var BackgroundTile_1 = require("./BackgroundTile");
 var TextSprite_1 = require("./TextSprite");
 var SoundManager_1 = require("./SoundManager");
 var Utils_1 = require("./Utils");
+var Benchmark_1 = require("./Benchmark");
 ;
 var AssetManager = /** @class */ (function () {
     /**
@@ -32,6 +33,8 @@ var AssetManager = /** @class */ (function () {
      */
     AssetManager.prototype.init = function (filename, initComplete) {
         var _this = this;
+        var benchmark = new Benchmark_1.Benchmark();
+        benchmark.begin();
         this.loader.add(filename);
         this.loader.load(function (_loader, resources) {
             _this.gameConfig = resources[filename].data;
@@ -51,6 +54,7 @@ var AssetManager = /** @class */ (function () {
             });
             _this.loader.load(function (_loader, resources) {
                 _this.resources = resources;
+                console.log("Assets loaded in " + benchmark.elapsed() + " ms");
                 initComplete(_this.resources);
             });
         });

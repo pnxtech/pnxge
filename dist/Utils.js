@@ -41,6 +41,23 @@ var Utils = /** @class */ (function () {
         }
         return resObj;
     };
+    /**
+     * @name fastStringReplace
+     * @description fast string replace
+     * @param {string} subject - string to be sub/searched and replaced
+     * @param {string} search - string to search for
+     * @param {string} replace - string to replace with
+     * @return {string} transformed string
+     */
+    Utils.prototype.fastStringReplace = function (subject, search, replace) {
+        var index = -1, offset = 0;
+        var result = '';
+        while ((index = subject.indexOf(search, offset)) !== -1) {
+            result += subject.substring(offset, index) + replace;
+            offset = index + search.length;
+        }
+        return result + search.substring(offset);
+    };
     return Utils;
 }());
 exports.Utils = Utils;

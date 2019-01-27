@@ -6,6 +6,7 @@ import {BackgroundTile} from './BackgroundTile';
 import {TextSprite} from './TextSprite';
 import {SoundManager} from './SoundManager';
 import {Utils} from './Utils';
+import {Benchmark} from './Benchmark';
 
 interface ICallback { (resources: {}): void };
 
@@ -31,6 +32,8 @@ export class AssetManager {
    * @description initialize loader
    */
   init(filename: string, initComplete: ICallback): void {
+    let benchmark = new Benchmark();
+    benchmark.begin();
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
@@ -49,6 +52,7 @@ export class AssetManager {
       });
       this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
         this.resources = resources;
+        console.log(`Assets loaded in ${benchmark.elapsed()} ms`);
         initComplete(this.resources);
       });
     });
