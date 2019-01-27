@@ -170,6 +170,10 @@ export class AssetManager {
             anim.x = obj.x;
             anim.y = obj.y;
             anim.z = obj.z;
+            anim.vx = obj.vx || 0;
+            anim.vy = obj.vy || 0;
+            anim.dx = obj.dx || 0;
+            anim.dy = obj.dy || 0;
             anim.sx = obj.sx || 1;
             anim.sy = obj.sy || 1;
             if (obj.attribs) {
