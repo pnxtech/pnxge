@@ -563,3 +563,76 @@ export class Curve {
     }
   }
 }
+
+export class PathElement {
+  public point: Point = new Point(0,0);
+  public rotation: number = 0;
+}
+
+/**
+ * @name Path
+ * @description Define a path using points and curves
+ */
+export class Path {
+  protected pathPoints: Array<Point>;
+
+  /**
+   * @name constructor
+   */
+  constructor() {
+    this.pathPoints = [];
+  }
+
+  /**
+   * @name addCurve
+   * @description add a curve
+   * @param {Point} starting - starting point
+   * @param {Point} ending - ending point
+   * @param {Point} control - control point
+   * @param {number} segments - total segments to use
+   * @return {void}
+   */
+  public addCurve(starting: Point, ending: Point, control: Point, segments: number): void {
+    let curve = new Curve(starting, ending, control, segments);
+    this.pathPoints = this.pathPoints.concat(curve.getPoints());
+  }
+
+  /**
+   * @name addPoints
+   * @description add points
+   * @param {Array<Point>} points
+   * @return {void}
+   */
+  public addPoints(points: Array<Point>): void {
+    this.pathPoints = this.pathPoints.concat(points);
+  }
+
+  /**
+   * @name getPoints
+   * @description get path points
+   * @return {Array<PathElement>} array of PathElement's
+   */
+  public getPathElements(): Array<PathElement> {
+    let pathElements: Array<PathElement> = [];
+    let x: number = 0;
+    let y: number = 0;
+    let angle: Angle = new Angle();
+    let vectorSrc: Vector = new Vector(0,0);
+    let vectorDst: Vector = new Vector(0,0);
+
+    this.pathPoints.forEach((point) => {
+      vectorSrc.x = x;
+      vectorSrc.y = y;
+      vectorDst.x = point.x;
+      vectorDst.y = point.y;
+      pathElements.push({
+        point,
+        rotation: angle.angleFromVectors(vectorSrc, vectorDst)
+      });
+
+      x = point.x;
+      y = point.y;
+    });
+    return pathElements;
+  }
+}

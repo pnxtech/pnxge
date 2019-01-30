@@ -550,4 +550,74 @@ var Curve = /** @class */ (function () {
     return Curve;
 }());
 exports.Curve = Curve;
+var PathElement = /** @class */ (function () {
+    function PathElement() {
+        this.point = new Point(0, 0);
+        this.rotation = 0;
+    }
+    return PathElement;
+}());
+exports.PathElement = PathElement;
+/**
+ * @name Path
+ * @description Define a path using points and curves
+ */
+var Path = /** @class */ (function () {
+    /**
+     * @name constructor
+     */
+    function Path() {
+        this.pathPoints = [];
+    }
+    /**
+     * @name addCurve
+     * @description add a curve
+     * @param {Point} starting - starting point
+     * @param {Point} ending - ending point
+     * @param {Point} control - control point
+     * @param {number} segments - total segments to use
+     * @return {void}
+     */
+    Path.prototype.addCurve = function (starting, ending, control, segments) {
+        var curve = new Curve(starting, ending, control, segments);
+        this.pathPoints = this.pathPoints.concat(curve.getPoints());
+    };
+    /**
+     * @name addPoints
+     * @description add points
+     * @param {Array<Point>} points
+     * @return {void}
+     */
+    Path.prototype.addPoints = function (points) {
+        this.pathPoints = this.pathPoints.concat(points);
+    };
+    /**
+     * @name getPoints
+     * @description get path points
+     * @return {Array<PathElement>} array of PathElement's
+     */
+    Path.prototype.getPathElements = function () {
+        var pathElements = [];
+        var x = 0;
+        var y = 0;
+        var angle = new Angle();
+        var vectorSrc = new Vector(0, 0);
+        var vectorDst = new Vector(0, 0);
+        this.pathPoints.forEach(function (point) {
+            vectorSrc.x = x;
+            vectorSrc.y = y;
+            vectorDst.x = point.x;
+            vectorDst.y = point.y;
+            pathElements.push({
+                point: point,
+                rotation: angle.angleFromVectors(vectorSrc, vectorDst)
+            });
+            x = point.x;
+            y = point.y;
+        });
+        return pathElements;
+    };
+    return Path;
+}());
+exports.Path = Path;
 //# sourceMappingURL=Math.js.map

@@ -305,4 +305,42 @@ export declare class Curve {
      */
     protected generatePoints(p1: Point, p2: Point, p3: Point): void;
 }
+export declare class PathElement {
+    point: Point;
+    rotation: number;
+}
+/**
+ * @name Path
+ * @description Define a path using points and curves
+ */
+export declare class Path {
+    protected pathPoints: Array<Point>;
+    /**
+     * @name constructor
+     */
+    constructor();
+    /**
+     * @name addCurve
+     * @description add a curve
+     * @param {Point} starting - starting point
+     * @param {Point} ending - ending point
+     * @param {Point} control - control point
+     * @param {number} segments - total segments to use
+     * @return {void}
+     */
+    addCurve(starting: Point, ending: Point, control: Point, segments: number): void;
+    /**
+     * @name addPoints
+     * @description add points
+     * @param {Array<Point>} points
+     * @return {void}
+     */
+    addPoints(points: Array<Point>): void;
+    /**
+     * @name getPoints
+     * @description get path points
+     * @return {Array<PathElement>} array of PathElement's
+     */
+    getPathElements(): Array<PathElement>;
+}
 //# sourceMappingURL=Math.d.ts.map
