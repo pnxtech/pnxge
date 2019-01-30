@@ -1,4 +1,4 @@
-import {Angle, Curve, Point, Vector} from './Math';
+import {Angle, Curve, Point, Vector, pcap} from './Math';
 
 export class PathElement {
   public point: Point = new Point(0,0);
@@ -77,7 +77,7 @@ export class Path {
           if (pathElements[j].rotation !== 0) {
             let totalZeros = j - i;
             let rollback = (i - 1 < 0) ? 0 : i - 1;
-            let smoother = (pathElements[j].rotation - pathElements[rollback].rotation) / (totalZeros);
+            let smoother = pcap((pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros);
             if (smoother !== 0 && totalZeros === 1) {
               smoother /= 2;
             }
