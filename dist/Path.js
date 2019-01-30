@@ -99,7 +99,7 @@ var Path = /** @class */ (function () {
         var arr = this.getPathElements();
         var condenced = [];
         arr.forEach(function (element) {
-            condenced.push(element.point.x + "|" + element.point.y + "|" + element.rotation.toPrecision(2));
+            condenced.push(element.point.x + "|" + element.point.y + "|" + element.rotation.toPrecision(4));
         });
         return condenced.join('|');
     };

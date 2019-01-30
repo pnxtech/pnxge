@@ -103,7 +103,7 @@ export class Path {
     let arr: Array<PathElement> = this.getPathElements();
     let condenced: any = [];
     arr.forEach((element) => {
-      condenced.push(`${element.point.x}|${element.point.y}|${element.rotation.toPrecision(2)}`);
+      condenced.push(`${element.point.x}|${element.point.y}|${element.rotation.toPrecision(4)}`);
     });
     return condenced.join('|');
   }
