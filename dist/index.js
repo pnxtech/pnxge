@@ -13,6 +13,7 @@ __export(require("./Benchmark"));
 __export(require("./EventManager"));
 __export(require("./Image"));
 __export(require("./Math"));
+__export(require("./Path"));
 __export(require("./ProjectileManager"));
 __export(require("./Recorder"));
 __export(require("./Scene"));

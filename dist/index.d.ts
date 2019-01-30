@@ -10,6 +10,7 @@ export * from './Controller';
 export * from './EventManager';
 export * from './Image';
 export * from './Math';
+export * from './Path';
 export * from './ProjectileManager';
 export * from './Recorder';
 export * from './Scene';
