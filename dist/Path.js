@@ -101,7 +101,7 @@ var Path = /** @class */ (function () {
         arr.forEach(function (element) {
             condenced.push(element.point.x + "|" + element.point.y + "|" + element.rotation);
         });
-        return JSON.stringify(condenced);
+        return condenced.join('|');
     };
     return Path;
 }());

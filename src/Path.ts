@@ -105,6 +105,6 @@ export class Path {
     arr.forEach((element) => {
       condenced.push(`${element.point.x}|${element.point.y}|${element.rotation}`);
     });
-    return JSON.stringify(condenced);
+    return condenced.join('|');
   }
 }
