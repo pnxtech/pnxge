@@ -36,5 +36,11 @@ export declare class Path {
      * @return {Array<PathElement>} array of PathElement's
      */
     getPathElements(): Array<PathElement>;
+    /**
+     * @name getPathJSON
+     * @description get a json string containing path data
+     * @return {string} JSON - output
+     */
+    getPathJSON(): string;
 }
 //# sourceMappingURL=Path.d.ts.map

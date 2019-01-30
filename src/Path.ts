@@ -93,4 +93,22 @@ export class Path {
     }
     return pathElements;
   }
+
+  /**
+   * @name getPathJSON
+   * @description get a json string containing path data
+   * @return {string} JSON - output
+   */
+  getPathJSON(): string {
+    let arr: Array<PathElement> = this.getPathElements();
+    let condenced: any = [];
+    arr.forEach((element) => {
+      condenced.push({
+        x: element.point.x,
+        y: element.point.y,
+        r: element.rotation
+      });
+    });
+    return JSON.stringify(condenced);
+  }
 }

@@ -90,6 +90,23 @@ var Path = /** @class */ (function () {
         }
         return pathElements;
     };
+    /**
+     * @name getPathJSON
+     * @description get a json string containing path data
+     * @return {string} JSON - output
+     */
+    Path.prototype.getPathJSON = function () {
+        var arr = this.getPathElements();
+        var condenced = [];
+        arr.forEach(function (element) {
+            condenced.push({
+                x: element.point.x,
+                y: element.point.y,
+                r: element.rotation
+            });
+        });
+        return JSON.stringify(condenced);
+    };
     return Path;
 }());
 exports.Path = Path;
