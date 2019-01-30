@@ -305,6 +305,29 @@ export declare class Curve {
      */
     protected generatePoints(p1: Point, p2: Point, p3: Point): void;
 }
+export declare class Curve2 {
+    /*!	Curve calc function for canvas 2.3.8
+    *	(c) Epistemex 2013-2018
+    *	www.epistemex.com
+    *	License: MIT
+    * Note: Code below has been converted to Typescript and differs from the author's original version - cjus
+    */
+    /**
+     * Calculates an array containing points representing a cardinal spline through given point array.
+     * Points must be arranged as: [x1, y1, x2, y2, ..., xn, yn].
+     *
+     * There must be a minimum of two points in the input array but the function
+     * is only useful where there are three points or more.
+     *
+     * The points for the cardinal spline are returned as a new array.
+     * @param {any} points - point array
+     * @param {number} [tension=0.5] - tension. Typically between [0.0, 1.0] but can be exceeded
+     * @param {number} [numOfSeg=25] - number of segments between two points (line resolution)
+     * @param {boolean} [close=false] - Close the ends making the line continuous
+     * @returns {Array<Point>} New array with the calculated points that was added to the path
+     */
+    generatePathPoints(points: any, tension: number, numOfSeg: number, close: boolean): Array<Point>;
+}
 export declare class PathElement {
     point: Point;
     rotation: number;
@@ -329,6 +352,16 @@ export declare class Path {
      * @return {void}
      */
     addCurve(starting: Point, ending: Point, control: Point, segments: number): void;
+    /**
+     * @name addCurve2
+     * @description add a curve
+     * @param {[]]} points - reference points
+     * @param {number} tension - between points
+     * @param {number} numOfSeg - number of segments in curve
+     * @param {boolean} close - should close?
+     * @return {void}
+     */
+    addCurve2(points: any, tension: number, numOfSeg: number, close: boolean): void;
     /**
      * @name addPoints
      * @description add points
