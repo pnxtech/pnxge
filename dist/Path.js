@@ -74,9 +74,9 @@ var Path = /** @class */ (function () {
                     if (pathElements[j].rotation !== 0) {
                         var totalZeros = j - i;
                         var rollback = (i - 1 < 0) ? 0 : i - 1;
-                        var smoother = Math_1.pcap((pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros);
+                        var smoother = (pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros;
                         if (smoother !== 0 && totalZeros === 1) {
-                            smoother = Math_1.pcap(smoother / 2);
+                            smoother = smoother / 2;
                         }
                         for (var step = 0, k = i; k < i + totalZeros; k++) {
                             step += smoother;
@@ -87,6 +87,9 @@ var Path = /** @class */ (function () {
                     }
                 }
             }
+        }
+        for (var i = 0; i < pathElements.length; i++) {
+            pathElements[i].rotation = Math_1.pcap(pathElements[i].rotation);
         }
         return pathElements;
     };

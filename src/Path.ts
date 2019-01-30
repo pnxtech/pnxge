@@ -77,9 +77,9 @@ export class Path {
           if (pathElements[j].rotation !== 0) {
             let totalZeros = j - i;
             let rollback = (i - 1 < 0) ? 0 : i - 1;
-            let smoother = pcap((pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros);
+            let smoother = (pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros;
             if (smoother !== 0 && totalZeros === 1) {
-              smoother = pcap(smoother / 2);
+              smoother = smoother / 2;
             }
             for (let step = 0, k = i; k < i + totalZeros; k++) {
               step += smoother;
@@ -90,6 +90,9 @@ export class Path {
           }
         }
       }
+    }
+    for (let i = 0; i < pathElements.length; i++) {
+      pathElements[i].rotation = pcap(pathElements[i].rotation);
     }
     return pathElements;
   }
