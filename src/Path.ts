@@ -83,7 +83,7 @@ export class Path {
             }
             for (let step = 0, k = i; k < i + totalZeros; k++) {
               step += smoother;
-              pathElements[k].rotation = pcap(pathElements[rollback].rotation + step);
+              pathElements[k].rotation = pathElements[rollback].rotation + step;
             }
             i += totalZeros;
             break;
@@ -103,7 +103,7 @@ export class Path {
     let arr: Array<PathElement> = this.getPathElements();
     let condenced: any = [];
     arr.forEach((element) => {
-      condenced.push(`${element.point.x}|${element.point.y}|${element.rotation}`);
+      condenced.push(`${element.point.x}|${element.point.y}|${element.rotation.toPrecision(2)}`);
     });
     return condenced.join('|');
   }
