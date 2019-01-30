@@ -405,166 +405,7 @@ export class Random {
   }
 }
 
-/**
- * @name Curve
- * @description Generates curves points between two points and a control point
- */
 export class Curve {
-  protected totalSegments: number;
-  protected segmentList: Point[];
-
-  /**
-   * @name constructor
-   * @description class contructor
-   */
-  constructor(starting: Point, ending: Point, control: Point, segments: number) {
-    this.totalSegments = segments;
-    this.segmentList = new Array(this.totalSegments);
-    this.generatePoints(starting, ending, control);
-  }
-
-  /**
-   * @name getTotalSegments
-   * @description get total segments in curve
-   * @return {number} total segments
-   *
-   */
-  public getTotalSegments(): number {
-    return this.totalSegments;
-  }
-
-  /**
-   * @name getPoints
-   * @description get curve points
-   * @return {Array<Point>} array of points
-   */
-  public getPoints(): Array<Point> {
-    let newArray = new Array();
-    for (let pt of this.segmentList) {
-      newArray.push(new Point(pt.x, pt.y));
-    }
-    return newArray;
-  }
-
-  /**
-   * @name distanceX
-   * @description distance between two x components of a line
-   * @param {Line} l - line
-   * @return {number} distance
-   */
-  protected distanceX(l: Line): number {
-    return pcap(l.pt2.x - l.pt1.x);
-  }
-
-  /**
-   * @name distanceY
-   * @description distance between two y components of a line
-   * @param {Line} l - line
-   * @return {number} distance
-   */
-  protected distanceY(l: Line): number {
-    return pcap(l.pt2.y - l.pt1.y);
-  }
-
-  /**
-   * @name intersect
-   * @description determine point at which lines intersect
-   * @param {Line} l1 - first line
-   * @param {Line} l2 - second line
-   * @return {Point} - intersection point
-   */
-  protected intersect(l1: Line, l2: Line): Point {
-    let m1: number;
-    let b1: number;
-    let m2: number;
-    let b2: number;
-    let p: Point = new Point();
-
-    if (this.distanceX(l1) === 0) {
-      p.x = l1.pt1.x;
-      m1 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-      b1 = pcap(l2.pt1.y - m1 * l2.pt1.x);
-    }
-    else if (this.distanceX(l2) === 0) {
-      p.x = l2.pt1.x;
-      m1 = pcap(l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
-      b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
-    }
-    else {
-      m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
-      b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
-      m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-      b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
-      p.x = pcap((b1 - b2) / (m2 - m1));
-    }
-    p.y = pcap(m1 * p.x + b1);
-    return p;
-  }
-
-  /**
-   * @name generatePoints
-   * @description generate curve points
-   * @param {Point} p1 - starting point
-   * @param {Point} p2 - end point
-   * @param {Point} p3 - control point
-   * @return {void}
-   */
-  protected generatePoints(p1: Point, p2: Point, p3: Point): void {
-    let l1: Line = new Line(p1.x, p1.y, p3.x, p3.y);
-    let l2: Line = new Line(p3.x, p3.y, p2.x, p2.y);
-    let dx1: number = pcap(this.distanceX(l1) / (this.totalSegments + 1));
-    let dx2: number = pcap(this.distanceX(l2) / (this.totalSegments + 1));
-
-    let m1: number = 0;
-    let m2: number = 0;
-    let dy1: number = 0;
-    let dy2: number = 0;
-    let b1: number = 0;
-    let b2: number = 0;
-
-    if (dx1 !== 0) {
-      m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
-      b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
-    }
-    else {
-      dy1 = pcap(this.distanceY(l1) / (this.totalSegments + 1));
-    }
-
-    if (dx2 !== 0) {
-      m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-      b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
-    }
-    else {
-      dy2 = pcap(this.distanceY(l2) / (this.totalSegments + 1));
-    }
-
-    let ls1: Line = new Line();
-    let ls2: Line = new Line();
-    for (let i = 0; i < this.totalSegments; i++) {
-      ls1.pt1.x = pcap(l1.pt1.x + (dx1 * i));
-      ls1.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 1)));
-      ls2.pt1.x = pcap(l1.pt1.x + (dx1 * (i + 1)));
-      ls2.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 2)));
-      if (dx1 !== 0) {
-        ls1.pt1.y = pcap(m1 * ls1.pt1.x + b1);
-        ls2.pt1.y = pcap(m1 * ls2.pt1.x + b1);
-      } else {
-        ls1.pt1.y = pcap(l1.pt1.y + (dy1 * i));
-        ls2.pt1.y = pcap(l1.pt1.y + (dy1 * (i + 1)));
-      }
-      if (dx2 != 0) {
-        ls1.pt2.y = pcap(m2 * ls1.pt2.x + b2);
-        ls2.pt2.y = pcap(m2 * ls2.pt2.x + b2);
-      } else {
-        ls1.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 1)));
-        ls2.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 2)));
-      }
-      this.segmentList[i] = this.intersect(ls1, ls2);
-    }
-  }
-}
-
-export class Curve2 {
   /*!	Curve calc function for canvas 2.3.8
   *	(c) Epistemex 2013-2018
   *	www.epistemex.com
@@ -710,28 +551,14 @@ export class Path {
   /**
    * @name addCurve
    * @description add a curve
-   * @param {Point} starting - starting point
-   * @param {Point} ending - ending point
-   * @param {Point} control - control point
-   * @param {number} segments - total segments to use
-   * @return {void}
-   */
-  public addCurve(starting: Point, ending: Point, control: Point, segments: number): void {
-    let curve = new Curve(starting, ending, control, segments);
-    this.pathPoints = this.pathPoints.concat(curve.getPoints());
-  }
-
-  /**
-   * @name addCurve2
-   * @description add a curve
    * @param {[]]} points - reference points
    * @param {number} tension - between points
    * @param {number} numOfSeg - number of segments in curve
    * @param {boolean} close - should close?
    * @return {void}
    */
-  public addCurve2(points: any, tension: number, numOfSeg: number, close: boolean): void {
-    let curve = new Curve2();
+  public addCurve(points: any, tension: number, numOfSeg: number, close: boolean): void {
+    let curve = new Curve();
     this.pathPoints = this.pathPoints.concat(curve.generatePathPoints(points, tension, numOfSeg, close));
   }
 
@@ -757,15 +584,20 @@ export class Path {
     let angle: Angle = new Angle();
     let vectorSrc: Vector = new Vector(0,0);
     let vectorDst: Vector = new Vector(0,0);
+    let lastRotation = 0;
 
     this.pathPoints.forEach((point) => {
       vectorSrc.x = x;
       vectorSrc.y = y;
       vectorDst.x = point.x;
       vectorDst.y = point.y;
+      let newRotation = angle.angleFromVectors(vectorSrc, vectorDst);
+      if (newRotation !== 0) {
+        lastRotation = newRotation;
+      }
       pathElements.push({
         point,
-        rotation: angle.angleFromVectors(vectorSrc, vectorDst)
+        rotation: newRotation || lastRotation
       });
 
       x = point.x;

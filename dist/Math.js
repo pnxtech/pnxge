@@ -401,157 +401,8 @@ var Random = /** @class */ (function () {
     return Random;
 }());
 exports.Random = Random;
-/**
- * @name Curve
- * @description Generates curves points between two points and a control point
- */
 var Curve = /** @class */ (function () {
-    /**
-     * @name constructor
-     * @description class contructor
-     */
-    function Curve(starting, ending, control, segments) {
-        this.totalSegments = segments;
-        this.segmentList = new Array(this.totalSegments);
-        this.generatePoints(starting, ending, control);
-    }
-    /**
-     * @name getTotalSegments
-     * @description get total segments in curve
-     * @return {number} total segments
-     *
-     */
-    Curve.prototype.getTotalSegments = function () {
-        return this.totalSegments;
-    };
-    /**
-     * @name getPoints
-     * @description get curve points
-     * @return {Array<Point>} array of points
-     */
-    Curve.prototype.getPoints = function () {
-        var newArray = new Array();
-        for (var _i = 0, _a = this.segmentList; _i < _a.length; _i++) {
-            var pt = _a[_i];
-            newArray.push(new Point(pt.x, pt.y));
-        }
-        return newArray;
-    };
-    /**
-     * @name distanceX
-     * @description distance between two x components of a line
-     * @param {Line} l - line
-     * @return {number} distance
-     */
-    Curve.prototype.distanceX = function (l) {
-        return pcap(l.pt2.x - l.pt1.x);
-    };
-    /**
-     * @name distanceY
-     * @description distance between two y components of a line
-     * @param {Line} l - line
-     * @return {number} distance
-     */
-    Curve.prototype.distanceY = function (l) {
-        return pcap(l.pt2.y - l.pt1.y);
-    };
-    /**
-     * @name intersect
-     * @description determine point at which lines intersect
-     * @param {Line} l1 - first line
-     * @param {Line} l2 - second line
-     * @return {Point} - intersection point
-     */
-    Curve.prototype.intersect = function (l1, l2) {
-        var m1;
-        var b1;
-        var m2;
-        var b2;
-        var p = new Point();
-        if (this.distanceX(l1) === 0) {
-            p.x = l1.pt1.x;
-            m1 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-            b1 = pcap(l2.pt1.y - m1 * l2.pt1.x);
-        }
-        else if (this.distanceX(l2) === 0) {
-            p.x = l2.pt1.x;
-            m1 = pcap(l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
-            b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
-        }
-        else {
-            m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
-            b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
-            m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-            b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
-            p.x = pcap((b1 - b2) / (m2 - m1));
-        }
-        p.y = pcap(m1 * p.x + b1);
-        return p;
-    };
-    /**
-     * @name generatePoints
-     * @description generate curve points
-     * @param {Point} p1 - starting point
-     * @param {Point} p2 - end point
-     * @param {Point} p3 - control point
-     * @return {void}
-     */
-    Curve.prototype.generatePoints = function (p1, p2, p3) {
-        var l1 = new Line(p1.x, p1.y, p3.x, p3.y);
-        var l2 = new Line(p3.x, p3.y, p2.x, p2.y);
-        var dx1 = pcap(this.distanceX(l1) / (this.totalSegments + 1));
-        var dx2 = pcap(this.distanceX(l2) / (this.totalSegments + 1));
-        var m1 = 0;
-        var m2 = 0;
-        var dy1 = 0;
-        var dy2 = 0;
-        var b1 = 0;
-        var b2 = 0;
-        if (dx1 !== 0) {
-            m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
-            b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
-        }
-        else {
-            dy1 = pcap(this.distanceY(l1) / (this.totalSegments + 1));
-        }
-        if (dx2 !== 0) {
-            m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-            b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
-        }
-        else {
-            dy2 = pcap(this.distanceY(l2) / (this.totalSegments + 1));
-        }
-        var ls1 = new Line();
-        var ls2 = new Line();
-        for (var i = 0; i < this.totalSegments; i++) {
-            ls1.pt1.x = pcap(l1.pt1.x + (dx1 * i));
-            ls1.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 1)));
-            ls2.pt1.x = pcap(l1.pt1.x + (dx1 * (i + 1)));
-            ls2.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 2)));
-            if (dx1 !== 0) {
-                ls1.pt1.y = pcap(m1 * ls1.pt1.x + b1);
-                ls2.pt1.y = pcap(m1 * ls2.pt1.x + b1);
-            }
-            else {
-                ls1.pt1.y = pcap(l1.pt1.y + (dy1 * i));
-                ls2.pt1.y = pcap(l1.pt1.y + (dy1 * (i + 1)));
-            }
-            if (dx2 != 0) {
-                ls1.pt2.y = pcap(m2 * ls1.pt2.x + b2);
-                ls2.pt2.y = pcap(m2 * ls2.pt2.x + b2);
-            }
-            else {
-                ls1.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 1)));
-                ls2.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 2)));
-            }
-            this.segmentList[i] = this.intersect(ls1, ls2);
-        }
-    };
-    return Curve;
-}());
-exports.Curve = Curve;
-var Curve2 = /** @class */ (function () {
-    function Curve2() {
+    function Curve() {
     }
     /*!	Curve calc function for canvas 2.3.8
     *	(c) Epistemex 2013-2018
@@ -573,7 +424,7 @@ var Curve2 = /** @class */ (function () {
      * @param {boolean} [close=false] - Close the ends making the line continuous
      * @returns {Array<Point>} New array with the calculated points that was added to the path
      */
-    Curve2.prototype.generatePathPoints = function (points, tension, numOfSeg, close) {
+    Curve.prototype.generatePathPoints = function (points, tension, numOfSeg, close) {
         if (typeof points === "undefined" || points.length < 2) {
             return [];
         }
@@ -658,9 +509,9 @@ var Curve2 = /** @class */ (function () {
         }
         return newPoints;
     };
-    return Curve2;
+    return Curve;
 }());
-exports.Curve2 = Curve2;
+exports.Curve = Curve;
 var PathElement = /** @class */ (function () {
     function PathElement() {
         this.point = new Point(0, 0);
@@ -683,27 +534,14 @@ var Path = /** @class */ (function () {
     /**
      * @name addCurve
      * @description add a curve
-     * @param {Point} starting - starting point
-     * @param {Point} ending - ending point
-     * @param {Point} control - control point
-     * @param {number} segments - total segments to use
-     * @return {void}
-     */
-    Path.prototype.addCurve = function (starting, ending, control, segments) {
-        var curve = new Curve(starting, ending, control, segments);
-        this.pathPoints = this.pathPoints.concat(curve.getPoints());
-    };
-    /**
-     * @name addCurve2
-     * @description add a curve
      * @param {[]]} points - reference points
      * @param {number} tension - between points
      * @param {number} numOfSeg - number of segments in curve
      * @param {boolean} close - should close?
      * @return {void}
      */
-    Path.prototype.addCurve2 = function (points, tension, numOfSeg, close) {
-        var curve = new Curve2();
+    Path.prototype.addCurve = function (points, tension, numOfSeg, close) {
+        var curve = new Curve();
         this.pathPoints = this.pathPoints.concat(curve.generatePathPoints(points, tension, numOfSeg, close));
     };
     /**
@@ -727,14 +565,19 @@ var Path = /** @class */ (function () {
         var angle = new Angle();
         var vectorSrc = new Vector(0, 0);
         var vectorDst = new Vector(0, 0);
+        var lastRotation = 0;
         this.pathPoints.forEach(function (point) {
             vectorSrc.x = x;
             vectorSrc.y = y;
             vectorDst.x = point.x;
             vectorDst.y = point.y;
+            var newRotation = angle.angleFromVectors(vectorSrc, vectorDst);
+            if (newRotation !== 0) {
+                lastRotation = newRotation;
+            }
             pathElements.push({
                 point: point,
-                rotation: angle.angleFromVectors(vectorSrc, vectorDst)
+                rotation: newRotation || lastRotation
             });
             x = point.x;
             y = point.y;

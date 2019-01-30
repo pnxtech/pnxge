@@ -248,64 +248,7 @@ export declare class Random {
      */
     getRandomIntFromCenter(value: number, width: number): number;
 }
-/**
- * @name Curve
- * @description Generates curves points between two points and a control point
- */
 export declare class Curve {
-    protected totalSegments: number;
-    protected segmentList: Point[];
-    /**
-     * @name constructor
-     * @description class contructor
-     */
-    constructor(starting: Point, ending: Point, control: Point, segments: number);
-    /**
-     * @name getTotalSegments
-     * @description get total segments in curve
-     * @return {number} total segments
-     *
-     */
-    getTotalSegments(): number;
-    /**
-     * @name getPoints
-     * @description get curve points
-     * @return {Array<Point>} array of points
-     */
-    getPoints(): Array<Point>;
-    /**
-     * @name distanceX
-     * @description distance between two x components of a line
-     * @param {Line} l - line
-     * @return {number} distance
-     */
-    protected distanceX(l: Line): number;
-    /**
-     * @name distanceY
-     * @description distance between two y components of a line
-     * @param {Line} l - line
-     * @return {number} distance
-     */
-    protected distanceY(l: Line): number;
-    /**
-     * @name intersect
-     * @description determine point at which lines intersect
-     * @param {Line} l1 - first line
-     * @param {Line} l2 - second line
-     * @return {Point} - intersection point
-     */
-    protected intersect(l1: Line, l2: Line): Point;
-    /**
-     * @name generatePoints
-     * @description generate curve points
-     * @param {Point} p1 - starting point
-     * @param {Point} p2 - end point
-     * @param {Point} p3 - control point
-     * @return {void}
-     */
-    protected generatePoints(p1: Point, p2: Point, p3: Point): void;
-}
-export declare class Curve2 {
     /*!	Curve calc function for canvas 2.3.8
     *	(c) Epistemex 2013-2018
     *	www.epistemex.com
@@ -345,23 +288,13 @@ export declare class Path {
     /**
      * @name addCurve
      * @description add a curve
-     * @param {Point} starting - starting point
-     * @param {Point} ending - ending point
-     * @param {Point} control - control point
-     * @param {number} segments - total segments to use
-     * @return {void}
-     */
-    addCurve(starting: Point, ending: Point, control: Point, segments: number): void;
-    /**
-     * @name addCurve2
-     * @description add a curve
      * @param {[]]} points - reference points
      * @param {number} tension - between points
      * @param {number} numOfSeg - number of segments in curve
      * @param {boolean} close - should close?
      * @return {void}
      */
-    addCurve2(points: any, tension: number, numOfSeg: number, close: boolean): void;
+    addCurve(points: any, tension: number, numOfSeg: number, close: boolean): void;
     /**
      * @name addPoints
      * @description add points
