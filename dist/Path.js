@@ -99,11 +99,7 @@ var Path = /** @class */ (function () {
         var arr = this.getPathElements();
         var condenced = [];
         arr.forEach(function (element) {
-            condenced.push({
-                x: element.point.x,
-                y: element.point.y,
-                r: element.rotation
-            });
+            condenced.push(element.point.x + "|" + element.point.y + "|" + element.rotation);
         });
         return JSON.stringify(condenced);
     };
