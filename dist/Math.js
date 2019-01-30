@@ -565,19 +565,19 @@ var Path = /** @class */ (function () {
         var angle = new Angle();
         var vectorSrc = new Vector(0, 0);
         var vectorDst = new Vector(0, 0);
-        var lastRotation = 0;
+        // let lastRotation = 0;
         this.pathPoints.forEach(function (point) {
             vectorSrc.x = x;
             vectorSrc.y = y;
             vectorDst.x = point.x;
             vectorDst.y = point.y;
             var newRotation = angle.angleFromVectors(vectorSrc, vectorDst);
-            if (newRotation !== 0) {
-                lastRotation = newRotation;
-            }
+            // if (newRotation !== 0) {
+            //   lastRotation = newRotation;
+            // }
             pathElements.push({
                 point: point,
-                rotation: newRotation || lastRotation
+                rotation: newRotation // || lastRotation
             });
             x = point.x;
             y = point.y;

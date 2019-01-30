@@ -584,7 +584,7 @@ export class Path {
     let angle: Angle = new Angle();
     let vectorSrc: Vector = new Vector(0,0);
     let vectorDst: Vector = new Vector(0,0);
-    let lastRotation = 0;
+    // let lastRotation = 0;
 
     this.pathPoints.forEach((point) => {
       vectorSrc.x = x;
@@ -592,14 +592,13 @@ export class Path {
       vectorDst.x = point.x;
       vectorDst.y = point.y;
       let newRotation = angle.angleFromVectors(vectorSrc, vectorDst);
-      if (newRotation !== 0) {
-        lastRotation = newRotation;
-      }
+      // if (newRotation !== 0) {
+      //   lastRotation = newRotation;
+      // }
       pathElements.push({
         point,
-        rotation: newRotation || lastRotation
+        rotation: newRotation// || lastRotation
       });
-
       x = point.x;
       y = point.y;
     });
