@@ -80,7 +80,7 @@ var Path = /** @class */ (function () {
                         }
                         for (var step = 0, k = i; k < i + totalZeros; k++) {
                             step += smoother;
-                            pathElements[k].rotation = pathElements[rollback].rotation + step;
+                            pathElements[k].rotation = Math_1.pcap(pathElements[rollback].rotation + step);
                         }
                         i += totalZeros;
                         break;
@@ -99,7 +99,7 @@ var Path = /** @class */ (function () {
         var arr = this.getPathElements();
         var condenced = [];
         arr.forEach(function (element) {
-            condenced.push(element.point.x + "|" + element.point.y + "|" + element.rotation.toPrecision(4));
+            condenced.push(element.point.x + "|" + element.point.y + "|" + element.rotation);
         });
         return condenced.join('|');
     };
