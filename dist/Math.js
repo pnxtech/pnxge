@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 function pcap(value) {
     var num = parseFloat("" + value);
-    return Number(num.toFixed(2));
+    return Number(num.toFixed(4));
 }
 exports.pcap = pcap;
 /**
@@ -85,7 +85,7 @@ var Angle = /** @class */ (function () {
     Angle.prototype.angleFromVectors = function (v1, v2) {
         // return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
         // return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
-        return pcap(Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x));
+        return pcap(Math.atan2(v1.y, v1.x) - Math.atan2(v2.y, v2.x));
     };
     /**
      * @name randomAngleTop

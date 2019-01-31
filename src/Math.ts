@@ -12,7 +12,7 @@
  */
 export function pcap(value: number | string): number {
   let num: number = parseFloat(`${value}`);
-  return Number(num.toFixed(2));
+  return Number(num.toFixed(4));
 }
 
 /**
@@ -74,7 +74,7 @@ export class Angle {
   angleFromVectors(v1: Vector, v2: Vector): number {
     // return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
     // return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
-    return pcap(Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x));
+    return pcap(Math.atan2(v1.y, v1.x) - Math.atan2(v2.y, v2.x));
   }
 
   /**
