@@ -77,13 +77,15 @@ var Angle = /** @class */ (function () {
     /**
      * @name angleFromVectors
      * @description compute angle from v1 vector to v2 vector
+     * @see https://stackoverflow.com/questions/21483999/using-atan2-to-find-angle-between-two-vectors
      * @param {Vector} v1 - from (source) vector
      * @param {Vector} v2 - to (target) vector
      * @return {number} angle - in radians
      */
     Angle.prototype.angleFromVectors = function (v1, v2) {
         // return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
-        return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
+        // return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
+        return pcap(Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x));
     };
     /**
      * @name randomAngleTop
