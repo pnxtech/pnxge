@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 function pcap(value) {
     var num = parseFloat("" + value);
-    return Number(num.toFixed(7));
+    return Number(num.toFixed(4));
 }
 exports.pcap = pcap;
 /**
