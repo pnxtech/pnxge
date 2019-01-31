@@ -71,26 +71,26 @@ export class Path {
     });
 
     // smooth rotation values
-    // for (let i = 0; i < pathElements.length; i++) {
-    //   if (pathElements[i].rotation === 0) {
-    //     for (let j = i; j < pathElements.length; j++) {
-    //       if (pathElements[j].rotation !== 0) {
-    //         let totalZeros = j - i;
-    //         let rollback = (i - 1 < 0) ? 0 : i - 1;
-    //         let smoother = (pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros;
-    //         if (smoother !== 0 && totalZeros === 1) {
-    //           smoother = smoother / 2;
-    //         }
-    //         for (let step = 0, k = i; k < i + totalZeros; k++) {
-    //           step += smoother;
-    //           pathElements[k].rotation = pathElements[rollback].rotation + step;
-    //         }
-    //         i += totalZeros;
-    //         break;
-    //       }
-    //     }
-    //   }
-    // }
+    for (let i = 0; i < pathElements.length; i++) {
+      if (pathElements[i].rotation === 0) {
+        for (let j = i; j < pathElements.length; j++) {
+          if (pathElements[j].rotation !== 0) {
+            let totalZeros = j - i;
+            let rollback = (i - 1 < 0) ? 0 : i - 1;
+            let smoother = (pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros;
+            if (smoother !== 0 && totalZeros === 1) {
+              smoother = smoother / 2;
+            }
+            for (let step = 0, k = i; k < i + totalZeros; k++) {
+              step += smoother;
+              pathElements[k].rotation = pathElements[rollback].rotation + step;
+            }
+            i += totalZeros;
+            break;
+          }
+        }
+      }
+    }
 
     for (let i = 0; i < pathElements.length; i++) {
       pathElements[i].rotation = pcap(pathElements[i].rotation);
