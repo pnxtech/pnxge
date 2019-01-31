@@ -1,4 +1,4 @@
-import {Angle, Curve, Point, Vector, pcap} from './Math';
+import {Angle, Curve, Curve2, Point, Vector, pcap} from './Math';
 
 export class PathElement {
   public point: Point = new Point(0,0);
@@ -31,6 +31,20 @@ export class Path {
   public addCurve(points: any, tension: number, numOfSeg: number, close: boolean): void {
     let curve = new Curve();
     this.pathPoints = this.pathPoints.concat(curve.generatePathPoints(points, tension, numOfSeg, close));
+  }
+
+  /**
+   * @name addCurve
+   * @description add a curve
+   * @param {[]]} points - reference points
+   * @param {number} tension - between points
+   * @param {number} numOfSeg - number of segments in curve
+   * @param {boolean} close - should close?
+   * @return {void}
+   */
+  public addCurve2(starting: Point, ending: Point, control: Point, segments: number): void {
+    let curve = new Curve2(starting, ending, control, segments);
+    this.pathPoints = this.pathPoints.concat(curve.getPoints());
   }
 
   /**

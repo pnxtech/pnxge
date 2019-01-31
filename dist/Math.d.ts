@@ -265,4 +265,61 @@ export declare class Curve {
      */
     generatePathPoints(points: any, tension: number, numOfSeg: number, close: boolean): Array<Point>;
 }
+/**
+ * @name Curve
+ * @description Generates curves points between two points and a control point
+ */
+export declare class Curve2 {
+    protected totalSegments: number;
+    protected segmentList: Point[];
+    /**
+     * @name constructor
+     * @description class contructor
+     */
+    constructor(starting: Point, ending: Point, control: Point, segments: number);
+    /**
+     * @name getTotalSegments
+     * @description get total segments in curve
+     * @return {number} total segments
+     *
+     */
+    getTotalSegments(): number;
+    /**
+     * @name getPoints
+     * @description get curve points
+     * @return {Array<Point>} array of points
+     */
+    getPoints(): Array<Point>;
+    /**
+     * @name distanceX
+     * @description distance between two x components of a line
+     * @param {Line} l - line
+     * @return {number} distance
+     */
+    protected distanceX(l: Line): number;
+    /**
+     * @name distanceY
+     * @description distance between two y components of a line
+     * @param {Line} l - line
+     * @return {number} distance
+     */
+    protected distanceY(l: Line): number;
+    /**
+     * @name intersect
+     * @description determine point at which lines intersect
+     * @param {Line} l1 - first line
+     * @param {Line} l2 - second line
+     * @return {Point} - intersection point
+     */
+    protected intersect(l1: Line, l2: Line): Point;
+    /**
+     * @name generatePoints
+     * @description generate curve points
+     * @param {Point} p1 - starting point
+     * @param {Point} p2 - end point
+     * @param {Point} p3 - control point
+     * @return {void}
+     */
+    protected generatePoints(p1: Point, p2: Point, p3: Point): void;
+}
 //# sourceMappingURL=Math.d.ts.map

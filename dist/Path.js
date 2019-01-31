@@ -34,6 +34,19 @@ var Path = /** @class */ (function () {
         this.pathPoints = this.pathPoints.concat(curve.generatePathPoints(points, tension, numOfSeg, close));
     };
     /**
+     * @name addCurve
+     * @description add a curve
+     * @param {[]]} points - reference points
+     * @param {number} tension - between points
+     * @param {number} numOfSeg - number of segments in curve
+     * @param {boolean} close - should close?
+     * @return {void}
+     */
+    Path.prototype.addCurve2 = function (starting, ending, control, segments) {
+        var curve = new Math_1.Curve2(starting, ending, control, segments);
+        this.pathPoints = this.pathPoints.concat(curve.getPoints());
+    };
+    /**
      * @name addPoints
      * @description add points
      * @param {Array<Point>} points

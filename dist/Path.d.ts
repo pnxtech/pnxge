@@ -24,6 +24,16 @@ export declare class Path {
      */
     addCurve(points: any, tension: number, numOfSeg: number, close: boolean): void;
     /**
+     * @name addCurve
+     * @description add a curve
+     * @param {[]]} points - reference points
+     * @param {number} tension - between points
+     * @param {number} numOfSeg - number of segments in curve
+     * @param {boolean} close - should close?
+     * @return {void}
+     */
+    addCurve2(starting: Point, ending: Point, control: Point, segments: number): void;
+    /**
      * @name addPoints
      * @description add points
      * @param {Array<Point>} points
