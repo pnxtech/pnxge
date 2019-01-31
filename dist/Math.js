@@ -82,7 +82,8 @@ var Angle = /** @class */ (function () {
      * @return {number} angle - in radians
      */
     Angle.prototype.angleFromVectors = function (v1, v2) {
-        return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
+        // return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
+        return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
     };
     /**
      * @name randomAngleTop
