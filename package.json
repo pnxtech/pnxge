@@ -1,6 +1,6 @@
 {
   "name": "@pnx/pnxge",
-  "version": "1.0.153",
+  "version": "1.0.154",
   "description": "The Phoenix Game Engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
