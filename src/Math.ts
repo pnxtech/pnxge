@@ -74,7 +74,14 @@ export class Angle {
   angleFromVectors(v1: Vector, v2: Vector): number {
     // return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
     // return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
-    return pcap(Math.atan2(v1.y, v1.x) - Math.atan2(v2.y, v2.x));
+    //atan2(vector2.y, vector2.x) - atan2(vector1.y, vector1.x)
+    let angle = pcap(Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x));
+    if (angle > Math.PI) {
+      angle -= 2 * Math.PI;
+    } else if (angle <= -Math.PI) {
+      angle += 2 * Math.PI;
+    }
+    return angle;
   }
 
   /**
