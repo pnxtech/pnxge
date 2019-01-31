@@ -25,8 +25,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @return {number} capped value
  */
 function pcap(value) {
-    var num = parseFloat("" + value);
-    return Number(num.toFixed(4));
+    return parseFloat("" + value);
+    // let num: number = parseFloat(`${value}`);
+    // return Number(num.toFixed(2));
 }
 exports.pcap = pcap;
 /**
