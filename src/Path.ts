@@ -70,11 +70,9 @@ export class Path {
       y = point.y;
     });
 
-    // let lastRotation = 0;
-    for (let i = 0; i < pathElements.length; i++) {
-      // let currentRotation = pathElements[i].rotation;
-      pathElements[i].rotation = pcap(pathElements[i].rotation);
-      // lastRotation = currentRotation;
+    pathElements[0].rotation = pcap(pathElements[0].rotation);
+    for (let i = 1; i < pathElements.length; i++) {
+      pathElements[i].rotation += pcap(pathElements[i-1].rotation);
     }
     return pathElements;
   }
