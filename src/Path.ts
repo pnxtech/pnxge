@@ -70,11 +70,11 @@ export class Path {
       y = point.y;
     });
 
-    let lastRotation = 0;
+    // let lastRotation = 0;
     for (let i = 0; i < pathElements.length; i++) {
-      let currentRotation = pathElements[i].rotation;
-      pathElements[i].rotation = pcap(lastRotation + pathElements[i].rotation);
-      lastRotation = currentRotation;
+      // let currentRotation = pathElements[i].rotation;
+      pathElements[i].rotation = pcap(pathElements[i].rotation);
+      // lastRotation = currentRotation;
     }
     return pathElements;
   }
@@ -84,7 +84,7 @@ export class Path {
    * @description get a json string containing path data
    * @return {string} JSON - output
    */
-  getPathJSON(): string {
+  public getPathJSON(): string {
     let arr: Array<PathElement> = this.getPathElements();
     let condenced: any = [];
     arr.forEach((element) => {

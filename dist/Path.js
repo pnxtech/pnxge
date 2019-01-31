@@ -67,11 +67,11 @@ var Path = /** @class */ (function () {
             x = point.x;
             y = point.y;
         });
-        var lastRotation = 0;
+        // let lastRotation = 0;
         for (var i = 0; i < pathElements.length; i++) {
-            var currentRotation = pathElements[i].rotation;
-            pathElements[i].rotation = Math_1.pcap(lastRotation + pathElements[i].rotation);
-            lastRotation = currentRotation;
+            // let currentRotation = pathElements[i].rotation;
+            pathElements[i].rotation = Math_1.pcap(pathElements[i].rotation);
+            // lastRotation = currentRotation;
         }
         return pathElements;
     };
