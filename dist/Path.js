@@ -29,21 +29,8 @@ var Path = /** @class */ (function () {
      * @param {boolean} close - should close?
      * @return {void}
      */
-    Path.prototype.addCurve = function (points, tension, numOfSeg, close) {
-        var curve = new Math_1.Curve();
-        this.pathPoints = this.pathPoints.concat(curve.generatePathPoints(points, tension, numOfSeg, close));
-    };
-    /**
-     * @name addCurve
-     * @description add a curve
-     * @param {[]]} points - reference points
-     * @param {number} tension - between points
-     * @param {number} numOfSeg - number of segments in curve
-     * @param {boolean} close - should close?
-     * @return {void}
-     */
-    Path.prototype.addCurve2 = function (starting, ending, control, segments) {
-        var curve = new Math_1.Curve2(starting, ending, control, segments);
+    Path.prototype.addCurve = function (starting, ending, control, segments) {
+        var curve = new Math_1.Curve(starting, ending, control, segments);
         this.pathPoints = this.pathPoints.concat(curve.getPoints());
     };
     /**
@@ -80,29 +67,11 @@ var Path = /** @class */ (function () {
             x = point.x;
             y = point.y;
         });
-        // smooth rotation values
-        // for (let i = 0; i < pathElements.length; i++) {
-        //   if (pathElements[i].rotation === 0) {
-        //     for (let j = i; j < pathElements.length; j++) {
-        //       if (pathElements[j].rotation !== 0) {
-        //         let totalZeros = j - i;
-        //         let rollback = (i - 1 < 0) ? 0 : i - 1;
-        //         let smoother = (pathElements[j].rotation - pathElements[rollback].rotation) / totalZeros;
-        //         if (smoother !== 0 && totalZeros === 1) {
-        //           smoother = smoother / 2;
-        //         }
-        //         for (let step = 0, k = i; k < i + totalZeros; k++) {
-        //           step += smoother;
-        //           pathElements[k].rotation = pathElements[rollback].rotation + step;
-        //         }
-        //         i += totalZeros;
-        //         break;
-        //       }
-        //     }
-        //   }
-        // }
+        var lastRotation = 0;
         for (var i = 0; i < pathElements.length; i++) {
-            pathElements[i].rotation = Math_1.pcap(pathElements[i].rotation);
+            var currentRotation = pathElements[i].rotation;
+            pathElements[i].rotation = Math_1.pcap(lastRotation + pathElements[i].rotation);
+            lastRotation = currentRotation;
         }
         return pathElements;
     };

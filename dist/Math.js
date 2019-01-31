@@ -404,127 +404,16 @@ var Random = /** @class */ (function () {
     return Random;
 }());
 exports.Random = Random;
-var Curve = /** @class */ (function () {
-    function Curve() {
-    }
-    /*!	Curve calc function for canvas 2.3.8
-    *	(c) Epistemex 2013-2018
-    *	www.epistemex.com
-    *	License: MIT
-    * Note: Code below has been converted to Typescript and differs from the author's original version - cjus
-    */
-    /**
-     * Calculates an array containing points representing a cardinal spline through given point array.
-     * Points must be arranged as: [x1, y1, x2, y2, ..., xn, yn].
-     *
-     * There must be a minimum of two points in the input array but the function
-     * is only useful where there are three points or more.
-     *
-     * The points for the cardinal spline are returned as a new array.
-     * @param {any} points - point array
-     * @param {number} [tension=0.5] - tension. Typically between [0.0, 1.0] but can be exceeded
-     * @param {number} [numOfSeg=25] - number of segments between two points (line resolution)
-     * @param {boolean} [close=false] - Close the ends making the line continuous
-     * @returns {Array<Point>} New array with the calculated points that was added to the path
-     */
-    Curve.prototype.generatePathPoints = function (points, tension, numOfSeg, close) {
-        if (typeof points === "undefined" || points.length < 2) {
-            return [];
-        }
-        // options or defaults
-        tension = typeof tension === "number" ? tension : 0.5;
-        numOfSeg = typeof numOfSeg === "number" ? numOfSeg : 25;
-        var pts; // for cloning point array
-        var i = 1;
-        var l = points.length;
-        var rPos = 0;
-        var rLen = (l - 2) * numOfSeg + 2 + (close ? 2 * numOfSeg : 0);
-        var res = new Array(rLen);
-        var cache = new Array((numOfSeg + 2) << 2);
-        var cachePtr = 4;
-        pts = points.slice(0);
-        if (close) {
-            pts.unshift(points[l - 1]); // insert end point as first point
-            pts.unshift(points[l - 2]);
-            pts.push(points[0], points[1]); // first point as last point
-        }
-        else {
-            pts.unshift(points[1]); // copy 1. point and insert at beginning
-            pts.unshift(points[0]);
-            pts.push(points[l - 2], points[l - 1]); // duplicate end-points
-        }
-        // cache inner-loop calculations as they are based on t alone
-        cache[0] = 1; // 1,0,0,0
-        for (; i < numOfSeg; i++) {
-            var st = i / numOfSeg;
-            var st2 = st * st;
-            var st3 = st2 * st;
-            var st23 = st3 * 2;
-            var st32 = st2 * 3;
-            cache[cachePtr++] = st23 - st32 + 1; // c1
-            cache[cachePtr++] = st32 - st23; // c2
-            cache[cachePtr++] = st3 - 2 * st2 + st; // c3
-            cache[cachePtr++] = st3 - st2; // c4
-        }
-        cache[++cachePtr] = 1; // 0,1,0,0
-        var parse = function (pts, cache, l, tension) {
-            for (var i_1 = 2, t = void 0; i_1 < l; i_1 += 2) {
-                var pt1 = pts[i_1]; // x1
-                var pt2 = pts[i_1 + 1]; // y1
-                var pt3 = pts[i_1 + 2]; // x2
-                var pt4 = pts[i_1 + 3]; // y2
-                var t1x = (pt3 - pts[i_1 - 2]) * tension; // x2-x0
-                var t1y = (pt4 - pts[i_1 - 1]) * tension; // y2-y0
-                var t2x = (pts[i_1 + 4] - pt1) * tension; // x3-x1
-                var t2y = (pts[i_1 + 5] - pt2) * tension; // y3-y1
-                var c = 0, c1 = void 0, c2 = void 0, c3 = void 0, c4 = void 0;
-                for (t = 0; t < numOfSeg; t++) {
-                    c1 = cache[c++];
-                    c2 = cache[c++];
-                    c3 = cache[c++];
-                    c4 = cache[c++];
-                    res[rPos++] = c1 * pt1 + c2 * pt3 + c3 * t1x + c4 * t2x;
-                    res[rPos++] = c1 * pt2 + c2 * pt4 + c3 * t1y + c4 * t2y;
-                }
-            }
-        };
-        // calc. points
-        parse(pts, cache, l, tension);
-        if (close) {
-            pts = [];
-            pts.push(points[l - 4], points[l - 3], points[l - 2], points[l - 1], // second last and last
-            points[0], points[1], points[2], points[3]); // first and second
-            parse(pts, cache, 4, tension);
-        }
-        // add last point
-        l = close ? 0 : points.length - 2;
-        res[rPos++] = points[l++];
-        res[rPos] = points[l];
-        res[0] = points[0];
-        res[1] = points[1];
-        var newPoints = [];
-        for (var i_2 = 0; i_2 < res.length; i_2 += 2) {
-            var x = res[i_2] | 0;
-            var y = res[i_2 + 1] | 0;
-            if (x !== 0 && y !== 0) {
-                newPoints.push(new Point(x, y));
-            }
-        }
-        return newPoints;
-    };
-    return Curve;
-}());
-exports.Curve = Curve;
 /**
  * @name Curve
  * @description Generates curves points between two points and a control point
  */
-var Curve2 = /** @class */ (function () {
+var Curve = /** @class */ (function () {
     /**
      * @name constructor
      * @description class contructor
      */
-    function Curve2(starting, ending, control, segments) {
+    function Curve(starting, ending, control, segments) {
         this.totalSegments = segments;
         this.segmentList = new Array(this.totalSegments);
         this.generatePoints(starting, ending, control);
@@ -535,7 +424,7 @@ var Curve2 = /** @class */ (function () {
      * @return {number} total segments
      *
      */
-    Curve2.prototype.getTotalSegments = function () {
+    Curve.prototype.getTotalSegments = function () {
         return this.totalSegments;
     };
     /**
@@ -543,7 +432,7 @@ var Curve2 = /** @class */ (function () {
      * @description get curve points
      * @return {Array<Point>} array of points
      */
-    Curve2.prototype.getPoints = function () {
+    Curve.prototype.getPoints = function () {
         var newArray = new Array();
         for (var _i = 0, _a = this.segmentList; _i < _a.length; _i++) {
             var pt = _a[_i];
@@ -557,7 +446,7 @@ var Curve2 = /** @class */ (function () {
      * @param {Line} l - line
      * @return {number} distance
      */
-    Curve2.prototype.distanceX = function (l) {
+    Curve.prototype.distanceX = function (l) {
         return pcap(l.pt2.x - l.pt1.x);
     };
     /**
@@ -566,7 +455,7 @@ var Curve2 = /** @class */ (function () {
      * @param {Line} l - line
      * @return {number} distance
      */
-    Curve2.prototype.distanceY = function (l) {
+    Curve.prototype.distanceY = function (l) {
         return pcap(l.pt2.y - l.pt1.y);
     };
     /**
@@ -576,7 +465,7 @@ var Curve2 = /** @class */ (function () {
      * @param {Line} l2 - second line
      * @return {Point} - intersection point
      */
-    Curve2.prototype.intersect = function (l1, l2) {
+    Curve.prototype.intersect = function (l1, l2) {
         var m1;
         var b1;
         var m2;
@@ -610,7 +499,7 @@ var Curve2 = /** @class */ (function () {
      * @param {Point} p3 - control point
      * @return {void}
      */
-    Curve2.prototype.generatePoints = function (p1, p2, p3) {
+    Curve.prototype.generatePoints = function (p1, p2, p3) {
         var l1 = new Line(p1.x, p1.y, p3.x, p3.y);
         var l2 = new Line(p3.x, p3.y, p2.x, p2.y);
         var dx1 = pcap(this.distanceX(l1) / (this.totalSegments + 1));
@@ -661,7 +550,7 @@ var Curve2 = /** @class */ (function () {
             this.segmentList[i] = this.intersect(ls1, ls2);
         }
     };
-    return Curve2;
+    return Curve;
 }());
-exports.Curve2 = Curve2;
+exports.Curve = Curve;
 //# sourceMappingURL=Math.js.map
