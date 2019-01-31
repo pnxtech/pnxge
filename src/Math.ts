@@ -72,10 +72,10 @@ export class Angle {
    * @return {number} angle - in radians
    */
   angleFromVectors(v1: Vector, v2: Vector): number {
-    let angle = Math.atan2((v2.x - v1.x), (v2.y - v1.y));
+    // let angle = Math.atan2((v2.x - v1.x), (v2.y - v1.y));
     // return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
     //atan2(vector2.y, vector2.x) - atan2(vector1.y, vector1.x)
-    // let angle = Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x);
+    let angle = Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x);
     // if (angle > Math.PI) {
     //   angle -= 2 * Math.PI;
     // } else if (angle <= -Math.PI) {
