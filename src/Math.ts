@@ -12,7 +12,7 @@
  */
 export function pcap(value: number | string): number {
   let num: number = parseFloat(`${value}`);
-  return Number(num.toFixed(4));
+  return Number(num.toFixed(7));
 }
 
 /**
