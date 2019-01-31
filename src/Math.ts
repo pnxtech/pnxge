@@ -11,9 +11,8 @@
  * @return {number} capped value
  */
 export function pcap(value: number | string): number {
-  return parseFloat(`${value}`);
-  // let num: number = parseFloat(`${value}`);
-  // return Number(num.toFixed(2));
+  let num: number = parseFloat(`${value}`);
+  return Number(num.toFixed(2));
 }
 
 /**
