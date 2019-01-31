@@ -83,16 +83,7 @@ var Angle = /** @class */ (function () {
      * @return {number} angle - in radians
      */
     Angle.prototype.angleFromVectors = function (v1, v2) {
-        // let angle = Math.atan2((v2.x - v1.x), (v2.y - v1.y));
-        // return pcap(Math.atan2((v1.x - v2.x), (v1.y - v2.y)));
-        //atan2(vector2.y, vector2.x) - atan2(vector1.y, vector1.x)
-        var angle = Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x);
-        // if (angle > Math.PI) {
-        //   angle -= 2 * Math.PI;
-        // } else if (angle <= -Math.PI) {
-        //   angle += 2 * Math.PI;
-        // }
-        return pcap(angle);
+        return pcap(Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x));
     };
     /**
      * @name randomAngleTop
@@ -447,7 +438,7 @@ var Curve = /** @class */ (function () {
      * @return {number} distance
      */
     Curve.prototype.distanceX = function (l) {
-        return pcap(l.pt2.x - l.pt1.x);
+        return l.pt2.x - l.pt1.x;
     };
     /**
      * @name distanceY
@@ -456,15 +447,8 @@ var Curve = /** @class */ (function () {
      * @return {number} distance
      */
     Curve.prototype.distanceY = function (l) {
-        return pcap(l.pt2.y - l.pt1.y);
+        return l.pt2.y - l.pt1.y;
     };
-    /**
-     * @name intersect
-     * @description determine point at which lines intersect
-     * @param {Line} l1 - first line
-     * @param {Line} l2 - second line
-     * @return {Point} - intersection point
-     */
     Curve.prototype.intersect = function (l1, l2) {
         var m1;
         var b1;
@@ -473,22 +457,24 @@ var Curve = /** @class */ (function () {
         var p = new Point();
         if (this.distanceX(l1) === 0) {
             p.x = l1.pt1.x;
-            m1 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-            b1 = pcap(l2.pt1.y - m1 * l2.pt1.x);
+            m1 = (l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x);
+            b1 = l2.pt1.y - m1 * l2.pt1.x;
         }
         else if (this.distanceX(l2) === 0) {
             p.x = l2.pt1.x;
-            m1 = pcap(l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
-            b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
+            m1 = (l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
+            b1 = l1.pt1.y - m1 * l1.pt1.x;
         }
         else {
-            m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
-            b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
-            m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-            b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
-            p.x = pcap((b1 - b2) / (m2 - m1));
+            m1 = (l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
+            b1 = l1.pt1.y - m1 * l1.pt1.x;
+            m2 = (l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x);
+            b2 = l2.pt1.y - m2 * l2.pt1.x;
+            p.x = (b1 - b2) / (m2 - m1);
         }
-        p.y = pcap(m1 * p.x + b1);
+        p.y = m1 * p.x + b1;
+        p.x = pcap(p.x);
+        p.y = pcap(p.y);
         return p;
     };
     /**
@@ -502,8 +488,8 @@ var Curve = /** @class */ (function () {
     Curve.prototype.generatePoints = function (p1, p2, p3) {
         var l1 = new Line(p1.x, p1.y, p3.x, p3.y);
         var l2 = new Line(p3.x, p3.y, p2.x, p2.y);
-        var dx1 = pcap(this.distanceX(l1) / (this.totalSegments + 1));
-        var dx2 = pcap(this.distanceX(l2) / (this.totalSegments + 1));
+        var dx1 = this.distanceX(l1) / (this.totalSegments + 1);
+        var dx2 = this.distanceX(l2) / (this.totalSegments + 1);
         var m1 = 0;
         var m2 = 0;
         var dy1 = 0;
@@ -511,41 +497,41 @@ var Curve = /** @class */ (function () {
         var b1 = 0;
         var b2 = 0;
         if (dx1 !== 0) {
-            m1 = pcap((l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x));
-            b1 = pcap(l1.pt1.y - m1 * l1.pt1.x);
+            m1 = (l1.pt1.y - l1.pt2.y) / (l1.pt1.x - l1.pt2.x);
+            b1 = l1.pt1.y - m1 * l1.pt1.x;
         }
         else {
-            dy1 = pcap(this.distanceY(l1) / (this.totalSegments + 1));
+            dy1 = this.distanceY(l1) / (this.totalSegments + 1);
         }
         if (dx2 !== 0) {
-            m2 = pcap((l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x));
-            b2 = pcap(l2.pt1.y - m2 * l2.pt1.x);
+            m2 = (l2.pt1.y - l2.pt2.y) / (l2.pt1.x - l2.pt2.x);
+            b2 = l2.pt1.y - m2 * l2.pt1.x;
         }
         else {
-            dy2 = pcap(this.distanceY(l2) / (this.totalSegments + 1));
+            dy2 = this.distanceY(l2) / (this.totalSegments + 1);
         }
         var ls1 = new Line();
         var ls2 = new Line();
         for (var i = 0; i < this.totalSegments; i++) {
-            ls1.pt1.x = pcap(l1.pt1.x + (dx1 * i));
-            ls1.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 1)));
-            ls2.pt1.x = pcap(l1.pt1.x + (dx1 * (i + 1)));
-            ls2.pt2.x = pcap(l2.pt1.x + (dx2 * (i + 2)));
+            ls1.pt1.x = l1.pt1.x + (dx1 * i);
+            ls1.pt2.x = l2.pt1.x + (dx2 * (i + 1));
+            ls2.pt1.x = l1.pt1.x + (dx1 * (i + 1));
+            ls2.pt2.x = l2.pt1.x + (dx2 * (i + 2));
             if (dx1 !== 0) {
-                ls1.pt1.y = pcap(m1 * ls1.pt1.x + b1);
-                ls2.pt1.y = pcap(m1 * ls2.pt1.x + b1);
+                ls1.pt1.y = m1 * ls1.pt1.x + b1;
+                ls2.pt1.y = m1 * ls2.pt1.x + b1;
             }
             else {
-                ls1.pt1.y = pcap(l1.pt1.y + (dy1 * i));
-                ls2.pt1.y = pcap(l1.pt1.y + (dy1 * (i + 1)));
+                ls1.pt1.y = l1.pt1.y + (dy1 * i);
+                ls2.pt1.y = l1.pt1.y + (dy1 * (i + 1));
             }
             if (dx2 != 0) {
-                ls1.pt2.y = pcap(m2 * ls1.pt2.x + b2);
-                ls2.pt2.y = pcap(m2 * ls2.pt2.x + b2);
+                ls1.pt2.y = m2 * ls1.pt2.x + b2;
+                ls2.pt2.y = m2 * ls2.pt2.x + b2;
             }
             else {
-                ls1.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 1)));
-                ls2.pt2.y = pcap(l2.pt1.y + (dy2 * (i + 2)));
+                ls1.pt2.y = l2.pt1.y + (dy2 * (i + 1));
+                ls2.pt2.y = l2.pt1.y + (dy2 * (i + 2));
             }
             this.segmentList[i] = this.intersect(ls1, ls2);
         }

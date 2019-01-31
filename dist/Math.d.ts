@@ -281,13 +281,6 @@ export declare class Curve {
      * @return {number} distance
      */
     protected distanceY(l: Line): number;
-    /**
-     * @name intersect
-     * @description determine point at which lines intersect
-     * @param {Line} l1 - first line
-     * @param {Line} l2 - second line
-     * @return {Point} - intersection point
-     */
     protected intersect(l1: Line, l2: Line): Point;
     /**
      * @name generatePoints
