@@ -62,7 +62,7 @@ var Path = /** @class */ (function () {
             vectorDst.y = point.y;
             pathElements.push({
                 point: point,
-                rotation: angle.angleFromVectors(vectorDst, vectorSrc)
+                rotation: angle.angleFromVectors(vectorSrc, vectorDst)
             });
             x = point.x;
             y = point.y;

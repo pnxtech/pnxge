@@ -50,13 +50,6 @@ export declare class Angle {
      * @param {Vector} v1 - from (source) vector
      * @param {Vector} v2 - to (target) vector
      * @return {number} angle - in radians
-     * @note
-     *  let angle: Angle = new Angle();
-     *  let radians = angle.angleFromVectors(
-     *    new Vector(this.explosionAnim.x, this.explosionAnim.y),
-     *    new Vector(this.turetAnim.x, this.turetAnim.y)
-     *  );
-     *  this.movementVector = angle.vectorAngleFromRadians(radians);
      */
     angleFromVectors(v1: Vector, v2: Vector): number;
     /**

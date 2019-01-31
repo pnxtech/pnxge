@@ -80,13 +80,6 @@ var Angle = /** @class */ (function () {
      * @param {Vector} v1 - from (source) vector
      * @param {Vector} v2 - to (target) vector
      * @return {number} angle - in radians
-     * @note
-     *  let angle: Angle = new Angle();
-     *  let radians = angle.angleFromVectors(
-     *    new Vector(this.explosionAnim.x, this.explosionAnim.y),
-     *    new Vector(this.turetAnim.x, this.turetAnim.y)
-     *  );
-     *  this.movementVector = angle.vectorAngleFromRadians(radians);
      */
     Angle.prototype.angleFromVectors = function (v1, v2) {
         return pcap(Math.atan2((v2.x - v1.x), (v2.y - v1.y)));
