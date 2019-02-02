@@ -10,6 +10,7 @@ __export(require("./AssetManager"));
 __export(require("./Attribs"));
 __export(require("./BackgroundTile"));
 __export(require("./Benchmark"));
+__export(require("./Controller"));
 __export(require("./EventManager"));
 __export(require("./Image"));
 __export(require("./Math"));

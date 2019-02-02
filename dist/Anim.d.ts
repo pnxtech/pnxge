@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { IAnimCompatible } from './AnimCompatible';
 import { EventManager } from './EventManager';
-import { IController } from './Controller';
+import { Controller } from './Controller';
 import { Scene } from './Scene';
 import { Rect } from './Math';
 import { Attribs } from './Attribs';
@@ -15,7 +15,7 @@ export declare class Anim implements IAnimCompatible {
     private animationSequence;
     private lastSequenceName;
     private currentSequenceName;
-    protected controller: IController | undefined;
+    protected controller: Controller | undefined;
     private _x;
     private _y;
     private _z;
@@ -61,7 +61,7 @@ export declare class Anim implements IAnimCompatible {
      * @description attach a Controller
      * @return {void}
      */
-    attachController(controller: IController): void;
+    attachController(controller: Controller): void;
     /**
      * @name setCacheAsBitmap
      * @description set cache as bitmap optimization. Should not be used when animation is intended.

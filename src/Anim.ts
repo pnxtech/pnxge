@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import {IAnimCompatible} from './AnimCompatible';
 import {EventManager} from './EventManager';
 import {AnimatedSprite} from './AnimatedSprite';
-import {IController} from './Controller';
+import {Controller} from './Controller';
 import {Scene} from './Scene';
 import {Rect} from './Math';
 import {Attribs} from './Attribs';
@@ -24,7 +24,7 @@ export class Anim implements IAnimCompatible {
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
-  protected controller: IController | undefined;
+  protected controller: Controller | undefined;
   private _x: number = 0;
   private _y: number = 0;
   private _z: number = 0;
@@ -103,7 +103,7 @@ export class Anim implements IAnimCompatible {
    * @description attach a Controller
    * @return {void}
    */
-  attachController(controller: IController): void {
+  attachController(controller: Controller): void {
     this.controller = controller;
   }
 
