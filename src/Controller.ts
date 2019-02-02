@@ -20,6 +20,7 @@ export class Controller {
    */
   constructor(name: string, scene: Scene) {
     this.anim = <Anim>scene.getAnim(name);
+    this.anim.attachController(this);
   }
 
   /**

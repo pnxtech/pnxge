@@ -17,6 +17,7 @@ var Controller = /** @class */ (function () {
         this.currentPathIndex = 0;
         this.isPathComplete = true;
         this.anim = scene.getAnim(name);
+        this.anim.attachController(this);
     }
     /**
      * @name moveLeft
