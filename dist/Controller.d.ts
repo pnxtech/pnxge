@@ -5,7 +5,7 @@ import { Scene } from './Scene';
  * @description  Controller base class
  */
 export declare class Controller {
-    private anim;
+    protected anim: Anim | undefined;
     private pathCache;
     private currentPath;
     private currentPathIndex;

@@ -6,7 +6,7 @@ import {Scene} from './Scene';
  * @description  Controller base class
  */
 export class Controller {
-  private anim: Anim | undefined;
+  protected anim: Anim | undefined;
   private pathCache: any = {};
   private currentPath: string = '';
   private currentPathIndex: number = 0;
