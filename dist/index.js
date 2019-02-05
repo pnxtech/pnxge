@@ -22,5 +22,6 @@ __export(require("./SoundManager"));
 __export(require("./State"));
 __export(require("./TextSprite"));
 __export(require("./TilingSprite"));
+__export(require("./Threshold"));
 __export(require("./Utils"));
 //# sourceMappingURL=index.js.map

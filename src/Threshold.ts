@@ -2,7 +2,7 @@
  * @name Threshold
  * @description threshold tracking and management
  */
-class Threshold {
+export class Threshold {
   private _count: number;
   private _threshold: number;
   private _triggered: boolean;

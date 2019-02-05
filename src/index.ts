@@ -18,4 +18,5 @@ export * from './SoundManager';
 export * from './State';
 export * from './TextSprite';
 export * from './TilingSprite';
+export * from './Threshold';
 export * from './Utils';

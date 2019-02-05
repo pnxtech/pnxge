@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @name Threshold
  * @description threshold tracking and management
@@ -64,4 +65,5 @@ var Threshold = /** @class */ (function () {
     };
     return Threshold;
 }());
+exports.Threshold = Threshold;
 //# sourceMappingURL=Threshold.js.map
