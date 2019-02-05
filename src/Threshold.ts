@@ -6,6 +6,7 @@ export class Threshold {
   private _count: number;
   private _threshold: number;
   private _triggered: boolean;
+  private _disabled: boolean;
 
   /**
    * @name construtor
@@ -16,6 +17,7 @@ export class Threshold {
     this._count = 0;
     this._threshold = max;
     this._triggered = false;
+    this._disabled = false;
   }
 
   /**
@@ -38,6 +40,25 @@ export class Threshold {
   }
 
   /**
+   * @name disabled
+   * @description disabled getter
+   * @return {boolean} is disabled?
+   */
+  get disabled() {
+    return this._disabled;
+  }
+
+  /**
+   * @name disabled
+   * @description disabled setter
+   * @param {boolean} value - true to disable / false to enable
+   * @return {void}
+   */
+  set disabled(value: boolean) {
+    this._disabled = value;
+  }
+
+  /**
    * @name triggered
    * @description triggered getter
    * @return {number} value of trigger
@@ -48,16 +69,20 @@ export class Threshold {
 
   /**
    * @name increment
-   * @description increment the internal count towards eventual thresold
-   * @return {void}
+   * @description increment the internal count towards eventual threshold
+   * @return {boolean} is triggered?
    */
-  increment(): void {
-    this._count++;
-    if (this._count === this._threshold) {
-      this._triggered = true;
-      this._count = 0;
-    } else {
-      this._triggered = false;
+  increment(): boolean {
+    if (!this._disabled) {
+      this._count++;
+      if (this._count === this._threshold) {
+        this._triggered = true;
+        this._count = 0;
+      } else {
+        this._triggered = false;
+      }
+      return this._triggered;
     }
+    return false;
   }
 }

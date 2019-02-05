@@ -14,6 +14,7 @@ var Threshold = /** @class */ (function () {
         this._count = 0;
         this._threshold = max;
         this._triggered = false;
+        this._disabled = false;
     }
     Object.defineProperty(Threshold.prototype, "threshold", {
         /**
@@ -36,6 +37,27 @@ var Threshold = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Threshold.prototype, "disabled", {
+        /**
+         * @name disabled
+         * @description disabled getter
+         * @return {boolean} is disabled?
+         */
+        get: function () {
+            return this._disabled;
+        },
+        /**
+         * @name disabled
+         * @description disabled setter
+         * @param {boolean} value - true to disable / false to enable
+         * @return {void}
+         */
+        set: function (value) {
+            this._disabled = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Threshold.prototype, "triggered", {
         /**
          * @name triggered
@@ -50,18 +72,22 @@ var Threshold = /** @class */ (function () {
     });
     /**
      * @name increment
-     * @description increment the internal count towards eventual thresold
-     * @return {void}
+     * @description increment the internal count towards eventual threshold
+     * @return {boolean} is triggered?
      */
     Threshold.prototype.increment = function () {
-        this._count++;
-        if (this._count === this._threshold) {
-            this._triggered = true;
-            this._count = 0;
+        if (!this._disabled) {
+            this._count++;
+            if (this._count === this._threshold) {
+                this._triggered = true;
+                this._count = 0;
+            }
+            else {
+                this._triggered = false;
+            }
+            return this._triggered;
         }
-        else {
-            this._triggered = false;
-        }
+        return false;
     };
     return Threshold;
 }());

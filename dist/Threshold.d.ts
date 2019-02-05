@@ -6,6 +6,7 @@ export declare class Threshold {
     private _count;
     private _threshold;
     private _triggered;
+    private _disabled;
     /**
      * @name construtor
      * @description initialize threshold
@@ -25,6 +26,18 @@ export declare class Threshold {
     */
     threshold: number;
     /**
+     * @name disabled
+     * @description disabled getter
+     * @return {boolean} is disabled?
+     */
+    /**
+    * @name disabled
+    * @description disabled setter
+    * @param {boolean} value - true to disable / false to enable
+    * @return {void}
+    */
+    disabled: boolean;
+    /**
      * @name triggered
      * @description triggered getter
      * @return {number} value of trigger
@@ -32,9 +45,9 @@ export declare class Threshold {
     readonly triggered: boolean;
     /**
      * @name increment
-     * @description increment the internal count towards eventual thresold
-     * @return {void}
+     * @description increment the internal count towards eventual threshold
+     * @return {boolean} is triggered?
      */
-    increment(): void;
+    increment(): boolean;
 }
 //# sourceMappingURL=Threshold.d.ts.map
