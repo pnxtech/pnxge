@@ -263,6 +263,9 @@ var AssetManager = /** @class */ (function () {
             image.y = obj.y;
             image.z = obj.z;
             image.rotation = obj.rotation || 0;
+            if (obj.anchor) {
+                image.setAnchor(obj.anchor);
+            }
             if (obj.attribs) {
                 image.attribs.add(obj.attribs);
             }
