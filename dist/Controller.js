@@ -111,18 +111,14 @@ var Controller = /** @class */ (function () {
                 this.anim.x = this.pathCache[this.currentPath][this.currentPathIndex].x;
                 this.anim.y = this.pathCache[this.currentPath][this.currentPathIndex].y;
                 this.anim.rotation = this.pathCache[this.currentPath][this.currentPathIndex].r;
-                if (this.currentPathIndex + 1 === this.pathCache.length) {
+                if (this.currentPathIndex + 1 === this.pathCache[this.currentPath].length) {
+                    this.currentPath = '';
                     this.currentPathIndex = 0;
+                    this.isPathComplete = true;
                 }
                 else {
                     this.currentPathIndex++;
                 }
-            }
-            if (this.currentPathIndex++ === this.pathCache[this.currentPath].length) {
-                this.currentPath = '';
-                this.currentPathIndex = 0;
-                this.isPathComplete = true;
-                return;
             }
         }
     };

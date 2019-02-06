@@ -28,7 +28,7 @@ export class Controller {
    * @description handle movement left
    * @return {void}
    */
-  moveLeft(): void {
+  public moveLeft(): void {
   }
 
   /**
@@ -36,7 +36,7 @@ export class Controller {
    * @description handle movement right
    * @return {void}
    */
-  moveRight(): void {
+  public moveRight(): void {
   }
 
   /**
@@ -90,7 +90,7 @@ export class Controller {
    * @description index within path
    * @return {number} index - will return -1 if a path isn't active
    */
-  get pathIndex(): number {
+  public get pathIndex(): number {
     return (!this.isPathComplete) ? this.currentPathIndex : -1;
   }
 
@@ -99,7 +99,7 @@ export class Controller {
    * @description Returns true of path traversal is complete
    * @return {boolean} is path complete?
    */
-  get pathComplete(): boolean {
+  public get pathComplete(): boolean {
     return this.isPathComplete;
   }
 
@@ -115,17 +115,13 @@ export class Controller {
         this.anim.x = this.pathCache[this.currentPath][this.currentPathIndex].x;
         this.anim.y = this.pathCache[this.currentPath][this.currentPathIndex].y;
         this.anim.rotation = this.pathCache[this.currentPath][this.currentPathIndex].r;
-        if (this.currentPathIndex + 1 === this.pathCache.length) {
+        if (this.currentPathIndex + 1 === this.pathCache[this.currentPath].length) {
+          this.currentPath = ''
           this.currentPathIndex = 0;
+          this.isPathComplete = true;
         } else {
           this.currentPathIndex++;
         }
-      }
-      if (this.currentPathIndex++ === this.pathCache[this.currentPath].length) {
-        this.currentPath = ''
-        this.currentPathIndex = 0;
-        this.isPathComplete = true;
-        return;
       }
     }
   }
