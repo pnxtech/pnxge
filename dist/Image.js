@@ -47,10 +47,10 @@ var Image = /** @class */ (function (_super) {
         _this._vx = 0;
         _this._vy = 0;
         _this.anim = _this;
-        // this.anim.anchor.x = 0.5;
-        // this.anim.anchor.y = 0.5;
-        _this.anim.pivot.x = 0.5;
-        _this.anim.pivot.y = 0.5;
+        _this.anim.anchor.x = 0.5;
+        _this.anim.anchor.y = 0.5;
+        // this.anim.pivot.x = 0.5;
+        // this.anim.pivot.y = 0.5;
         _this.scene = scene;
         scene.stage.addChild(_this);
         _this.internalRect = new Math_1.Rect(_this.x, _this.y, _this.width, _this.height);

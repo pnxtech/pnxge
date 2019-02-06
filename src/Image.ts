@@ -35,10 +35,10 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
   constructor(scene: Scene, name: string, resources: any) {
     super(resources.textures[name]);
     this.anim = this;
-    // this.anim.anchor.x = 0.5;
-    // this.anim.anchor.y = 0.5;
-    this.anim.pivot.x = 0.5;
-    this.anim.pivot.y = 0.5;
+    this.anim.anchor.x = 0.5;
+    this.anim.anchor.y = 0.5;
+    // this.anim.pivot.x = 0.5;
+    // this.anim.pivot.y = 0.5;
     this.scene = scene;
     scene.stage.addChild(this);
     this.internalRect = new Rect(this.x, this.y, this.width, this.height);
