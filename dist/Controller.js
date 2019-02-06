@@ -100,6 +100,13 @@ var Controller = /** @class */ (function () {
         configurable: true
     });
     /**
+     * @name pathCompleted
+     * @description called when path is completed
+     * @return {void}
+     */
+    Controller.prototype.pathCompleted = function () {
+    };
+    /**
      * @name update
      * @description update anim based on path
      * @param {number} deltaTime - delta time offset
@@ -115,6 +122,7 @@ var Controller = /** @class */ (function () {
                     this.currentPath = '';
                     this.currentPathIndex = 0;
                     this.isPathComplete = true;
+                    this.pathCompleted();
                 }
                 else {
                     this.currentPathIndex++;

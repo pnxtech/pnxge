@@ -104,6 +104,14 @@ export class Controller {
   }
 
   /**
+   * @name pathCompleted
+   * @description called when path is completed
+   * @return {void}
+   */
+  protected pathCompleted(): void {
+  }
+
+  /**
    * @name update
    * @description update anim based on path
    * @param {number} deltaTime - delta time offset
@@ -119,6 +127,7 @@ export class Controller {
           this.currentPath = ''
           this.currentPathIndex = 0;
           this.isPathComplete = true;
+          this.pathCompleted();
         } else {
           this.currentPathIndex++;
         }

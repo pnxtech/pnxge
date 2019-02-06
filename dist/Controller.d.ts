@@ -68,6 +68,12 @@ export declare class Controller {
      */
     readonly pathComplete: boolean;
     /**
+     * @name pathCompleted
+     * @description called when path is completed
+     * @return {void}
+     */
+    protected pathCompleted(): void;
+    /**
      * @name update
      * @description update anim based on path
      * @param {number} deltaTime - delta time offset
