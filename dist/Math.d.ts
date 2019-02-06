@@ -54,6 +54,12 @@ export declare class Angle {
      */
     angleFromVectors(v1: Vector, v2: Vector): number;
     /**
+     * @name randomAngle
+     * @description get randomangle
+     * @return {number} random angle
+     */
+    randomAngle(): number;
+    /**
      * @name randomAngleTop
      * @description get random top facing angle
      * @return {number} random angle

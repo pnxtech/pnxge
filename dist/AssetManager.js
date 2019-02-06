@@ -9,6 +9,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
 var Image_1 = require("./Image");
+var Math_1 = require("./Math");
 var Anim_1 = require("./Anim");
 var BackgroundTile_1 = require("./BackgroundTile");
 var TextSprite_1 = require("./TextSprite");
@@ -25,6 +26,7 @@ var AssetManager = /** @class */ (function () {
         this.loader = new PIXI.loaders.Loader();
         this.soundManager = undefined;
         this.utils = new Utils_1.Utils();
+        this.angle = new Math_1.Angle();
     }
     /**
      * @name init
@@ -184,7 +186,14 @@ var AssetManager = /** @class */ (function () {
                         }
                         anim.health = obj.health;
                         anim.strength = obj.strength;
-                        anim.rotation = obj.rotation;
+                        if (obj.rotation) {
+                            if (obj.rotation === 'random') {
+                                anim.rotation = this.angle.randomAngle();
+                            }
+                            else {
+                                anim.rotation = obj.rotation || 0;
+                            }
+                        }
                         anim.collisionDetection = obj.collisionDetection;
                         anim.visible = obj.visible || true;
                         anim.loop = obj.loop;
@@ -228,7 +237,14 @@ var AssetManager = /** @class */ (function () {
                 anim.attribs.add(obj.attribs);
             }
             anim.loop = obj.loop;
-            anim.rotation = obj.rotation || 0;
+            if (obj.rotation) {
+                if (obj.rotation === 'random') {
+                    anim.rotation = this.angle.randomAngle();
+                }
+                else {
+                    anim.rotation = obj.rotation || 0;
+                }
+            }
             anim.visible = obj.visible || true;
             anim.health = obj.health;
             anim.strength = obj.strength;
@@ -262,7 +278,14 @@ var AssetManager = /** @class */ (function () {
             image.x = obj.x;
             image.y = obj.y;
             image.z = obj.z;
-            image.rotation = obj.rotation || 0;
+            if (obj.rotation) {
+                if (obj.rotation === 'random') {
+                    image.rotation = this.angle.randomAngle();
+                }
+                else {
+                    image.rotation = obj.rotation || 0;
+                }
+            }
             if (obj.anchor) {
                 image.setAnchor(obj.anchor);
             }

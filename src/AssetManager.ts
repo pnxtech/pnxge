@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import {Scene} from './Scene';
 import {Image} from './Image';
+import {Angle} from './Math';
 import {Anim} from './Anim';
 import {BackgroundTile} from './BackgroundTile';
 import {TextSprite} from './TextSprite';
@@ -15,6 +16,7 @@ export class AssetManager {
   private resources: any;
   private soundManager: SoundManager | undefined;
   private utils: Utils;
+  private angle: Angle;
 
   /**
    * @name constructor
@@ -24,6 +26,7 @@ export class AssetManager {
     this.loader = new PIXI.loaders.Loader();
     this.soundManager = undefined;
     this.utils = new Utils();
+    this.angle = new Angle();
   }
 
   /**
@@ -181,7 +184,13 @@ export class AssetManager {
             }
             anim.health = obj.health;
             anim.strength = obj.strength;
-            anim.rotation = obj.rotation;
+            if (obj.rotation) {
+              if (obj.rotation === 'random') {
+                anim.rotation = this.angle.randomAngle();
+              } else {
+                anim.rotation = obj.rotation || 0;
+              }
+            }
             anim.collisionDetection = obj.collisionDetection;
             anim.visible = obj.visible || true;
             anim.loop = obj.loop;
@@ -226,7 +235,13 @@ export class AssetManager {
         anim.attribs.add(obj.attribs);
       }
       anim.loop = obj.loop;
-      anim.rotation = obj.rotation || 0;
+      if (obj.rotation) {
+        if (obj.rotation === 'random') {
+          anim.rotation = this.angle.randomAngle();
+        } else {
+          anim.rotation = obj.rotation || 0;
+        }
+      }
       anim.visible = obj.visible || true;
       anim.health = obj.health;
       anim.strength = obj.strength;
@@ -261,7 +276,13 @@ export class AssetManager {
       image.x = obj.x;
       image.y = obj.y;
       image.z = obj.z;
-      image.rotation = obj.rotation || 0;
+      if (obj.rotation) {
+        if (obj.rotation === 'random') {
+          image.rotation = this.angle.randomAngle();
+        } else {
+          image.rotation = obj.rotation || 0;
+        }
+      }
       if (obj.anchor) {
         image.setAnchor(obj.anchor);
       }

@@ -9,6 +9,7 @@ export declare class AssetManager {
     private resources;
     private soundManager;
     private utils;
+    private angle;
     /**
      * @name constructor
      * @description asset manager init

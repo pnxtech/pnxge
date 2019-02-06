@@ -86,6 +86,15 @@ var Angle = /** @class */ (function () {
         return pcap(Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x));
     };
     /**
+     * @name randomAngle
+     * @description get randomangle
+     * @return {number} random angle
+     */
+    Angle.prototype.randomAngle = function () {
+        var random = new Random();
+        return pcap(random.getRandomInclusive(0, Math.PI));
+    };
+    /**
      * @name randomAngleTop
      * @description get random top facing angle
      * @return {number} random angle

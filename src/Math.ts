@@ -76,6 +76,16 @@ export class Angle {
   }
 
   /**
+   * @name randomAngle
+   * @description get randomangle
+   * @return {number} random angle
+   */
+  randomAngle(): number {
+    let random = new Random();
+    return pcap(random.getRandomInclusive(0, Math.PI));
+  }
+
+  /**
    * @name randomAngleTop
    * @description get random top facing angle
    * @return {number} random angle
