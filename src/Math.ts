@@ -28,7 +28,7 @@ export class Angle {
    * @param {number} degree - 360 degree type
    * @return {number} radian
    */
-  d2r(degree: number): number {
+  public d2r(degree: number): number {
     return pcap(degree * Math.PI / 180.0);
   }
 
@@ -38,7 +38,7 @@ export class Angle {
    * @param {number} radians
    * @return {number} degree
    */
-  r2d(radians: number): number {
+  public r2d(radians: number): number {
     return pcap(radians * (180.0 / Math.PI));
   }
 
@@ -48,7 +48,7 @@ export class Angle {
    * @param {number} degrees
    * @return {Vector} angleVector
    */
-  vectorAngleFromDegrees(degrees: number): Vector {
+  public vectorAngleFromDegrees(degrees: number): Vector {
     let radians: number = this.d2r(degrees);
     return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
   }
@@ -59,7 +59,7 @@ export class Angle {
    * @param {number} radians
    * @return {Angle} angleVector
    */
-  vectorAngleFromRadians(radians: number): Vector {
+  public vectorAngleFromRadians(radians: number): Vector {
     return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
   }
 
@@ -71,7 +71,7 @@ export class Angle {
    * @param {Vector} v2 - to (target) vector
    * @return {number} angle - in radians
    */
-  angleFromVectors(v1: Vector, v2: Vector): number {
+  public angleFromVectors(v1: Vector, v2: Vector): number {
     return pcap(Math.atan2(v2.y, v2.x) - Math.atan2(v1.y, v1.x));
   }
 
@@ -80,7 +80,7 @@ export class Angle {
    * @description get randomangle
    * @return {number} random angle
    */
-  randomAngle(): number {
+  public randomAngle(): number {
     let random = new Random();
     return pcap(random.getRandomInclusive(0, Math.PI));
   }
@@ -90,7 +90,7 @@ export class Angle {
    * @description get random top facing angle
    * @return {number} random angle
    */
-  randomAngleTop(): number {
+  public randomAngleTop(): number {
     let random = new Random();
     return pcap(random.getRandomInclusive(0, Math.PI) + this.HalfPI);
   }
@@ -100,7 +100,7 @@ export class Angle {
    * @description get random bottom facing angle
    * @return {number} random angle
    */
-  randomAngleBottom(): number {
+  public randomAngleBottom(): number {
     let random = new Random();
     return pcap(random.getRandomInclusive(0, Math.PI) - this.HalfPI);
   }
@@ -147,7 +147,7 @@ export class Rect {
    * @param {Rect} targetRect
    * @return {boolean} bool - true if collision else false
    */
-  intersect(targetRect: Rect): boolean {
+  public intersect(targetRect: Rect): boolean {
     // Find the half-widths and half-heights of each sprite
     let a1_halfWidth = 0;
     let a1_halfHeight = 0;
@@ -176,7 +176,7 @@ export class Rect {
    * @param {padding} padding to increase rect
    * @return {Rect} new inflated Rect
    */
-  inflate(padding: number): Rect {
+  public inflate(padding: number): Rect {
     this.x = this.x - padding;
     this.y = this.y - padding;
     this.width = this.width + padding;
@@ -190,7 +190,7 @@ export class Rect {
    * @param {padding} padding to decrease rect
    * @return {Rect} new deflated Rect
    */
-  deflate(padding: number): Rect {
+  public deflate(padding: number): Rect {
     this.x = this.x + padding;
     this.y = this.y + padding;
     this.width = this.width - padding;
@@ -323,7 +323,7 @@ export class Random {
   * @summary Returns a random number between 0 (inclusive) and 1 (exclusive)
   * @return {number} num - number
   */
-  getRandom(): number {
+ public getRandom(): number {
     return Math.random();
   }
 
@@ -332,7 +332,7 @@ export class Random {
   * @summary Returns a random number between min (inclusive) and max (exclusive)
   * @return {number} num - number
   */
-  getRandomArbitrary(min: number, max: number): number {
+ public getRandomArbitrary(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
 
@@ -341,7 +341,7 @@ export class Random {
   * @summary Returns a random integer between min (included) and max (excluded). If min and max are zero then a random int is chosen
   * @return {number} num - number
   */
-  getRandomInt(min: number = 0, max: number = 0): number {
+ public getRandomInt(min: number = 0, max: number = 0): number {
     if (min === 0 && max === 0) {
       return ~~(Math.random() * 1e6);
     }
@@ -355,7 +355,7 @@ export class Random {
   * @summary Returns a random integer between min (included) and max (included)
   * @return {number} num - number
   */
-  getRandomIntInclusive(min: number, max: number): number {
+ public getRandomIntInclusive(min: number, max: number): number {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -366,7 +366,7 @@ export class Random {
   * @summary Returns a random number (real not int) between min (included) and max (included)
   * @return {number} num - number
   */
-  getRandomInclusive(min: number, max: number): number {
+ public getRandomInclusive(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
 
@@ -375,7 +375,7 @@ export class Random {
    * @description get a random true or false
    * @return {boolean} boolean - true or false
    */
-  getRandomBoolean(): boolean {
+  public getRandomBoolean(): boolean {
     return (Math.random() * 10 > 5);
   }
 
@@ -386,7 +386,7 @@ export class Random {
    * @param {number} width - number to determine width from center
    * @return {number} random number
    */
-  getRandomFromCenter(value: number, width: number): number {
+  public getRandomFromCenter(value: number, width: number): number {
     let midWidth = width * 0.5;
     let low = value - midWidth;
     let high = value + midWidth;
@@ -400,7 +400,7 @@ export class Random {
    * @param {number} width - number to determine width from center
    * @return {number} random number
    */
-  getRandomIntFromCenter(value: number, width: number): number {
+  public getRandomIntFromCenter(value: number, width: number): number {
     let midWidth = (width * 0.5) | 0;
     let low = value - midWidth;
     let high = value + midWidth;

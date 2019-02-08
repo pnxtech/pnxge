@@ -30,6 +30,7 @@ var Attribs_1 = require("./Attribs");
  */
 var Image = /** @class */ (function (_super) {
     __extends(Image, _super);
+    //#endregion
     /**
      * @name constructor
      * @description constructor
@@ -39,6 +40,7 @@ var Image = /** @class */ (function (_super) {
      */
     function Image(scene, name, resources) {
         var _this = _super.call(this, resources.textures[name]) || this;
+        //#region variables
         _this.id = (new Utils_1.Utils).createID();
         _this.collisionDetection = false;
         _this._z = 0;

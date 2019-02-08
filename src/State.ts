@@ -22,7 +22,7 @@ export class State {
    * @description state getter
    * @return {object}
    */
-  get state(): any {
+  public get state(): any {
     return this._state;
   }
 
@@ -31,7 +31,7 @@ export class State {
    * @description state setter
    * @param {any} data - object to be merged with state
    */
-  set state(data: any) {
+  public set state(data: any) {
     this._state = data;
   }
 
@@ -41,7 +41,7 @@ export class State {
    * @param {object} data - object to be merged with state
    * @return {object} new application state
    */
-  setState(data: any): any {
+  public setState(data: any): any {
     let newState = this.utils.mergeObjects(this._state, data);
     this._state = newState;
     return this._state;

@@ -31,6 +31,7 @@ var Attribs_1 = require("./Attribs");
  */
 var TextSprite = /** @class */ (function (_super) {
     __extends(TextSprite, _super);
+    //#endregion
     /**
      * @name constructor
      * @description constructor pass throught to BitmapText
@@ -40,6 +41,7 @@ var TextSprite = /** @class */ (function (_super) {
      */
     function TextSprite(scene, text, style) {
         var _this = _super.call(this, text, style) || this;
+        //#region variables
         _this.id = (new Utils_1.Utils()).createID();
         _this.zOrder = -1;
         _this.collisionDetection = false;

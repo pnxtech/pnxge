@@ -48,7 +48,7 @@ export class BackgroundTile extends Anim {
    * @param {state} boolean - true flip, else don't
    * @return {void}
    */
-  flip(state: boolean): void {
+  public flip(state: boolean): void {
     this.tilingSprite.anchor.x = 0.5;
     this.tilingSprite.anchor.y = 0.5;
     if (state) {
@@ -64,7 +64,7 @@ export class BackgroundTile extends Anim {
    * @param {number} color - color tint
    * @return {void}
    */
-  setTint(color: number): void {
+  public setTint(color: number): void {
     this.tilingSprite.tint = color;
   }
 
@@ -73,7 +73,7 @@ export class BackgroundTile extends Anim {
    * @description cleanup
    * @return {void}
    */
-  destroy():void {
+  public destroy(): void {
     this.tilingSprite.visible = false;
     this.scene.stage.removeChild(this.tilingSprite);
     this.tilingSprite.destroy({
@@ -82,4 +82,5 @@ export class BackgroundTile extends Anim {
       baseTexture: false
     });
   }
-};
+}
+

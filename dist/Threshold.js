@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @description threshold tracking and management
  */
 var Threshold = /** @class */ (function () {
+    //#endregion
     /**
      * @name construtor
      * @description initialize threshold

@@ -31,6 +31,7 @@ PIXI.utils.skipHello();
  */
 var Application = /** @class */ (function (_super) {
     __extends(Application, _super);
+    //#endregion
     /**
      * @name constructor
      * @description class constructor
@@ -46,6 +47,7 @@ var Application = /** @class */ (function (_super) {
             forceFXAA: false,
             antialias: false
         }) || this;
+        //#region variables
         _this.appWidth = 0;
         _this.appHeight = 0;
         _this.appEventManager = new EventManager_1.EventManager();

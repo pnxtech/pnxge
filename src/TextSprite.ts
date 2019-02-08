@@ -10,12 +10,14 @@ import {Attribs} from './Attribs';
  * @note: uses PIXI BitmapText
  */
 export class TextSprite extends PIXI.extras.BitmapText {
+  //#region variables
   public id: string = (new Utils()).createID();
   public zOrder: number = -1;
   public collisionDetection: boolean = false;
   protected scene: Scene;
   public anim: Anim;
   public attributes: Attribs;
+  //#endregion
 
   /**
    * @name constructor
@@ -38,7 +40,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @description z position getter
    * @return {number} z position
    */
-  get z(): number {
+  public get z(): number {
     return this.anim.z;
   }
 
@@ -46,7 +48,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @name z
    * @description z position setter
    */
-  set z(z: number) {
+  public set z(z: number) {
     this.zOrder = z;
     this.anim.z = z;
   }
@@ -56,7 +58,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @description get attributes
    * @return {Attribs} attributes
    */
-  get attribs(): Attribs {
+  public get attribs(): Attribs {
     return this.attributes;
   }
 
@@ -65,7 +67,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @description get visibility
    * @return {boolean} true if visible
    */
-  get visible(): boolean {
+  public get visible(): boolean {
     return (this.anim) ? this.anim.visible : false;
   }
 
@@ -73,7 +75,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @name visible
    * @description set visibility
    */
-  set visible(value: boolean) {
+  public set visible(value: boolean) {
     if (this.anim) {
       this.anim.visible = value;
     }
@@ -85,7 +87,7 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @param {number} color - color tint
    * @return {void}
    */
-  setTint(color: number):void {
+  public setTint(color: number):void {
     this.tint = color;
     this.anim.setTint(color);
   }
@@ -96,14 +98,14 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @param {number} deltaTime - delta time
    * @return {void}
    */
-  update(deltaTime: number): void {
+  public update(deltaTime: number): void {
   }
 
   /**
    * @name destroy
    * @description cleanup
    */
-  destroy() {
+  public destroy() {
     this.scene.stage.removeChild(this);
   }
 };

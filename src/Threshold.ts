@@ -3,10 +3,12 @@
  * @description threshold tracking and management
  */
 export class Threshold {
+  //#region variables
   private _count: number;
   private _threshold: number;
   private _triggered: boolean;
   private _disabled: boolean;
+  //#endregion
 
   /**
    * @name construtor
@@ -25,7 +27,7 @@ export class Threshold {
    * @description threshold getter
    * @return {number} value of threshold
    */
-  get threshold(): number {
+  public get threshold(): number {
     return this._threshold;
   }
 
@@ -35,7 +37,7 @@ export class Threshold {
    * @param {number} value - value to set threshold
    * @return {void}
    */
-  set threshold(value: number) {
+  public set threshold(value: number) {
     this._threshold = value;
   }
 
@@ -44,7 +46,7 @@ export class Threshold {
    * @description disabled getter
    * @return {boolean} is disabled?
    */
-  get disabled() {
+  public get disabled() {
     return this._disabled;
   }
 
@@ -54,7 +56,7 @@ export class Threshold {
    * @param {boolean} value - true to disable / false to enable
    * @return {void}
    */
-  set disabled(value: boolean) {
+  public set disabled(value: boolean) {
     this._disabled = value;
   }
 
@@ -63,7 +65,7 @@ export class Threshold {
    * @description triggered getter
    * @return {number} value of trigger
    */
-  get triggered() {
+  public get triggered() {
     return this._triggered;
   }
 
@@ -72,7 +74,7 @@ export class Threshold {
    * @description increment the internal count towards eventual threshold
    * @return {boolean} is triggered?
    */
-  increment(): boolean {
+  public increment(): boolean {
     if (!this._disabled) {
       this._count++;
       if (this._count === this._threshold) {

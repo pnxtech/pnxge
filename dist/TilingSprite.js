@@ -31,8 +31,10 @@ var Attribs_1 = require("./Attribs");
  */
 var TilingSprite = /** @class */ (function (_super) {
     __extends(TilingSprite, _super);
+    //#endregion
     function TilingSprite(scene, texture, width, height) {
         var _this = _super.call(this, texture, width, height) || this;
+        //#region variables
         _this.id = (new Utils_1.Utils()).createID();
         _this.collisionDetection = false;
         _this._z = 0;
@@ -305,5 +307,4 @@ var TilingSprite = /** @class */ (function (_super) {
     return TilingSprite;
 }(PIXI.extras.TilingSprite));
 exports.TilingSprite = TilingSprite;
-;
 //# sourceMappingURL=TilingSprite.js.map

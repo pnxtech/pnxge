@@ -18,7 +18,7 @@ export class Benchmark {
    * @description begin high resolution timer
    * @return {void}
    */
-  begin(): void {
+  public begin(): void {
     this.start = window.performance.now();
   }
 
@@ -27,7 +27,7 @@ export class Benchmark {
    * @description return elapsed time in millisconds since last start(), number after decimal is microseconds
    * @return {number} ms - milliseconds
    */
-  elapsed(): number {
+  public elapsed(): number {
     return window.performance.now() - this.start;
   }
 }

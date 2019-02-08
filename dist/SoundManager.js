@@ -7,6 +7,7 @@ var howler_1 = require("howler");
  * @note: Uses: https://github.com/goldfire/howler.js/
  */
 var SoundManager = /** @class */ (function () {
+    //#endregion
     /**
      * @name constructor
      * @description class constructor

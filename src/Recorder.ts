@@ -16,7 +16,7 @@ export class Recorder {
    * @description starts a recording
    * @return {void}
    */
-  start(): void {
+  public start(): void {
     this.tick = 0;
   }
 
@@ -25,7 +25,7 @@ export class Recorder {
    * @description stops a recording. stores recording in localstorage
    * @return {void}
    */
-  stop(): void {
+  public stop(): void {
     window.localStorage.setItem('recording', JSON.stringify(this.recording));
   }
 
@@ -35,7 +35,7 @@ export class Recorder {
    * @param {string} action - name of event
    * @return {void}
    */
-  record(action: string): void {
+  public record(action: string): void {
     this.recording[this.tick] = action;
   }
 
@@ -44,7 +44,7 @@ export class Recorder {
    * @description updates internal ticker. Must be called by application update()
    * @return {void}
    */
-  update(): void {
+  public update(): void {
     this.tick++;
   }
 }

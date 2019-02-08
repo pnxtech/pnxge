@@ -57,7 +57,7 @@ export class ProjectileManager {
    * @param {ICollisionResolutionCallback} callback
    * @return {void}
    */
-  registerCollisionResolutionHandler(callback: ICollisionResolutionCallback): void {
+  public registerCollisionResolutionHandler(callback: ICollisionResolutionCallback): void {
     this.collisionResolutionHandler = callback;
   }
 
@@ -68,7 +68,7 @@ export class ProjectileManager {
    * @param {IProjectileObject} projectile - data
    * @return {void}
    */
-  createProjectile(projectileInfo: IProjectileObject): void {
+  public createProjectile(projectileInfo: IProjectileObject): void {
     let projectile: IProjectileObject | undefined;
     for (let i = 0; i < this.projectiles.length; i++) {
       if (this.projectiles[i].type === projectileInfo.type && !this.projectiles[i].active) {
@@ -160,7 +160,7 @@ export class ProjectileManager {
    * @param {number} deltaTime
    * @return {void}
    */
-  update(deltaTime: number): void {
+  public update(deltaTime: number): void {
     for (let i = 0; i < this.projectiles.length; i++) {
       if (this.projectiles[i].active) {
         let anim = this.projectiles[i].anim;

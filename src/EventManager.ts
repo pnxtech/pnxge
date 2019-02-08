@@ -21,7 +21,7 @@ export class EventManager {
    * @param {IEventCallback} callback - function handler
    * @return {string} ID of newly added event handler
    */
-  addEventHandler(name: string, callback: IEventCallback): string {
+  public addEventHandler(name: string, callback: IEventCallback): string {
     let newID = (new Utils).createID();
     if (!this.callBackData[name]) {
       this.callBackData[name] = {
@@ -39,7 +39,7 @@ export class EventManager {
    * @param {string} eventID - ID returned by the addEventHandler method
    * @return {void}
    */
-  removeEventHandler(eventID: string): void {
+  public removeEventHandler(eventID: string): void {
     Object.keys(this.callBackData).forEach((name) => {
         Object.keys(this.callBackData[name]).forEach((id) => {
           if (id === eventID) {
@@ -56,7 +56,7 @@ export class EventManager {
    * @param {any} eventData - data to pass to event handlers
    * @return {void}
    */
-  triggerEvent(name: string, eventData: any): void {
+  public triggerEvent(name: string, eventData: any): void {
     if (this.callBackData[name]) {
       Object.keys(this.callBackData[name]).forEach((id) => {
         this.callBackData[name][id](eventData);

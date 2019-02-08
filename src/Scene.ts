@@ -20,6 +20,7 @@ interface IAnimDoneCallback { (): void };
  * @description Phoenix Game Engine Scene class
  */
 export class Scene {
+  //#region variables
   public app: Application;
   private _state: State;
   protected sceneWidth: number;
@@ -32,6 +33,7 @@ export class Scene {
   protected soundManager: SoundManager | undefined;
   private sceneStarted: boolean = false;
   private benchmarkUpdate: boolean = false;
+  //#endregion
 
   /**
    * @name constructor
@@ -52,7 +54,7 @@ export class Scene {
    * @description attach a projectile manager
    * @return {void}
    */
-  attachProjectileManager(projectileManager: ProjectileManager): void {
+  public attachProjectileManager(projectileManager: ProjectileManager): void {
     this.projectileManager = projectileManager;
   }
 
@@ -61,7 +63,7 @@ export class Scene {
    * @description retrieve a projectile manager instance or undefined
    * @return {ProjectileManager | undefined}
    */
-  getProjectileManager(): ProjectileManager | undefined {
+  public getProjectileManager(): ProjectileManager | undefined {
     return this.projectileManager;
   }
 
@@ -70,7 +72,7 @@ export class Scene {
    * @description attach sound manager
    * @return {void}
    */
-  attachSoundManager(soundManager: SoundManager): void {
+  public attachSoundManager(soundManager: SoundManager): void {
     this.soundManager = soundManager;
   }
 
@@ -79,7 +81,7 @@ export class Scene {
    * @description state getter
    * @return {object}
    */
-  get state(): any {
+  public get state(): any {
     return this._state.state;
   }
 
@@ -88,7 +90,7 @@ export class Scene {
    * @description state setter
    * @param {any} data - object to be merged with state
    */
-  set state(data: any) {
+  public set state(data: any) {
     this._state.state = data;
   }
 
@@ -98,7 +100,7 @@ export class Scene {
    * @param {object} data - object to be merged with state
    * @return {object} new application state
    */
-  setState(data: any): any {
+  public setState(data: any): any {
     this._state.setState(data);
     return this._state.state;
   }
@@ -108,7 +110,7 @@ export class Scene {
    * @description retrieve a sound manager instance or undefined
    * @return {SoundManager | undefined}
    */
-  getSoundManager(): SoundManager | undefined {
+  public getSoundManager(): SoundManager | undefined {
     return this.soundManager;
   }
 
@@ -118,7 +120,7 @@ export class Scene {
    * @param {object} resources - loaded asset resources
    * @return {void}
    */
-  start(resources: {}): void {
+  public start(resources: {}): void {
     this.sceneStarted = true;
   }
 
@@ -128,7 +130,7 @@ export class Scene {
    * @param {string} outcome - result of scene ending
    * @return {void}
    */
-  end(outcome: string): void {
+  public end(outcome: string): void {
     this.sceneStarted = false;
   }
 
@@ -136,7 +138,7 @@ export class Scene {
    * @name hasSceneStarted
    * @description determine whether the scene has been started
    */
-  hasSceneStarted(): boolean {
+  public hasSceneStarted(): boolean {
     return this.sceneStarted;
   }
 
@@ -146,7 +148,7 @@ export class Scene {
    * @note displays via console.log
    * @return {void}
    */
-  benchmarking(state: boolean): void {
+  public benchmarking(state: boolean): void {
     this.benchmarkUpdate = state;
   }
 
@@ -154,7 +156,7 @@ export class Scene {
    * @name tick
    * @description get internal tick count
    */
-  get tick() {
+  public get tick() {
     return this.internalTick;
   }
 
@@ -164,7 +166,7 @@ export class Scene {
    * @param {string} name - name of anim
    * @param {Anim | Image | TextSprite} anim - anim objec
    */
-  addAnim(name: string, anim: Anim | Image | TextSprite): void {
+  public addAnim(name: string, anim: Anim | Image | TextSprite): void {
     this.anims[name] = anim;
   }
 
@@ -173,7 +175,7 @@ export class Scene {
    * @description handle movement left
    * @return {void}
    */
-  moveLeft(): void {
+  public moveLeft(): void {
   }
 
   /**
@@ -181,7 +183,7 @@ export class Scene {
    * @description handle movement right
    * @return {void}
    */
-  moveRight(): void {
+  public moveRight(): void {
   }
 
   /**
@@ -189,7 +191,7 @@ export class Scene {
    * @description get anim by name
    * @return {TextSprite} anim
    */
-  getAnim(name: string): Anim | Image | TextSprite {
+  public getAnim(name: string): Anim | Image | TextSprite {
     return this.anims[name];
   }
 
@@ -198,7 +200,7 @@ export class Scene {
    * @description get the width of the scene
    * @return {number} width
    */
-  get width() : number {
+  public get width() : number {
     return this.sceneWidth;
   }
 
@@ -207,7 +209,7 @@ export class Scene {
    * @description get the height of the scene
    * @return {number} height
    */
-  get height() : number {
+  public get height() : number {
     return this.sceneHeight;
   }
 
@@ -218,7 +220,7 @@ export class Scene {
    * @param {IAnimDoneCallback} done - called when done
    * @return {void}
    */
-  forEachAnim(callback: IAnimCallback, done: IAnimDoneCallback): void {
+  public forEachAnim(callback: IAnimCallback, done: IAnimDoneCallback): void {
     Object.keys(this.anims).forEach((key) => {
       callback(this.anims[key]);
     });
@@ -231,7 +233,7 @@ export class Scene {
    * @param {number} deltaTime
    * @return {void}
    */
-  update(deltaTime: number): void {
+  public update(deltaTime: number): void {
     this.benchmarkUpdate && this.benchmark.begin();
     this.internalTick++;
     if (this._state.state.actionList) {
@@ -267,7 +269,7 @@ export class Scene {
    * @description sort dislay list based on anim z order
    * @return {void}
    */
-  sortAnims(): void {
+  public sortAnims(): void {
     let objectList: any = this.stage.children;
     objectList.sort((a: IAnimCompatible, b: IAnimCompatible) => {
       if (!a.anim || !b.anim) {
@@ -284,7 +286,7 @@ export class Scene {
    * @description collision detection system. notifies anim object when they collide with other objects
    * @return {void}
    */
-  collisionDetection(): void {
+  public collisionDetection(): void {
     let objectList: any = this.stage.children;
     for (let obj1 of objectList) {
       if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
@@ -316,7 +318,7 @@ export class Scene {
    * @param {number} padding - padding to increase or decrease anim rect
    * @return {Anim | Image | undefined} of potential collision
    */
-  lookAhead(anim: Anim, steps: number, padding: number = 0): Anim | Image | undefined {
+  public lookAhead(anim: Anim, steps: number, padding: number = 0): Anim | Image | undefined {
     let animRect = anim.rect;
     animRect.x = anim.x;
     animRect.y = anim.y;
@@ -350,7 +352,7 @@ export class Scene {
    * @description remove Anim objects from scene
    * @return {void}
    */
-  destroy(): void {
+  public destroy(): void {
     Object.keys(this.anims).forEach((key) => {
       this.anims[key].destroy();
     });

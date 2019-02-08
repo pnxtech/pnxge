@@ -12,6 +12,7 @@ import {Attribs} from './Attribs';
  * @description  image sprite
  */
 export class Image extends PIXI.Sprite implements IAnimCompatible {
+  //#region variables
   public id: string = (new Utils).createID();
   public attributes: Attribs;
   public collisionDetection: boolean = false;
@@ -22,8 +23,8 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
   private _dy: number = 0;
   private _vx: number = 0;
   private _vy: number = 0;
-
   private internalRect: Rect;
+  //#endregion
 
   /**
    * @name constructor
@@ -48,7 +49,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description z position getter
    * @return {number} z position
    */
-  get z(): number {
+  public get z(): number {
     return this._z;
   }
 
@@ -56,7 +57,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @name z
    * @description z position setter
    */
-  set z(z: number) {
+  public set z(z: number) {
     this._z = z;
   }
 
@@ -65,7 +66,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description direction X getter
    * @return {number} dx - direction X
    */
-  get dx() : number {
+  public get dx() : number {
     return this._dx;
   }
 
@@ -74,7 +75,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description direction X setter
    * @param {number} value - direction X
    */
-  set dx(value: number) {
+  public set dx(value: number) {
     this._dx = value;
   }
 
@@ -83,7 +84,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description direction Y getter
    * @return {number} dy - direction Y
    */
-  get dy() : number {
+  public get dy() : number {
     return this._dy;
   }
 
@@ -92,7 +93,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description direction Y setter
    * @param {number} value - direction Y
    */
-  set dy(value: number) {
+  public set dy(value: number) {
     this._dy = value;
   }
 
@@ -101,7 +102,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description velocity X getter
    * @return {number} vx - velocity X
    */
-  get vx() : number {
+  public get vx() : number {
     return this._vx;
   }
 
@@ -110,7 +111,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description velocity X setter
    * @param {number} value - velocity X
    */
-  set vx(value: number) {
+  public set vx(value: number) {
     this._vx = value;
   }
 
@@ -119,7 +120,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description velocity Y getter
    * @return {number} vy - velocity Y
    */
-  get vy() : number {
+  public get vy() : number {
     return this._vy;
   }
 
@@ -128,7 +129,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description velocity Y setter
    * @param {number} value - velocity Y
    */
-  set vy(value: number) {
+  public set vy(value: number) {
     this._vy = value;
   }
 
@@ -136,7 +137,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @name setAnchor
    * @description set the anchor.x and .y value
    */
-  setAnchor(value: number): void {
+  public setAnchor(value: number): void {
     this.anim.anchor.set(value);
   }
 
@@ -145,7 +146,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description get attributes
    * @return {Attribs} attributes
    */
-  get attribs(): Attribs {
+  public get attribs(): Attribs {
     return this.attributes;
   }
 
@@ -154,7 +155,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @description rect getter
    * @return {Rect} rect object from anim
    */
-  get rect(): Rect {
+  public get rect(): Rect {
     this.internalRect.x = this.x;
     this.internalRect.y = this.y;
     this.internalRect.width = this.width;
@@ -169,7 +170,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @param {EventManager} - instance of event eventManager
    * @return {void}
    */
-  attachTouchHandler(name: string, eventManager: EventManager): void {
+  public attachTouchHandler(name: string, eventManager: EventManager): void {
     this.interactive = true;
     this.on('click', () => {
       eventManager.triggerEvent(name, this);
@@ -185,7 +186,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @param {number} deltaTime - delta time
    * @return {void}
    */
-  update(deltaTime: number): void {
+  public update(deltaTime: number): void {
     this.x += this.dx * (this.vx || 1) * deltaTime;
     this.y += this.dy * (this.vy || 1) * deltaTime;
   }
@@ -194,7 +195,7 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
    * @name destroy
    * @description cleanup
    */
-  destroy() {
+  public destroy() {
     this.scene.stage.removeChild(this);
   }
 }

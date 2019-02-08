@@ -11,12 +11,14 @@ import {Utils} from './Utils';
 interface ICallback { (resources: {}): void };
 
 export class AssetManager {
+  //#region variables
   private loader: PIXI.loaders.Loader;
   private gameConfig: any = {};
   private resources: any;
   private soundManager: SoundManager | undefined;
   private utils: Utils;
   private angle: Angle;
+  //#endregion
 
   /**
    * @name constructor
@@ -33,7 +35,7 @@ export class AssetManager {
    * @name init
    * @description initialize loader
    */
-  init(filename: string, initComplete: ICallback): void {
+  public init(filename: string, initComplete: ICallback): void {
     this.loader.add(filename);
     this.loader.load((_loader: PIXI.loaders.Loader, resources: any) => {
       this.gameConfig = resources[filename].data;
@@ -65,7 +67,7 @@ export class AssetManager {
    * @param {any} data - JS object
    * @return {any} uncompressed JS object
    */
-  unpack(data: any): any {
+  public unpack(data: any): any {
     let strData: string = '';
     if (data._dict) {
       let _dict: any = this.utils.mergeObjects({}, data._dict);
@@ -84,7 +86,7 @@ export class AssetManager {
    * @description get sound engine
    * @return {SoundManager | undefined}
    */
-  getSoundEngine(): SoundManager | undefined {
+  public getSoundEngine(): SoundManager | undefined {
     if (this.soundManager) {
       return this.soundManager;
     }
@@ -99,7 +101,7 @@ export class AssetManager {
    * @param {ICallback} postPopulateHandler - completion callback
    * @return {void}
    */
-  populateScene(scene: Scene, sceneName: string, postPopulateHandler: ICallback): void {
+  public populateScene(scene: Scene, sceneName: string, postPopulateHandler: ICallback): void {
     if (this.gameConfig.texts) {
       scene.setState({
         texts: this.gameConfig.texts
@@ -215,7 +217,7 @@ export class AssetManager {
    * @param {object} obj
    * @return {void}
    */
-  createCharacter(scene: Scene, obj: any): void {
+  public createCharacter(scene: Scene, obj: any): void {
     let count = (obj.count) ? obj.count : 1;
     for (let i = 0; i < count; i++) {
       let newName = (count === 1) ? `${obj.name}` : `${obj.name}${i}`;
@@ -267,7 +269,7 @@ export class AssetManager {
    * @param {object} obj
    * @return {void}
    */
-  createImage(scene: Scene, obj: any) : void {
+  public createImage(scene: Scene, obj: any) : void {
     let count = (obj.count) ? obj.count : 1;
     for (let i = 0; i < count; i++) {
       let newName = (count === 1) ? `${obj.name}` : `${obj.name}${i}`;

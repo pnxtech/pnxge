@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @description  Controller base class
  */
 var Controller = /** @class */ (function () {
+    //#endregion
     /**
      * @name constructor
      * @description class contructor

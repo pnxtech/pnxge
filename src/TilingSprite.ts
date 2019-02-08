@@ -10,16 +10,17 @@ import {Attribs} from './Attribs';
  * @note: uses PIXI TilingSprite
  */
 export class TilingSprite extends PIXI.extras.TilingSprite {
+  //#region variables
   public id: string = (new Utils()).createID();
   public collisionDetection: boolean = false;
   public anim: Anim;
   private _attribs: Attribs;
-
   private _z: number = 0;
   private _dx: number = 0;
   private _dy: number = 0;
   private _vx: number = 0;
   private _vy: number = 0;
+  //#endregion
 
   constructor(scene: Scene, texture: PIXI.Texture, width: number, height: number) {
     super(texture, width, height);
@@ -34,7 +35,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description x position getter
    * @return {number} x position
    */
-  get x(): number {
+  public get x(): number {
     return this.anim.x;
   }
 
@@ -42,7 +43,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name x
    * @description x position setter
    */
-  set x(x: number) {
+  public set x(x: number) {
     this.anim.x = x;
   }
 
@@ -51,7 +52,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description y position getter
    * @return {number} y position
    */
-  get y(): number {
+  public get y(): number {
     return this.anim.y;
   }
 
@@ -59,7 +60,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name y
    * @description y position setter
    */
-  set y(y: number) {
+  public set y(y: number) {
     this.anim.y = y;
   }
 
@@ -68,7 +69,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description z position getter
    * @return {number} z position
    */
-  get z(): number {
+  public get z(): number {
     return this._z;
   }
 
@@ -76,7 +77,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name z
    * @description z position setter
    */
-  set z(z: number) {
+  public set z(z: number) {
     this._z = z;
   }
 
@@ -85,7 +86,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description get visibility
    * @return {boolean} true if visible
    */
-  get visible(): boolean {
+  public get visible(): boolean {
     return this.anim.visible;
   }
 
@@ -93,7 +94,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name visible
    * @description set visibility
    */
-  set visible(value: boolean) {
+  public set visible(value: boolean) {
     this.anim.visible = value;
   }
 
@@ -102,7 +103,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description get the anim width
    * @return {number} anim width
    */
-  get width(): number {
+  public get width(): number {
     return this.anim.width;
   }
 
@@ -111,7 +112,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description get the anim height
    * @return {number} anim height
    */
-  get height(): number {
+  public get height(): number {
     return this.anim.height;
   }
 
@@ -119,7 +120,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name setAnchor
    * @description set the anchor.x and .y value
    */
-  setAnchor(value: number): void {
+  public setAnchor(value: number): void {
     this.anim.anchor = value;
   }
 
@@ -128,7 +129,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description rotation getter
    * @return {number} rotation position
    */
-  get rotation(): number {
+  public get rotation(): number {
     return this.anim.rotation;
   }
 
@@ -136,7 +137,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name rotation
    * @description rotation setter
    */
-  set rotation(value: number) {
+  public set rotation(value: number) {
     this.anim.rotation = value;
   }
 
@@ -145,7 +146,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description get anim scale x
    * @return {number} scale x
    */
-  get sx(): number {
+  public get sx(): number {
     return this.anim.sx;
   }
 
@@ -154,7 +155,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description get anim scale y
    * @return {number} scale y
    */
-  get sy(): number {
+  public get sy(): number {
     return this.anim.sy;
   }
 
@@ -162,7 +163,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name sx
    * @description set anim scale x
    */
-  set sx(value: number) {
+  public set sx(value: number) {
     this.anim.sx = value;
   }
 
@@ -170,7 +171,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @name sy
    * @description set anim scale y
    */
-  set sy(value: number) {
+  public set sy(value: number) {
     this.anim.sy = value;
   }
 
@@ -179,7 +180,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description direction X getter
    * @return {number} dx - direction X
    */
-  get dx() : number {
+  public get dx() : number {
     return this._dx;
   }
 
@@ -188,7 +189,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description direction X setter
    * @param {number} value - direction X
    */
-  set dx(value: number) {
+  public set dx(value: number) {
     this._dx = value;
   }
 
@@ -197,7 +198,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description direction Y getter
    * @return {number} dy - direction Y
    */
-  get dy() : number {
+  public get dy() : number {
     return this._dy;
   }
 
@@ -206,7 +207,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description direction Y setter
    * @param {number} value - direction Y
    */
-  set dy(value: number) {
+  public set dy(value: number) {
     this._dy = value;
   }
 
@@ -215,7 +216,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description velocity X getter
    * @return {number} vx - velocity X
    */
-  get vx() : number {
+  public get vx() : number {
     return this._vx;
   }
 
@@ -224,7 +225,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description velocity X setter
    * @param {number} value - velocity X
    */
-  set vx(value: number) {
+  public set vx(value: number) {
     this._vx = value;
   }
 
@@ -233,7 +234,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description velocity Y getter
    * @return {number} vy - velocity Y
    */
-  get vy() : number {
+  public get vy() : number {
     return this._vy;
   }
 
@@ -242,7 +243,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description velocity Y setter
    * @param {number} value - velocity Y
    */
-  set vy(value: number) {
+  public set vy(value: number) {
     this._vy = value;
   }
 
@@ -251,7 +252,7 @@ export class TilingSprite extends PIXI.extras.TilingSprite {
    * @description get attributes
    * @return {Attribs} attributes
    */
-  get attribs(): Attribs {
+  public get attribs(): Attribs {
     return this._attribs;
   }
-};
+}

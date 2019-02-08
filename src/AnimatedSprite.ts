@@ -21,7 +21,7 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite {
    * @description get attributes
    * @return {Attribs} attributes
    */
-  get attribs(): Attribs {
+  public get attribs(): Attribs {
     return this._attribs;
   }
 };

@@ -31,7 +31,7 @@ export class Attribs {
    * @param {string | string[]} attrib - attribute name(s)
    * @return {void}
    */
-  add(attribs: string | string[]): void {
+  public add(attribs: string | string[]): void {
     if (typeof attribs !== 'string') {
       attribs.forEach((value) => {
         this.hash[value] = true;
@@ -47,7 +47,7 @@ export class Attribs {
    * @param {string} attrib - attribute name
    * @return {void}
    */
-  remove(attrib: string): void {
+  public remove(attrib: string): void {
     delete this.hash[attrib];
   }
 
@@ -57,7 +57,7 @@ export class Attribs {
    * @param {string} attrib - attribute name
    * @return {boolean} true if attribute exists, false if not
    */
-  has(attrib: string): boolean {
+  public has(attrib: string): boolean {
     return (this.hash[attrib]) ? true : false;
   }
 
@@ -66,7 +66,7 @@ export class Attribs {
    * @description return an array containing all attributes names
    * @return {string[]} list of string attribute names
    */
-  all(): string[] {
+  public all(): string[] {
     return Object.keys(this.hash);
   }
 
@@ -75,7 +75,7 @@ export class Attribs {
    * @description flush all attributes
    * @return {void}
    */
-  flush(): void {
+  public flush(): void {
     this.hash = {};
   }
 
@@ -85,7 +85,7 @@ export class Attribs {
    * @param {Attribs} attribs
    * @return {void}
    */
-  clone(attribs: Attribs): void {
+  public clone(attribs: Attribs): void {
     this.hash = <IAttribsHash>this.utils.mergeObjects({}, attribs.hash)
   }
 
@@ -95,7 +95,7 @@ export class Attribs {
    * @param {Attribs} other Attribs object
    * @return {string[]} array of matching attribute strings if any
    */
-  union(attribs: Attribs): string[] {
+  public union(attribs: Attribs): string[] {
     let matches: string[] = [];
     Object.keys(this.hash).forEach((name) => {
       if (attribs.has(name)) {

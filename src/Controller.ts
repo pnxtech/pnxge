@@ -6,11 +6,13 @@ import {Scene} from './Scene';
  * @description  Controller base class
  */
 export class Controller {
+  //#region variables
   protected anim: Anim | undefined;
   private pathCache: any = {};
   private currentPath: string = '';
   private currentPathIndex: number = 0;
   private isPathComplete: boolean = true;
+  //#endregion
 
   /**
    * @name constructor

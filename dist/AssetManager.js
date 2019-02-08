@@ -17,6 +17,7 @@ var SoundManager_1 = require("./SoundManager");
 var Utils_1 = require("./Utils");
 ;
 var AssetManager = /** @class */ (function () {
+    //#endregion
     /**
      * @name constructor
      * @description asset manager init

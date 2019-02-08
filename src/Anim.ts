@@ -19,6 +19,7 @@ interface IHash { [key: string]: {
  * @description Phoenix Game Engine Anim class
  */
 export class Anim implements IAnimCompatible {
+  //#region variables
   public attributes: Attribs;
   private _id: string = (new Utils()).createID();
   private animationSequence: IHash = {};
@@ -49,6 +50,7 @@ export class Anim implements IAnimCompatible {
   protected scene: Scene;
   protected stage: PIXI.Container;
   private currentSequence: AnimatedSprite | undefined;
+  //#endregion
 
   /**
    * @name constructor
@@ -66,7 +68,7 @@ export class Anim implements IAnimCompatible {
    * @name id
    * @description get anin id
    */
-  get id(): string {
+  public get id(): string {
     return this._id;
   }
 
@@ -75,7 +77,7 @@ export class Anim implements IAnimCompatible {
    * @description reset anim - in cases where this anim is reused
    * @return {void}
    */
-  reset(): void {
+  public reset(): void {
     this._id = (new Utils()).createID();
     this._x = 0;
     this._y= 0;
@@ -103,7 +105,7 @@ export class Anim implements IAnimCompatible {
    * @description attach a Controller
    * @return {void}
    */
-  attachController(controller: Controller): void {
+  public attachController(controller: Controller): void {
     this.controller = controller;
   }
 
@@ -113,7 +115,7 @@ export class Anim implements IAnimCompatible {
    * @param {boolean} cache - true if yes cache, else false
    * @return {void}
    */
-  setCacheAsBitmap(cache: boolean): void {
+  public setCacheAsBitmap(cache: boolean): void {
     if (this.currentSequence) {
       this.currentSequence.cacheAsBitmap = cache;
     }
@@ -124,7 +126,7 @@ export class Anim implements IAnimCompatible {
    * @description x position getter
    * @return {number} x position
    */
-  get x(): number {
+  public get x(): number {
     return this._x;
   }
 
@@ -132,7 +134,7 @@ export class Anim implements IAnimCompatible {
    * @name x
    * @description x position setter
    */
-  set x(x: number) {
+  public set x(x: number) {
     this._x = x;
   }
 
@@ -141,7 +143,7 @@ export class Anim implements IAnimCompatible {
    * @description y position getter
    * @return {number} y position
    */
-  get y(): number {
+  public get y(): number {
     return this._y;
   }
 
@@ -149,7 +151,7 @@ export class Anim implements IAnimCompatible {
    * @name y
    * @description y position setter
    */
-  set y(y: number) {
+  public set y(y: number) {
     this._y = y;
   }
 
@@ -158,7 +160,7 @@ export class Anim implements IAnimCompatible {
    * @description z position getter
    * @return {number} z position
    */
-  get z(): number {
+  public get z(): number {
     return this._z;
   }
 
@@ -166,7 +168,7 @@ export class Anim implements IAnimCompatible {
    * @name z
    * @description z position setter
    */
-  set z(z: number) {
+  public set z(z: number) {
     this._z = z;
   }
 
@@ -175,7 +177,7 @@ export class Anim implements IAnimCompatible {
    * @description rect getter
    * @return {Rect} rect object from anim
    */
-  get rect(): Rect {
+  public get rect(): Rect {
     if (this.currentSequence) {
       this.internalRect.x = this.currentSequence.x;
       this.internalRect.y = this.currentSequence.y;
@@ -191,7 +193,7 @@ export class Anim implements IAnimCompatible {
    * @description get visibility
    * @return {boolean} true if visible
    */
-  get visible(): boolean {
+  public get visible(): boolean {
     return this._visible;
   }
 
@@ -199,7 +201,7 @@ export class Anim implements IAnimCompatible {
    * @name visible
    * @description set visibility
    */
-  set visible(value: boolean) {
+  public set visible(value: boolean) {
     this._visible = value;
   }
 
@@ -208,7 +210,7 @@ export class Anim implements IAnimCompatible {
    * @description get the anim width
    * @return {number} anim width
    */
-  get width(): number {
+  public get width(): number {
     let ret;
     if (this.currentSequence) {
       ret = this.currentSequence.width;
@@ -223,7 +225,7 @@ export class Anim implements IAnimCompatible {
    * @description get the anim height
    * @return {number} anim height
    */
-  get height(): number {
+  public get height(): number {
     let ret;
     if (this.currentSequence) {
       ret = this.currentSequence.height;
@@ -238,7 +240,7 @@ export class Anim implements IAnimCompatible {
    * @description rotation getter
    * @return {number} rotation position
    */
-  get rotation(): number {
+  public get rotation(): number {
     return this._rotation;
   }
 
@@ -246,7 +248,7 @@ export class Anim implements IAnimCompatible {
    * @name rotation
    * @description rotation setter
    */
-  set rotation(value: number) {
+  public set rotation(value: number) {
     this._rotation = value;
   }
 
@@ -255,7 +257,7 @@ export class Anim implements IAnimCompatible {
    * @description animationSpeed getter
    * @return {number} animation speed
    */
-  get animationSpeed() : number {
+  public get animationSpeed() : number {
     return this._speed;
   }
 
@@ -263,7 +265,7 @@ export class Anim implements IAnimCompatible {
    * @name animationSpeed
    * @description animationSpeed setter
    */
-  set animationSpeed(speed: number) {
+  public set animationSpeed(speed: number) {
     this._speed = speed;
   }
 
@@ -272,7 +274,7 @@ export class Anim implements IAnimCompatible {
    * @description get current strength
    * @return {number} strength
    */
-  get strength(): number {
+  public get strength(): number {
     return this._strength;
   }
 
@@ -281,7 +283,7 @@ export class Anim implements IAnimCompatible {
    * @description set current strength
    * @param {number} value - strength
    */
-  set strength(value: number) {
+  public set strength(value: number) {
     this._strength = value;
   }
 
@@ -290,7 +292,7 @@ export class Anim implements IAnimCompatible {
    * @description get current health
    * @return {number} health
    */
-  get health(): number {
+  public get health(): number {
     return this._health;
   }
 
@@ -299,7 +301,7 @@ export class Anim implements IAnimCompatible {
    * @description set current health
    * @param {number} value - health
    */
-  set health(value: number) {
+  public set health(value: number) {
     this._health = value;;
   }
 
@@ -308,7 +310,7 @@ export class Anim implements IAnimCompatible {
    * @description get anim scale x
    * @return {number} scale x
    */
-  get sx(): number {
+  public get sx(): number {
     return this._sx;
   }
 
@@ -317,7 +319,7 @@ export class Anim implements IAnimCompatible {
    * @description get anim scale y
    * @return {number} scale y
    */
-  get sy(): number {
+  public get sy(): number {
     return this._sy;
   }
 
@@ -325,7 +327,7 @@ export class Anim implements IAnimCompatible {
    * @name sx
    * @description set anim scale x
    */
-  set sx(value: number) {
+  public set sx(value: number) {
     this._sx = value;
   }
 
@@ -333,7 +335,7 @@ export class Anim implements IAnimCompatible {
    * @name sy
    * @description set anim scale y
    */
-  set sy(value: number) {
+  public set sy(value: number) {
     this._sy = value;
   }
 
@@ -342,7 +344,7 @@ export class Anim implements IAnimCompatible {
    * @description anchor getter
    * @return {number} anchor position
    */
-  get anchor(): number {
+  public get anchor(): number {
     return this._anchor;
   }
 
@@ -350,7 +352,7 @@ export class Anim implements IAnimCompatible {
    * @name anchor
    * @description anchor setter
    */
-  set anchor(value: number) {
+  public set anchor(value: number) {
     this._anchor = value;
   }
 
@@ -359,7 +361,7 @@ export class Anim implements IAnimCompatible {
    * @description direction X getter
    * @return {number} dx - direction X
    */
-  get dx() : number {
+  public get dx() : number {
     return this._dx;
   }
 
@@ -368,7 +370,7 @@ export class Anim implements IAnimCompatible {
    * @description direction X setter
    * @param {number} value - direction X
    */
-  set dx(value: number) {
+  public set dx(value: number) {
     this._dx = value;
   }
 
@@ -377,7 +379,7 @@ export class Anim implements IAnimCompatible {
    * @description direction Y getter
    * @return {number} dy - direction Y
    */
-  get dy() : number {
+  public get dy() : number {
     return this._dy;
   }
 
@@ -386,7 +388,7 @@ export class Anim implements IAnimCompatible {
    * @description direction Y setter
    * @param {number} value - direction Y
    */
-  set dy(value: number) {
+  public set dy(value: number) {
     this._dy = value;
   }
 
@@ -395,7 +397,7 @@ export class Anim implements IAnimCompatible {
    * @description velocity X getter
    * @return {number} vx - velocity X
    */
-  get vx() : number {
+  public get vx() : number {
     return this._vx;
   }
 
@@ -404,7 +406,7 @@ export class Anim implements IAnimCompatible {
    * @description velocity X setter
    * @param {number} value - velocity X
    */
-  set vx(value: number) {
+  public set vx(value: number) {
     this._vx = value;
   }
 
@@ -413,7 +415,7 @@ export class Anim implements IAnimCompatible {
    * @description velocity Y getter
    * @return {number} vy - velocity Y
    */
-  get vy() : number {
+  public get vy() : number {
     return this._vy;
   }
 
@@ -422,7 +424,7 @@ export class Anim implements IAnimCompatible {
    * @description velocity Y setter
    * @param {number} value - velocity Y
    */
-  set vy(value: number) {
+  public set vy(value: number) {
     this._vy = value;
   }
 
@@ -431,7 +433,7 @@ export class Anim implements IAnimCompatible {
    * @description get animation loop state
    * @return {boolean}
    */
-  get loop(): boolean {
+  public get loop(): boolean {
     return this._loop;
   }
 
@@ -439,7 +441,7 @@ export class Anim implements IAnimCompatible {
    * @name loop
    * @description set animation loop state
    */
-  set loop(value: boolean) {
+  public set loop(value: boolean) {
     this._loop = value;
   }
 
@@ -448,7 +450,7 @@ export class Anim implements IAnimCompatible {
    * @description get attribs bag
    * @return {Attribs} attribs bag
    */
-  get attribs(): Attribs {
+  public get attribs(): Attribs {
     return this.attributes;
   }
 
@@ -457,7 +459,7 @@ export class Anim implements IAnimCompatible {
    * @description collisionDetection getter
    * @return {boolean} collisionDetection position
    */
-  get collisionDetection() : boolean {
+  public get collisionDetection() : boolean {
     return this.currentCollisionDetection;
   }
 
@@ -466,7 +468,7 @@ export class Anim implements IAnimCompatible {
    * @description collisionDetection setter
    * @param {string} value - collisionDetection setting
    */
-  set collisionDetection(value: boolean) {
+  public set collisionDetection(value: boolean) {
     this.currentCollisionDetection = value;
   }
 
@@ -475,7 +477,7 @@ export class Anim implements IAnimCompatible {
    * @description return Anim if collision else undefined
    * @return {Anim | undefined}
    */
-  collisionWith(): Anim | undefined {
+  public collisionWith(): Anim | undefined {
     return this.animCollisionWith;
   }
 
@@ -485,7 +487,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} color - color tint
    * @return {void}
    */
-  setTint(color: number): void {
+  public setTint(color: number): void {
     this.tint = color;
   }
 
@@ -497,7 +499,7 @@ export class Anim implements IAnimCompatible {
    * @param {object} resources - loaded resources
    * @return {void}
    */
-  loadSequence(name: string, atlas: string, resources: any): void {
+  public loadSequence(name: string, atlas: string, resources: any): void {
     let sheet = resources[atlas].spritesheet;
     if (sheet) {
       let sequence = new AnimatedSprite(sheet.animations[name]);
@@ -517,7 +519,7 @@ export class Anim implements IAnimCompatible {
    * @param {string} sequenceName - name of sequence
    * @return {void}
    */
-  play(sequenceName: string): void {
+  public play(sequenceName: string): void {
     if (this.lastSequenceName && sequenceName !== this.lastSequenceName) {
       this.animationSequence[this.lastSequenceName].sequence.visible = false;
     }
@@ -535,7 +537,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} frameNumber - frame number
    * @return {void}
    */
-  setFrame(frameNumber: number): void {
+  public setFrame(frameNumber: number): void {
     if (this.currentSequence) {
       this.currentSequence.gotoAndStop(frameNumber);
     }
@@ -548,7 +550,7 @@ export class Anim implements IAnimCompatible {
    * @param {EventManager} - instance of event eventManager
    * @return {void}
    */
-  attachTouchHandler(name: string, eventManager: EventManager): void {
+  public attachTouchHandler(name: string, eventManager: EventManager): void {
     if (this.currentSequence) {
       this.currentSequence.interactive = true;
       this.currentSequence.on('click', () => {
@@ -566,7 +568,7 @@ export class Anim implements IAnimCompatible {
    * @param {number} deltaTime - delta time offset
    * @return {void}
    */
-  update(deltaTime: number): void {
+  public update(deltaTime: number): void {
     if (!this.currentSequenceName || this.currentSequenceName === '') {
       return;
     }
@@ -600,7 +602,7 @@ export class Anim implements IAnimCompatible {
    * @param {Anim} anim - anim with which collision has occured
    * @return {void}
    */
-  onCollision(anim: Anim): void {
+  public onCollision(anim: Anim): void {
     this.animCollisionWith = anim;
     if (this.controller) {
       this.controller.hitBy(anim);
@@ -612,7 +614,7 @@ export class Anim implements IAnimCompatible {
    * @description clear collision event
    * @return {void}
    */
-  clearCollision(): void {
+  public clearCollision(): void {
     this.animCollisionWith = undefined;
   }
 
@@ -621,7 +623,7 @@ export class Anim implements IAnimCompatible {
    * @description destroys anim and all sequences
    * @return {void}
    */
-  destroy(): void {
+  public destroy(): void {
     if (this.controller) {
       this.controller.destroy();
     }

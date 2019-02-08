@@ -11,6 +11,7 @@ var Utils_1 = require("./Utils");
  * @description Phoenix Game Engine Anim class
  */
 var Anim = /** @class */ (function () {
+    //#endregion
     /**
      * @name constructor
      * @description binds Anim to Scene

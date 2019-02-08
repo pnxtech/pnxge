@@ -11,6 +11,7 @@ var State_1 = require("./State");
  * @description Phoenix Game Engine Scene class
  */
 var Scene = /** @class */ (function () {
+    //#endregion
     /**
      * @name constructor
      * @description initialize scene

@@ -10,6 +10,7 @@ PIXI.utils.skipHello();
  * @description  Application - top level game object
  */
 export class Application extends PIXI.Application {
+  //#region variables
   protected appWidth: number = 0;
   protected appHeight: number = 0;
   protected appEventManager: EventManager = new EventManager();
@@ -20,6 +21,7 @@ export class Application extends PIXI.Application {
   private WebGL: boolean;
   private utils: Utils;
   private _state: State;
+  //#endregion
 
   /**
    * @name constructor
@@ -56,7 +58,7 @@ export class Application extends PIXI.Application {
    * @description demo flag getter
    * @return {boolean} true if demo
    */
-  get demo(): boolean {
+  public get demo(): boolean {
     return this._demo;
   }
 
@@ -65,7 +67,7 @@ export class Application extends PIXI.Application {
    * @description demo setter
    * @param {boolean} value if demo
    */
-  set demo(value: boolean) {
+  public set demo(value: boolean) {
     this._demo = value;
   }
 
@@ -74,7 +76,7 @@ export class Application extends PIXI.Application {
    * @description debug flag getter
    * @return {boolean} true if debug
    */
-  get debug(): boolean {
+  public get debug(): boolean {
     return this._debug;
   }
 
@@ -83,7 +85,7 @@ export class Application extends PIXI.Application {
    * @description debug setter
    * @param {boolean} value if debug
    */
-  set debug(value: boolean) {
+  public set debug(value: boolean) {
     this._debug = value;
   }
 
@@ -92,7 +94,7 @@ export class Application extends PIXI.Application {
    * @description state getter
    * @return {object}
    */
-  get state(): any {
+  public get state(): any {
     return this._state.state;
   }
 
@@ -101,7 +103,7 @@ export class Application extends PIXI.Application {
    * @description state setter
    * @param {any} data - object to be merged with state
    */
-  set state(data: any) {
+  public set state(data: any) {
     this._state.state = data;
   }
 
@@ -111,7 +113,7 @@ export class Application extends PIXI.Application {
    * @param {object} data - object to be merged with state
    * @return {object} new application state
    */
-  setState(data: any): any {
+  public setState(data: any): any {
     this._state.setState(data);
     return this._state.state;
   }
@@ -121,7 +123,7 @@ export class Application extends PIXI.Application {
    * @description reports on whether WebGL is supported
    * @return {boolean} true if WebGL, else false
    */
-  get usingWebGL(): boolean {
+  public get usingWebGL(): boolean {
     return this.WebGL;
   }
 
@@ -130,7 +132,7 @@ export class Application extends PIXI.Application {
    * @description get the underlying game speed. 1 = 60 FPS
    * @return {number} speed factor
    */
-  get speed(): number {
+  public get speed(): number {
     return this.ticker.speed;
   }
 
@@ -140,7 +142,7 @@ export class Application extends PIXI.Application {
    * @note affects only the delta value sent to update()
    * @param {number} value - speed factor
    */
-  set speed(value: number) {
+  public set speed(value: number) {
     this.ticker.speed = value;
   }
 
@@ -149,7 +151,7 @@ export class Application extends PIXI.Application {
    * @description width getter
    * @return {number} width
    */
-  get width(): number {
+  public get width(): number {
     return this.appWidth;
   }
 
@@ -158,7 +160,7 @@ export class Application extends PIXI.Application {
    * @description height getter
    * @return {number} height
    */
-  get height(): number {
+  public get height(): number {
     return this.appHeight;
   }
 
@@ -167,7 +169,7 @@ export class Application extends PIXI.Application {
    * @description get event manager instance
    * @return {EventManager}
    */
-  getEventManager(): EventManager {
+  public getEventManager(): EventManager {
     return this.appEventManager;
   }
 
@@ -176,7 +178,7 @@ export class Application extends PIXI.Application {
    * @description start timer loop
    * @return {void}
    */
-  startTimer(): void {
+  public startTimer(): void {
     this.ticker.start();
   }
 
@@ -185,7 +187,7 @@ export class Application extends PIXI.Application {
    * @description stop timer loop
    * @return {void}
    */
-  stopTimer(): void {
+  public stopTimer(): void {
     this.ticker.stop();
   }
 
@@ -194,7 +196,7 @@ export class Application extends PIXI.Application {
    * @description get current frames per second. requires that the ftpTick() call be made after a frame update
    * @return {number} fps
    */
-  get fps(): number {
+  public get fps(): number {
     return this.FPS;
   }
 
@@ -203,7 +205,7 @@ export class Application extends PIXI.Application {
    * @description called to update the internal FPS. Should be called in top level application render loop
    * @return {void}
    */
-  fpsTick(): void {
+  public fpsTick(): void {
     this.frames++;
   }
 
@@ -212,7 +214,7 @@ export class Application extends PIXI.Application {
    * @description scene end handler
    * @param {string} outcome - result of level ending
    */
-  sceneEnd(outcome: string): void {
+  public sceneEnd(outcome: string): void {
   }
 
   /**
@@ -221,14 +223,14 @@ export class Application extends PIXI.Application {
    * @param {number} deltaTime
    * @return {void}
    */
-  update(deltaTime: number): void {
+  public update(deltaTime: number): void {
   }
 
   /**
    * @name destroy
    * @description application cleanup
    */
-  destroy() {
+  public destroy() {
     for (let texture in PIXI.utils.TextureCache) {
       PIXI.utils.TextureCache[texture].destroy(true);
     };

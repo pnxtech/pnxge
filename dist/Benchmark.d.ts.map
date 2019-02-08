@@ -1,1 +1,1 @@
-{"version":3,"file":"Benchmark.d.ts","sourceRoot":"","sources":["../src/Benchmark.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,qBAAa,SAAS;IACpB,OAAO,CAAC,KAAK,CAAa;IAE1B;;;OAGG;;IAKH;;;;OAIG;IACH,KAAK,IAAI,IAAI;IAIb;;;;OAIG;IACH,OAAO,IAAI,MAAM;CAGlB"}
+{"version":3,"file":"Benchmark.d.ts","sourceRoot":"","sources":["../src/Benchmark.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,qBAAa,SAAS;IACpB,OAAO,CAAC,KAAK,CAAa;IAE1B;;;OAGG;;IAKH;;;;OAIG;IACI,KAAK,IAAI,IAAI;IAIpB;;;;OAIG;IACI,OAAO,IAAI,MAAM;CAGzB"}

@@ -6,10 +6,12 @@ import {Howl, Howler} from 'howler';
  * @note: Uses: https://github.com/goldfire/howler.js/
  */
 export class SoundManager {
+  //#region variables
   private soundPlayer: any;
   private soundData: any = {};
   private globalVolume: number = 0;
   private disabled: boolean = false;
+  //#endregion
 
   /**
    * @name constructor
@@ -40,7 +42,7 @@ export class SoundManager {
    * @description disable the sound engine (done when the underlying hardware doesn't support audio.)
    * @param {boolean} value - true to disable, else false
    */
-  set disableSoundEngine(value: boolean) {
+  public set disableSoundEngine(value: boolean) {
     this.disabled = value;
   }
 
@@ -50,7 +52,7 @@ export class SoundManager {
    * @param {string} name of sound
    * @return {void}
    */
-  play(name: string): void {
+  public play(name: string): void {
     if (this.disabled) {
       return;
     }
@@ -65,7 +67,7 @@ export class SoundManager {
    * @param {string} name of sound
    * @return {void}
    */
-  stop(name: string): void {
+  public stop(name: string): void {
     if (this.disabled) {
       return;
     }
@@ -79,7 +81,7 @@ export class SoundManager {
    * @description set global volume
    * @param {number} value - volume level 0 - 1
    */
-  get volume(): number {
+  public get volume(): number {
     return this.globalVolume;
   }
 
@@ -89,7 +91,7 @@ export class SoundManager {
    * @note: 0 = muted 10 = max volume
    * @param {number} value - volume level 0 - 10
    */
-  set volume(value: number) {
+  public set volume(value: number) {
     this.globalVolume = value / 10;
     Howler.volume(this.globalVolume);
   }
@@ -99,7 +101,7 @@ export class SoundManager {
    * @description mute or unmute all sounds
    * @param {boolean} value - true to mute, false to unmute
    */
-  set mute(value: boolean) {
+  public set mute(value: boolean) {
     Howler.mute(value);
   }
 
@@ -108,7 +110,7 @@ export class SoundManager {
    * @description stop all sounds and unload sound cache
    * @return {void}
    */
-  unload(): void {
+  public unload(): void {
     Howler.unload();
   }
 }
