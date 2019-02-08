@@ -30,6 +30,7 @@ var Anim = /** @class */ (function () {
         this._health = 0;
         this._strength = 0;
         this._speed = 1;
+        this._alpha = 1;
         this._anchor = .5;
         this._dx = 0;
         this._dy = 0;
@@ -78,6 +79,7 @@ var Anim = /** @class */ (function () {
         this._sx = 1;
         this._sy = 1;
         this.tint = 0;
+        this._alpha = 1;
         this.attributes.flush();
         this.internalRect = new Math_1.Rect(0, 0, 0, 0);
         this.currentCollisionDetection = false;
@@ -352,6 +354,25 @@ var Anim = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Anim.prototype, "alpha", {
+        /**
+         * @name alpha
+         * @description alpha getter
+         * @return {number} alpha value
+         */
+        get: function () {
+            return this._alpha;
+        },
+        /**
+         * @name alpha
+         * @description alpha setter
+         */
+        set: function (value) {
+            this._alpha = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Anim.prototype, "anchor", {
         /**
          * @name anchor
@@ -606,6 +627,7 @@ var Anim = /** @class */ (function () {
             this._x += this._dx * (this._vx || 1) * deltaTime;
             this._y += this._dy * (this._vy || 1) * deltaTime;
             this.currentSequence.visible = this._visible;
+            this.currentSequence.alpha = this._alpha;
             this.currentSequence.loop = this._loop;
             this.currentSequence.x = this._x;
             this.currentSequence.y = this._y;

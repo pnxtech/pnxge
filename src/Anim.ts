@@ -35,6 +35,7 @@ export class Anim implements IAnimCompatible {
   private _health: number = 0;
   private _strength: number = 0;
   private _speed: number = 1;
+  private _alpha: number = 1;
   private _anchor: number = .5;
   private _dx: number = 0;
   private _dy: number = 0;
@@ -94,6 +95,7 @@ export class Anim implements IAnimCompatible {
     this._sx = 1;
     this._sy = 1;
     this.tint = 0;
+    this._alpha = 1;
     this.attributes.flush();
     this.internalRect = new Rect(0,0,0,0);
     this.currentCollisionDetection = false;
@@ -340,6 +342,23 @@ export class Anim implements IAnimCompatible {
   }
 
   /**
+   * @name alpha
+   * @description alpha getter
+   * @return {number} alpha value
+   */
+  public get alpha(): number {
+    return this._alpha;
+  }
+
+  /**
+   * @name alpha
+   * @description alpha setter
+   */
+  public set alpha(value: number) {
+    this._alpha = value;
+  }
+
+  /**
    * @name anchor
    * @description anchor getter
    * @return {number} anchor position
@@ -582,6 +601,7 @@ export class Anim implements IAnimCompatible {
       this._x += this._dx * (this._vx || 1) * deltaTime;
       this._y += this._dy * (this._vy || 1) * deltaTime;
       this.currentSequence.visible = this._visible;
+      this.currentSequence.alpha = this._alpha;
       this.currentSequence.loop = this._loop;
       this.currentSequence.x = this._x;
       this.currentSequence.y = this._y;

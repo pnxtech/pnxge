@@ -159,6 +159,9 @@ export class AssetManager {
             if (obj.attribs) {
               textSprite.attribs.add(obj.attribs);
             }
+            if (obj.alpha) {
+              textSprite.alpha = obj.alpha;
+            }
             if (obj.tint) {
               textSprite.setTint(parseInt(obj.tint, 16));
             }
@@ -183,6 +186,9 @@ export class AssetManager {
             anim.sy = obj.sy || 1;
             if (obj.attribs) {
               anim.attribs.add(obj.attribs);
+            }
+            if (obj.alpha) {
+              anim.alpha = obj.alpha;
             }
             anim.health = obj.health;
             anim.strength = obj.strength;
@@ -236,6 +242,9 @@ export class AssetManager {
       if (obj.attribs) {
         anim.attribs.add(obj.attribs);
       }
+      if (obj.alpha) {
+        anim.alpha = obj.alpha;
+      }
       anim.loop = obj.loop;
       if (obj.rotation) {
         if (obj.rotation === 'random') {
@@ -284,6 +293,9 @@ export class AssetManager {
         } else {
           image.rotation = obj.rotation || 0;
         }
+      }
+      if (obj.alpha) {
+        image.alpha = obj.alpha;
       }
       if (obj.anchor) {
         image.setAnchor(obj.anchor);

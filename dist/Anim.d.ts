@@ -25,6 +25,7 @@ export declare class Anim implements IAnimCompatible {
     private _health;
     private _strength;
     private _speed;
+    private _alpha;
     private _anchor;
     private _dx;
     private _dy;
@@ -189,6 +190,16 @@ export declare class Anim implements IAnimCompatible {
     * @description set anim scale y
     */
     sy: number;
+    /**
+     * @name alpha
+     * @description alpha getter
+     * @return {number} alpha value
+     */
+    /**
+    * @name alpha
+    * @description alpha setter
+    */
+    alpha: number;
     /**
      * @name anchor
      * @description anchor getter

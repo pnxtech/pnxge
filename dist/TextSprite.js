@@ -72,6 +72,27 @@ var TextSprite = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TextSprite.prototype, "alpha", {
+        /**
+         * @name alpha
+         * @description alpha getter
+         * @return {number} alpha value
+         */
+        get: function () {
+            return (this.anim) ? this.anim.alpha : 1;
+        },
+        /**
+         * @name alpha
+         * @description alpha setter
+         */
+        set: function (value) {
+            if (this.anim) {
+                this.anim.alpha = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TextSprite.prototype, "attribs", {
         /**
          * @name get Attribs

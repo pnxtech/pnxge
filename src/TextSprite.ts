@@ -54,6 +54,25 @@ export class TextSprite extends PIXI.extras.BitmapText {
   }
 
   /**
+   * @name alpha
+   * @description alpha getter
+   * @return {number} alpha value
+   */
+  public get alpha(): number {
+    return (this.anim) ? this.anim.alpha : 1;
+  }
+
+  /**
+   * @name alpha
+   * @description alpha setter
+   */
+  public set alpha(value: number) {
+    if (this.anim) {
+      this.anim.alpha = value;
+    }
+  }
+
+  /**
    * @name get Attribs
    * @description get attributes
    * @return {Attribs} attributes
