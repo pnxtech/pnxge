@@ -56,18 +56,18 @@ var Path = /** @class */ (function () {
         var vectorDst = new Math_1.Vector(0, 0);
         // build path element array
         this.pathPoints.forEach(function (point) {
-            var px = Math_1.pcap(point.x);
-            var py = Math_1.pcap(point.y);
+            point.x = Math_1.pcap(point.x);
+            point.y = Math_1.pcap(point.y);
             vectorSrc.x = x;
             vectorSrc.y = y;
-            vectorDst.x = px;
-            vectorDst.y = py;
+            vectorDst.x = point.x;
+            vectorDst.y = point.y;
             pathElements.push({
                 point: point,
                 rotation: angle.angleFromVectors(vectorSrc, vectorDst)
             });
-            x = px;
-            y = py;
+            x = point.x;
+            y = point.y;
         });
         pathElements[0].rotation = Math_1.pcap(pathElements[0].rotation);
         for (var i = 1; i < pathElements.length; i++) {

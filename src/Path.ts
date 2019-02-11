@@ -58,18 +58,18 @@ export class Path {
 
     // build path element array
     this.pathPoints.forEach((point) => {
-      let px = pcap(point.x);
-      let py = pcap(point.y);
+      point.x = pcap(point.x);
+      point.y = pcap(point.y);
       vectorSrc.x = x;
       vectorSrc.y = y;
-      vectorDst.x = px;
-      vectorDst.y = py;
+      vectorDst.x = point.x;
+      vectorDst.y = point.y;
       pathElements.push({
         point,
         rotation: angle.angleFromVectors(vectorSrc, vectorDst)
       });
-      x = px;
-      y = py;
+      x = point.x;
+      y = point.y;
     });
 
     pathElements[0].rotation = pcap(pathElements[0].rotation);
