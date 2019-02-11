@@ -654,7 +654,7 @@ export class Anim implements IAnimCompatible {
       sequence.destroy({
         children: true,
         texture: true,
-        baseTexture: true
+        baseTexture: false
       });
     });
 
