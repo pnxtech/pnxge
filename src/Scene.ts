@@ -359,7 +359,10 @@ export class Scene {
     for (let child of this.stage.children) {
       this.stage.removeChild(child);
     }
+    if (this.app.usingWebGL) {
+      let renderer = this.app.renderer;
+      (new PIXI.TextureGarbageCollector(<PIXI.WebGLRenderer>renderer)).run();
+    }
   }
 }
-
 
