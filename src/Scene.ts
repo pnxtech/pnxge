@@ -360,8 +360,10 @@ export class Scene {
       this.stage.removeChild(child);
     }
     if (this.app.usingWebGL) {
-      let renderer = this.app.renderer;
-      (new PIXI.TextureGarbageCollector(<PIXI.WebGLRenderer>renderer)).run();
+      let renderer: PIXI.WebGLRenderer = <PIXI.WebGLRenderer>this.app.renderer;
+      if (renderer.textureGC) {
+        renderer.textureGC.run();
+      }
     }
   }
 }

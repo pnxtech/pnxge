@@ -1,13 +1,5 @@
 "use strict";
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __importStar(require("pixi.js"));
 var Math_1 = require("./Math");
 var Benchmark_1 = require("./Benchmark");
 var State_1 = require("./State");
@@ -353,7 +345,9 @@ var Scene = /** @class */ (function () {
         }
         if (this.app.usingWebGL) {
             var renderer = this.app.renderer;
-            (new PIXI.TextureGarbageCollector(renderer)).run();
+            if (renderer.textureGC) {
+                renderer.textureGC.run();
+            }
         }
     };
     return Scene;
