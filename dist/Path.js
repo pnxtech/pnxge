@@ -64,8 +64,8 @@ var Path = /** @class */ (function () {
                 point: point,
                 rotation: angle.angleFromVectors(vectorSrc, vectorDst)
             });
-            x = point.x;
-            y = point.y;
+            x = Math_1.pcap(point.x);
+            y = Math_1.pcap(point.y);
         });
         pathElements[0].rotation = Math_1.pcap(pathElements[0].rotation);
         for (var i = 1; i < pathElements.length; i++) {

@@ -66,8 +66,8 @@ export class Path {
         point,
         rotation: angle.angleFromVectors(vectorSrc, vectorDst)
       });
-      x = point.x;
-      y = point.y;
+      x = pcap(point.x);
+      y = pcap(point.y);
     });
 
     pathElements[0].rotation = pcap(pathElements[0].rotation);
