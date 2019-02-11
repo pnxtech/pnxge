@@ -653,8 +653,8 @@ export class Anim implements IAnimCompatible {
       sequence.visible = false;
       sequence.destroy({
         children: true,
-        texture: false,
-        baseTexture: false
+        texture: true,
+        baseTexture: true
       });
     });
 
