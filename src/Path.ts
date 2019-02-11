@@ -66,7 +66,7 @@ export class Path {
       vectorDst.y = point.y;
       pathElements.push({
         point,
-        rotation: angle.angleFromVectors(vectorSrc, vectorDst)
+        rotation: angle.angleFromVectors(vectorDst, vectorSrc)
       });
       x = point.x;
       y = point.y;
