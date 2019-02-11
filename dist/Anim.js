@@ -676,7 +676,7 @@ var Anim = /** @class */ (function () {
             sequence.visible = false;
             sequence.destroy({
                 children: true,
-                texture: true,
+                texture: false,
                 baseTexture: false
             });
         });
