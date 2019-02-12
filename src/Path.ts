@@ -74,7 +74,7 @@ export class Path {
 
     pathElements[0].rotation = pcap(pathElements[0].rotation);
     for (let i = 1; i < pathElements.length; i++) {
-      pathElements[i].rotation += pathElements[i-1].rotation;
+      // pathElements[i].rotation += pathElements[i-1].rotation;
       pathElements[i].rotation = pcap(pathElements[i].rotation);
     }
     return pathElements;
