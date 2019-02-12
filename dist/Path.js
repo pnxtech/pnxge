@@ -64,14 +64,14 @@ var Path = /** @class */ (function () {
             vectorDst.y = point.y;
             pathElements.push({
                 point: point,
-                rotation: angle.angleFromVectors(vectorDst, vectorSrc)
+                rotation: angle.angleFromVectors(vectorSrc, vectorDst)
             });
             x = point.x;
             y = point.y;
         });
         pathElements[0].rotation = Math_1.pcap(pathElements[0].rotation);
         for (var i = 1; i < pathElements.length; i++) {
-            // pathElements[i].rotation += pathElements[i-1].rotation;
+            pathElements[i].rotation += pathElements[i - 1].rotation;
             pathElements[i].rotation = Math_1.pcap(pathElements[i].rotation);
         }
         return pathElements;
