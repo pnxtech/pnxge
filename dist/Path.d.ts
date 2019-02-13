@@ -32,6 +32,7 @@ export declare class Path {
      * @param {number} amplitude - amplitude of wave
      * @param {number} period - number of wave periods
      * @param {number} count - number of points to add
+     * @param {number} velocity - speed to move through path
      * @return {void}
      */
     addSine(xAxis: boolean, location: Point, directionVector: Vector, amplitude: number, period: number, count: number, velocity: number): void;

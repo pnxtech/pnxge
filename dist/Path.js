@@ -42,6 +42,7 @@ var Path = /** @class */ (function () {
      * @param {number} amplitude - amplitude of wave
      * @param {number} period - number of wave periods
      * @param {number} count - number of points to add
+     * @param {number} velocity - speed to move through path
      * @return {void}
      */
     Path.prototype.addSine = function (xAxis, location, directionVector, amplitude, period, count, velocity) {
@@ -49,11 +50,12 @@ var Path = /** @class */ (function () {
         var y = location.y;
         var points = [];
         for (var i = 0; i < count; i += velocity) {
+            var r = (amplitude * Math.sin(period * (Math.PI * (i / 180))));
             if (xAxis) {
-                x += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
+                x += r;
             }
             else {
-                y += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
+                y += r;
             }
             x += directionVector.x * velocity;
             y += directionVector.y * velocity;
@@ -82,7 +84,6 @@ var Path = /** @class */ (function () {
         var angle = new Math_1.Angle();
         var vectorSrc = new Math_1.Vector(0, 0);
         var vectorDst = new Math_1.Vector(0, 0);
-        // build path element array
         this.pathPoints.forEach(function (point) {
             point.x = Math_1.pcap(point.x);
             point.y = Math_1.pcap(point.y);
