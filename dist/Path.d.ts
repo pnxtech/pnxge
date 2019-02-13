@@ -34,7 +34,7 @@ export declare class Path {
      * @param {number} count - number of points to add
      * @return {void}
      */
-    addSine(xAxis: boolean, location: Point, directionVector: Vector, amplitude: number, period: number, count: number): void;
+    addSine(xAxis: boolean, location: Point, directionVector: Vector, amplitude: number, period: number, count: number, velocity: number): void;
     /**
      * @name addPoints
      * @description add points

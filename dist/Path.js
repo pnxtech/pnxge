@@ -44,11 +44,12 @@ var Path = /** @class */ (function () {
      * @param {number} count - number of points to add
      * @return {void}
      */
-    Path.prototype.addSine = function (xAxis, location, directionVector, amplitude, period, count) {
+    Path.prototype.addSine = function (xAxis, location, directionVector, amplitude, period, count, velocity) {
         var x = location.x;
         var y = location.y;
         var points = [];
-        for (var i = 0; i < count; i += 1) {
+        var extent = count * velocity;
+        for (var i = 0; i < extent; i += velocity) {
             if (xAxis) {
                 x += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
             }

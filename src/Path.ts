@@ -44,11 +44,16 @@ export class Path {
    * @param {number} count - number of points to add
    * @return {void}
    */
-  public addSine(xAxis: boolean, location: Point, directionVector: Vector, amplitude: number, period: number, count: number) {
+  public addSine(xAxis: boolean, location: Point,
+                 directionVector: Vector, amplitude: number,
+                 period: number, count: number,
+                 velocity: number
+                ) {
     let x = location.x;
     let y = location.y;
     let points: Point[] = [];
-    for (let i = 0; i < count; i += 1) {
+    let extent = count * velocity;
+    for (let i = 0; i < extent; i += velocity) {
       if (xAxis) {
         x += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
       } else {
