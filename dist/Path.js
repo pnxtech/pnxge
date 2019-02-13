@@ -48,8 +48,7 @@ var Path = /** @class */ (function () {
         var x = location.x;
         var y = location.y;
         var points = [];
-        var extent = count * velocity;
-        for (var i = 0; i < extent; i += velocity) {
+        for (var i = 0; i < count; i += velocity) {
             if (xAxis) {
                 x += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
             }

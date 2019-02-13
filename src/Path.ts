@@ -52,8 +52,7 @@ export class Path {
     let x = location.x;
     let y = location.y;
     let points: Point[] = [];
-    let extent = count * velocity;
-    for (let i = 0; i < extent; i += velocity) {
+    for (let i = 0; i < count; i += velocity) {
       if (xAxis) {
         x += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
       } else {
