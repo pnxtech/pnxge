@@ -47,12 +47,11 @@ export declare class Angle {
     /**
      * @name angleFromVectors
      * @description compute angle from v1 vector to v2 vector
-     * @see https://stackoverflow.com/questions/21483999/using-atan2-to-find-angle-between-two-vectors
-     * @param {Vector} v1 - from (source) vector
-     * @param {Vector} v2 - to (target) vector
+     * @param {Vector} anchor - from (source) vector
+     * @param {Vector} point - to (target) vector
      * @return {number} angle - in radians
      */
-    angleFromVectors(v1: Vector, v2: Vector): number;
+    angleFromVectors(anchor: Vector, point: Vector): number;
     /**
      * @name randomAngle
      * @description get randomangle
