@@ -1,4 +1,4 @@
-import { Point } from './Math';
+import { Point, Vector } from './Math';
 export declare class PathElement {
     point: Point;
     rotation: number;
@@ -23,6 +23,18 @@ export declare class Path {
      * @return {void}
      */
     addCurve(starting: Point, ending: Point, control: Point, segments: number): void;
+    /**
+     * @name addSine
+     * @description add points along a sine wave
+     * @param {boolean} xAxis - apply to xAxis if true, else apply to yAxis
+     * @param {Point} location - starting location on screen
+     * @param {Vector} directionVector - direction of movement
+     * @param {number} amplitude - amplitude of wave
+     * @param {number} period - number of wave periods
+     * @param {number} count - number of points to add
+     * @return {void}
+     */
+    addSine(xAxis: boolean, location: Point, directionVector: Vector, amplitude: number, period: number, count: number): void;
     /**
      * @name addPoints
      * @description add points

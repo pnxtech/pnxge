@@ -34,6 +34,34 @@ var Path = /** @class */ (function () {
         this.pathPoints = this.pathPoints.concat(curve.getPoints());
     };
     /**
+     * @name addSine
+     * @description add points along a sine wave
+     * @param {boolean} xAxis - apply to xAxis if true, else apply to yAxis
+     * @param {Point} location - starting location on screen
+     * @param {Vector} directionVector - direction of movement
+     * @param {number} amplitude - amplitude of wave
+     * @param {number} period - number of wave periods
+     * @param {number} count - number of points to add
+     * @return {void}
+     */
+    Path.prototype.addSine = function (xAxis, location, directionVector, amplitude, period, count) {
+        var x = location.x;
+        var y = location.y;
+        var points = [];
+        for (var i = 0; i < count; i += 1) {
+            if (xAxis) {
+                x += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
+            }
+            else {
+                y += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
+            }
+            x += directionVector.x;
+            y += directionVector.y;
+            points.push(new Math_1.Point(x, y));
+        }
+        this.addPoints(points);
+    };
+    /**
      * @name addPoints
      * @description add points
      * @param {Array<Point>} points
