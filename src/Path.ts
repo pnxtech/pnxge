@@ -59,8 +59,8 @@ export class Path {
       } else {
         y += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
       }
-      x += directionVector.x;
-      y += directionVector.y;
+      x += directionVector.x * velocity;
+      y += directionVector.y * velocity;
       points.push(new Point(x, y));
     }
     this.addPoints(points);

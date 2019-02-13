@@ -56,8 +56,8 @@ var Path = /** @class */ (function () {
             else {
                 y += (amplitude * Math.sin(period * (Math.PI * (i / 180))));
             }
-            x += directionVector.x;
-            y += directionVector.y;
+            x += directionVector.x * velocity;
+            y += directionVector.y * velocity;
             points.push(new Math_1.Point(x, y));
         }
         this.addPoints(points);
