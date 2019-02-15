@@ -49,16 +49,35 @@ var Controller = /** @class */ (function () {
     Controller.prototype.fire = function () {
     };
     /**
-     * @name addPath
+     * @name addPathString
      * @description register a path
      * @param {string} pathName - name of path
      * @param {string} pathString - path data in string form
      * @param {number} rotationCorrection - optional correction in radian
      * @return {void}
      */
-    Controller.prototype.addPath = function (pathName, pathString, rotationCorrection) {
+    Controller.prototype.addPathString = function (pathName, pathString, rotationCorrection) {
         if (rotationCorrection === void 0) { rotationCorrection = 0; }
         var pathArray = pathString.split('|');
+        this.pathCache[pathName] = [];
+        for (var i = 0; i < pathArray.length; i += 3) {
+            this.pathCache[pathName].push({
+                x: Number(pathArray[i]),
+                y: Number(pathArray[i + 1]),
+                r: Number(pathArray[i + 2] + rotationCorrection)
+            });
+        }
+    };
+    /**
+     * @name addPathArray
+     * @description register a path
+     * @param {string} pathName - name of path
+     * @param {[]]} pathArray - path data in array form
+     * @param {number} rotationCorrection - optional correction in radian
+     * @return {void}
+     */
+    Controller.prototype.addPathArray = function (pathName, pathArray, rotationCorrection) {
+        if (rotationCorrection === void 0) { rotationCorrection = 0; }
         this.pathCache[pathName] = [];
         for (var i = 0; i < pathArray.length; i += 3) {
             this.pathCache[pathName].push({

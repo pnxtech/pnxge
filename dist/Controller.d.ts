@@ -42,14 +42,23 @@ export declare class Controller {
      */
     fire(): void;
     /**
-     * @name addPath
+     * @name addPathString
      * @description register a path
      * @param {string} pathName - name of path
      * @param {string} pathString - path data in string form
      * @param {number} rotationCorrection - optional correction in radian
      * @return {void}
      */
-    addPath(pathName: string, pathString: string, rotationCorrection?: number): void;
+    addPathString(pathName: string, pathString: string, rotationCorrection?: number): void;
+    /**
+     * @name addPathArray
+     * @description register a path
+     * @param {string} pathName - name of path
+     * @param {[]]} pathArray - path data in array form
+     * @param {number} rotationCorrection - optional correction in radian
+     * @return {void}
+     */
+    addPathArray(pathName: string, pathArray: [], rotationCorrection?: number): void;
     /**
      * @name triggerPath
      * @description trigger the execution of a path
