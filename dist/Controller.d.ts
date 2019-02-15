@@ -46,9 +46,10 @@ export declare class Controller {
      * @description register a path
      * @param {string} pathName - name of path
      * @param {string} pathString - path data in string form
+     * @param {number} rotationCorrection - optional correction in radian
      * @return {void}
      */
-    addPath(pathName: string, pathString: string): void;
+    addPath(pathName: string, pathString: string, rotationCorrection?: number): void;
     /**
      * @name triggerPath
      * @description trigger the execution of a path

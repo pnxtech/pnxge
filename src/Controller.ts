@@ -62,16 +62,17 @@ export class Controller {
    * @description register a path
    * @param {string} pathName - name of path
    * @param {string} pathString - path data in string form
+   * @param {number} rotationCorrection - optional correction in radian
    * @return {void}
    */
-  public addPath(pathName: string, pathString: string): void {
+  public addPath(pathName: string, pathString: string, rotationCorrection: number = 0): void {
     let pathArray = pathString.split('|');
     this.pathCache[pathName] = [];
     for (let i = 0; i < pathArray.length; i += 3) {
       this.pathCache[pathName].push({
         x: Number(pathArray[i]),
         y: Number(pathArray[i+1]),
-        r: Number(pathArray[i+2])
+        r: Number(pathArray[i+2] + rotationCorrection)
       });
     }
   }
