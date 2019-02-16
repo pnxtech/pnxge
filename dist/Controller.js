@@ -78,13 +78,9 @@ var Controller = /** @class */ (function () {
      */
     Controller.prototype.addPathArray = function (pathName, pathArray, rotationCorrection) {
         if (rotationCorrection === void 0) { rotationCorrection = 0; }
-        this.pathCache[pathName] = [];
-        for (var i = 0; i < pathArray.length; i += 3) {
-            this.pathCache[pathName].push({
-                x: Number(pathArray[i]),
-                y: Number(pathArray[i + 1]),
-                r: Number(pathArray[i + 2] + rotationCorrection)
-            });
+        this.pathCache[pathName] = pathArray.slice();
+        for (var i = 0; i < pathArray.length; i++) {
+            this.pathCache[pathName].r += rotationCorrection;
         }
     };
     /**
