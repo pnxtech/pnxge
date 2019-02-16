@@ -1,5 +1,6 @@
 import { Anim } from './Anim';
 import { Scene } from './Scene';
+import { PathElement } from './Path';
 /**
  * @name Controller
  * @description  Controller base class
@@ -54,11 +55,11 @@ export declare class Controller {
      * @name addPathArray
      * @description register a path
      * @param {string} pathName - name of path
-     * @param {[]} pathArray - path data in array form
+     * @param {PathElement[]} pathArray[] - path data in array form
      * @param {number} rotationCorrection - optional correction in radian
      * @return {void}
      */
-    addPathArray(pathName: string, pathArray: [], rotationCorrection?: number): void;
+    addPathArray(pathName: string, pathArray: PathElement[], rotationCorrection?: number): void;
     /**
      * @name triggerPath
      * @description trigger the execution of a path

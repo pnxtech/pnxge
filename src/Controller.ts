@@ -1,5 +1,6 @@
 import {Anim} from './Anim';
 import {Scene} from './Scene';
+import { PathElement } from './Path';
 
 /**
  * @name Controller
@@ -81,11 +82,11 @@ export class Controller {
    * @name addPathArray
    * @description register a path
    * @param {string} pathName - name of path
-   * @param {[]} pathArray - path data in array form
+   * @param {PathElement[]} pathArray[] - path data in array form
    * @param {number} rotationCorrection - optional correction in radian
    * @return {void}
    */
-  public addPathArray(pathName: string, pathArray: [], rotationCorrection: number = 0): void {
+  public addPathArray(pathName: string, pathArray: PathElement[], rotationCorrection: number = 0): void {
     this.pathCache[pathName] = pathArray.slice();
     for (let i = 0; i < pathArray.length; i++) {
       this.pathCache[pathName][i].r += rotationCorrection;
