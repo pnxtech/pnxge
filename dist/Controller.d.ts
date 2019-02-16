@@ -54,7 +54,7 @@ export declare class Controller {
      * @name addPathArray
      * @description register a path
      * @param {string} pathName - name of path
-     * @param {[]]} pathArray - path data in array form
+     * @param {[]} pathArray - path data in array form
      * @param {number} rotationCorrection - optional correction in radian
      * @return {void}
      */

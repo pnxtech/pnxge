@@ -1,8 +1,9 @@
 import {Angle, Curve, Point, Vector, pcap} from './Math';
 
 export class PathElement {
-  public point: Point = new Point(0,0);
-  public rotation: number = 0;
+  public x: number = 0;
+  public y: number = 0;
+  public r: number = 0;
 }
 
 /**
@@ -98,8 +99,9 @@ export class Path {
       vectorDst.x = point.x;
       vectorDst.y = point.y;
       pathElements.push({
-        point,
-        rotation: angle.angleFromVectors(vectorSrc, vectorDst)
+        x: point.x,
+        y: point.y,
+        r: angle.angleFromVectors(vectorSrc, vectorDst)
       });
       x = point.x;
       y = point.y;
@@ -116,7 +118,7 @@ export class Path {
     let arr: Array<PathElement> = this.getPathElements();
     let condenced: any = [];
     arr.forEach((element) => {
-      condenced.push(`${element.point.x}|${element.point.y}|${element.rotation}`);
+      condenced.push(`${element.x}|${element.y}|${element.r}`);
     });
     return condenced.join('|');
   }

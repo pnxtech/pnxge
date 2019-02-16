@@ -1,7 +1,8 @@
 import { Point, Vector } from './Math';
 export declare class PathElement {
-    point: Point;
-    rotation: number;
+    x: number;
+    y: number;
+    r: number;
 }
 /**
  * @name Path

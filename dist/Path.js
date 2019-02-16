@@ -3,8 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Math_1 = require("./Math");
 var PathElement = /** @class */ (function () {
     function PathElement() {
-        this.point = new Math_1.Point(0, 0);
-        this.rotation = 0;
+        this.x = 0;
+        this.y = 0;
+        this.r = 0;
     }
     return PathElement;
 }());
@@ -92,8 +93,9 @@ var Path = /** @class */ (function () {
             vectorDst.x = point.x;
             vectorDst.y = point.y;
             pathElements.push({
-                point: point,
-                rotation: angle.angleFromVectors(vectorSrc, vectorDst)
+                x: point.x,
+                y: point.y,
+                r: angle.angleFromVectors(vectorSrc, vectorDst)
             });
             x = point.x;
             y = point.y;
@@ -109,7 +111,7 @@ var Path = /** @class */ (function () {
         var arr = this.getPathElements();
         var condenced = [];
         arr.forEach(function (element) {
-            condenced.push(element.point.x + "|" + element.point.y + "|" + element.rotation);
+            condenced.push(element.x + "|" + element.y + "|" + element.r);
         });
         return condenced.join('|');
     };
