@@ -88,7 +88,7 @@ export class Controller {
   public addPathArray(pathName: string, pathArray: [], rotationCorrection: number = 0): void {
     this.pathCache[pathName] = pathArray.slice();
     for (let i = 0; i < pathArray.length; i++) {
-      this.pathCache[pathName].r += rotationCorrection;
+      this.pathCache[pathName][i].r += rotationCorrection;
     }
   }
 

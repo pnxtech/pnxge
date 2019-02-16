@@ -80,7 +80,7 @@ var Controller = /** @class */ (function () {
         if (rotationCorrection === void 0) { rotationCorrection = 0; }
         this.pathCache[pathName] = pathArray.slice();
         for (var i = 0; i < pathArray.length; i++) {
-            this.pathCache[pathName].r += rotationCorrection;
+            this.pathCache[pathName][i].r += rotationCorrection;
         }
     };
     /**
