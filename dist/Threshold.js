@@ -90,6 +90,16 @@ var Threshold = /** @class */ (function () {
         }
         return false;
     };
+    /**
+     * @name reset
+     * @description reset threshold
+     * @return {void}
+     */
+    Threshold.prototype.reset = function () {
+        this._triggered = false;
+        this._count = 0;
+        this._disabled = true;
+    };
     return Threshold;
 }());
 exports.Threshold = Threshold;

@@ -49,5 +49,11 @@ export declare class Threshold {
      * @return {boolean} is triggered?
      */
     increment(): boolean;
+    /**
+     * @name reset
+     * @description reset threshold
+     * @return {void}
+     */
+    reset(): void;
 }
 //# sourceMappingURL=Threshold.d.ts.map

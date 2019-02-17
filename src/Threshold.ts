@@ -87,4 +87,15 @@ export class Threshold {
     }
     return false;
   }
+
+  /**
+   * @name reset
+   * @description reset threshold
+   * @return {void}
+   */
+  public reset(): void {
+    this._triggered = false;
+    this._count = 0;
+    this._disabled = true;
+  }
 }
