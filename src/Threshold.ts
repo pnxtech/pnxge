@@ -94,8 +94,8 @@ export class Threshold {
    * @return {void}
    */
   public reset(): void {
-    this._triggered = false;
     this._count = 0;
-    this._disabled = true;
+    this._triggered = false;
+    this._disabled = false;
   }
 }

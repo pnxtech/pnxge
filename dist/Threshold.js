@@ -96,9 +96,9 @@ var Threshold = /** @class */ (function () {
      * @return {void}
      */
     Threshold.prototype.reset = function () {
-        this._triggered = false;
         this._count = 0;
-        this._disabled = true;
+        this._triggered = false;
+        this._disabled = false;
     };
     return Threshold;
 }());
