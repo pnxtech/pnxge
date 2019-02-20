@@ -140,6 +140,11 @@ export class AssetManager {
             if (obj.tint) {
               backgroundTile.setTint(parseInt(obj.tint, 16));
             }
+            if (obj.visible === true || obj.visible === false) {
+              backgroundTile.visible = obj.visible;
+            } else {
+              backgroundTile.visible = true;
+            }
             backgroundTile.sx = obj.sx || 1;
             backgroundTile.sy = obj.sy || 1;
             backgroundTile.visible = obj.visible || true;
@@ -155,7 +160,11 @@ export class AssetManager {
             textSprite.x = obj.x;
             textSprite.y = obj.y;
             textSprite.z = obj.z;
-            textSprite.visible = obj.visible || true;
+            if (obj.visible === true || obj.visible === false) {
+              textSprite.visible = obj.visible;
+            } else {
+              textSprite.visible = true;
+            }
             if (obj.attribs) {
               textSprite.attribs.add(obj.attribs);
             }
@@ -200,7 +209,11 @@ export class AssetManager {
               }
             }
             anim.collisionDetection = obj.collisionDetection;
-            anim.visible = obj.visible || true;
+            if (obj.visible === true || obj.visible === false) {
+              anim.visible = obj.visible;
+            } else {
+              anim.visible = true;
+            }
             anim.loop = obj.loop;
             if (obj.tint) {
               anim.setTint(parseInt(obj.tint, 16));
@@ -253,7 +266,11 @@ export class AssetManager {
           anim.rotation = obj.rotation || 0;
         }
       }
-      anim.visible = obj.visible || true;
+      if (obj.visible === true || obj.visible === false) {
+        anim.visible = obj.visible;
+      } else {
+        anim.visible = true;
+      }
       anim.health = obj.health;
       anim.strength = obj.strength;
       anim.collisionDetection = obj.collisionDetection;
@@ -303,7 +320,11 @@ export class AssetManager {
       if (obj.attribs) {
         image.attribs.add(obj.attribs);
       }
-      image.visible = obj.visible || true;
+      if (obj.visible === true || obj.visible === false) {
+        image.visible = obj.visible;
+      } else {
+        image.visible = true;
+      }
       if (obj.tint) {
         image.tint = parseInt(obj.tint, 16);
       }
