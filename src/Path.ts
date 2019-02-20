@@ -23,10 +23,10 @@ export class Path {
   /**
    * @name addCurve
    * @description add a curve
-   * @param {[]]} points - reference points
-   * @param {number} tension - between points
-   * @param {number} numOfSeg - number of segments in curve
-   * @param {boolean} close - should close?
+   * @param {Point} starting - start location
+   * @param {Point} ending - ending location
+   * @param {Point} control - control point for curve
+   * @param {number} segments - total segments
    * @return {void}
    */
   public addCurve(starting: Point, ending: Point, control: Point, segments: number): void {
