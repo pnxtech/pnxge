@@ -6,6 +6,7 @@ import { Attribs } from './Attribs';
  * @name TextSprite
  * @description extends the PIXI BitmapText to include additional fields
  * @note: uses PIXI BitmapText
+ * @todo: Uses anim simply to hold z value - cleanup later
  */
 export declare class TextSprite extends PIXI.extras.BitmapText {
     id: string;
@@ -32,12 +33,6 @@ export declare class TextSprite extends PIXI.extras.BitmapText {
     * @description z position setter
     */
     z: number;
-    /**
-     * @name get Attribs
-     * @description get attributes
-     * @return {Attribs} attributes
-     */
-    readonly attribs: Attribs;
     /**
      * @name setTint
      * @description set tint

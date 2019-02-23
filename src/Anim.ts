@@ -511,6 +511,7 @@ export class Anim implements IAnimCompatible {
       };
       this.currentSequenceName = name;
       this.currentSequence = sequence;
+      this.currentSequence.anchor.set(0.5);
       this.stage.addChild(sequence);
     }
   }
