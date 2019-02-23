@@ -33,31 +33,11 @@ export declare class TextSprite extends PIXI.extras.BitmapText {
     */
     z: number;
     /**
-     * @name alpha
-     * @description alpha getter
-     * @return {number} alpha value
-     */
-    /**
-    * @name alpha
-    * @description alpha setter
-    */
-    alpha: number;
-    /**
      * @name get Attribs
      * @description get attributes
      * @return {Attribs} attributes
      */
     readonly attribs: Attribs;
-    /**
-     * @name visible
-     * @description get visibility
-     * @return {boolean} true if visible
-     */
-    /**
-    * @name visible
-    * @description set visibility
-    */
-    visible: boolean;
     /**
      * @name setTint
      * @description set tint
