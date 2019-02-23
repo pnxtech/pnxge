@@ -55,6 +55,18 @@ export class Anim implements IAnimCompatible {
   }
 
   /**
+   * @name setAnimDefaults
+   * @description set default values for anim sequence
+   * @return {void}
+   */
+  public setAnimDefaults(): void {
+    if (this.currentSequence) {
+      this.currentSequence.anchor.set(0.5);
+      this.currentSequence.loop = false;
+    }
+  }
+
+  /**
    * @name id
    * @description get anin id
    */
@@ -481,6 +493,7 @@ export class Anim implements IAnimCompatible {
       };
       this.currentSequenceName = name;
       this.currentSequence = sequence;
+      this.setAnimDefaults();
       this.stage.addChild(sequence);
     }
   }

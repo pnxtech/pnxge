@@ -36,6 +36,12 @@ export declare class Anim implements IAnimCompatible {
      */
     constructor(scene: Scene);
     /**
+     * @name setAnimDefaults
+     * @description set default values for anim sequence
+     * @return {void}
+     */
+    setAnimDefaults(): void;
+    /**
      * @name id
      * @description get anin id
      */
