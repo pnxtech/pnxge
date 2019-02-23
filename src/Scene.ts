@@ -289,11 +289,11 @@ export class Scene {
   public collisionDetection(): void {
     let objectList: any = this.stage.children;
     for (let obj1 of objectList) {
-      if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
+      if (!obj1.anim || !obj1.anim.visible || !obj1.anim.collisionDetection) {
         continue;
       }
       for (let obj2 of objectList) {
-        if (!obj2.anim || !obj2.anim.collisionDetection || !obj2.anim.visible) {
+        if (!obj2.anim || !obj2.anim.visible || !obj2.anim.collisionDetection) {
           continue;
         }
         if (obj1.anim.id === obj2.anim.id) {
