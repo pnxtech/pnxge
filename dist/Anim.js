@@ -538,6 +538,8 @@ var Anim = /** @class */ (function () {
                 name: name,
                 sequence: sequence
             };
+            this.currentSequenceName = name;
+            this.currentSequence = sequence;
             this.stage.addChild(sequence);
         }
     };
