@@ -83,7 +83,6 @@ export class Anim implements IAnimCompatible {
       this._vy = 0;
       this.currentSequence.scale.x = 1;
       this.currentSequence.scale.y = 1;
-      this.currentSequence.tint = 0;
       this.currentSequence.alpha = 1;
     }
     this.attributes.flush();
