@@ -204,7 +204,6 @@ export class ProjectileManager {
           }
           if (hide) {
             this.projectiles[i].active = false;
-            anim.reset();
             anim.visible = false;
           }
         }

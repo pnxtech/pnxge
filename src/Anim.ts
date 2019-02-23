@@ -51,6 +51,7 @@ export class Anim implements IAnimCompatible {
     this.stage = scene.stage;
     this.attributes = new Attribs();
     this.internalRect = new Rect(0,0,0,0);
+    this._id = (new Utils()).createID();
   }
 
   /**
@@ -59,36 +60,6 @@ export class Anim implements IAnimCompatible {
    */
   public get id(): string {
     return this._id;
-  }
-
-  /**
-   * @name reset
-   * @description reset anim - in cases where this anim is reused
-   * @return {void}
-   */
-  public reset(): void {
-    this._id = (new Utils()).createID();
-    if (this.currentSequence) {
-      this.currentSequence.x = 0;
-      this.currentSequence.y= 0;
-      this._z = 0;
-      this.currentSequence.loop = false;
-      this.currentSequence.rotation = 0;
-      this.currentSequence.visible = true;
-      this._speed = 1;
-      this.currentSequence.anchor.set(0.5);
-      this._dx = 0;
-      this._dy = 0;
-      this._vx = 0;
-      this._vy = 0;
-      this.currentSequence.scale.x = 1;
-      this.currentSequence.scale.y = 1;
-      this.currentSequence.alpha = 1;
-    }
-    this.attributes.flush();
-    this.internalRect = new Rect(0,0,0,0);
-    this.currentCollisionDetection = false;
-    this.animCollisionWith = undefined;
   }
 
   /**
@@ -510,7 +481,6 @@ export class Anim implements IAnimCompatible {
       };
       this.currentSequenceName = name;
       this.currentSequence = sequence;
-      this.reset();
       this.stage.addChild(sequence);
     }
   }

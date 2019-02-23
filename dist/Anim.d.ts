@@ -41,12 +41,6 @@ export declare class Anim implements IAnimCompatible {
      */
     readonly id: string;
     /**
-     * @name reset
-     * @description reset anim - in cases where this anim is reused
-     * @return {void}
-     */
-    reset(): void;
-    /**
      * @name attachController
      * @description attach a Controller
      * @return {void}
