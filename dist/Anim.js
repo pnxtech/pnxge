@@ -535,10 +535,10 @@ var Anim = /** @class */ (function () {
     Anim.prototype.play = function (sequenceName) {
         if (this.lastSequenceName && sequenceName !== this.lastSequenceName) {
             this.animationSequence[this.lastSequenceName].sequence.visible = false;
+            this.lastSequenceName = sequenceName;
+            this.currentSequenceName = sequenceName;
+            this.currentSequence = this.animationSequence[this.currentSequenceName].sequence;
         }
-        this.lastSequenceName = sequenceName;
-        this.currentSequenceName = sequenceName;
-        this.currentSequence = this.animationSequence[this.currentSequenceName].sequence;
         this.currentSequence && (this.currentSequence.gotoAndPlay(0));
     };
     /**

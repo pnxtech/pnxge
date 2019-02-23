@@ -507,10 +507,10 @@ export class Anim implements IAnimCompatible {
   public play(sequenceName: string): void {
     if (this.lastSequenceName && sequenceName !== this.lastSequenceName) {
       this.animationSequence[this.lastSequenceName].sequence.visible = false;
+      this.lastSequenceName = sequenceName;
+      this.currentSequenceName = sequenceName;
+      this.currentSequence = <AnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     }
-    this.lastSequenceName = sequenceName;
-    this.currentSequenceName = sequenceName;
-    this.currentSequence = <AnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
     this.currentSequence && (this.currentSequence.gotoAndPlay(0));
   }
 
