@@ -73,6 +73,18 @@ var TextSprite = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TextSprite.prototype, "attribs", {
+        /**
+         * @name get Attribs
+         * @description get attributes
+         * @return {Attribs} attributes
+         */
+        get: function () {
+            return this.attributes;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name setTint
      * @description set tint

@@ -55,6 +55,15 @@ export class TextSprite extends PIXI.extras.BitmapText {
   }
 
   /**
+   * @name get Attribs
+   * @description get attributes
+   * @return {Attribs} attributes
+   */
+  public get attribs(): Attribs {
+    return this.attributes;
+  }
+
+  /**
    * @name setTint
    * @description set tint
    * @param {number} color - color tint
