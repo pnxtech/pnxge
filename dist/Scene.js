@@ -267,20 +267,19 @@ var Scene = /** @class */ (function () {
         var objectList = this.stage.children;
         for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
             var obj1 = objectList_1[_i];
-            if (!obj1.anim || !obj1.anim.visible || !obj1.anim.collisionDetection) {
+            if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
                 continue;
             }
             for (var _a = 0, objectList_2 = objectList; _a < objectList_2.length; _a++) {
                 var obj2 = objectList_2[_a];
-                if (!obj2.anim || !obj2.anim.visible || !obj2.anim.collisionDetection) {
-                    continue;
-                }
-                if (obj1.anim.id === obj2.anim.id) {
-                    continue;
-                }
-                if (obj1.anim.rect.intersect(obj2.anim.rect)) {
-                    obj1.anim.onCollision(obj2.anim);
-                    obj2.anim.onCollision(obj1.anim);
+                if (obj2.anim && obj1.anim.id !== obj2.anim.id) {
+                    if (!obj2.anim.collisionDetection || !obj2.anim.visible) {
+                        continue;
+                    }
+                    if (obj1.anim.rect.intersect(obj2.anim.rect)) {
+                        obj1.anim.onCollision(obj2.anim);
+                        obj2.anim.onCollision(obj1.anim);
+                    }
                 }
             }
         }

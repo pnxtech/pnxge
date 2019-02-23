@@ -287,21 +287,20 @@ export class Scene {
    * @return {void}
    */
   public collisionDetection(): void {
-    let objectList: any = this.stage.children;
+    let objectList:any = this.stage.children;
     for (let obj1 of objectList) {
-      if (!obj1.anim || !obj1.anim.visible || !obj1.anim.collisionDetection) {
+      if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
         continue;
       }
       for (let obj2 of objectList) {
-        if (!obj2.anim || !obj2.anim.visible || !obj2.anim.collisionDetection) {
-          continue;
-        }
-        if (obj1.anim.id === obj2.anim.id) {
-          continue;
-        }
-        if (obj1.anim.rect.intersect(obj2.anim.rect)) {
-          obj1.anim.onCollision(obj2.anim);
-          obj2.anim.onCollision(obj1.anim);
+        if (obj2.anim && obj1.anim.id !== obj2.anim.id) {
+          if (!obj2.anim.collisionDetection || !obj2.anim.visible) {
+            continue;
+          }
+          if (obj1.anim.rect.intersect(obj2.anim.rect)) {
+            obj1.anim.onCollision(obj2.anim);
+            obj2.anim.onCollision(obj1.anim);
+          }
         }
       }
     }
