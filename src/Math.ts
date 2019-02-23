@@ -29,7 +29,7 @@ export class Angle {
    * @return {number} radian
    */
   public d2r(degree: number): number {
-    return pcap(degree * Math.PI / 180.0);
+    return degree * Math.PI / 180.0;
   }
 
   /**
@@ -39,7 +39,7 @@ export class Angle {
    * @return {number} degree
    */
   public r2d(radians: number): number {
-    return pcap(radians * (180.0 / Math.PI));
+    return radians * (180.0 / Math.PI);
   }
 
   /**
@@ -50,7 +50,7 @@ export class Angle {
    */
   public vectorAngleFromDegrees(degrees: number): Vector {
     let radians: number = this.d2r(degrees);
-    return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+    return new Vector(Math.sin(radians), Math.cos(radians));
   }
 
   /**
@@ -60,7 +60,7 @@ export class Angle {
    * @return {Angle} angleVector
    */
   public vectorAngleFromRadians(radians: number): Vector {
-    return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+    return new Vector(Math.sin(radians), Math.cos(radians));
   }
 
   /**
@@ -71,7 +71,7 @@ export class Angle {
    * @return {number} angle - in radians
    */
   public angleFromVectors(anchor: Vector, point: Vector): number {
-    return pcap(Math.atan2(anchor.y - point.y, anchor.x - point.x));
+    return Math.atan2(anchor.y - point.y, anchor.x - point.x);
   }
 
   /**
@@ -81,7 +81,7 @@ export class Angle {
    */
   public randomAngle(): number {
     let random = new Random();
-    return pcap(random.getRandomInclusive(0, Math.PI));
+    return random.getRandomInclusive(0, Math.PI);
   }
 
   /**
@@ -91,7 +91,7 @@ export class Angle {
    */
   public randomAngleTop(): number {
     let random = new Random();
-    return pcap(random.getRandomInclusive(0, Math.PI) + this.HalfPI);
+    return random.getRandomInclusive(0, Math.PI) + this.HalfPI;
   }
 
   /**
@@ -101,7 +101,7 @@ export class Angle {
    */
   public randomAngleBottom(): number {
     let random = new Random();
-    return pcap(random.getRandomInclusive(0, Math.PI) - this.HalfPI);
+    return random.getRandomInclusive(0, Math.PI) - this.HalfPI;
   }
 }
 
@@ -217,7 +217,7 @@ export class Vector extends Point {
    * @returns returns the vector length
    */
   public length(): number {
-    return pcap(Math.sqrt(this.x * this.x + this.y * this.y));
+    return Math.sqrt(this.x * this.x + this.y * this.y);
   }
 
   /**
@@ -228,7 +228,7 @@ export class Vector extends Point {
   public distance(otherVector: Vector): number {
     let vx = this.x - otherVector.x;
     let vy = this.y - otherVector.y;
-    return pcap(Math.sqrt(vx * vx + vy * vy));
+    return Math.sqrt(vx * vx + vy * vy);
   }
 
   /**
@@ -285,7 +285,7 @@ export class Vector extends Point {
   public divide(vector: Vector): Vector {
     this.x /= vector.x;
     this.y /= vector.y;
-    return new Vector(pcap(this.x), pcap(this.y));
+    return new Vector(this.x, this.y);
   }
 
   /**
@@ -294,8 +294,8 @@ export class Vector extends Point {
    * @return {boolan} true if equal / false if not
    */
   public equals(vector: Vector): boolean {
-    return (pcap(Math.abs(this.x)) === pcap(Math.abs(vector.x)) &&
-            pcap(Math.abs(this.y)) === pcap(Math.abs(vector.y)));
+    return (Math.abs(this.x) === Math.abs(vector.x) &&
+            Math.abs(this.y) === Math.abs(vector.y));
   }
 }
 
@@ -494,8 +494,8 @@ export class Curve {
     }
     p.y = m1 * p.x + b1;
 
-    p.x = pcap(p.x);
-    p.y = pcap(p.y);
+    p.x = p.x;
+    p.y = p.y;
     return p;
   }
 

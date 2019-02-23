@@ -44,7 +44,7 @@ var Angle = /** @class */ (function () {
      * @return {number} radian
      */
     Angle.prototype.d2r = function (degree) {
-        return pcap(degree * Math.PI / 180.0);
+        return degree * Math.PI / 180.0;
     };
     /**
      * @name r2d
@@ -53,7 +53,7 @@ var Angle = /** @class */ (function () {
      * @return {number} degree
      */
     Angle.prototype.r2d = function (radians) {
-        return pcap(radians * (180.0 / Math.PI));
+        return radians * (180.0 / Math.PI);
     };
     /**
      * @name vectorAngleFromDegrees
@@ -63,7 +63,7 @@ var Angle = /** @class */ (function () {
      */
     Angle.prototype.vectorAngleFromDegrees = function (degrees) {
         var radians = this.d2r(degrees);
-        return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+        return new Vector(Math.sin(radians), Math.cos(radians));
     };
     /**
      * @name vectorAngleFromRadians
@@ -72,7 +72,7 @@ var Angle = /** @class */ (function () {
      * @return {Angle} angleVector
      */
     Angle.prototype.vectorAngleFromRadians = function (radians) {
-        return new Vector(pcap(Math.sin(radians)), pcap(Math.cos(radians)));
+        return new Vector(Math.sin(radians), Math.cos(radians));
     };
     /**
      * @name angleFromVectors
@@ -82,7 +82,7 @@ var Angle = /** @class */ (function () {
      * @return {number} angle - in radians
      */
     Angle.prototype.angleFromVectors = function (anchor, point) {
-        return pcap(Math.atan2(anchor.y - point.y, anchor.x - point.x));
+        return Math.atan2(anchor.y - point.y, anchor.x - point.x);
     };
     /**
      * @name randomAngle
@@ -91,7 +91,7 @@ var Angle = /** @class */ (function () {
      */
     Angle.prototype.randomAngle = function () {
         var random = new Random();
-        return pcap(random.getRandomInclusive(0, Math.PI));
+        return random.getRandomInclusive(0, Math.PI);
     };
     /**
      * @name randomAngleTop
@@ -100,7 +100,7 @@ var Angle = /** @class */ (function () {
      */
     Angle.prototype.randomAngleTop = function () {
         var random = new Random();
-        return pcap(random.getRandomInclusive(0, Math.PI) + this.HalfPI);
+        return random.getRandomInclusive(0, Math.PI) + this.HalfPI;
     };
     /**
      * @name randomAngleBottom
@@ -109,7 +109,7 @@ var Angle = /** @class */ (function () {
      */
     Angle.prototype.randomAngleBottom = function () {
         var random = new Random();
-        return pcap(random.getRandomInclusive(0, Math.PI) - this.HalfPI);
+        return random.getRandomInclusive(0, Math.PI) - this.HalfPI;
     };
     return Angle;
 }());
@@ -218,7 +218,7 @@ var Vector = /** @class */ (function (_super) {
      * @returns returns the vector length
      */
     Vector.prototype.length = function () {
-        return pcap(Math.sqrt(this.x * this.x + this.y * this.y));
+        return Math.sqrt(this.x * this.x + this.y * this.y);
     };
     /**
      * @name distance
@@ -228,7 +228,7 @@ var Vector = /** @class */ (function (_super) {
     Vector.prototype.distance = function (otherVector) {
         var vx = this.x - otherVector.x;
         var vy = this.y - otherVector.y;
-        return pcap(Math.sqrt(vx * vx + vy * vy));
+        return Math.sqrt(vx * vx + vy * vy);
     };
     /**
      * @name negate
@@ -280,7 +280,7 @@ var Vector = /** @class */ (function (_super) {
     Vector.prototype.divide = function (vector) {
         this.x /= vector.x;
         this.y /= vector.y;
-        return new Vector(pcap(this.x), pcap(this.y));
+        return new Vector(this.x, this.y);
     };
     /**
      * @name equals
@@ -288,8 +288,8 @@ var Vector = /** @class */ (function (_super) {
      * @return {boolan} true if equal / false if not
      */
     Vector.prototype.equals = function (vector) {
-        return (pcap(Math.abs(this.x)) === pcap(Math.abs(vector.x)) &&
-            pcap(Math.abs(this.y)) === pcap(Math.abs(vector.y)));
+        return (Math.abs(this.x) === Math.abs(vector.x) &&
+            Math.abs(this.y) === Math.abs(vector.y));
     };
     return Vector;
 }(Point));
@@ -481,8 +481,8 @@ var Curve = /** @class */ (function () {
             p.x = (b1 - b2) / (m2 - m1);
         }
         p.y = m1 * p.x + b1;
-        p.x = pcap(p.x);
-        p.y = pcap(p.y);
+        p.x = p.x;
+        p.y = p.y;
         return p;
     };
     /**

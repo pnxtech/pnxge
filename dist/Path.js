@@ -24,10 +24,10 @@ var Path = /** @class */ (function () {
     /**
      * @name addCurve
      * @description add a curve
-     * @param {[]]} points - reference points
-     * @param {number} tension - between points
-     * @param {number} numOfSeg - number of segments in curve
-     * @param {boolean} close - should close?
+     * @param {Point} starting - start location
+     * @param {Point} ending - ending location
+     * @param {Point} control - control point for curve
+     * @param {number} segments - total segments
      * @return {void}
      */
     Path.prototype.addCurve = function (starting, ending, control, segments) {
@@ -86,8 +86,8 @@ var Path = /** @class */ (function () {
         var vectorSrc = new Math_1.Vector(0, 0);
         var vectorDst = new Math_1.Vector(0, 0);
         this.pathPoints.forEach(function (point) {
-            point.x = Math_1.pcap(point.x);
-            point.y = Math_1.pcap(point.y);
+            point.x = point.x;
+            point.y = point.y;
             vectorSrc.x = x;
             vectorSrc.y = y;
             vectorDst.x = point.x;

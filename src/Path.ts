@@ -1,4 +1,4 @@
-import {Angle, Curve, Point, Vector, pcap} from './Math';
+import {Angle, Curve, Point, Vector} from './Math';
 
 export class PathElement {
   public x: number = 0;
@@ -92,8 +92,8 @@ export class Path {
     let vectorDst: Vector = new Vector(0,0);
 
     this.pathPoints.forEach((point) => {
-      point.x = pcap(point.x);
-      point.y = pcap(point.y);
+      point.x = point.x;
+      point.y = point.y;
       vectorSrc.x = x;
       vectorSrc.y = y;
       vectorDst.x = point.x;
