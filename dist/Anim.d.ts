@@ -36,12 +36,6 @@ export declare class Anim implements IAnimCompatible {
      */
     constructor(scene: Scene);
     /**
-     * @name setAnimDefaults
-     * @description set default values for anim sequence
-     * @return {void}
-     */
-    setAnimDefaults(): void;
-    /**
      * @name id
      * @description get anin id
      */
@@ -283,6 +277,12 @@ export declare class Anim implements IAnimCompatible {
      * @return {void}
      */
     setTint(color: number): void;
+    /**
+     * @name reset
+     * @description reset anim - in cases where this anim is reused
+     * @return {void}
+     */
+    reset(): void;
     /**
      * @name loadSequence
      * @description load a new animation sequence

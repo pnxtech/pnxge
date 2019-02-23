@@ -173,6 +173,7 @@ var ProjectileManager = /** @class */ (function () {
                     if (hide) {
                         this.projectiles[i].active = false;
                         anim.visible = false;
+                        anim.reset();
                     }
                 }
             }

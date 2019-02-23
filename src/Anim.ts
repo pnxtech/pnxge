@@ -55,18 +55,6 @@ export class Anim implements IAnimCompatible {
   }
 
   /**
-   * @name setAnimDefaults
-   * @description set default values for anim sequence
-   * @return {void}
-   */
-  public setAnimDefaults(): void {
-    if (this.currentSequence) {
-      this.currentSequence.anchor.set(0.5);
-      this.currentSequence.loop = false;
-    }
-  }
-
-  /**
    * @name id
    * @description get anin id
    */
@@ -474,6 +462,22 @@ export class Anim implements IAnimCompatible {
   }
 
   /**
+   * @name reset
+   * @description reset anim - in cases where this anim is reused
+   * @return {void}
+   */
+  public reset(): void {
+    this._id = (new Utils()).createID();
+    if (this.currentSequence) {
+      this.currentSequence.loop = false;
+      this.currentSequence.anchor.set(0.5);
+    }
+    this.attributes.flush();
+    this.currentCollisionDetection = false;
+    this.animCollisionWith = undefined;
+  }
+
+  /**
    * @name loadSequence
    * @description load a new animation sequence
    * @param {string} name - name of sequence
@@ -493,7 +497,7 @@ export class Anim implements IAnimCompatible {
       };
       this.currentSequenceName = name;
       this.currentSequence = sequence;
-      this.setAnimDefaults();
+      this.reset();
       this.stage.addChild(sequence);
     }
   }

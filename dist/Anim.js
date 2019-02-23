@@ -36,17 +36,6 @@ var Anim = /** @class */ (function () {
         this.internalRect = new Math_1.Rect(0, 0, 0, 0);
         this._id = (new Utils_1.Utils()).createID();
     }
-    /**
-     * @name setAnimDefaults
-     * @description set default values for anim sequence
-     * @return {void}
-     */
-    Anim.prototype.setAnimDefaults = function () {
-        if (this.currentSequence) {
-            this.currentSequence.anchor.set(0.5);
-            this.currentSequence.loop = false;
-        }
-    };
     Object.defineProperty(Anim.prototype, "id", {
         /**
          * @name id
@@ -503,6 +492,21 @@ var Anim = /** @class */ (function () {
         this.currentSequence && (this.currentSequence.tint = color);
     };
     /**
+     * @name reset
+     * @description reset anim - in cases where this anim is reused
+     * @return {void}
+     */
+    Anim.prototype.reset = function () {
+        this._id = (new Utils_1.Utils()).createID();
+        if (this.currentSequence) {
+            this.currentSequence.loop = false;
+            this.currentSequence.anchor.set(0.5);
+        }
+        this.attributes.flush();
+        this.currentCollisionDetection = false;
+        this.animCollisionWith = undefined;
+    };
+    /**
      * @name loadSequence
      * @description load a new animation sequence
      * @param {string} name - name of sequence
@@ -522,7 +526,7 @@ var Anim = /** @class */ (function () {
             };
             this.currentSequenceName = name;
             this.currentSequence = sequence;
-            this.setAnimDefaults();
+            this.reset();
             this.stage.addChild(sequence);
         }
     };
