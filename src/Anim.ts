@@ -26,26 +26,15 @@ export class Anim implements IAnimCompatible {
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
   protected controller: Controller | undefined;
-  private _x: number = 0;
-  private _y: number = 0;
   private _z: number = 0;
-  private _loop: boolean = false;
-  private _rotation: number = 0;
-  private _visible: boolean = true;
   private _health: number = 0;
   private _strength: number = 0;
   private _speed: number = 1;
-  private _alpha: number = 1;
-  private _anchor: number = .5;
   private _dx: number = 0;
   private _dy: number = 0;
   private _vx: number = 0;
   private _vy: number = 0;
-  private _sx: number = 1;
-  private _sy: number = 1;
   private internalRect: Rect;
-  private emptyRect: Rect;
-  private tint: number = 0;
   private currentCollisionDetection: boolean = false;
   private animCollisionWith: Anim | undefined;
   protected scene: Scene;
@@ -61,7 +50,6 @@ export class Anim implements IAnimCompatible {
     this.scene = scene;
     this.stage = scene.stage;
     this.attributes = new Attribs();
-    this.emptyRect = new Rect(0,0,0,0);
     this.internalRect = new Rect(0,0,0,0);
   }
 
@@ -80,22 +68,24 @@ export class Anim implements IAnimCompatible {
    */
   public reset(): void {
     this._id = (new Utils()).createID();
-    this._x = 0;
-    this._y= 0;
-    this._z = 0;
-    this._loop = false;
-    this._rotation = 0;
-    this._visible = true;
-    this._speed = 1;
-    this._anchor = .5;
-    this._dx = 0;
-    this._dy = 0;
-    this._vx = 0;
-    this._vy = 0;
-    this._sx = 1;
-    this._sy = 1;
-    this.tint = 0;
-    this._alpha = 1;
+    if (this.currentSequence) {
+      this.currentSequence.x = 0;
+      this.currentSequence.y= 0;
+      this._z = 0;
+      this.currentSequence.loop = false;
+      this.currentSequence.rotation = 0;
+      this.currentSequence.visible = true;
+      this._speed = 1;
+      this.currentSequence.anchor.set(0.5);
+      this._dx = 0;
+      this._dy = 0;
+      this._vx = 0;
+      this._vy = 0;
+      this.currentSequence.scale.x = 1;
+      this.currentSequence.scale.y = 1;
+      this.currentSequence.tint = 0;
+      this.currentSequence.alpha = 1;
+    }
     this.attributes.flush();
     this.internalRect = new Rect(0,0,0,0);
     this.currentCollisionDetection = false;
@@ -118,9 +108,7 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   public setCacheAsBitmap(cache: boolean): void {
-    if (this.currentSequence) {
-      this.currentSequence.cacheAsBitmap = cache;
-    }
+    this.currentSequence && (this.currentSequence.cacheAsBitmap = cache);
   }
 
   /**
@@ -129,7 +117,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} x position
    */
   public get x(): number {
-    return this._x;
+    return (this.currentSequence) ? this.currentSequence.x : 0;
   }
 
   /**
@@ -137,7 +125,10 @@ export class Anim implements IAnimCompatible {
    * @description x position setter
    */
   public set x(x: number) {
-    this._x = x;
+    if (this.currentSequence) {
+      this.currentSequence.x = x;
+      this.internalRect.x = x;
+    }
   }
 
   /**
@@ -146,7 +137,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} y position
    */
   public get y(): number {
-    return this._y;
+    return (this.currentSequence) ? this.currentSequence.y : 0;
   }
 
   /**
@@ -154,7 +145,10 @@ export class Anim implements IAnimCompatible {
    * @description y position setter
    */
   public set y(y: number) {
-    this._y = y;
+    if (this.currentSequence) {
+      this.currentSequence.y = y;
+      this.internalRect.y = y;
+    }
   }
 
   /**
@@ -180,14 +174,7 @@ export class Anim implements IAnimCompatible {
    * @return {Rect} rect object from anim
    */
   public get rect(): Rect {
-    if (this.currentSequence) {
-      this.internalRect.x = this.currentSequence.x;
-      this.internalRect.y = this.currentSequence.y;
-      this.internalRect.width = this.currentSequence.width;
-      this.internalRect.height = this.currentSequence.height;
-      return this.internalRect;
-    }
-    return this.emptyRect;
+    return this.internalRect;
   }
 
   /**
@@ -196,7 +183,7 @@ export class Anim implements IAnimCompatible {
    * @return {boolean} true if visible
    */
   public get visible(): boolean {
-    return this._visible;
+    return (this.currentSequence) ? this.currentSequence.visible : false;
   }
 
   /**
@@ -204,7 +191,7 @@ export class Anim implements IAnimCompatible {
    * @description set visibility
    */
   public set visible(value: boolean) {
-    this._visible = value;
+    this.currentSequence && (this.currentSequence.visible = value);
   }
 
   /**
@@ -213,13 +200,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} anim width
    */
   public get width(): number {
-    let ret;
-    if (this.currentSequence) {
-      ret = this.currentSequence.width;
-    } else {
-      ret = 0;
-    }
-    return ret;
+    return (this.currentSequence) ? this.currentSequence.width : 0;
   }
 
   /**
@@ -228,13 +209,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} anim height
    */
   public get height(): number {
-    let ret;
-    if (this.currentSequence) {
-      ret = this.currentSequence.height;
-    } else {
-      ret = 0;
-    }
-    return ret;
+    return (this.currentSequence) ? this.currentSequence.height : 0;
   }
 
   /**
@@ -243,7 +218,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} rotation position
    */
   public get rotation(): number {
-    return this._rotation;
+    return (this.currentSequence) ? this.currentSequence.rotation : 0;
   }
 
   /**
@@ -251,7 +226,7 @@ export class Anim implements IAnimCompatible {
    * @description rotation setter
    */
   public set rotation(value: number) {
-    this._rotation = value;
+    this.currentSequence && (this.currentSequence.rotation = value);
   }
 
   /**
@@ -313,7 +288,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} scale x
    */
   public get sx(): number {
-    return this._sx;
+    return (this.currentSequence) ? this.currentSequence.scale.x : 0;
   }
 
   /**
@@ -322,7 +297,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} scale y
    */
   public get sy(): number {
-    return this._sy;
+    return (this.currentSequence) ? this.currentSequence.scale.y : 0;
   }
 
   /**
@@ -330,7 +305,10 @@ export class Anim implements IAnimCompatible {
    * @description set anim scale x
    */
   public set sx(value: number) {
-    this._sx = value;
+    if (this.currentSequence) {
+      this.currentSequence.scale.x  = value;
+      this.internalRect.width = this.currentSequence.width;
+    }
   }
 
   /**
@@ -338,7 +316,10 @@ export class Anim implements IAnimCompatible {
    * @description set anim scale y
    */
   public set sy(value: number) {
-    this._sy = value;
+    if (this.currentSequence) {
+      this.currentSequence.scale.y  = value;
+      this.internalRect.height = this.currentSequence.height;
+    }
   }
 
   /**
@@ -347,7 +328,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} alpha value
    */
   public get alpha(): number {
-    return this._alpha;
+    return (this.currentSequence) ? this.currentSequence.alpha : 0;
   }
 
   /**
@@ -355,7 +336,7 @@ export class Anim implements IAnimCompatible {
    * @description alpha setter
    */
   public set alpha(value: number) {
-    this._alpha = value;
+    this.currentSequence && (this.currentSequence.alpha  = value);
   }
 
   /**
@@ -364,7 +345,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} anchor position
    */
   public get anchor(): number {
-    return this._anchor;
+    return (this.currentSequence) ? this.currentSequence.anchor.x : 0;
   }
 
   /**
@@ -372,7 +353,7 @@ export class Anim implements IAnimCompatible {
    * @description anchor setter
    */
   public set anchor(value: number) {
-    this._anchor = value;
+    this.currentSequence && (this.currentSequence.anchor.set(value));
   }
 
   /**
@@ -453,7 +434,7 @@ export class Anim implements IAnimCompatible {
    * @return {boolean}
    */
   public get loop(): boolean {
-    return this._loop;
+    return (this.currentSequence) ? this.currentSequence.loop : false;
   }
 
   /**
@@ -461,7 +442,7 @@ export class Anim implements IAnimCompatible {
    * @description set animation loop state
    */
   public set loop(value: boolean) {
-    this._loop = value;
+    this.currentSequence && (this.currentSequence.loop = value);
   }
 
   /**
@@ -507,7 +488,7 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   public setTint(color: number): void {
-    this.tint = color;
+    this.currentSequence && (this.currentSequence.tint = color);
   }
 
   /**
@@ -545,9 +526,7 @@ export class Anim implements IAnimCompatible {
     this.lastSequenceName = sequenceName;
     this.currentSequenceName = sequenceName;
     this.currentSequence = <AnimatedSprite>this.animationSequence[this.currentSequenceName].sequence;
-    if (this.currentSequence) {
-      this.currentSequence.gotoAndPlay(0);
-    }
+    this.currentSequence && (this.currentSequence.gotoAndPlay(0));
   }
 
   /**
@@ -557,9 +536,7 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   public setFrame(frameNumber: number): void {
-    if (this.currentSequence) {
-      this.currentSequence.gotoAndStop(frameNumber);
-    }
+    this.currentSequence && (this.currentSequence.gotoAndStop(frameNumber));
   }
 
   /**
@@ -595,24 +572,10 @@ export class Anim implements IAnimCompatible {
     if (this.controller) {
       this.controller.update(deltaTime);
     }
-    let animSequenceEntry = this.animationSequence[this.currentSequenceName];
-    if (animSequenceEntry && animSequenceEntry.sequence) {
-      this.currentSequence = <AnimatedSprite>animSequenceEntry.sequence;
-      this._x += this._dx * (this._vx || 1) * deltaTime;
-      this._y += this._dy * (this._vy || 1) * deltaTime;
-      this.currentSequence.visible = this._visible;
-      this.currentSequence.alpha = this._alpha;
-      this.currentSequence.loop = this._loop;
-      this.currentSequence.x = this._x;
-      this.currentSequence.y = this._y;
-      this.currentSequence.scale.x = this._sx;
-      this.currentSequence.scale.y = this._sy;
-      this.currentSequence.rotation = this.rotation;
-      this.currentSequence.animationSpeed = this._speed;
-      this.currentSequence.anchor.set(this._anchor);
-      if (this.tint !== 0) {
-        this.currentSequence.tint = this.tint;
-      }
+
+    if (this.currentSequence) {
+      this.currentSequence.x += this._dx * (this._vx || 1) * deltaTime;
+      this.currentSequence.y += this._dy * (this._vy || 1) * deltaTime;
     }
   }
 
@@ -624,9 +587,7 @@ export class Anim implements IAnimCompatible {
    */
   public onCollision(anim: Anim): void {
     this.animCollisionWith = anim;
-    if (this.controller) {
-      this.controller.hitBy(anim);
-    }
+    this.controller && (this.controller.hitBy(anim));
   }
 
   /**
@@ -644,9 +605,7 @@ export class Anim implements IAnimCompatible {
    * @return {void}
    */
   public destroy(): void {
-    if (this.controller) {
-      this.controller.destroy();
-    }
+    this.controller && (this.controller.destroy());
 
     Object.keys(this.animationSequence).forEach((name) => {
       let sequence = this.animationSequence[name].sequence;

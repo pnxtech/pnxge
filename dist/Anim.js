@@ -21,29 +21,18 @@ var Anim = /** @class */ (function () {
         this.animationSequence = {};
         this.lastSequenceName = '';
         this.currentSequenceName = '';
-        this._x = 0;
-        this._y = 0;
         this._z = 0;
-        this._loop = false;
-        this._rotation = 0;
-        this._visible = true;
         this._health = 0;
         this._strength = 0;
         this._speed = 1;
-        this._alpha = 1;
-        this._anchor = .5;
         this._dx = 0;
         this._dy = 0;
         this._vx = 0;
         this._vy = 0;
-        this._sx = 1;
-        this._sy = 1;
-        this.tint = 0;
         this.currentCollisionDetection = false;
         this.scene = scene;
         this.stage = scene.stage;
         this.attributes = new Attribs_1.Attribs();
-        this.emptyRect = new Math_1.Rect(0, 0, 0, 0);
         this.internalRect = new Math_1.Rect(0, 0, 0, 0);
     }
     Object.defineProperty(Anim.prototype, "id", {
@@ -64,22 +53,24 @@ var Anim = /** @class */ (function () {
      */
     Anim.prototype.reset = function () {
         this._id = (new Utils_1.Utils()).createID();
-        this._x = 0;
-        this._y = 0;
-        this._z = 0;
-        this._loop = false;
-        this._rotation = 0;
-        this._visible = true;
-        this._speed = 1;
-        this._anchor = .5;
-        this._dx = 0;
-        this._dy = 0;
-        this._vx = 0;
-        this._vy = 0;
-        this._sx = 1;
-        this._sy = 1;
-        this.tint = 0;
-        this._alpha = 1;
+        if (this.currentSequence) {
+            this.currentSequence.x = 0;
+            this.currentSequence.y = 0;
+            this._z = 0;
+            this.currentSequence.loop = false;
+            this.currentSequence.rotation = 0;
+            this.currentSequence.visible = true;
+            this._speed = 1;
+            this.currentSequence.anchor.set(0.5);
+            this._dx = 0;
+            this._dy = 0;
+            this._vx = 0;
+            this._vy = 0;
+            this.currentSequence.scale.x = 1;
+            this.currentSequence.scale.y = 1;
+            this.currentSequence.tint = 0;
+            this.currentSequence.alpha = 1;
+        }
         this.attributes.flush();
         this.internalRect = new Math_1.Rect(0, 0, 0, 0);
         this.currentCollisionDetection = false;
@@ -100,9 +91,7 @@ var Anim = /** @class */ (function () {
      * @return {void}
      */
     Anim.prototype.setCacheAsBitmap = function (cache) {
-        if (this.currentSequence) {
-            this.currentSequence.cacheAsBitmap = cache;
-        }
+        this.currentSequence && (this.currentSequence.cacheAsBitmap = cache);
     };
     Object.defineProperty(Anim.prototype, "x", {
         /**
@@ -111,14 +100,17 @@ var Anim = /** @class */ (function () {
          * @return {number} x position
          */
         get: function () {
-            return this._x;
+            return (this.currentSequence) ? this.currentSequence.x : 0;
         },
         /**
          * @name x
          * @description x position setter
          */
         set: function (x) {
-            this._x = x;
+            if (this.currentSequence) {
+                this.currentSequence.x = x;
+                this.internalRect.x = x;
+            }
         },
         enumerable: true,
         configurable: true
@@ -130,14 +122,17 @@ var Anim = /** @class */ (function () {
          * @return {number} y position
          */
         get: function () {
-            return this._y;
+            return (this.currentSequence) ? this.currentSequence.y : 0;
         },
         /**
          * @name y
          * @description y position setter
          */
         set: function (y) {
-            this._y = y;
+            if (this.currentSequence) {
+                this.currentSequence.y = y;
+                this.internalRect.y = y;
+            }
         },
         enumerable: true,
         configurable: true
@@ -168,14 +163,7 @@ var Anim = /** @class */ (function () {
          * @return {Rect} rect object from anim
          */
         get: function () {
-            if (this.currentSequence) {
-                this.internalRect.x = this.currentSequence.x;
-                this.internalRect.y = this.currentSequence.y;
-                this.internalRect.width = this.currentSequence.width;
-                this.internalRect.height = this.currentSequence.height;
-                return this.internalRect;
-            }
-            return this.emptyRect;
+            return this.internalRect;
         },
         enumerable: true,
         configurable: true
@@ -187,14 +175,14 @@ var Anim = /** @class */ (function () {
          * @return {boolean} true if visible
          */
         get: function () {
-            return this._visible;
+            return (this.currentSequence) ? this.currentSequence.visible : false;
         },
         /**
          * @name visible
          * @description set visibility
          */
         set: function (value) {
-            this._visible = value;
+            this.currentSequence && (this.currentSequence.visible = value);
         },
         enumerable: true,
         configurable: true
@@ -206,14 +194,7 @@ var Anim = /** @class */ (function () {
          * @return {number} anim width
          */
         get: function () {
-            var ret;
-            if (this.currentSequence) {
-                ret = this.currentSequence.width;
-            }
-            else {
-                ret = 0;
-            }
-            return ret;
+            return (this.currentSequence) ? this.currentSequence.width : 0;
         },
         enumerable: true,
         configurable: true
@@ -225,14 +206,7 @@ var Anim = /** @class */ (function () {
          * @return {number} anim height
          */
         get: function () {
-            var ret;
-            if (this.currentSequence) {
-                ret = this.currentSequence.height;
-            }
-            else {
-                ret = 0;
-            }
-            return ret;
+            return (this.currentSequence) ? this.currentSequence.height : 0;
         },
         enumerable: true,
         configurable: true
@@ -244,14 +218,14 @@ var Anim = /** @class */ (function () {
          * @return {number} rotation position
          */
         get: function () {
-            return this._rotation;
+            return (this.currentSequence) ? this.currentSequence.rotation : 0;
         },
         /**
          * @name rotation
          * @description rotation setter
          */
         set: function (value) {
-            this._rotation = value;
+            this.currentSequence && (this.currentSequence.rotation = value);
         },
         enumerable: true,
         configurable: true
@@ -323,14 +297,17 @@ var Anim = /** @class */ (function () {
          * @return {number} scale x
          */
         get: function () {
-            return this._sx;
+            return (this.currentSequence) ? this.currentSequence.scale.x : 0;
         },
         /**
          * @name sx
          * @description set anim scale x
          */
         set: function (value) {
-            this._sx = value;
+            if (this.currentSequence) {
+                this.currentSequence.scale.x = value;
+                this.internalRect.width = this.currentSequence.width;
+            }
         },
         enumerable: true,
         configurable: true
@@ -342,14 +319,17 @@ var Anim = /** @class */ (function () {
          * @return {number} scale y
          */
         get: function () {
-            return this._sy;
+            return (this.currentSequence) ? this.currentSequence.scale.y : 0;
         },
         /**
          * @name sy
          * @description set anim scale y
          */
         set: function (value) {
-            this._sy = value;
+            if (this.currentSequence) {
+                this.currentSequence.scale.y = value;
+                this.internalRect.height = this.currentSequence.height;
+            }
         },
         enumerable: true,
         configurable: true
@@ -361,14 +341,14 @@ var Anim = /** @class */ (function () {
          * @return {number} alpha value
          */
         get: function () {
-            return this._alpha;
+            return (this.currentSequence) ? this.currentSequence.alpha : 0;
         },
         /**
          * @name alpha
          * @description alpha setter
          */
         set: function (value) {
-            this._alpha = value;
+            this.currentSequence && (this.currentSequence.alpha = value);
         },
         enumerable: true,
         configurable: true
@@ -380,14 +360,14 @@ var Anim = /** @class */ (function () {
          * @return {number} anchor position
          */
         get: function () {
-            return this._anchor;
+            return (this.currentSequence) ? this.currentSequence.anchor.x : 0;
         },
         /**
          * @name anchor
          * @description anchor setter
          */
         set: function (value) {
-            this._anchor = value;
+            this.currentSequence && (this.currentSequence.anchor.set(value));
         },
         enumerable: true,
         configurable: true
@@ -479,14 +459,14 @@ var Anim = /** @class */ (function () {
          * @return {boolean}
          */
         get: function () {
-            return this._loop;
+            return (this.currentSequence) ? this.currentSequence.loop : false;
         },
         /**
          * @name loop
          * @description set animation loop state
          */
         set: function (value) {
-            this._loop = value;
+            this.currentSequence && (this.currentSequence.loop = value);
         },
         enumerable: true,
         configurable: true
@@ -538,7 +518,7 @@ var Anim = /** @class */ (function () {
      * @return {void}
      */
     Anim.prototype.setTint = function (color) {
-        this.tint = color;
+        this.currentSequence && (this.currentSequence.tint = color);
     };
     /**
      * @name loadSequence
@@ -574,9 +554,7 @@ var Anim = /** @class */ (function () {
         this.lastSequenceName = sequenceName;
         this.currentSequenceName = sequenceName;
         this.currentSequence = this.animationSequence[this.currentSequenceName].sequence;
-        if (this.currentSequence) {
-            this.currentSequence.gotoAndPlay(0);
-        }
+        this.currentSequence && (this.currentSequence.gotoAndPlay(0));
     };
     /**
      * @name setFrame
@@ -585,9 +563,7 @@ var Anim = /** @class */ (function () {
      * @return {void}
      */
     Anim.prototype.setFrame = function (frameNumber) {
-        if (this.currentSequence) {
-            this.currentSequence.gotoAndStop(frameNumber);
-        }
+        this.currentSequence && (this.currentSequence.gotoAndStop(frameNumber));
     };
     /**
      * @name attachTouchHandler
@@ -621,24 +597,9 @@ var Anim = /** @class */ (function () {
         if (this.controller) {
             this.controller.update(deltaTime);
         }
-        var animSequenceEntry = this.animationSequence[this.currentSequenceName];
-        if (animSequenceEntry && animSequenceEntry.sequence) {
-            this.currentSequence = animSequenceEntry.sequence;
-            this._x += this._dx * (this._vx || 1) * deltaTime;
-            this._y += this._dy * (this._vy || 1) * deltaTime;
-            this.currentSequence.visible = this._visible;
-            this.currentSequence.alpha = this._alpha;
-            this.currentSequence.loop = this._loop;
-            this.currentSequence.x = this._x;
-            this.currentSequence.y = this._y;
-            this.currentSequence.scale.x = this._sx;
-            this.currentSequence.scale.y = this._sy;
-            this.currentSequence.rotation = this.rotation;
-            this.currentSequence.animationSpeed = this._speed;
-            this.currentSequence.anchor.set(this._anchor);
-            if (this.tint !== 0) {
-                this.currentSequence.tint = this.tint;
-            }
+        if (this.currentSequence) {
+            this.currentSequence.x += this._dx * (this._vx || 1) * deltaTime;
+            this.currentSequence.y += this._dy * (this._vy || 1) * deltaTime;
         }
     };
     /**
@@ -649,9 +610,7 @@ var Anim = /** @class */ (function () {
      */
     Anim.prototype.onCollision = function (anim) {
         this.animCollisionWith = anim;
-        if (this.controller) {
-            this.controller.hitBy(anim);
-        }
+        this.controller && (this.controller.hitBy(anim));
     };
     /**
      * @name clearCollision
@@ -668,9 +627,7 @@ var Anim = /** @class */ (function () {
      */
     Anim.prototype.destroy = function () {
         var _this = this;
-        if (this.controller) {
-            this.controller.destroy();
-        }
+        this.controller && (this.controller.destroy());
         Object.keys(this.animationSequence).forEach(function (name) {
             var sequence = _this.animationSequence[name].sequence;
             sequence.visible = false;
