@@ -562,7 +562,10 @@ var Anim = /** @class */ (function () {
         this.lastSequenceName = sequenceName;
         this.currentSequenceName = sequenceName;
         this.currentSequence = this.animationSequence[this.currentSequenceName].sequence;
-        this.currentSequence && (this.currentSequence.gotoAndPlay(0));
+        if (this.currentSequence) {
+            this.currentSequence.visible = true;
+            this.currentSequence.gotoAndPlay(0);
+        }
     };
     /**
      * @name setFrame
