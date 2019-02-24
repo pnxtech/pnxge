@@ -545,7 +545,7 @@ var Anim = /** @class */ (function () {
             };
             this.currentSequenceName = name;
             this.currentSequence = sequence;
-            this.reset();
+            // this.reset();
             this.stage.addChild(sequence);
         }
     };

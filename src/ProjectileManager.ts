@@ -105,12 +105,12 @@ export class ProjectileManager {
       };
       this.projectiles.push(<IProjectileObject>projectile);
       anim.loadSequence(projectile.name, this.atlas, this.resources);
+      anim.setCacheAsBitmap(projectile.cacheFrame);
       this.scene.addAnim((new Utils()).createID(), anim);
     } else {
       projectile.active = true;
       projectile.name = projectileInfo.name;
       projectile.strength = projectileInfo.strength;
-      projectile.cacheFrame = projectileInfo.cacheFrame;
       projectile.subType = projectileInfo.subType;
       projectile.x = projectileInfo.x;
       projectile.y = projectileInfo.y;
@@ -133,7 +133,6 @@ export class ProjectileManager {
       anim.visible = true;
       anim.attribs.clone(projectileInfo.attribs),
       anim.strength = projectileInfo.strength,
-      anim.setCacheAsBitmap(projectile.cacheFrame);
       anim.subType = projectile.subType;
       anim.x = projectileInfo.x;
       anim.y = projectileInfo.y;
@@ -207,7 +206,8 @@ export class ProjectileManager {
           if (hide) {
             this.projectiles[i].active = false;
             anim.visible = false;
-            anim.reset();
+            anim.clearCollision();
+            // anim.reset();
           }
         }
       }
