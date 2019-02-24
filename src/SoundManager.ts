@@ -53,12 +53,11 @@ export class SoundManager {
    * @return {void}
    */
   public play(name: string): void {
-    if (this.disabled) {
+    if (this.disabled || !this.globalVolume) {
       return;
     }
     this.stop(name);
     this.soundData.sprite[name].id = this.soundPlayer.play(name);
-    return
   }
 
   /**
