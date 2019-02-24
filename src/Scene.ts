@@ -298,7 +298,8 @@ export class Scene {
             continue;
           }
           if (obj1.anim.rect.intersect(obj2.anim.rect)) {
-            console.log(`anim ${obj1.anim.currentSequenceName} collided with ${obj2.anim.currentSequenceName}`);
+            console.log(`Collision: ${obj1.anim.rect} ${obj2.anim.rect}`);
+            // console.log(`anim ${obj1.anim.currentSequenceName} collided with ${obj2.anim.currentSequenceName}`);
             obj1.anim.onCollision(obj2.anim);
             obj2.anim.onCollision(obj1.anim);
           }
