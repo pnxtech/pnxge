@@ -53,12 +53,11 @@ var SoundManager = /** @class */ (function () {
      * @return {void}
      */
     SoundManager.prototype.play = function (name) {
-        if (this.disabled) {
+        if (this.disabled || !this.globalVolume) {
             return;
         }
         this.stop(name);
         this.soundData.sprite[name].id = this.soundPlayer.play(name);
-        return;
     };
     /**
      * @name stop

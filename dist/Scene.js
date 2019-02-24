@@ -277,6 +277,7 @@ var Scene = /** @class */ (function () {
                         continue;
                     }
                     if (obj1.anim.rect.intersect(obj2.anim.rect)) {
+                        console.log("anim " + obj1.currentSequenceName + " collided with " + obj2.currentSequenceName);
                         obj1.anim.onCollision(obj2.anim);
                         obj2.anim.onCollision(obj1.anim);
                     }
