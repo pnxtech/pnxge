@@ -605,12 +605,14 @@ var Anim = /** @class */ (function () {
         if (!this.currentSequenceName || this.currentSequenceName === '') {
             return;
         }
-        if (this.controller) {
-            this.controller.update(deltaTime);
-        }
         if (this.currentSequence) {
-            this.currentSequence.x += this._dx * (this._vx || 1) * deltaTime;
-            this.currentSequence.y += this._dy * (this._vy || 1) * deltaTime;
+            if (this.controller) { // if controller then that will handle movement.
+                this.controller.update(deltaTime);
+            }
+            else {
+                this.currentSequence.x += this._dx * (this._vx || 1) * deltaTime;
+                this.currentSequence.y += this._dy * (this._vy || 1) * deltaTime;
+            }
         }
     };
     /**
