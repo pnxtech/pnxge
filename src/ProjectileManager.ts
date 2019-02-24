@@ -71,7 +71,7 @@ export class ProjectileManager {
   public createProjectile(projectileInfo: IProjectileObject): void {
     let projectile: IProjectileObject | undefined;
     for (let i = 0; i < this.projectiles.length; i++) {
-      if (this.projectiles[i].type === projectileInfo.type && !this.projectiles[i].active) {
+      if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
         projectile = this.projectiles[i];
         break;
       }
@@ -103,12 +103,10 @@ export class ProjectileManager {
       };
       this.projectiles.push(<IProjectileObject>projectile);
       anim.loadSequence(projectile.name, this.atlas, this.resources);
-      anim.play(projectile.name);
       this.scene.addAnim((new Utils()).createID(), anim);
     } else {
       projectile.active = true;
       projectile.name = projectileInfo.name;
-      projectile.type = projectileInfo.type;
       projectile.strength = projectileInfo.strength;
       projectile.cacheFrame = projectileInfo.cacheFrame;
       projectile.x = projectileInfo.x;
@@ -205,7 +203,6 @@ export class ProjectileManager {
           if (hide) {
             this.projectiles[i].active = false;
             anim.visible = false;
-            anim.reset();
           }
         }
       }

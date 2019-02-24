@@ -29,7 +29,6 @@ export class Anim implements IAnimCompatible {
   private _z: number = 0;
   private _health: number = 0;
   private _strength: number = 0;
-  private _speed: number = 1;
   private _dx: number = 0;
   private _dy: number = 0;
   private _vx: number = 0;
@@ -205,7 +204,7 @@ export class Anim implements IAnimCompatible {
    * @return {number} animation speed
    */
   public get animationSpeed() : number {
-    return this._speed;
+    return this.currentSequence ? this.currentSequence.animationSpeed : 1;
   }
 
   /**
@@ -213,7 +212,7 @@ export class Anim implements IAnimCompatible {
    * @description animationSpeed setter
    */
   public set animationSpeed(speed: number) {
-    this._speed = speed;
+    this.currentSequence && (this.currentSequence.animationSpeed = speed);
   }
 
   /**

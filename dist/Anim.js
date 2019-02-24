@@ -24,7 +24,6 @@ var Anim = /** @class */ (function () {
         this._z = 0;
         this._health = 0;
         this._strength = 0;
-        this._speed = 1;
         this._dx = 0;
         this._dy = 0;
         this._vx = 0;
@@ -208,14 +207,14 @@ var Anim = /** @class */ (function () {
          * @return {number} animation speed
          */
         get: function () {
-            return this._speed;
+            return this.currentSequence ? this.currentSequence.animationSpeed : 1;
         },
         /**
          * @name animationSpeed
          * @description animationSpeed setter
          */
         set: function (speed) {
-            this._speed = speed;
+            this.currentSequence && (this.currentSequence.animationSpeed = speed);
         },
         enumerable: true,
         configurable: true

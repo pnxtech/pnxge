@@ -19,7 +19,6 @@ export declare class Anim implements IAnimCompatible {
     private _z;
     private _health;
     private _strength;
-    private _speed;
     private _dx;
     private _dy;
     private _vx;

@@ -39,7 +39,7 @@ var ProjectileManager = /** @class */ (function () {
     ProjectileManager.prototype.createProjectile = function (projectileInfo) {
         var projectile;
         for (var i = 0; i < this.projectiles.length; i++) {
-            if (this.projectiles[i].type === projectileInfo.type && !this.projectiles[i].active) {
+            if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
                 projectile = this.projectiles[i];
                 break;
             }
@@ -71,13 +71,11 @@ var ProjectileManager = /** @class */ (function () {
             };
             this.projectiles.push(projectile);
             anim.loadSequence(projectile.name, this.atlas, this.resources);
-            anim.play(projectile.name);
             this.scene.addAnim((new Utils_1.Utils()).createID(), anim);
         }
         else {
             projectile.active = true;
             projectile.name = projectileInfo.name;
-            projectile.type = projectileInfo.type;
             projectile.strength = projectileInfo.strength;
             projectile.cacheFrame = projectileInfo.cacheFrame;
             projectile.x = projectileInfo.x;
@@ -173,7 +171,6 @@ var ProjectileManager = /** @class */ (function () {
                     if (hide) {
                         this.projectiles[i].active = false;
                         anim.visible = false;
-                        anim.reset();
                     }
                 }
             }
