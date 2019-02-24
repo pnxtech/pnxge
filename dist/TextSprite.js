@@ -43,6 +43,7 @@ var TextSprite = /** @class */ (function (_super) {
     function TextSprite(scene, text, style) {
         var _this = _super.call(this, text, style) || this;
         //#region variables
+        _this._subType = '';
         _this.id = (new Utils_1.Utils()).createID();
         _this.zOrder = -1;
         _this.collisionDetection = false;
@@ -53,6 +54,26 @@ var TextSprite = /** @class */ (function (_super) {
         _this.attributes.add('text');
         return _this;
     }
+    Object.defineProperty(TextSprite.prototype, "subType", {
+        /**
+         * @name subType
+         * @description subType getter
+         * @return {string} subType
+         */
+        get: function () {
+            return this._subType;
+        },
+        /**
+         * @name subType
+         * @description subType setter
+         * @return {void}
+         */
+        set: function (value) {
+            this._subType = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(TextSprite.prototype, "z", {
         /**
          * @name z

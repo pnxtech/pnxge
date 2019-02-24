@@ -292,16 +292,10 @@ export class Scene {
       if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
         continue;
       }
-      // if (!obj1.anim.currentSequenceName) {
-      //   continue;
-      // }
       for (let obj2 of objectList) {
-        // if (!obj2.anim.currentSequenceName) {
-        //   continue;
-        // }
-        // if (obj1.anim.currentSequenceName === obj2.anim.currentSequenceName) {
-        //   continue;
-        // }
+        if (obj1.anim.subType === obj2.anim.subType) {
+          continue;
+        }
         if (obj2.anim && obj1.anim.id !== obj2.anim.id) {
           if (!obj2.anim.collisionDetection || !obj2.anim.visible) {
             continue;

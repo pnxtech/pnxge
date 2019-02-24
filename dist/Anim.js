@@ -18,6 +18,7 @@ var Anim = /** @class */ (function () {
      */
     function Anim(scene) {
         this._id = (new Utils_1.Utils()).createID();
+        this._subType = '';
         this.animationSequence = {};
         this.lastSequenceName = '';
         this.currentSequenceName = '';
@@ -449,6 +450,26 @@ var Anim = /** @class */ (function () {
          */
         get: function () {
             return this.attributes;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Anim.prototype, "subType", {
+        /**
+         * @name subType
+         * @description subType getter
+         * @return {string} subType
+         */
+        get: function () {
+            return this._subType;
+        },
+        /**
+         * @name subType
+         * @description subType setter
+         * @return {void}
+         */
+        set: function (value) {
+            this._subType = value;
         },
         enumerable: true,
         configurable: true

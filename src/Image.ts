@@ -13,6 +13,7 @@ import {Attribs} from './Attribs';
  */
 export class Image extends PIXI.Sprite implements IAnimCompatible {
   //#region variables
+  protected _subType: string = '';
   public id: string = (new Utils).createID();
   public attributes: Attribs;
   public collisionDetection: boolean = false;
@@ -42,6 +43,24 @@ export class Image extends PIXI.Sprite implements IAnimCompatible {
     this.attributes = new Attribs();
     this.attributes.add('image');
     this.cacheAsBitmap = true;
+  }
+
+  /**
+   * @name subType
+   * @description subType getter
+   * @return {string} subType
+   */
+  public get subType(): string {
+    return this._subType;
+  }
+
+  /**
+   * @name subType
+   * @description subType setter
+   * @return {void}
+   */
+  public set subType(value: string) {
+    this._subType = value;
   }
 
   /**

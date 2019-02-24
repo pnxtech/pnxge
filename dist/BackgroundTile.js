@@ -40,6 +40,7 @@ var BackgroundTile = /** @class */ (function (_super) {
      */
     function BackgroundTile(scene, assetPath) {
         var _this = _super.call(this, scene) || this;
+        _this._subType = '';
         _this.scene = scene;
         _this.texture = PIXI.Texture.fromImage(assetPath);
         _this.tilingSprite = new TilingSprite_1.TilingSprite(_this.scene, _this.texture, scene.app.screen.width, scene.app.screen.height);
@@ -76,6 +77,26 @@ var BackgroundTile = /** @class */ (function (_super) {
     BackgroundTile.prototype.setTint = function (color) {
         this.tilingSprite.tint = color;
     };
+    Object.defineProperty(BackgroundTile.prototype, "subType", {
+        /**
+         * @name subType
+         * @description subType getter
+         * @return {string} subType
+         */
+        get: function () {
+            return this._subType;
+        },
+        /**
+         * @name subType
+         * @description subType setter
+         * @return {void}
+         */
+        set: function (value) {
+            this._subType = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name destroy
      * @description cleanup

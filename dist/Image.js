@@ -41,6 +41,7 @@ var Image = /** @class */ (function (_super) {
     function Image(scene, name, resources) {
         var _this = _super.call(this, resources.textures[name]) || this;
         //#region variables
+        _this._subType = '';
         _this.id = (new Utils_1.Utils).createID();
         _this.collisionDetection = false;
         _this._z = 0;
@@ -57,6 +58,26 @@ var Image = /** @class */ (function (_super) {
         _this.cacheAsBitmap = true;
         return _this;
     }
+    Object.defineProperty(Image.prototype, "subType", {
+        /**
+         * @name subType
+         * @description subType getter
+         * @return {string} subType
+         */
+        get: function () {
+            return this._subType;
+        },
+        /**
+         * @name subType
+         * @description subType setter
+         * @return {void}
+         */
+        set: function (value) {
+            this._subType = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Image.prototype, "z", {
         /**
          * @name z

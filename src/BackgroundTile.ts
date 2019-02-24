@@ -14,6 +14,7 @@ export class BackgroundTile extends Anim {
   protected scene: Scene;
   protected texture: PIXI.Texture;
   protected tilingSprite: TilingSprite;
+  protected _subType: string = '';
 
   /**
    * @name constructor
@@ -66,6 +67,24 @@ export class BackgroundTile extends Anim {
    */
   public setTint(color: number): void {
     this.tilingSprite.tint = color;
+  }
+
+  /**
+   * @name subType
+   * @description subType getter
+   * @return {string} subType
+   */
+  public get subType(): string {
+    return this._subType;
+  }
+
+  /**
+   * @name subType
+   * @description subType setter
+   * @return {void}
+   */
+  public set subType(value: string) {
+    this._subType = value;
   }
 
   /**

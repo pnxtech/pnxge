@@ -148,6 +148,9 @@ var AssetManager = /** @class */ (function () {
                         backgroundTile.sx = obj.sx || 1;
                         backgroundTile.sy = obj.sy || 1;
                         backgroundTile.visible = obj.visible || true;
+                        if (obj.subType) {
+                            backgroundTile.subType = obj.subType;
+                        }
                         if (obj.attribs) {
                             backgroundTile.attribs.add(obj.attribs);
                         }
@@ -161,6 +164,9 @@ var AssetManager = /** @class */ (function () {
                         textSprite.x = obj.x;
                         textSprite.y = obj.y;
                         textSprite.z = obj.z;
+                        if (obj.subType) {
+                            textSprite.subType = obj.subType;
+                        }
                         if (obj.visible === true || obj.visible === false) {
                             textSprite.visible = obj.visible;
                         }
@@ -196,6 +202,9 @@ var AssetManager = /** @class */ (function () {
                         anim.dy = obj.dy || 0;
                         anim.sx = obj.sx || 1;
                         anim.sy = obj.sy || 1;
+                        if (obj.subType) {
+                            anim.subType = obj.subType;
+                        }
                         if (obj.attribs) {
                             anim.attribs.add(obj.attribs);
                         }
@@ -256,6 +265,9 @@ var AssetManager = /** @class */ (function () {
             anim.dy = obj.dy || 0;
             anim.sx = obj.sx || 1;
             anim.sy = obj.sy || 1;
+            if (obj.subType) {
+                anim.subType = obj.subType;
+            }
             if (obj.attribs) {
                 anim.attribs.add(obj.attribs);
             }
@@ -316,6 +328,9 @@ var AssetManager = /** @class */ (function () {
                 else {
                     image.rotation = obj.rotation || 0;
                 }
+            }
+            if (obj.subType) {
+                image.subType = obj.subType;
             }
             if (obj.alpha) {
                 image.alpha = obj.alpha;

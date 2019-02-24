@@ -22,6 +22,7 @@ export class Anim implements IAnimCompatible {
   //#region variables
   public attributes: Attribs;
   private _id: string = (new Utils()).createID();
+  protected _subType: string = '';
   private animationSequence: IHash = {};
   private lastSequenceName: string = '';
   private currentSequenceName: string = '';
@@ -421,6 +422,24 @@ export class Anim implements IAnimCompatible {
    */
   public get attribs(): Attribs {
     return this.attributes;
+  }
+
+  /**
+   * @name subType
+   * @description subType getter
+   * @return {string} subType
+   */
+  public get subType(): string {
+    return this._subType;
+  }
+
+  /**
+   * @name subType
+   * @description subType setter
+   * @return {void}
+   */
+  public set subType(value: string) {
+    this._subType = value;
   }
 
   /**

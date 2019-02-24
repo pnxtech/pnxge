@@ -12,6 +12,7 @@ import { Attribs } from './Attribs';
 export declare class Anim implements IAnimCompatible {
     attributes: Attribs;
     private _id;
+    protected _subType: string;
     private animationSequence;
     private lastSequenceName;
     private currentSequenceName;
@@ -252,6 +253,17 @@ export declare class Anim implements IAnimCompatible {
      * @return {Attribs} attribs bag
      */
     readonly attribs: Attribs;
+    /**
+     * @name subType
+     * @description subType getter
+     * @return {string} subType
+     */
+    /**
+    * @name subType
+    * @description subType setter
+    * @return {void}
+    */
+    subType: string;
     /**
      * @name collisionDetection
      * @description collisionDetection getter

@@ -9,6 +9,7 @@ import { Attribs } from './Attribs';
  * @todo: Uses anim simply to hold z value - cleanup later
  */
 export declare class TextSprite extends PIXI.extras.BitmapText {
+    protected _subType: string;
     id: string;
     zOrder: number;
     collisionDetection: boolean;
@@ -23,6 +24,17 @@ export declare class TextSprite extends PIXI.extras.BitmapText {
      * @param {PIXI.extras.BitmapTextStyle} style - bitmap text styles
      */
     constructor(scene: Scene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined);
+    /**
+     * @name subType
+     * @description subType getter
+     * @return {string} subType
+     */
+    /**
+    * @name subType
+    * @description subType setter
+    * @return {void}
+    */
+    subType: string;
     /**
      * @name z
      * @description z position getter

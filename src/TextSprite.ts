@@ -12,6 +12,7 @@ import {Attribs} from './Attribs';
  */
 export class TextSprite extends PIXI.extras.BitmapText {
   //#region variables
+  protected _subType: string = '';
   public id: string = (new Utils()).createID();
   public zOrder: number = -1;
   public collisionDetection: boolean = false;
@@ -34,6 +35,24 @@ export class TextSprite extends PIXI.extras.BitmapText {
     this.scene.stage.addChild(this);
     this.attributes = new Attribs();
     this.attributes.add('text');
+  }
+
+  /**
+   * @name subType
+   * @description subType getter
+   * @return {string} subType
+   */
+  public get subType(): string {
+    return this._subType;
+  }
+
+  /**
+   * @name subType
+   * @description subType setter
+   * @return {void}
+   */
+  public set subType(value: string) {
+    this._subType = value;
   }
 
   /**

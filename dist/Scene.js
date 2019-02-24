@@ -270,17 +270,11 @@ var Scene = /** @class */ (function () {
             if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
                 continue;
             }
-            // if (!obj1.anim.currentSequenceName) {
-            //   continue;
-            // }
             for (var _a = 0, objectList_2 = objectList; _a < objectList_2.length; _a++) {
                 var obj2 = objectList_2[_a];
-                // if (!obj2.anim.currentSequenceName) {
-                //   continue;
-                // }
-                // if (obj1.anim.currentSequenceName === obj2.anim.currentSequenceName) {
-                //   continue;
-                // }
+                if (obj1.anim.subType === obj2.anim.subType) {
+                    continue;
+                }
                 if (obj2.anim && obj1.anim.id !== obj2.anim.id) {
                     if (!obj2.anim.collisionDetection || !obj2.anim.visible) {
                         continue;

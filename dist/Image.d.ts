@@ -9,6 +9,7 @@ import { Attribs } from './Attribs';
  * @description  image sprite
  */
 export declare class Image extends PIXI.Sprite implements IAnimCompatible {
+    protected _subType: string;
     id: string;
     attributes: Attribs;
     collisionDetection: boolean;
@@ -28,6 +29,17 @@ export declare class Image extends PIXI.Sprite implements IAnimCompatible {
      * @param {object} resources - loaded resources
      */
     constructor(scene: Scene, name: string, resources: any);
+    /**
+     * @name subType
+     * @description subType getter
+     * @return {string} subType
+     */
+    /**
+    * @name subType
+    * @description subType setter
+    * @return {void}
+    */
+    subType: string;
     /**
      * @name z
      * @description z position getter
