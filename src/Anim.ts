@@ -490,7 +490,6 @@ export class Anim implements IAnimCompatible {
       this.currentSequence.loop = false;
       this.currentSequence.anchor.set(0.5);
     }
-    // this.attributes.flush();
     this.currentCollisionDetection = false;
     this.animCollisionWith = undefined;
   }

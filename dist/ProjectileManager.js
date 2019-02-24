@@ -79,6 +79,7 @@ var ProjectileManager = /** @class */ (function () {
             projectile.name = projectileInfo.name;
             projectile.strength = projectileInfo.strength;
             projectile.cacheFrame = projectileInfo.cacheFrame;
+            projectile.subType = projectileInfo.subType;
             projectile.x = projectileInfo.x;
             projectile.y = projectileInfo.y;
             projectile.z = projectileInfo.z;
@@ -100,6 +101,7 @@ var ProjectileManager = /** @class */ (function () {
             anim.attribs.clone(projectileInfo.attribs),
                 anim.strength = projectileInfo.strength,
                 anim.setCacheAsBitmap(projectile.cacheFrame);
+            anim.subType = projectile.subType;
             anim.x = projectileInfo.x;
             anim.y = projectileInfo.y;
             anim.z = projectileInfo.z;
@@ -172,6 +174,7 @@ var ProjectileManager = /** @class */ (function () {
                     if (hide) {
                         this.projectiles[i].active = false;
                         anim.visible = false;
+                        anim.reset();
                     }
                 }
             }
