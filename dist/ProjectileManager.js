@@ -51,6 +51,7 @@ var ProjectileManager = /** @class */ (function () {
                 anim: anim,
                 name: projectileInfo.name,
                 type: projectileInfo.type,
+                subType: projectileInfo.subType,
                 attribs: projectileInfo.attribs,
                 strength: projectileInfo.strength,
                 cacheFrame: projectileInfo.cacheFrame,

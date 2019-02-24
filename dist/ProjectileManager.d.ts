@@ -7,6 +7,7 @@ interface IProjectileObject {
     animSpeed?: number;
     name: string;
     type: string;
+    subType: string;
     attribs: Attribs;
     strength: number;
     frame?: number;
