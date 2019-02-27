@@ -7,6 +7,7 @@ import { PathElement } from './Path';
  */
 export declare class Controller {
     protected anim: Anim | undefined;
+    private isActive;
     private pathCache;
     private currentPath;
     private currentPathIndex;
@@ -18,6 +19,17 @@ export declare class Controller {
      * @param {Scene} scene - where anim was loaded
      */
     constructor(name: string, scene: Scene);
+    /**
+     * @name active
+     * @description active getter
+     * @return {boolean} is active
+     */
+    /**
+    * @name active
+    * @description active setter
+    * @return {void}
+    */
+    active: boolean;
     /**
      * @name moveLeft
      * @description handle movement left

@@ -9,6 +9,7 @@ import { PathElement } from './Path';
 export class Controller {
   //#region variables
   protected anim: Anim | undefined;
+  private isActive: boolean = true;
   private pathCache: any = {};
   private currentPath: string = '';
   private currentPathIndex: number = 0;
@@ -24,6 +25,29 @@ export class Controller {
   constructor(name: string, scene: Scene) {
     this.anim = <Anim>scene.getAnim(name);
     this.anim.attachController(this);
+  }
+
+  /**
+   * @name active
+   * @description active getter
+   * @return {boolean} is active
+   */
+  public get active() {
+    return this.isActive;
+  }
+
+  /**
+   * @name active
+   * @description active setter
+   * @return {void}
+   */
+  public set active(value: boolean) {
+    this.isActive = value;
+    if (this.isActive === false) {
+      this.currentPath = '';
+      this.currentPathIndex = 0;
+      this.isPathComplete = true;
+    }
   }
 
   /**

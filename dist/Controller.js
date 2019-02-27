@@ -13,6 +13,7 @@ var Controller = /** @class */ (function () {
      * @param {Scene} scene - where anim was loaded
      */
     function Controller(name, scene) {
+        this.isActive = true;
         this.pathCache = {};
         this.currentPath = '';
         this.currentPathIndex = 0;
@@ -20,6 +21,31 @@ var Controller = /** @class */ (function () {
         this.anim = scene.getAnim(name);
         this.anim.attachController(this);
     }
+    Object.defineProperty(Controller.prototype, "active", {
+        /**
+         * @name active
+         * @description active getter
+         * @return {boolean} is active
+         */
+        get: function () {
+            return this.isActive;
+        },
+        /**
+         * @name active
+         * @description active setter
+         * @return {void}
+         */
+        set: function (value) {
+            this.isActive = value;
+            if (this.isActive === false) {
+                this.currentPath = '';
+                this.currentPathIndex = 0;
+                this.isPathComplete = true;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name moveLeft
      * @description handle movement left
