@@ -114,6 +114,14 @@ var Application = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @name debugLog
+     * @param {string} message - message to log
+     * @return {void}
+     */
+    Application.prototype.debugLog = function (message) {
+        console.log(this.utils.zeroPad(this._tickCount, 6) + ": " + message);
+    };
     Object.defineProperty(Application.prototype, "tickCount", {
         /**
          * @name tickCount

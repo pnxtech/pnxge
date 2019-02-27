@@ -46,6 +46,12 @@ export declare class Application extends PIXI.Application {
     */
     debug: boolean;
     /**
+     * @name debugLog
+     * @param {string} message - message to log
+     * @return {void}
+     */
+    debugLog(message: string): void;
+    /**
      * @name tickCount
      * @description tickCount getter
      * @return {number} tickCount - internal application update counter

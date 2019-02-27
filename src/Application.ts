@@ -93,6 +93,15 @@ export class Application extends PIXI.Application {
   }
 
   /**
+   * @name debugLog
+   * @param {string} message - message to log
+   * @return {void}
+   */
+  public debugLog(message: string): void {
+    console.log(`${this.utils.zeroPad(this._tickCount, 6)}: ${message}`);
+  }
+
+  /**
    * @name tickCount
    * @description tickCount getter
    * @return {number} tickCount - internal application update counter
