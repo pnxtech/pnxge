@@ -98,7 +98,7 @@ export class Application extends PIXI.Application {
    * @return {void}
    */
   public debugLog(message: string): void {
-    console.log(`${new Date().getTime() / 1000 | 0} (${this.utils.zeroPad(this._tickCount, 6)}): ${message}`);
+    console.log(`${new Date().getTime()} (${this.utils.zeroPad(this._tickCount, 6)}): ${message}`);
   }
 
   /**

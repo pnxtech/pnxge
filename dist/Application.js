@@ -120,7 +120,7 @@ var Application = /** @class */ (function (_super) {
      * @return {void}
      */
     Application.prototype.debugLog = function (message) {
-        console.log((new Date().getTime() / 1000 | 0) + " (" + this.utils.zeroPad(this._tickCount, 6) + "): " + message);
+        console.log(new Date().getTime() + " (" + this.utils.zeroPad(this._tickCount, 6) + "): " + message);
     };
     Object.defineProperty(Application.prototype, "tickCount", {
         /**
