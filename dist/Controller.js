@@ -41,6 +41,7 @@ var Controller = /** @class */ (function () {
                 this.currentPath = '';
                 this.currentPathIndex = 0;
                 this.isPathComplete = true;
+                this.anim && (this.anim.visible = false);
             }
         },
         enumerable: true,

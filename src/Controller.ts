@@ -47,6 +47,7 @@ export class Controller {
       this.currentPath = '';
       this.currentPathIndex = 0;
       this.isPathComplete = true;
+      this.anim && (this.anim.visible = false);
     }
   }
 
