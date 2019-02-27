@@ -10,6 +10,7 @@ export declare class Application extends PIXI.Application {
     protected appEventManager: EventManager;
     protected _demo: boolean;
     protected _debug: boolean;
+    protected _tickCount: number;
     private frames;
     private FPS;
     private WebGL;
@@ -44,6 +45,12 @@ export declare class Application extends PIXI.Application {
     * @param {boolean} value if debug
     */
     debug: boolean;
+    /**
+     * @name tickCount
+     * @description tickCount getter
+     * @return {number} tickCount - internal application update counter
+     */
+    readonly tickCount: number;
     /**
      * @name state
      * @description state getter

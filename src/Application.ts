@@ -16,6 +16,7 @@ export class Application extends PIXI.Application {
   protected appEventManager: EventManager = new EventManager();
   protected _demo: boolean = false;
   protected _debug: boolean = false;
+  protected _tickCount: number = 0;
   private frames: number = 0;
   private FPS: number = 0;
   private WebGL: boolean;
@@ -89,6 +90,15 @@ export class Application extends PIXI.Application {
         this.frames = 0;
       }, 1000);
     }
+  }
+
+  /**
+   * @name tickCount
+   * @description tickCount getter
+   * @return {number} tickCount - internal application update counter
+   */
+  public get tickCount(): number {
+    return this._tickCount;
   }
 
   /**
@@ -226,6 +236,7 @@ export class Application extends PIXI.Application {
    * @return {void}
    */
   public update(deltaTime: number): void {
+    this._tickCount++;
   }
 
   /**

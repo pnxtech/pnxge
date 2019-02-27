@@ -53,6 +53,7 @@ var Application = /** @class */ (function (_super) {
         _this.appEventManager = new EventManager_1.EventManager();
         _this._demo = false;
         _this._debug = false;
+        _this._tickCount = 0;
         _this.frames = 0;
         _this.FPS = 0;
         _this._state = new State_1.State();
@@ -64,10 +65,6 @@ var Application = /** @class */ (function (_super) {
         _this.ticker.add(function (deltaTime) {
             _this.update(deltaTime);
         });
-        setInterval(function () {
-            _this.FPS = _this.frames;
-            _this.frames = 0;
-        }, 1000);
         return _this;
     }
     Object.defineProperty(Application.prototype, "demo", {
@@ -105,7 +102,26 @@ var Application = /** @class */ (function (_super) {
          * @param {boolean} value if debug
          */
         set: function (value) {
+            var _this = this;
             this._debug = value;
+            if (this._debug) {
+                setInterval(function () {
+                    _this.FPS = _this.frames;
+                    _this.frames = 0;
+                }, 1000);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Application.prototype, "tickCount", {
+        /**
+         * @name tickCount
+         * @description tickCount getter
+         * @return {number} tickCount - internal application update counter
+         */
+        get: function () {
+            return this._tickCount;
         },
         enumerable: true,
         configurable: true
@@ -255,6 +271,7 @@ var Application = /** @class */ (function (_super) {
      * @return {void}
      */
     Application.prototype.update = function (deltaTime) {
+        this._tickCount++;
     };
     /**
      * @name destroy
