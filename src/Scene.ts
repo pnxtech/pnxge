@@ -255,11 +255,11 @@ export class Scene {
           this.anims[key].update(deltaTime);
         }
       });
-      this.sortAnims();
-      this.collisionDetection();
       if (this.projectileManager) {
         this.projectileManager.update(deltaTime);
       }
+      this.collisionDetection();
+      this.sortAnims();
     }
     this.benchmarkUpdate && console.log(`scene benchmark: ${pcap(this.benchmark.elapsed())} ms`);
   }

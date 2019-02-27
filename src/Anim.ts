@@ -596,6 +596,7 @@ export class Anim implements IAnimCompatible {
    */
   public onCollision(anim: Anim): void {
     this.animCollisionWith = anim;
+    this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
     this.controller && (this.controller.hitBy(anim));
   }
 

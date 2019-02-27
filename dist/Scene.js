@@ -234,11 +234,11 @@ var Scene = /** @class */ (function () {
                     _this.anims[key].update(deltaTime);
                 }
             });
-            this.sortAnims();
-            this.collisionDetection();
             if (this.projectileManager) {
                 this.projectileManager.update(deltaTime);
             }
+            this.collisionDetection();
+            this.sortAnims();
         }
         this.benchmarkUpdate && console.log("scene benchmark: " + Math_1.pcap(this.benchmark.elapsed()) + " ms");
     };

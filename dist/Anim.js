@@ -624,6 +624,7 @@ var Anim = /** @class */ (function () {
      */
     Anim.prototype.onCollision = function (anim) {
         this.animCollisionWith = anim;
+        this.scene.app.debugLog(this.subType + " was hit by " + anim.subType);
         this.controller && (this.controller.hitBy(anim));
     };
     /**
