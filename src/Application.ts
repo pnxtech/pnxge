@@ -47,10 +47,6 @@ export class Application extends PIXI.Application {
     this.ticker.add((deltaTime) => {
       this.update(deltaTime);
     });
-    setInterval(() => {
-      this.FPS = this.frames;
-      this.frames = 0;
-    }, 1000);
   }
 
   /**
@@ -87,6 +83,12 @@ export class Application extends PIXI.Application {
    */
   public set debug(value: boolean) {
     this._debug = value;
+    if (this._debug) {
+      setInterval(() => {
+        this.FPS = this.frames;
+        this.frames = 0;
+      }, 1000);
+    }
   }
 
   /**
