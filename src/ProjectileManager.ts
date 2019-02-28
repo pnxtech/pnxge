@@ -71,12 +71,12 @@ export class ProjectileManager {
    */
   public createProjectile(projectileInfo: IProjectileObject): void {
     let projectile: IProjectileObject | undefined;
-    for (let i = 0; i < this.projectiles.length; i++) {
-      if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
-        projectile = this.projectiles[i];
-        break;
-      }
-    }
+    // for (let i = 0; i < this.projectiles.length; i++) {
+    //   if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
+    //     projectile = this.projectiles[i];
+    //     break;
+    //   }
+    // }
     if (!projectile) {
       let anim = new Anim(this.scene);
       projectile = {

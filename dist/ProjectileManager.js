@@ -38,12 +38,12 @@ var ProjectileManager = /** @class */ (function () {
      */
     ProjectileManager.prototype.createProjectile = function (projectileInfo) {
         var projectile;
-        for (var i = 0; i < this.projectiles.length; i++) {
-            if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
-                projectile = this.projectiles[i];
-                break;
-            }
-        }
+        // for (let i = 0; i < this.projectiles.length; i++) {
+        //   if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
+        //     projectile = this.projectiles[i];
+        //     break;
+        //   }
+        // }
         if (!projectile) {
             var anim = new Anim_1.Anim(this.scene);
             projectile = {
