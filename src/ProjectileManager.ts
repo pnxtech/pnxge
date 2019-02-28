@@ -3,6 +3,13 @@ import {Scene} from "./Scene";
 import {Utils} from './Utils';
 import {Attribs} from './Attribs';
 
+interface IProjectileCacheObject {
+  active: boolean,
+  anim: Anim,
+  type: string,
+  rotationType: string, // cw, ccw
+  rotationAmount: number
+};
 interface IProjectileObject {
   active?: boolean,
   anim?: Anim,
@@ -35,7 +42,7 @@ export interface ICollisionResolutionCallback { (projectileAnim: Anim, collision
  * @description Create and manages projectiles
  */
 export class ProjectileManager {
-  private projectiles: IProjectileObject[] = [];
+  private projectiles: IProjectileCacheObject[] = [];
   private scene: Scene;
   private atlas: string;
   private resources: {};
@@ -72,24 +79,31 @@ export class ProjectileManager {
    * @return {void}
    */
   public createProjectile(projectileInfo: IProjectileObject): void {
-    let projectile: IProjectileObject | undefined;
+    let anim: Anim | undefined = undefined;
     for (let i = 0; i < this.projectiles.length; i++) {
-      if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
+      if (this.projectiles[i].active === false && (this.projectiles[i].type === projectileInfo.type)) {
         this.projectiles[i].active = true;
-        projectile = this.projectiles[i];
+        this.projectiles[i].rotationType = projectileInfo.rotationType || '';
+        this.projectiles[i].rotationAmount = projectileInfo.rotationAmount || 0;
+        anim = this.projectiles[i].anim;
         break;
       }
     }
-    if (!projectile) {
-      let anim = new Anim(this.scene);
+    if (!anim) {
+      anim = new Anim(this.scene);
       projectileInfo.anim = anim;
       projectileInfo.active = true;
-      this.projectiles.push(<IProjectileObject>projectileInfo);
+      this.projectiles.push(<IProjectileCacheObject>{
+        active: true,
+        anim,
+        type: projectileInfo.type,
+        rotationType: projectileInfo.rotationType || '',
+        rotationAmount: projectileInfo.rotationAmount || 0
+      });
       anim.loadSequence(projectileInfo.name, this.atlas, this.resources);
       anim.setCacheAsBitmap(projectileInfo.cacheFrame);
       this.scene.addAnim(this.utils.createID(), anim);
     }
-    let anim = projectileInfo.anim;
     if (anim) {
       anim.visible = true;
       anim.attribs.clone(projectileInfo.attribs),

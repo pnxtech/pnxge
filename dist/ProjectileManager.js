@@ -4,6 +4,7 @@ var Anim_1 = require("./Anim");
 var Utils_1 = require("./Utils");
 ;
 ;
+;
 /**
  * @name ProjectileManager
  * @description Create and manages projectiles
@@ -38,24 +39,31 @@ var ProjectileManager = /** @class */ (function () {
      * @return {void}
      */
     ProjectileManager.prototype.createProjectile = function (projectileInfo) {
-        var projectile;
+        var anim = undefined;
         for (var i = 0; i < this.projectiles.length; i++) {
-            if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
+            if (this.projectiles[i].active === false && (this.projectiles[i].type === projectileInfo.type)) {
                 this.projectiles[i].active = true;
-                projectile = this.projectiles[i];
+                this.projectiles[i].rotationType = projectileInfo.rotationType || '';
+                this.projectiles[i].rotationAmount = projectileInfo.rotationAmount || 0;
+                anim = this.projectiles[i].anim;
                 break;
             }
         }
-        if (!projectile) {
-            var anim_1 = new Anim_1.Anim(this.scene);
-            projectileInfo.anim = anim_1;
+        if (!anim) {
+            anim = new Anim_1.Anim(this.scene);
+            projectileInfo.anim = anim;
             projectileInfo.active = true;
-            this.projectiles.push(projectileInfo);
-            anim_1.loadSequence(projectileInfo.name, this.atlas, this.resources);
-            anim_1.setCacheAsBitmap(projectileInfo.cacheFrame);
-            this.scene.addAnim(this.utils.createID(), anim_1);
+            this.projectiles.push({
+                active: true,
+                anim: anim,
+                type: projectileInfo.type,
+                rotationType: projectileInfo.rotationType || '',
+                rotationAmount: projectileInfo.rotationAmount || 0
+            });
+            anim.loadSequence(projectileInfo.name, this.atlas, this.resources);
+            anim.setCacheAsBitmap(projectileInfo.cacheFrame);
+            this.scene.addAnim(this.utils.createID(), anim);
         }
-        var anim = projectileInfo.anim;
         if (anim) {
             anim.visible = true;
             anim.attribs.clone(projectileInfo.attribs),
