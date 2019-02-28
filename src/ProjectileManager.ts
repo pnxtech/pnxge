@@ -75,6 +75,7 @@ export class ProjectileManager {
     let projectile: IProjectileObject | undefined;
     for (let i = 0; i < this.projectiles.length; i++) {
       if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
+        this.projectiles[i].active = true;
         projectile = this.projectiles[i];
         break;
       }
@@ -87,15 +88,13 @@ export class ProjectileManager {
       anim.loadSequence(projectileInfo.name, this.atlas, this.resources);
       anim.setCacheAsBitmap(projectileInfo.cacheFrame);
       this.scene.addAnim(this.utils.createID(), anim);
-      projectile = projectileInfo;
     }
-
-    if (projectile && projectile.anim) {
-      let anim = projectile.anim;
+    let anim = projectileInfo.anim;
+    if (anim) {
       anim.visible = true;
-      anim.attribs.clone(projectileInfo.attribs), // <<<<< confirm this does what it looks like!
+      anim.attribs.clone(projectileInfo.attribs),
       anim.strength = projectileInfo.strength,
-      anim.subType = projectile.subType;
+      anim.subType = projectileInfo.subType;
       anim.x = projectileInfo.x;
       anim.y = projectileInfo.y;
       anim.z = projectileInfo.z;
@@ -108,11 +107,10 @@ export class ProjectileManager {
       anim.sx = projectileInfo.scale;
       anim.sy = projectileInfo.scale;
       anim.collisionDetection = projectileInfo.collisionDetection;
-
-      if (projectile.frame !== undefined) {
-        anim.setFrame(projectile.frame);
+      if (projectileInfo.frame !== undefined) {
+        anim.setFrame(projectileInfo.frame);
       } else {
-        anim.play(projectile.name);
+        anim.play(projectileInfo.name);
       }
     }
   }

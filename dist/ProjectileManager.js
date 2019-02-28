@@ -41,26 +41,26 @@ var ProjectileManager = /** @class */ (function () {
         var projectile;
         for (var i = 0; i < this.projectiles.length; i++) {
             if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
+                this.projectiles[i].active = true;
                 projectile = this.projectiles[i];
                 break;
             }
         }
         if (!projectile) {
-            var anim = new Anim_1.Anim(this.scene);
-            projectileInfo.anim = anim;
+            var anim_1 = new Anim_1.Anim(this.scene);
+            projectileInfo.anim = anim_1;
             projectileInfo.active = true;
             this.projectiles.push(projectileInfo);
-            anim.loadSequence(projectileInfo.name, this.atlas, this.resources);
-            anim.setCacheAsBitmap(projectileInfo.cacheFrame);
-            this.scene.addAnim(this.utils.createID(), anim);
-            projectile = projectileInfo;
+            anim_1.loadSequence(projectileInfo.name, this.atlas, this.resources);
+            anim_1.setCacheAsBitmap(projectileInfo.cacheFrame);
+            this.scene.addAnim(this.utils.createID(), anim_1);
         }
-        if (projectile && projectile.anim) {
-            var anim = projectile.anim;
+        var anim = projectileInfo.anim;
+        if (anim) {
             anim.visible = true;
-            anim.attribs.clone(projectileInfo.attribs), // <<<<< confirm this does what it looks like!
+            anim.attribs.clone(projectileInfo.attribs),
                 anim.strength = projectileInfo.strength,
-                anim.subType = projectile.subType;
+                anim.subType = projectileInfo.subType;
             anim.x = projectileInfo.x;
             anim.y = projectileInfo.y;
             anim.z = projectileInfo.z;
@@ -73,11 +73,11 @@ var ProjectileManager = /** @class */ (function () {
             anim.sx = projectileInfo.scale;
             anim.sy = projectileInfo.scale;
             anim.collisionDetection = projectileInfo.collisionDetection;
-            if (projectile.frame !== undefined) {
-                anim.setFrame(projectile.frame);
+            if (projectileInfo.frame !== undefined) {
+                anim.setFrame(projectileInfo.frame);
             }
             else {
-                anim.play(projectile.name);
+                anim.play(projectileInfo.name);
             }
         }
     };
