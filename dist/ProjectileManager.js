@@ -54,8 +54,8 @@ var ProjectileManager = /** @class */ (function () {
             projectileInfo.anim = anim;
             projectileInfo.active = true;
             this.projectiles.push({
-                active: true,
-                anim: anim,
+                active: projectileInfo.active,
+                anim: projectileInfo.anim,
                 type: projectileInfo.type,
                 rotationType: projectileInfo.rotationType || '',
                 rotationAmount: projectileInfo.rotationAmount || 0
@@ -100,7 +100,7 @@ var ProjectileManager = /** @class */ (function () {
             if (this.projectiles[i].active) {
                 var anim = this.projectiles[i].anim;
                 if (anim) {
-                    if (this.projectiles[i].rotationType) {
+                    if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
                         var rotAmount = 0;
                         var rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
                         switch (this.projectiles[i].rotationType) {

@@ -124,6 +124,7 @@ export class Controller {
    * @param {string} pathName - path to execute
    */
   public triggerPath(pathName: string): void {
+    this.isActive = true;
     this.currentPath = pathName;
     this.currentPathIndex = 0;
     this.isPathComplete = false;

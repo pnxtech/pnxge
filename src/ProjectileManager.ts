@@ -94,8 +94,8 @@ export class ProjectileManager {
       projectileInfo.anim = anim;
       projectileInfo.active = true;
       this.projectiles.push(<IProjectileCacheObject>{
-        active: true,
-        anim,
+        active: projectileInfo.active,
+        anim: projectileInfo.anim,
         type: projectileInfo.type,
         rotationType: projectileInfo.rotationType || '',
         rotationAmount: projectileInfo.rotationAmount || 0
@@ -140,7 +140,7 @@ export class ProjectileManager {
       if (this.projectiles[i].active) {
         let anim = this.projectiles[i].anim;
         if (anim) {
-          if (this.projectiles[i].rotationType) {
+          if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
             let rotAmount = 0;
             let rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
             switch (this.projectiles[i].rotationType) {

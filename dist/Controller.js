@@ -116,6 +116,7 @@ var Controller = /** @class */ (function () {
      * @param {string} pathName - path to execute
      */
     Controller.prototype.triggerPath = function (pathName) {
+        this.isActive = true;
         this.currentPath = pathName;
         this.currentPathIndex = 0;
         this.isPathComplete = false;
