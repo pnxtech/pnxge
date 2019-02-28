@@ -39,6 +39,7 @@ export class ProjectileManager {
   private scene: Scene;
   private atlas: string;
   private resources: {};
+  private utils: Utils;
   private collisionResolutionHandler: ICollisionResolutionCallback | undefined;
 
   /**
@@ -49,6 +50,7 @@ export class ProjectileManager {
     this.scene = scene;
     this.atlas = atlas;
     this.resources = resources;
+    this.utils = new Utils();
     this.collisionResolutionHandler = undefined;
   }
 
@@ -71,67 +73,27 @@ export class ProjectileManager {
    */
   public createProjectile(projectileInfo: IProjectileObject): void {
     let projectile: IProjectileObject | undefined;
-    // for (let i = 0; i < this.projectiles.length; i++) {
-    //   if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
-    //     projectile = this.projectiles[i];
-    //     break;
-    //   }
-    // }
+    for (let i = 0; i < this.projectiles.length; i++) {
+      if (!this.projectiles[i].active && (this.projectiles[i].type === projectileInfo.type)) {
+        projectile = this.projectiles[i];
+        break;
+      }
+    }
     if (!projectile) {
       let anim = new Anim(this.scene);
-      projectile = {
-        active: true,
-        anim,
-        name: projectileInfo.name,
-        type: projectileInfo.type,
-        subType: projectileInfo.subType,
-        attribs: projectileInfo.attribs,
-        strength: projectileInfo.strength,
-        cacheFrame: projectileInfo.cacheFrame,
-        x: projectileInfo.x,
-        y: projectileInfo.y,
-        z: projectileInfo.z,
-        dx: projectileInfo.dx,
-        dy: projectileInfo.dy,
-        vx: projectileInfo.vx,
-        vy: projectileInfo.vy,
-        collisionDetection: projectileInfo.collisionDetection,
-        animSpeed: (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1,
-        frame: projectileInfo.frame,
-        rotation: projectileInfo.rotation,
-        rotationType: projectileInfo.rotationType,
-        rotationAmount: projectileInfo.rotationAmount,
-        scale: projectileInfo.scale
-      };
-      this.projectiles.push(<IProjectileObject>projectile);
-      anim.loadSequence(projectile.name, this.atlas, this.resources);
-      anim.setCacheAsBitmap(projectile.cacheFrame);
-      this.scene.addAnim((new Utils()).createID(), anim);
-    } else {
-      projectile.active = true;
-      projectile.name = projectileInfo.name;
-      projectile.strength = projectileInfo.strength;
-      projectile.subType = projectileInfo.subType;
-      projectile.x = projectileInfo.x;
-      projectile.y = projectileInfo.y;
-      projectile.z = projectileInfo.z;
-      projectile.dx = projectileInfo.dx;
-      projectile.dy = projectileInfo.dy;
-      projectile.vx = projectileInfo.vx;
-      projectile.vy = projectileInfo.vy;
-      projectile.collisionDetection = projectileInfo.collisionDetection;
-      projectile.animSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
-      projectile.frame = projectileInfo.frame;
-      projectile.rotation = projectileInfo.rotation;
-      projectile.rotationType = projectileInfo.rotationType;
-      projectile.rotationAmount = projectile.rotationAmount;
-      projectile.scale = projectileInfo.scale;
+      projectileInfo.anim = anim;
+      projectileInfo.active = true;
+      this.projectiles.push(<IProjectileObject>projectileInfo);
+      anim.loadSequence(projectileInfo.name, this.atlas, this.resources);
+      anim.setCacheAsBitmap(projectileInfo.cacheFrame);
+      this.scene.addAnim(this.utils.createID(), anim);
+      projectile = projectileInfo;
     }
 
     if (projectile && projectile.anim) {
       let anim = projectile.anim;
       anim.visible = true;
-      anim.attribs.clone(projectileInfo.attribs),
+      anim.attribs.clone(projectileInfo.attribs), // <<<<< confirm this does what it looks like!
       anim.strength = projectileInfo.strength,
       anim.subType = projectile.subType;
       anim.x = projectileInfo.x;
@@ -206,7 +168,7 @@ export class ProjectileManager {
           if (hide) {
             this.projectiles[i].active = false;
             anim.visible = false;
-            anim.clearCollision();
+            // anim.clearCollision();
             // anim.reset();
           }
         }

@@ -230,14 +230,14 @@ var Scene = /** @class */ (function () {
         }
         if (this.anims) {
             Object.keys(this.anims).forEach(function (key) {
-                if (_this.anims[key]) {
+                if (_this.anims[key] && _this.anims[key].visible) {
                     _this.anims[key].update(deltaTime);
                 }
             });
+            this.collisionDetection(); // must happen before projectile update because latter requires it
             if (this.projectileManager) {
                 this.projectileManager.update(deltaTime);
             }
-            this.collisionDetection();
             this.sortAnims();
         }
         this.benchmarkUpdate && console.log("scene benchmark: " + Math_1.pcap(this.benchmark.elapsed()) + " ms");

@@ -37,6 +37,7 @@ export declare class ProjectileManager {
     private scene;
     private atlas;
     private resources;
+    private utils;
     private collisionResolutionHandler;
     /**
      * @name constructor
