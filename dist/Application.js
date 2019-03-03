@@ -57,7 +57,6 @@ var Application = /** @class */ (function (_super) {
         _this.frames = 0;
         _this.FPS = 0;
         _this._state = new State_1.State();
-        _this.utils = new Utils_1.Utils();
         _this.WebGL = PIXI.utils.isWebGLSupported();
         document.body.appendChild(_this.view);
         _this.appWidth = width;
@@ -120,7 +119,7 @@ var Application = /** @class */ (function (_super) {
      * @return {void}
      */
     Application.prototype.debugLog = function (message) {
-        console.log(new Date().getTime() + " (" + this.utils.zeroPad(this._tickCount, 6) + "): " + message);
+        console.log(new Date().getTime() + " (" + Utils_1.Utils.zeroPad(this._tickCount, 6) + "): " + message);
     };
     Object.defineProperty(Application.prototype, "tickCount", {
         /**

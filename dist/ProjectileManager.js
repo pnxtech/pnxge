@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Anim_1 = require("./Anim");
+var AnimatedSprite_1 = require("./AnimatedSprite");
 var Utils_1 = require("./Utils");
 ;
 ;
@@ -19,7 +19,6 @@ var ProjectileManager = /** @class */ (function () {
         this.scene = scene;
         this.atlas = atlas;
         this.resources = resources;
-        this.utils = new Utils_1.Utils();
         this.collisionResolutionHandler = undefined;
     }
     /**
@@ -39,53 +38,52 @@ var ProjectileManager = /** @class */ (function () {
      * @return {void}
      */
     ProjectileManager.prototype.createProjectile = function (projectileInfo) {
-        var anim = undefined;
+        var animatedSprite = undefined;
         for (var i = 0; i < this.projectiles.length; i++) {
             if (this.projectiles[i].active === false && (this.projectiles[i].type === projectileInfo.type)) {
                 this.projectiles[i].active = true;
                 this.projectiles[i].rotationType = projectileInfo.rotationType || '';
                 this.projectiles[i].rotationAmount = projectileInfo.rotationAmount || 0;
-                anim = this.projectiles[i].anim;
+                animatedSprite = this.projectiles[i].animatedSprite;
                 break;
             }
         }
-        if (!anim) {
-            anim = new Anim_1.Anim(this.scene);
-            projectileInfo.anim = anim;
+        if (!animatedSprite) {
+            animatedSprite = new AnimatedSprite_1.AnimatedSprite(this.scene, projectileInfo.name, this.atlas, this.resources);
+            projectileInfo.animatedSprite = animatedSprite;
             projectileInfo.active = true;
             this.projectiles.push({
                 active: projectileInfo.active,
-                anim: projectileInfo.anim,
+                animatedSprite: projectileInfo.animatedSprite,
                 type: projectileInfo.type,
                 rotationType: projectileInfo.rotationType || '',
                 rotationAmount: projectileInfo.rotationAmount || 0
             });
-            anim.loadSequence(projectileInfo.name, this.atlas, this.resources);
-            anim.setCacheAsBitmap(projectileInfo.cacheFrame);
-            this.scene.addAnim(this.utils.createID(), anim);
+            animatedSprite.cacheAsBitmap = projectileInfo.cacheFrame;
+            this.scene.addSprite(Utils_1.Utils.createID(), animatedSprite);
         }
-        if (anim) {
-            anim.visible = true;
-            anim.attribs.clone(projectileInfo.attribs),
-                anim.strength = projectileInfo.strength,
-                anim.subType = projectileInfo.subType;
-            anim.x = projectileInfo.x;
-            anim.y = projectileInfo.y;
-            anim.z = projectileInfo.z;
-            anim.dx = projectileInfo.dx;
-            anim.dy = projectileInfo.dy;
-            anim.vx = projectileInfo.vx;
-            anim.vy = projectileInfo.vy;
-            anim.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
-            anim.rotation = projectileInfo.rotation;
-            anim.sx = projectileInfo.scale;
-            anim.sy = projectileInfo.scale;
-            anim.collisionDetection = projectileInfo.collisionDetection;
+        if (animatedSprite) {
+            animatedSprite.visible = true;
+            animatedSprite.attribs.clone(projectileInfo.attribs),
+                animatedSprite.strength = projectileInfo.strength,
+                animatedSprite.subType = projectileInfo.subType;
+            animatedSprite.x = projectileInfo.x;
+            animatedSprite.y = projectileInfo.y;
+            animatedSprite.z = projectileInfo.z;
+            animatedSprite.dx = projectileInfo.dx;
+            animatedSprite.dy = projectileInfo.dy;
+            animatedSprite.vx = projectileInfo.vx;
+            animatedSprite.vy = projectileInfo.vy;
+            animatedSprite.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
+            animatedSprite.rotation = projectileInfo.rotation;
+            animatedSprite.scale.x = projectileInfo.scale;
+            animatedSprite.scale.y = projectileInfo.scale;
+            animatedSprite.collisionDetection = projectileInfo.collisionDetection;
             if (projectileInfo.frame !== undefined) {
-                anim.setFrame(projectileInfo.frame);
+                animatedSprite.gotoAndStop(projectileInfo.frame);
             }
             else {
-                anim.play(projectileInfo.name);
+                animatedSprite.play();
             }
         }
     };
@@ -98,41 +96,41 @@ var ProjectileManager = /** @class */ (function () {
     ProjectileManager.prototype.update = function (deltaTime) {
         for (var i = 0; i < this.projectiles.length; i++) {
             if (this.projectiles[i].active) {
-                var anim = this.projectiles[i].anim;
-                if (anim) {
+                var animatedSprite = this.projectiles[i].animatedSprite;
+                if (animatedSprite) {
                     if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
                         var rotAmount = 0;
                         var rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
                         switch (this.projectiles[i].rotationType) {
                             case 'cw':
-                                rotAmount = anim.rotation;
+                                rotAmount = animatedSprite.rotation;
                                 rotAmount += rotSpeedAmount;
                                 if (rotAmount > 6.28) {
                                     rotAmount = 0;
                                 }
-                                anim.rotation = rotAmount;
+                                animatedSprite.rotation = rotAmount;
                                 break;
                             case 'ccw':
-                                rotAmount = anim.rotation;
+                                rotAmount = animatedSprite.rotation;
                                 rotAmount -= rotSpeedAmount;
                                 if (rotAmount < 0) {
                                     rotAmount = 6.28;
                                 }
-                                anim.rotation = rotAmount;
+                                animatedSprite.rotation = rotAmount;
                                 break;
                         }
                     }
                     var hide = false;
-                    if ((anim.x + anim.width) < 0 ||
-                        (anim.y + anim.height) < 0 ||
-                        (anim.x - anim.width) > this.scene.width ||
-                        (anim.y - anim.height) > this.scene.height) {
+                    if ((animatedSprite.x + animatedSprite.width) < 0 ||
+                        (animatedSprite.y + animatedSprite.height) < 0 ||
+                        (animatedSprite.x - animatedSprite.width) > this.scene.width ||
+                        (animatedSprite.y - animatedSprite.height) > this.scene.height) {
                         hide = true;
                     }
-                    var cwith = anim.collisionWith();
-                    if (!hide && cwith && cwith.id !== anim.id) {
+                    var cwith = animatedSprite.collisionWith;
+                    if (!hide && cwith && cwith.id !== animatedSprite.id) {
                         if (this.collisionResolutionHandler) {
-                            hide = this.collisionResolutionHandler(anim, cwith);
+                            hide = this.collisionResolutionHandler(animatedSprite, cwith);
                         }
                         else {
                             hide = true;
@@ -140,7 +138,7 @@ var ProjectileManager = /** @class */ (function () {
                     }
                     if (hide) {
                         this.projectiles[i].active = false;
-                        anim.visible = false;
+                        animatedSprite.visible = false;
                         // anim.clearCollision();
                         // anim.reset();
                     }

@@ -4,7 +4,6 @@
  */
 export declare class Attribs {
     private hash;
-    private utils;
     /**
      * @name constructor
      * @description class initializer

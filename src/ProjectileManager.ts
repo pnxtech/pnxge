@@ -1,18 +1,19 @@
-import {Anim} from "./Anim";
+import {ISprite} from './ISprite';
+import {AnimatedSprite} from './AnimatedSprite';
 import {Scene} from "./Scene";
-import {Utils} from './Utils';
 import {Attribs} from './Attribs';
+import {Utils} from './Utils';
 
 interface IProjectileCacheObject {
   active: boolean,
-  anim: Anim,
+  animatedSprite: AnimatedSprite,
   type: string,
   rotationType: string, // cw, ccw
   rotationAmount: number
 };
 interface IProjectileObject {
   active?: boolean,
-  anim?: Anim,
+  animatedSprite?: AnimatedSprite,
   animSpeed?: number,
   name: string,
   type: string,
@@ -35,7 +36,7 @@ interface IProjectileObject {
   vy: number
 };
 
-export interface ICollisionResolutionCallback { (projectileAnim: Anim, collisionAnim: Anim): boolean };
+export interface ICollisionResolutionCallback { (projectileSprite: ISprite, collisionSprite: ISprite): boolean };
 
 /**
  * @name ProjectileManager
@@ -46,7 +47,6 @@ export class ProjectileManager {
   private scene: Scene;
   private atlas: string;
   private resources: {};
-  private utils: Utils;
   private collisionResolutionHandler: ICollisionResolutionCallback | undefined;
 
   /**
@@ -57,7 +57,6 @@ export class ProjectileManager {
     this.scene = scene;
     this.atlas = atlas;
     this.resources = resources;
-    this.utils = new Utils();
     this.collisionResolutionHandler = undefined;
   }
 
@@ -79,52 +78,51 @@ export class ProjectileManager {
    * @return {void}
    */
   public createProjectile(projectileInfo: IProjectileObject): void {
-    let anim: Anim | undefined = undefined;
+    let animatedSprite: AnimatedSprite | undefined = undefined;
     for (let i = 0; i < this.projectiles.length; i++) {
       if (this.projectiles[i].active === false && (this.projectiles[i].type === projectileInfo.type)) {
         this.projectiles[i].active = true;
         this.projectiles[i].rotationType = projectileInfo.rotationType || '';
         this.projectiles[i].rotationAmount = projectileInfo.rotationAmount || 0;
-        anim = this.projectiles[i].anim;
+        animatedSprite = this.projectiles[i].animatedSprite;
         break;
       }
     }
-    if (!anim) {
-      anim = new Anim(this.scene);
-      projectileInfo.anim = anim;
+    if (!animatedSprite) {
+      animatedSprite = new AnimatedSprite(this.scene, projectileInfo.name, this.atlas, this.resources);
+      projectileInfo.animatedSprite = animatedSprite;
       projectileInfo.active = true;
       this.projectiles.push(<IProjectileCacheObject>{
         active: projectileInfo.active,
-        anim: projectileInfo.anim,
+        animatedSprite: projectileInfo.animatedSprite,
         type: projectileInfo.type,
         rotationType: projectileInfo.rotationType || '',
         rotationAmount: projectileInfo.rotationAmount || 0
       });
-      anim.loadSequence(projectileInfo.name, this.atlas, this.resources);
-      anim.setCacheAsBitmap(projectileInfo.cacheFrame);
-      this.scene.addAnim(this.utils.createID(), anim);
+      animatedSprite.cacheAsBitmap = projectileInfo.cacheFrame;
+      this.scene.addSprite(Utils.createID(), animatedSprite);
     }
-    if (anim) {
-      anim.visible = true;
-      anim.attribs.clone(projectileInfo.attribs),
-      anim.strength = projectileInfo.strength,
-      anim.subType = projectileInfo.subType;
-      anim.x = projectileInfo.x;
-      anim.y = projectileInfo.y;
-      anim.z = projectileInfo.z;
-      anim.dx = projectileInfo.dx;
-      anim.dy = projectileInfo.dy;
-      anim.vx = projectileInfo.vx;
-      anim.vy = projectileInfo.vy;
-      anim.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
-      anim.rotation = projectileInfo.rotation;
-      anim.sx = projectileInfo.scale;
-      anim.sy = projectileInfo.scale;
-      anim.collisionDetection = projectileInfo.collisionDetection;
+    if (animatedSprite) {
+      animatedSprite.visible = true;
+      animatedSprite.attribs.clone(projectileInfo.attribs),
+      animatedSprite.strength = projectileInfo.strength,
+      animatedSprite.subType = projectileInfo.subType;
+      animatedSprite.x = projectileInfo.x;
+      animatedSprite.y = projectileInfo.y;
+      animatedSprite.z = projectileInfo.z;
+      animatedSprite.dx = projectileInfo.dx;
+      animatedSprite.dy = projectileInfo.dy;
+      animatedSprite.vx = projectileInfo.vx;
+      animatedSprite.vy = projectileInfo.vy;
+      animatedSprite.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
+      animatedSprite.rotation = projectileInfo.rotation;
+      animatedSprite.scale.x = projectileInfo.scale;
+      animatedSprite.scale.y = projectileInfo.scale;
+      animatedSprite.collisionDetection = projectileInfo.collisionDetection;
       if (projectileInfo.frame !== undefined) {
-        anim.setFrame(projectileInfo.frame);
+        animatedSprite.gotoAndStop(projectileInfo.frame);
       } else {
-        anim.play(projectileInfo.name);
+        animatedSprite.play();
       }
     }
   }
@@ -138,48 +136,48 @@ export class ProjectileManager {
   public update(deltaTime: number): void {
     for (let i = 0; i < this.projectiles.length; i++) {
       if (this.projectiles[i].active) {
-        let anim = this.projectiles[i].anim;
-        if (anim) {
+        let animatedSprite = this.projectiles[i].animatedSprite;
+        if (animatedSprite) {
           if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
             let rotAmount = 0;
             let rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
             switch (this.projectiles[i].rotationType) {
               case 'cw':
-                rotAmount = anim.rotation;
+                rotAmount = animatedSprite.rotation;
                 rotAmount += rotSpeedAmount;
                 if (rotAmount > 6.28) {
                   rotAmount = 0;
                 }
-                anim.rotation = rotAmount;
+                animatedSprite.rotation = rotAmount;
                 break;
               case 'ccw':
-                rotAmount = anim.rotation;
+                rotAmount = animatedSprite.rotation;
                 rotAmount -= rotSpeedAmount;
                 if (rotAmount < 0) {
                   rotAmount = 6.28;
                 }
-                anim.rotation = rotAmount;
+                animatedSprite.rotation = rotAmount;
                 break;
             }
           }
           let hide = false;
-          if ((anim.x + anim.width) < 0 ||
-              (anim.y + anim.height) < 0 ||
-              (anim.x - anim.width) > this.scene.width ||
-              (anim.y - anim.height) > this.scene.height) {
+          if ((animatedSprite.x + animatedSprite.width) < 0 ||
+              (animatedSprite.y + animatedSprite.height) < 0 ||
+              (animatedSprite.x - animatedSprite.width) > this.scene.width ||
+              (animatedSprite.y - animatedSprite.height) > this.scene.height) {
               hide = true;
           }
-          let cwith = anim.collisionWith();
-          if (!hide && cwith && cwith.id !== anim.id) {
+          let cwith = animatedSprite.collisionWith;
+          if (!hide && cwith && cwith.id !== animatedSprite.id) {
             if (this.collisionResolutionHandler) {
-              hide = this.collisionResolutionHandler(anim, cwith);
+              hide = this.collisionResolutionHandler(animatedSprite, cwith);
             } else {
               hide = true;
             }
           }
           if (hide) {
             this.projectiles[i].active = false;
-            anim.visible = false;
+            animatedSprite.visible = false;
             // anim.clearCollision();
             // anim.reset();
           }

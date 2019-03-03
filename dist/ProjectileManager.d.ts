@@ -1,9 +1,10 @@
-import { Anim } from "./Anim";
+import { ISprite } from './ISprite';
+import { AnimatedSprite } from './AnimatedSprite';
 import { Scene } from "./Scene";
 import { Attribs } from './Attribs';
 interface IProjectileObject {
     active?: boolean;
-    anim?: Anim;
+    animatedSprite?: AnimatedSprite;
     animSpeed?: number;
     name: string;
     type: string;
@@ -26,7 +27,7 @@ interface IProjectileObject {
     vy: number;
 }
 export interface ICollisionResolutionCallback {
-    (projectileAnim: Anim, collisionAnim: Anim): boolean;
+    (projectileSprite: ISprite, collisionSprite: ISprite): boolean;
 }
 /**
  * @name ProjectileManager
@@ -37,7 +38,6 @@ export declare class ProjectileManager {
     private scene;
     private atlas;
     private resources;
-    private utils;
     private collisionResolutionHandler;
     /**
      * @name constructor

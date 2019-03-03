@@ -14,7 +14,6 @@ export declare class Application extends PIXI.Application {
     private frames;
     private FPS;
     private WebGL;
-    private utils;
     private _state;
     /**
      * @name constructor

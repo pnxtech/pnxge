@@ -15,7 +15,6 @@ var Attribs = /** @class */ (function () {
     function Attribs(attribs) {
         if (attribs === void 0) { attribs = undefined; }
         this.hash = {};
-        this.utils = new Utils_1.Utils();
         if (attribs !== undefined) {
             this.add(attribs);
         }
@@ -78,7 +77,7 @@ var Attribs = /** @class */ (function () {
      * @return {void}
      */
     Attribs.prototype.clone = function (attribs) {
-        this.hash = this.utils.mergeObjects({}, attribs.hash);
+        this.hash = Utils_1.Utils.mergeObjects({}, attribs.hash);
     };
     /**
      * @name union

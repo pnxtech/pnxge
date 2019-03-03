@@ -21,7 +21,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
-var Anim_1 = require("./Anim");
 var Utils_1 = require("./Utils");
 var Attribs_1 = require("./Attribs");
 /**
@@ -42,78 +41,47 @@ var TextSprite = /** @class */ (function (_super) {
      */
     function TextSprite(scene, text, style) {
         var _this = _super.call(this, text, style) || this;
-        //#region variables
-        _this._subType = '';
-        _this.id = (new Utils_1.Utils()).createID();
-        _this.zOrder = -1;
+        _this.subType = '';
+        _this.id = Utils_1.Utils.createID();
+        _this.vx = 0;
+        _this.vy = 0;
+        _this.dx = 0;
+        _this.dy = 0;
+        _this.z = 0;
+        _this.health = 0;
+        _this.strength = 0;
+        _this.cacheAsBitmap = true;
         _this.collisionDetection = false;
+        _this.collisionWith = undefined;
+        _this.attribs = new Attribs_1.Attribs();
         _this.scene = scene;
-        _this.anim = new Anim_1.Anim(_this.scene);
         _this.scene.stage.addChild(_this);
-        _this.attributes = new Attribs_1.Attribs();
-        _this.attributes.add('text');
         return _this;
     }
-    Object.defineProperty(TextSprite.prototype, "subType", {
-        /**
-         * @name subType
-         * @description subType getter
-         * @return {string} subType
-         */
-        get: function () {
-            return this._subType;
-        },
-        /**
-         * @name subType
-         * @description subType setter
-         * @return {void}
-         */
-        set: function (value) {
-            this._subType = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TextSprite.prototype, "z", {
-        /**
-         * @name z
-         * @description z position getter
-         * @return {number} z position
-         */
-        get: function () {
-            return this.anim.z;
-        },
-        /**
-         * @name z
-         * @description z position setter
-         */
-        set: function (z) {
-            this.zOrder = z;
-            this.anim.z = z;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TextSprite.prototype, "attribs", {
-        /**
-         * @name get Attribs
-         * @description get attributes
-         * @return {Attribs} attributes
-         */
-        get: function () {
-            return this.attributes;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
-     * @name setTint
-     * @description set tint
-     * @param {number} color - color tint
+     * @name attachController
+     * @description attach a Controller
      * @return {void}
      */
-    TextSprite.prototype.setTint = function (color) {
-        this.tint = color;
+    TextSprite.prototype.attachController = function (controller) {
+        this.controller = controller;
+    };
+    /**
+     * @name attachTouchHandler
+     * @description attach a touch (click, press, touch) handler for this anim
+     * @param {string} name - name of event
+     * @param {EventManager} - instance of event eventManager
+     * @return {void}
+     */
+    TextSprite.prototype.attachTouchHandler = function (name, eventManager) {
+        var _this = this;
+        this.interactive = true;
+        this.on('click', function () {
+            eventManager.triggerEvent(name, _this);
+        });
+        this.on('touchend', function () {
+            eventManager.triggerEvent(name, _this);
+        });
     };
     /**
      * @name update
@@ -122,6 +90,25 @@ var TextSprite = /** @class */ (function (_super) {
      * @return {void}
      */
     TextSprite.prototype.update = function (deltaTime) {
+    };
+    /**
+     * @name onCollision
+     * @description trigged when this anim collides with another anim
+     * @param {ISprite} sprite - anim with which collision has occured
+     * @return {void}
+     */
+    TextSprite.prototype.onCollision = function (sprite) {
+        this.collisionWith = sprite;
+        // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
+        this.controller && (this.controller.hitBy(sprite));
+    };
+    /**
+     * @name clearCollision
+     * @description clear collision event
+     * @return {void}
+     */
+    TextSprite.prototype.clearCollision = function () {
+        this.collisionWith = undefined;
     };
     /**
      * @name destroy

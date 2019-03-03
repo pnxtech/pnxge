@@ -20,7 +20,7 @@ var EventManager = /** @class */ (function () {
      */
     EventManager.prototype.addEventHandler = function (name, callback) {
         var _a;
-        var newID = (new Utils_1.Utils).createID();
+        var newID = Utils_1.Utils.createID();
         if (!this.callBackData[name]) {
             this.callBackData[name] = (_a = {},
                 _a[newID] = callback,

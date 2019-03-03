@@ -11,7 +11,7 @@ var Utils = /** @class */ (function () {
      * @name createID
      * @description create short alpha-numeric ID
      */
-    Utils.prototype.createID = function () {
+    Utils.createID = function () {
         return (Math.floor(Math.random() * (new Date()).getTime()).toString(36));
     };
     /**
@@ -21,8 +21,8 @@ var Utils = /** @class */ (function () {
      * @param {number} size - size of return string
      * @return {string} zero padded number string
      */
-    Utils.prototype.zeroPad = function (num, size) {
-        var s = "000000000" + num;
+    Utils.zeroPad = function (num, size) {
+        var s = '000000000' + num;
         return s.substr(s.length - size);
     };
     /**
@@ -30,7 +30,7 @@ var Utils = /** @class */ (function () {
      * @description merge objects. used as an ES5 replacement for the unavailable Object.assign
      * @return {object} returns merged object
      */
-    Utils.prototype.mergeObjects = function (arg1, arg2, arg3) {
+    Utils.mergeObjects = function (arg1, arg2, arg3) {
         var resObj = {};
         for (var i = 0; i < arguments.length; i += 1) {
             var obj = arguments[i];

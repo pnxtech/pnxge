@@ -12,7 +12,6 @@ var State = /** @class */ (function () {
      */
     function State() {
         this._state = {};
-        this.utils = new Utils_1.Utils();
     }
     Object.defineProperty(State.prototype, "state", {
         /**
@@ -41,7 +40,7 @@ var State = /** @class */ (function () {
      * @return {object} new application state
      */
     State.prototype.setState = function (data) {
-        var newState = this.utils.mergeObjects(this._state, data);
+        var newState = Utils_1.Utils.mergeObjects(this._state, data);
         this._state = newState;
         return this._state;
     };

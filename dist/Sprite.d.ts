@@ -1,16 +1,14 @@
 import * as PIXI from 'pixi.js';
-import { Scene } from './Scene';
 import { ISprite } from './ISprite';
+import { Scene } from './Scene';
 import { Controller } from './Controller';
 import { EventManager } from './EventManager';
 import { Attribs } from './Attribs';
 /**
- * @name TextSprite
- * @description extends the PIXI BitmapText to include additional fields
- * @note: uses PIXI BitmapText
- * @todo: Uses anim simply to hold z value - cleanup later
+ * @name Sprite
+ * @description sprite object
  */
-export declare class TextSprite extends PIXI.extras.BitmapText implements ISprite {
+export declare class Sprite extends PIXI.Sprite implements ISprite {
     subType: string;
     id: string;
     vx: number;
@@ -27,12 +25,12 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements ISprit
     protected controller: Controller | undefined;
     /**
      * @name constructor
-     * @description constructor pass throught to BitmapText
-     * @param {Scene} scene - referene to parent scene
-     * @param {string} text - text to display
-     * @param {PIXI.extras.BitmapTextStyle} style - bitmap text styles
+     * @description constructor
+     * @param {Scene} scene - reference to parent scene
+     * @param {string} name - name of sequence
+     * @param {object} resources - loaded resources
      */
-    constructor(scene: Scene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined);
+    constructor(scene: Scene, name: string, resources: any);
     /**
      * @name attachController
      * @description attach a Controller
@@ -73,4 +71,4 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements ISprit
      */
     destroy(): void;
 }
-//# sourceMappingURL=TextSprite.d.ts.map
+//# sourceMappingURL=Sprite.d.ts.map

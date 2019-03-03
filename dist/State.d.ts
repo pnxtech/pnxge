@@ -4,7 +4,6 @@
  */
 export declare class State {
     private _state;
-    private utils;
     /**
      * @name constructor
      * @description state initializer

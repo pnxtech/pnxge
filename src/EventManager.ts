@@ -22,7 +22,7 @@ export class EventManager {
    * @return {string} ID of newly added event handler
    */
   public addEventHandler(name: string, callback: IEventCallback): string {
-    let newID = (new Utils).createID();
+    let newID = Utils.createID();
     if (!this.callBackData[name]) {
       this.callBackData[name] = {
         [newID]: callback

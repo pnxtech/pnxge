@@ -1,4 +1,4 @@
-import { Anim } from './Anim';
+import { ISprite } from './ISprite';
 import { Scene } from './Scene';
 import { PathElement } from './Path';
 /**
@@ -6,7 +6,7 @@ import { PathElement } from './Path';
  * @description  Controller base class
  */
 export declare class Controller {
-    protected anim: Anim | undefined;
+    protected sprite: ISprite | undefined;
     private isActive;
     private pathCache;
     private currentPath;
@@ -45,9 +45,10 @@ export declare class Controller {
     /**
      * @name hitBy
      * @description handle when this anim controller is hit by an anim
-     * @param {Anim} anim - which hit this controller
+     * @param {ISprite} sprite - what hit this controller
+     * @return {void}
      */
-    hitBy(anim: Anim): void;
+    hitBy(sprite: ISprite): void;
     /**
      * @name fire
      * @description handler to fire a projectile

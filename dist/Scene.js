@@ -22,12 +22,14 @@ var Scene = /** @class */ (function () {
         this.internalTick = 0;
         this.sceneStarted = false;
         this.benchmarkUpdate = false;
+        this.collisionRect1 = new Math_1.Rect();
+        this.collisionRect2 = new Math_1.Rect();
         this.app = app;
         this._state = new State_1.State();
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;
         this.stage = app.stage;
-        this.anims = {};
+        this.sprites = {};
     }
     /**
      * @name attachProjectileManager
@@ -137,13 +139,14 @@ var Scene = /** @class */ (function () {
         configurable: true
     });
     /**
-     * @name addAnim
-     * @description add an anim to the scene
-     * @param {string} name - name of anim
-     * @param {Anim | Image | TextSprite} anim - anim objec
+     * @name addSprite
+     * @description add a sprite to the scene
+     * @param {string} name - name of sprite
+     * @param {ISprite} sprite - sprite object
+     * @return {void}
      */
-    Scene.prototype.addAnim = function (name, anim) {
-        this.anims[name] = anim;
+    Scene.prototype.addSprite = function (name, sprite) {
+        this.sprites[name] = sprite;
     };
     /**
      * @name moveLeft
@@ -160,12 +163,12 @@ var Scene = /** @class */ (function () {
     Scene.prototype.moveRight = function () {
     };
     /**
-     * @name getAnim
-     * @description get anim by name
-     * @return {TextSprite} anim
+     * @name getSprite
+     * @description get sprite by name
+     * @return {ISprite | undefined} sprite
      */
-    Scene.prototype.getAnim = function (name) {
-        return this.anims[name];
+    Scene.prototype.getSprite = function (name) {
+        return this.sprites[name];
     };
     Object.defineProperty(Scene.prototype, "width", {
         /**
@@ -192,16 +195,16 @@ var Scene = /** @class */ (function () {
         configurable: true
     });
     /**
-     * @name forEachAnim
-     * @description enumerate anims
-     * @param {IAnimCallback} callback - called for each anim
-     * @param {IAnimDoneCallback} done - called when done
+     * @name forEachSprite
+     * @description enumerate sprites
+     * @param {ISpriteCallback} callback - called for each sprite
+     * @param {ISpriteDoneCallback} done - called when done
      * @return {void}
      */
-    Scene.prototype.forEachAnim = function (callback, done) {
+    Scene.prototype.forEachSprite = function (callback, done) {
         var _this = this;
-        Object.keys(this.anims).forEach(function (key) {
-            callback(_this.anims[key]);
+        Object.keys(this.sprites).forEach(function (key) {
+            callback(_this.sprites[key]);
         });
         done();
     };
@@ -228,10 +231,10 @@ var Scene = /** @class */ (function () {
         if (!this.sceneStarted) {
             return;
         }
-        if (this.anims) {
-            Object.keys(this.anims).forEach(function (key) {
-                if (_this.anims[key] && _this.anims[key].visible) {
-                    _this.anims[key].update(deltaTime);
+        if (this.sprites) {
+            Object.keys(this.sprites).forEach(function (key) {
+                if (_this.sprites[key] && _this.sprites[key].visible) {
+                    _this.sprites[key].update(deltaTime);
                 }
             });
             this.collisionDetection(); // must happen before projectile update because latter requires it
@@ -250,12 +253,10 @@ var Scene = /** @class */ (function () {
     Scene.prototype.sortAnims = function () {
         var objectList = this.stage.children;
         objectList.sort(function (a, b) {
-            if (!a.anim || !b.anim) {
+            if (!a.id || !b.id) {
                 return 0;
             }
-            var first = a.anim;
-            var second = b.anim;
-            return first.z - second.z;
+            return a.z - b.z;
         });
     };
     /**
@@ -267,21 +268,32 @@ var Scene = /** @class */ (function () {
         var objectList = this.stage.children;
         for (var _i = 0, objectList_1 = objectList; _i < objectList_1.length; _i++) {
             var obj1 = objectList_1[_i];
-            if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
+            if (!obj1.collisionDetection || !obj1.visible) {
                 continue;
             }
+            this.collisionRect1.x = obj1.x;
+            this.collisionRect1.y = obj1.y;
+            this.collisionRect1.width = obj1.width;
+            this.collisionRect1.height = obj1.height;
             for (var _a = 0, objectList_2 = objectList; _a < objectList_2.length; _a++) {
                 var obj2 = objectList_2[_a];
-                if (obj1.anim.subType === obj2.anim.subType) {
-                    continue;
-                }
-                if (obj2.anim && obj1.anim.id !== obj2.anim.id) {
-                    if (!obj2.anim.collisionDetection || !obj2.anim.visible) {
+                // if (obj1.subType === obj2.subType) {
+                //   continue;
+                // }
+                if (obj1.id !== obj2.id) {
+                    if (!obj2.collisionDetection || !obj2.visible) {
                         continue;
                     }
-                    if (obj1.anim.rect.intersect(obj2.anim.rect)) {
-                        obj1.anim.onCollision(obj2.anim);
-                        obj2.anim.onCollision(obj1.anim);
+                    this.collisionRect2.x = obj2.x;
+                    this.collisionRect2.y = obj2.y;
+                    this.collisionRect2.width = obj2.width;
+                    this.collisionRect2.height = obj2.height;
+                    if (this.collisionRect1.intersect(this.collisionRect2)) {
+                        console.log('collision!');
+                        obj1.visible = false;
+                        obj2.visible = false;
+                        // obj1.onCollision(obj2);
+                        // obj2.onCollision(obj1);
                     }
                 }
             }
@@ -293,38 +305,43 @@ var Scene = /** @class */ (function () {
      * determine whether it will collide with another
      * anim within the number of steps specified.
      * @note uses the specified anim's direction and velocity vectors
-     * @param {Anim} anim - animation object
+     * @param {ISprite} sprite - sprite object
      * @param {number} steps - number of steps to look ahead
      * @param {number} padding - padding to increase or decrease anim rect
-     * @return {Anim | Image | undefined} of potential collision
+     * @return {ISprite | undefined} of potential collision
      */
-    Scene.prototype.lookAhead = function (anim, steps, padding) {
+    Scene.prototype.lookAhead = function (sprite, steps, padding) {
         if (padding === void 0) { padding = 0; }
-        var animRect = anim.rect;
-        animRect.x = anim.x;
-        animRect.y = anim.y;
+        this.collisionRect1.x = sprite.x;
+        this.collisionRect1.y = sprite.y;
+        this.collisionRect1.width = sprite.width;
+        this.collisionRect1.height = sprite.height;
         if (padding < 0) {
-            animRect.deflate(padding);
+            this.collisionRect1.deflate(padding);
         }
         else if (padding > 0) {
-            animRect.inflate(padding);
+            this.collisionRect1.inflate(padding);
         }
         for (var i = 0; i < steps; i++) {
-            animRect.x += (anim.dx * (anim.vx || 1));
-            animRect.y += (anim.dy * (anim.vy || 1)) + (anim.height * 0.5);
+            this.collisionRect1.x += (sprite.dx * (sprite.vx || 1));
+            this.collisionRect1.y += (sprite.dy * (sprite.vy || 1)) + (sprite.height * 0.5);
             var objectList = this.stage.children;
             for (var _i = 0, objectList_3 = objectList; _i < objectList_3.length; _i++) {
                 var obj = objectList_3[_i];
-                if (!obj.anim || !obj.anim.visible) {
+                if (!obj.anim.visible) {
                     continue;
                 }
-                else if (!obj.anim.collisionDetection) {
+                else if (!obj.collisionDetection) {
                     continue;
                 }
-                else if (anim.id === obj.anim.id) {
+                else if (sprite.id === obj.sprite.id) {
                     continue;
                 }
-                if (animRect.intersect(obj.anim.rect)) {
+                this.collisionRect2.x = obj.x;
+                this.collisionRect2.y = obj.y;
+                this.collisionRect2.width = obj.width;
+                this.collisionRect2.height = obj.height;
+                if (this.collisionRect1.intersect(this.collisionRect2)) {
                     return obj.anim;
                 }
             }
@@ -338,8 +355,8 @@ var Scene = /** @class */ (function () {
      */
     Scene.prototype.destroy = function () {
         var _this = this;
-        Object.keys(this.anims).forEach(function (key) {
-            _this.anims[key].destroy();
+        Object.keys(this.sprites).forEach(function (key) {
+            _this.sprites[key].destroy();
         });
         for (var _i = 0, _a = this.stage.children; _i < _a.length; _i++) {
             var child = _a[_i];

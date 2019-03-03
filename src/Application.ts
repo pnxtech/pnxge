@@ -20,7 +20,6 @@ export class Application extends PIXI.Application {
   private frames: number = 0;
   private FPS: number = 0;
   private WebGL: boolean;
-  private utils: Utils;
   private _state: State;
   //#endregion
 
@@ -40,7 +39,6 @@ export class Application extends PIXI.Application {
       antialias: false
     });
     this._state = new State();
-    this.utils = new Utils();
     this.WebGL = PIXI.utils.isWebGLSupported();
     document.body.appendChild(this.view);
     this.appWidth = width;
@@ -98,7 +96,7 @@ export class Application extends PIXI.Application {
    * @return {void}
    */
   public debugLog(message: string): void {
-    console.log(`${new Date().getTime()} (${this.utils.zeroPad(this._tickCount, 6)}): ${message}`);
+    console.log(`${new Date().getTime()} (${Utils.zeroPad(this._tickCount, 6)}): ${message}`);
   }
 
   /**

@@ -7,7 +7,7 @@ export class Utils {
    * @name createID
    * @description create short alpha-numeric ID
    */
-  public createID(): string {
+  static createID(): string {
     return (Math.floor(Math.random() * (new Date()).getTime()).toString(36));
   }
 
@@ -18,8 +18,8 @@ export class Utils {
    * @param {number} size - size of return string
    * @return {string} zero padded number string
    */
-  public zeroPad(num: number, size: number): string {
-    let s = "000000000" + num;
+  static zeroPad(num: number, size: number): string {
+    let s = '000000000' + num;
     return s.substr(s.length-size);
   }
 
@@ -28,7 +28,7 @@ export class Utils {
    * @description merge objects. used as an ES5 replacement for the unavailable Object.assign
    * @return {object} returns merged object
    */
-  public mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object {
+  static mergeObjects(arg1: {}, arg2: {}, arg3?: {}): object {
     let resObj: any = {};
     for (let i=0; i < arguments.length; i += 1) {
       let obj = arguments[i];

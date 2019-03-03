@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js';
 import {Scene} from './Scene';
-import {Anim} from './Anim';
+import {ISprite} from './ISprite';
+import {Controller} from './Controller';
+import {EventManager} from './EventManager';
 import {Utils} from './Utils';
 import {Attribs} from './Attribs';
 
@@ -10,15 +12,22 @@ import {Attribs} from './Attribs';
  * @note: uses PIXI BitmapText
  * @todo: Uses anim simply to hold z value - cleanup later
  */
-export class TextSprite extends PIXI.extras.BitmapText {
+export class TextSprite extends PIXI.extras.BitmapText implements ISprite {
   //#region variables
-  protected _subType: string = '';
-  public id: string = (new Utils()).createID();
-  public zOrder: number = -1;
-  public collisionDetection: boolean = false;
+  public subType: string;
+  public id: string;
+  public vx: number;
+  public vy: number;
+  public dx: number;
+  public dy: number;
+  public z: number;
+  public health: number;
+  public strength: number;
+  public collisionDetection: boolean;
+  public collisionWith: ISprite | undefined;
+  public attribs: Attribs;
   protected scene: Scene;
-  public anim: Anim;
-  public attributes: Attribs;
+  protected controller: Controller | undefined;
   //#endregion
 
   /**
@@ -30,66 +39,47 @@ export class TextSprite extends PIXI.extras.BitmapText {
    */
   constructor(scene: Scene, text: string, style?: PIXI.extras.BitmapTextStyle | undefined) {
     super(text, style);
+    this.subType = '';
+    this.id = Utils.createID();
+    this.vx = 0;
+    this.vy = 0;
+    this.dx = 0;
+    this.dy = 0;
+    this.z = 0;
+    this.health = 0;
+    this.strength = 0;
+    this.cacheAsBitmap = true;
+    this.collisionDetection = false;
+    this.collisionWith = undefined;
+    this.attribs = new Attribs();
     this.scene = scene;
-    this.anim = new Anim(this.scene);
     this.scene.stage.addChild(this);
-    this.attributes = new Attribs();
-    this.attributes.add('text');
   }
 
   /**
-   * @name subType
-   * @description subType getter
-   * @return {string} subType
-   */
-  public get subType(): string {
-    return this._subType;
-  }
-
-  /**
-   * @name subType
-   * @description subType setter
+   * @name attachController
+   * @description attach a Controller
    * @return {void}
    */
-  public set subType(value: string) {
-    this._subType = value;
+  public attachController(controller: Controller): void {
+    this.controller = controller;
   }
 
   /**
-   * @name z
-   * @description z position getter
-   * @return {number} z position
-   */
-  public get z(): number {
-    return this.anim.z;
-  }
-
-  /**
-   * @name z
-   * @description z position setter
-   */
-  public set z(z: number) {
-    this.zOrder = z;
-    this.anim.z = z;
-  }
-
-  /**
-   * @name get Attribs
-   * @description get attributes
-   * @return {Attribs} attributes
-   */
-  public get attribs(): Attribs {
-    return this.attributes;
-  }
-
-  /**
-   * @name setTint
-   * @description set tint
-   * @param {number} color - color tint
+   * @name attachTouchHandler
+   * @description attach a touch (click, press, touch) handler for this anim
+   * @param {string} name - name of event
+   * @param {EventManager} - instance of event eventManager
    * @return {void}
    */
-  public setTint(color: number):void {
-    this.tint = color;
+  public attachTouchHandler(name: string, eventManager: EventManager): void {
+    this.interactive = true;
+    this.on('click', () => {
+      eventManager.triggerEvent(name, this);
+    });
+    this.on('touchend', () => {
+      eventManager.triggerEvent(name, this);
+    });
   }
 
   /**
@@ -99,6 +89,27 @@ export class TextSprite extends PIXI.extras.BitmapText {
    * @return {void}
    */
   public update(deltaTime: number): void {
+  }
+
+  /**
+   * @name onCollision
+   * @description trigged when this anim collides with another anim
+   * @param {ISprite} sprite - anim with which collision has occured
+   * @return {void}
+   */
+  public onCollision(sprite: ISprite): void {
+    this.collisionWith = sprite;
+    // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
+    this.controller && (this.controller.hitBy(sprite));
+  }
+
+  /**
+   * @name clearCollision
+   * @description clear collision event
+   * @return {void}
+   */
+  public clearCollision(): void {
+    this.collisionWith = undefined;
   }
 
   /**

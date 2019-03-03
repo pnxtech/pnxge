@@ -1,18 +1,16 @@
 import * as PIXI from 'pixi.js';
 import { Application } from './Application';
-import { Anim } from './Anim';
-import { Image } from './Image';
+import { ISprite } from './ISprite';
 import { ProjectileManager } from './ProjectileManager';
 import { SoundManager } from './SoundManager';
-import { TextSprite } from './TextSprite';
 import { Benchmark } from './Benchmark';
-interface IAnimHash {
-    [key: string]: Anim | Image | TextSprite;
+interface ISpriteHash {
+    [key: string]: ISprite;
 }
-interface IAnimCallback {
-    (anim: Anim | Image | TextSprite): void;
+interface ISpriteCallback {
+    (sprite: ISprite): void;
 }
-interface IAnimDoneCallback {
+interface ISpriteDoneCallback {
     (): void;
 }
 /**
@@ -26,12 +24,14 @@ export declare class Scene {
     protected sceneHeight: number;
     protected benchmark: Benchmark;
     stage: PIXI.Container;
-    anims: IAnimHash;
+    sprites: ISpriteHash;
     protected internalTick: number;
     protected projectileManager: ProjectileManager | undefined;
     protected soundManager: SoundManager | undefined;
     private sceneStarted;
     private benchmarkUpdate;
+    private collisionRect1;
+    private collisionRect2;
     /**
      * @name constructor
      * @description initialize scene
@@ -112,12 +112,13 @@ export declare class Scene {
      */
     readonly tick: number;
     /**
-     * @name addAnim
-     * @description add an anim to the scene
-     * @param {string} name - name of anim
-     * @param {Anim | Image | TextSprite} anim - anim objec
+     * @name addSprite
+     * @description add a sprite to the scene
+     * @param {string} name - name of sprite
+     * @param {ISprite} sprite - sprite object
+     * @return {void}
      */
-    addAnim(name: string, anim: Anim | Image | TextSprite): void;
+    addSprite(name: string, sprite: ISprite): void;
     /**
      * @name moveLeft
      * @description handle movement left
@@ -131,11 +132,11 @@ export declare class Scene {
      */
     moveRight(): void;
     /**
-     * @name getAnim
-     * @description get anim by name
-     * @return {TextSprite} anim
+     * @name getSprite
+     * @description get sprite by name
+     * @return {ISprite | undefined} sprite
      */
-    getAnim(name: string): Anim | Image | TextSprite;
+    getSprite(name: string): ISprite | undefined;
     /**
      * @name width
      * @description get the width of the scene
@@ -149,13 +150,13 @@ export declare class Scene {
      */
     readonly height: number;
     /**
-     * @name forEachAnim
-     * @description enumerate anims
-     * @param {IAnimCallback} callback - called for each anim
-     * @param {IAnimDoneCallback} done - called when done
+     * @name forEachSprite
+     * @description enumerate sprites
+     * @param {ISpriteCallback} callback - called for each sprite
+     * @param {ISpriteDoneCallback} done - called when done
      * @return {void}
      */
-    forEachAnim(callback: IAnimCallback, done: IAnimDoneCallback): void;
+    forEachSprite(callback: ISpriteCallback, done: ISpriteDoneCallback): void;
     /**
      * @name update
      * @description update the scene
@@ -181,12 +182,12 @@ export declare class Scene {
      * determine whether it will collide with another
      * anim within the number of steps specified.
      * @note uses the specified anim's direction and velocity vectors
-     * @param {Anim} anim - animation object
+     * @param {ISprite} sprite - sprite object
      * @param {number} steps - number of steps to look ahead
      * @param {number} padding - padding to increase or decrease anim rect
-     * @return {Anim | Image | undefined} of potential collision
+     * @return {ISprite | undefined} of potential collision
      */
-    lookAhead(anim: Anim, steps: number, padding?: number): Anim | Image | undefined;
+    lookAhead(sprite: ISprite, steps: number, padding?: number): ISprite | undefined;
     /**
      * @name destroy
      * @description remove Anim objects from scene

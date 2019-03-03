@@ -15,35 +15,35 @@ export declare function pcap(value: number | string): number;
  * @description Angle functions
  */
 export declare class Angle {
-    HalfPI: number;
+    static HalfPI: number;
     /**
      * @name d2r
      * @description degrees to radians
      * @param {number} degree - 360 degree type
      * @return {number} radian
      */
-    d2r(degree: number): number;
+    static d2r(degree: number): number;
     /**
      * @name r2d
      * @description radians to degrees
      * @param {number} radians
      * @return {number} degree
      */
-    r2d(radians: number): number;
+    static r2d(radians: number): number;
     /**
      * @name vectorAngleFromDegrees
      * @description return a new angle vector based on degrees
      * @param {number} degrees
      * @return {Vector} angleVector
      */
-    vectorAngleFromDegrees(degrees: number): Vector;
+    static vectorAngleFromDegrees(degrees: number): Vector;
     /**
      * @name vectorAngleFromRadians
      * @description return a new angle vector based on radians
      * @param {number} radians
      * @return {Angle} angleVector
      */
-    vectorAngleFromRadians(radians: number): Vector;
+    static vectorAngleFromRadians(radians: number): Vector;
     /**
      * @name angleFromVectors
      * @description compute angle from v1 vector to v2 vector
@@ -51,25 +51,25 @@ export declare class Angle {
      * @param {Vector} point - to (target) vector
      * @return {number} angle - in radians
      */
-    angleFromVectors(anchor: Vector, point: Vector): number;
+    static angleFromVectors(anchor: Vector, point: Vector): number;
     /**
      * @name randomAngle
      * @description get randomangle
      * @return {number} random angle
      */
-    randomAngle(): number;
+    static randomAngle(): number;
     /**
      * @name randomAngleTop
      * @description get random top facing angle
      * @return {number} random angle
      */
-    randomAngleTop(): number;
+    static randomAngleTop(): number;
     /**
      * @name randomAngleBottom
      * @description get random bottom facing angle
      * @return {number} random angle
      */
-    randomAngleBottom(): number;
+    static randomAngleBottom(): number;
 }
 /**
  * @name Point
@@ -93,7 +93,7 @@ export declare class Rect {
      * @name constructor
      * @description init class
      */
-    constructor(x: number, y: number, width: number, height: number);
+    constructor(x?: number, y?: number, width?: number, height?: number);
     /**
      * @name intersect
      * @description check whether this rect intersects with target rect
@@ -199,37 +199,37 @@ export declare class Random {
     * @summary Returns a random number between 0 (inclusive) and 1 (exclusive)
     * @return {number} num - number
     */
-    getRandom(): number;
+    static getRandom(): number;
     /**
     * @name getRandomArbitrary
     * @summary Returns a random number between min (inclusive) and max (exclusive)
     * @return {number} num - number
     */
-    getRandomArbitrary(min: number, max: number): number;
+    static getRandomArbitrary(min: number, max: number): number;
     /**
     * @name getRandomInt
     * @summary Returns a random integer between min (included) and max (excluded). If min and max are zero then a random int is chosen
     * @return {number} num - number
     */
-    getRandomInt(min?: number, max?: number): number;
+    static getRandomInt(min?: number, max?: number): number;
     /**
     * @name getRandomIntInclusive
     * @summary Returns a random integer between min (included) and max (included)
     * @return {number} num - number
     */
-    getRandomIntInclusive(min: number, max: number): number;
+    static getRandomIntInclusive(min: number, max: number): number;
     /**
     * @name getRandomInclusive
     * @summary Returns a random number (real not int) between min (included) and max (included)
     * @return {number} num - number
     */
-    getRandomInclusive(min: number, max: number): number;
+    static getRandomInclusive(min: number, max: number): number;
     /**
      * @name getRandomBoolean
      * @description get a random true or false
      * @return {boolean} boolean - true or false
      */
-    getRandomBoolean(): boolean;
+    static getRandomBoolean(): boolean;
     /**
      * @name getRandomFromCenter
      * @description return a random number within a centered range
@@ -237,7 +237,7 @@ export declare class Random {
      * @param {number} width - number to determine width from center
      * @return {number} random number
      */
-    getRandomFromCenter(value: number, width: number): number;
+    static getRandomFromCenter(value: number, width: number): number;
     /**
      * @name getRandomIntFromCenter
      * @description return a random number (integer) within a centered range
@@ -245,7 +245,7 @@ export declare class Random {
      * @param {number} width - number to determine width from center
      * @return {number} random number
      */
-    getRandomIntFromCenter(value: number, width: number): number;
+    static getRandomIntFromCenter(value: number, width: number): number;
 }
 /**
  * @name Curve
@@ -286,6 +286,13 @@ export declare class Curve {
      * @return {number} distance
      */
     protected distanceY(l: Line): number;
+    /**
+     * @name intersect
+     * @description identify the intersection point between two lines
+     * @param {Line} l1 - line 1
+     * @param {Line} l2 - line 2
+     * @return {Point} intersection point
+     */
     protected intersect(l1: Line, l2: Line): Point;
     /**
      * @name generatePoints

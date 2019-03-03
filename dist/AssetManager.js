@@ -8,12 +8,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
-var Image_1 = require("./Image");
-var Math_1 = require("./Math");
-var Anim_1 = require("./Anim");
-var BackgroundTile_1 = require("./BackgroundTile");
+var Sprite_1 = require("./Sprite");
+var AnimatedSprite_1 = require("./AnimatedSprite");
 var TextSprite_1 = require("./TextSprite");
 var SoundManager_1 = require("./SoundManager");
+var Math_1 = require("./Math");
 var Utils_1 = require("./Utils");
 ;
 var AssetManager = /** @class */ (function () {
@@ -26,8 +25,6 @@ var AssetManager = /** @class */ (function () {
         this.gameConfig = {};
         this.loader = new PIXI.loaders.Loader();
         this.soundManager = undefined;
-        this.utils = new Utils_1.Utils();
-        this.angle = new Math_1.Angle();
     }
     /**
      * @name init
@@ -69,7 +66,7 @@ var AssetManager = /** @class */ (function () {
     AssetManager.prototype.unpack = function (data) {
         var strData = '';
         if (data._dict) {
-            var _dict_1 = this.utils.mergeObjects({}, data._dict);
+            var _dict_1 = Utils_1.Utils.mergeObjects({}, data._dict);
             delete data._dict;
             strData = JSON.stringify(data);
             Object.keys(_dict_1).forEach(function (key) {
@@ -91,6 +88,60 @@ var AssetManager = /** @class */ (function () {
         return undefined;
     };
     /**
+     * @name setValue
+     * @description set the value of a field accounting for undefined and default value
+     * @param {any} item - item to set
+     * @param {any} value - value to set to
+     * @param {any} defaultValue - default value
+     * @return {void}
+     */
+    AssetManager.prototype.setValue = function (item, value, defaultValue) {
+        if (defaultValue === void 0) { defaultValue = undefined; }
+        if (value !== undefined) {
+            item = value;
+        }
+        else if (defaultValue !== undefined) {
+            item = defaultValue;
+        }
+    };
+    /**
+     * @name setValues
+     * @description set multiple values on target object
+     * @param {any} target - target object
+     * @param {any} source - source object
+     * @return {void}
+     */
+    AssetManager.prototype.setValues = function (target, source) {
+        target.attribs.add(source.type);
+        this.setValue(target.x, source.x);
+        this.setValue(target.y, source.y);
+        this.setValue(target.z, source.z, 0);
+        this.setValue(target.dx, source.dx, 0);
+        this.setValue(target.dy, source.dy, 0);
+        this.setValue(target.vx, source.vx, 0);
+        this.setValue(target.vy, source.vy, 0);
+        this.setValue(target.subType, source.subType);
+        this.setValue(target.visible, source.visible, true);
+        this.setValue(target.visible, source.visible, true);
+        this.setValue(target.health, source.health, 100);
+        this.setValue(target.visible, source.visible, true);
+        this.setValue(target.strength, source.strength, 0);
+        this.setValue(target.visible, source.visible, true);
+        this.setValue(target.collisionDetection, source.collisionDetection, false);
+        this.setValue(target.alpha, source.alpha);
+        if (source.tint) {
+            target.tint = parseInt(source.tint, 16);
+        }
+        if (source.rotation) {
+            if (source.rotation === 'random') {
+                target.rotation = Math_1.Angle.randomAngle();
+            }
+            else {
+                target.rotation = source.rotation || 0;
+            }
+        }
+    };
+    /**
      * @name populateScene
      * @description populate Scene with resources
      * @param {Scene} scene - scene reference
@@ -109,7 +160,7 @@ var AssetManager = /** @class */ (function () {
         for (var _i = 0, _a = objectList; _i < _a.length; _i++) {
             var obj = _a[_i];
             if (obj.extends) {
-                obj = this.utils.mergeObjects(this.gameConfig.refs[obj.extends], obj);
+                obj = Utils_1.Utils.mergeObjects(this.gameConfig.refs[obj.extends], obj);
             }
             switch (obj.type) {
                 case 'data':
@@ -128,113 +179,29 @@ var AssetManager = /** @class */ (function () {
                     }
                     scene.attachSoundManager(this.soundManager);
                     break;
-                case 'image':
-                    this.createImage(scene, obj);
+                case 'sprite':
+                    this.createSprite(scene, obj);
                     break;
-                case 'tile':
-                    {
-                        var backgroundTile = new BackgroundTile_1.BackgroundTile(scene, obj.file);
-                        backgroundTile.attribs.add(obj.type);
-                        backgroundTile.flip(obj.flip || false);
-                        if (obj.tint) {
-                            backgroundTile.setTint(parseInt(obj.tint, 16));
-                        }
-                        if (obj.visible === true || obj.visible === false) {
-                            backgroundTile.visible = obj.visible;
-                        }
-                        else {
-                            backgroundTile.visible = true;
-                        }
-                        backgroundTile.sx = obj.sx || 1;
-                        backgroundTile.sy = obj.sy || 1;
-                        backgroundTile.visible = obj.visible || true;
-                        if (obj.subType) {
-                            backgroundTile.subType = obj.subType;
-                        }
-                        if (obj.attribs) {
-                            backgroundTile.attribs.add(obj.attribs);
-                        }
-                        scene.addAnim(obj.name, backgroundTile);
-                    }
+                case 'animatedsprite':
+                    this.createAnimatedSprite(scene, obj);
                     break;
                 case 'text':
                     {
                         var textSprite = new TextSprite_1.TextSprite(scene, obj.text, obj.fontInfo);
-                        textSprite.attribs.add(obj.type);
-                        textSprite.x = obj.x;
-                        textSprite.y = obj.y;
-                        textSprite.z = obj.z;
-                        if (obj.subType) {
-                            textSprite.subType = obj.subType;
-                        }
-                        if (obj.visible === true || obj.visible === false) {
-                            textSprite.visible = obj.visible;
-                        }
-                        else {
-                            textSprite.visible = true;
-                        }
-                        if (obj.attribs) {
-                            textSprite.attribs.add(obj.attribs);
-                        }
-                        if (obj.alpha) {
-                            textSprite.alpha = obj.alpha;
-                        }
-                        if (obj.tint) {
-                            textSprite.setTint(parseInt(obj.tint, 16));
-                        }
-                        scene.addAnim(obj.name, textSprite);
+                        this.setValues(textSprite, obj);
+                        scene.addSprite(obj.name, textSprite);
                     }
-                    break;
-                case 'character':
-                    this.createCharacter(scene, obj);
                     break;
                 case 'ground':
                     {
-                        var anim = new Anim_1.Anim(scene);
-                        anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-                        anim.attribs.add(obj.type);
-                        anim.x = obj.x;
-                        anim.y = obj.y;
-                        anim.z = obj.z;
-                        anim.vx = obj.vx || 0;
-                        anim.vy = obj.vy || 0;
-                        anim.dx = obj.dx || 0;
-                        anim.dy = obj.dy || 0;
-                        anim.sx = obj.sx || 1;
-                        anim.sy = obj.sy || 1;
-                        if (obj.subType) {
-                            anim.subType = obj.subType;
-                        }
-                        if (obj.attribs) {
-                            anim.attribs.add(obj.attribs);
-                        }
-                        if (obj.alpha) {
-                            anim.alpha = obj.alpha;
-                        }
-                        anim.health = obj.health;
-                        anim.strength = obj.strength;
-                        if (obj.rotation) {
-                            if (obj.rotation === 'random') {
-                                anim.rotation = this.angle.randomAngle();
-                            }
-                            else {
-                                anim.rotation = obj.rotation || 0;
-                            }
-                        }
-                        anim.collisionDetection = obj.collisionDetection;
-                        if (obj.visible === true || obj.visible === false) {
-                            anim.visible = obj.visible;
-                        }
-                        else {
-                            anim.visible = true;
-                        }
-                        anim.loop = obj.loop;
-                        if (obj.tint) {
-                            anim.setTint(parseInt(obj.tint, 16));
-                        }
-                        anim.play(obj.sequence);
-                        anim.setFrame(obj.frame);
-                        scene.addAnim(obj.name, anim);
+                        var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
+                        animatedSprite.attribs.add(obj.type);
+                        this.setValues(animatedSprite, obj);
+                        this.setValue(animatedSprite.anchor.x, obj.ax, 0.5);
+                        this.setValue(animatedSprite.anchor.y, obj.ay, 0.5);
+                        this.setValue(animatedSprite.loop, obj.loop, false);
+                        animatedSprite.play();
+                        scene.addSprite(obj.name, animatedSprite);
                     }
                     break;
             }
@@ -243,114 +210,46 @@ var AssetManager = /** @class */ (function () {
         postPopulateHandler(this.resources);
     };
     /**
-     * @name createCharacter
-     * @description create an anim character
+     * @name createAnimatedSprite
+     * @description create an animated sprite character
      * @param {Scene} scene
      * @param {object} obj
      * @return {void}
      */
-    AssetManager.prototype.createCharacter = function (scene, obj) {
+    AssetManager.prototype.createAnimatedSprite = function (scene, obj) {
         var count = (obj.count) ? obj.count : 1;
         for (var i = 0; i < count; i++) {
             var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
-            var anim = new Anim_1.Anim(scene);
-            anim.loadSequence(obj.sequence, obj.atlas, this.resources);
-            anim.attribs.add(obj.type);
-            anim.x = obj.x;
-            anim.y = obj.y;
-            anim.z = obj.z;
-            anim.vx = obj.vx || 0;
-            anim.vy = obj.vy || 0;
-            anim.dx = obj.dx || 0;
-            anim.dy = obj.dy || 0;
-            anim.sx = obj.sx || 1;
-            anim.sy = obj.sy || 1;
-            if (obj.subType) {
-                anim.subType = obj.subType;
-            }
-            if (obj.attribs) {
-                anim.attribs.add(obj.attribs);
-            }
-            if (obj.alpha) {
-                anim.alpha = obj.alpha;
-            }
-            anim.loop = obj.loop;
-            if (obj.rotation) {
-                if (obj.rotation === 'random') {
-                    anim.rotation = this.angle.randomAngle();
-                }
-                else {
-                    anim.rotation = obj.rotation || 0;
-                }
-            }
-            if (obj.visible === true || obj.visible === false) {
-                anim.visible = obj.visible;
-            }
-            else {
-                anim.visible = true;
-            }
-            anim.health = obj.health;
-            anim.strength = obj.strength;
-            anim.collisionDetection = obj.collisionDetection;
-            anim.play(obj.sequence);
-            if (obj.frame !== undefined) {
-                anim.setFrame(obj.frame);
-            }
-            if (obj.animationSpeed !== undefined) {
-                anim.animationSpeed = obj.animationSpeed;
-            }
-            if (obj.tint) {
-                anim.setTint(parseInt(obj.tint, 16));
-            }
-            scene.addAnim(newName, anim);
+            var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
+            animatedSprite.attribs.add(obj.type);
+            this.setValues(animatedSprite, obj);
+            this.setValue(animatedSprite.scale.x, obj.sx, 1);
+            this.setValue(animatedSprite.scale.y, obj.sy, 1);
+            this.setValue(animatedSprite.anchor.x, obj.ax, 0.5);
+            this.setValue(animatedSprite.anchor.y, obj.ay, 0.5);
+            this.setValue(animatedSprite.loop, obj.loop, false);
+            animatedSprite.play();
+            scene.addSprite(newName, animatedSprite);
         }
     };
     /**
-     * @name createImage
-     * @description create an image
+     * @name createSprite
+     * @description create a sprite
      * @param {Scene} scene
      * @param {object} obj
      * @return {void}
      */
-    AssetManager.prototype.createImage = function (scene, obj) {
+    AssetManager.prototype.createSprite = function (scene, obj) {
         var count = (obj.count) ? obj.count : 1;
         for (var i = 0; i < count; i++) {
             var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
-            var image = new Image_1.Image(scene, obj.name, this.resources[obj.atlas]);
-            image.attribs.add(obj.type);
-            image.x = obj.x;
-            image.y = obj.y;
-            image.z = obj.z;
-            if (obj.rotation) {
-                if (obj.rotation === 'random') {
-                    image.rotation = this.angle.randomAngle();
-                }
-                else {
-                    image.rotation = obj.rotation || 0;
-                }
-            }
-            if (obj.subType) {
-                image.subType = obj.subType;
-            }
-            if (obj.alpha) {
-                image.alpha = obj.alpha;
-            }
-            if (obj.anchor) {
-                image.setAnchor(obj.anchor);
-            }
-            if (obj.attribs) {
-                image.attribs.add(obj.attribs);
-            }
-            if (obj.visible === true || obj.visible === false) {
-                image.visible = obj.visible;
-            }
-            else {
-                image.visible = true;
-            }
-            if (obj.tint) {
-                image.tint = parseInt(obj.tint, 16);
-            }
-            scene.addAnim(newName, image);
+            var sprite = new Sprite_1.Sprite(scene, obj.name, this.resources[obj.atlas]);
+            this.setValues(sprite, obj);
+            this.setValue(sprite.scale.x, obj.sx, 1);
+            this.setValue(sprite.scale.y, obj.sy, 1);
+            this.setValue(sprite.anchor.x, obj.ax, 0.5);
+            this.setValue(sprite.anchor.y, obj.ay, 0.5);
+            scene.addSprite(newName, sprite);
         }
     };
     return AssetManager;

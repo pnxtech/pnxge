@@ -20,7 +20,7 @@ export function pcap(value: number | string): number {
  * @description Angle functions
  */
 export class Angle {
-  public HalfPI: number = Math.PI * 0.5;
+  static HalfPI: number = Math.PI * 0.5;
 
   /**
    * @name d2r
@@ -28,7 +28,7 @@ export class Angle {
    * @param {number} degree - 360 degree type
    * @return {number} radian
    */
-  public d2r(degree: number): number {
+  static d2r(degree: number): number {
     return degree * Math.PI / 180.0;
   }
 
@@ -38,7 +38,7 @@ export class Angle {
    * @param {number} radians
    * @return {number} degree
    */
-  public r2d(radians: number): number {
+  static r2d(radians: number): number {
     return radians * (180.0 / Math.PI);
   }
 
@@ -48,8 +48,8 @@ export class Angle {
    * @param {number} degrees
    * @return {Vector} angleVector
    */
-  public vectorAngleFromDegrees(degrees: number): Vector {
-    let radians: number = this.d2r(degrees);
+  static vectorAngleFromDegrees(degrees: number): Vector {
+    let radians: number = Angle.d2r(degrees);
     return new Vector(Math.sin(radians), Math.cos(radians));
   }
 
@@ -59,7 +59,7 @@ export class Angle {
    * @param {number} radians
    * @return {Angle} angleVector
    */
-  public vectorAngleFromRadians(radians: number): Vector {
+  static vectorAngleFromRadians(radians: number): Vector {
     return new Vector(Math.sin(radians), Math.cos(radians));
   }
 
@@ -70,7 +70,7 @@ export class Angle {
    * @param {Vector} point - to (target) vector
    * @return {number} angle - in radians
    */
-  public angleFromVectors(anchor: Vector, point: Vector): number {
+  static angleFromVectors(anchor: Vector, point: Vector): number {
     return Math.atan2(anchor.y - point.y, anchor.x - point.x);
   }
 
@@ -79,9 +79,8 @@ export class Angle {
    * @description get randomangle
    * @return {number} random angle
    */
-  public randomAngle(): number {
-    let random = new Random();
-    return random.getRandomInclusive(0, Math.PI);
+  static randomAngle(): number {
+    return Random.getRandomInclusive(0, Math.PI);
   }
 
   /**
@@ -89,9 +88,8 @@ export class Angle {
    * @description get random top facing angle
    * @return {number} random angle
    */
-  public randomAngleTop(): number {
-    let random = new Random();
-    return random.getRandomInclusive(0, Math.PI) + this.HalfPI;
+  static randomAngleTop(): number {
+    return Random.getRandomInclusive(0, Math.PI) + this.HalfPI;
   }
 
   /**
@@ -99,9 +97,8 @@ export class Angle {
    * @description get random bottom facing angle
    * @return {number} random angle
    */
-  public randomAngleBottom(): number {
-    let random = new Random();
-    return random.getRandomInclusive(0, Math.PI) - this.HalfPI;
+  static randomAngleBottom(): number {
+    return Random.getRandomInclusive(0, Math.PI) - this.HalfPI;
   }
 }
 
@@ -132,7 +129,7 @@ export class Rect {
    * @name constructor
    * @description init class
    */
-  constructor(x: number, y: number, width: number, height: number) {
+  constructor(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -322,7 +319,7 @@ export class Random {
   * @summary Returns a random number between 0 (inclusive) and 1 (exclusive)
   * @return {number} num - number
   */
- public getRandom(): number {
+ static getRandom(): number {
     return Math.random();
   }
 
@@ -331,7 +328,7 @@ export class Random {
   * @summary Returns a random number between min (inclusive) and max (exclusive)
   * @return {number} num - number
   */
- public getRandomArbitrary(min: number, max: number): number {
+ static getRandomArbitrary(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
 
@@ -340,7 +337,7 @@ export class Random {
   * @summary Returns a random integer between min (included) and max (excluded). If min and max are zero then a random int is chosen
   * @return {number} num - number
   */
- public getRandomInt(min: number = 0, max: number = 0): number {
+ static getRandomInt(min: number = 0, max: number = 0): number {
     if (min === 0 && max === 0) {
       return ~~(Math.random() * 1e6);
     }
@@ -354,7 +351,7 @@ export class Random {
   * @summary Returns a random integer between min (included) and max (included)
   * @return {number} num - number
   */
- public getRandomIntInclusive(min: number, max: number): number {
+ static getRandomIntInclusive(min: number, max: number): number {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -365,7 +362,7 @@ export class Random {
   * @summary Returns a random number (real not int) between min (included) and max (included)
   * @return {number} num - number
   */
- public getRandomInclusive(min: number, max: number): number {
+ static getRandomInclusive(min: number, max: number): number {
     return Math.random() * (max - min) + min;
   }
 
@@ -374,7 +371,7 @@ export class Random {
    * @description get a random true or false
    * @return {boolean} boolean - true or false
    */
-  public getRandomBoolean(): boolean {
+  static getRandomBoolean(): boolean {
     return (Math.random() * 10 > 5);
   }
 
@@ -385,11 +382,11 @@ export class Random {
    * @param {number} width - number to determine width from center
    * @return {number} random number
    */
-  public getRandomFromCenter(value: number, width: number): number {
+  static getRandomFromCenter(value: number, width: number): number {
     let midWidth = width * 0.5;
     let low = value - midWidth;
     let high = value + midWidth;
-    return this.getRandomInclusive(low, high);
+    return Random.getRandomInclusive(low, high);
   }
 
   /**
@@ -399,11 +396,11 @@ export class Random {
    * @param {number} width - number to determine width from center
    * @return {number} random number
    */
-  public getRandomIntFromCenter(value: number, width: number): number {
+  static getRandomIntFromCenter(value: number, width: number): number {
     let midWidth = (width * 0.5) | 0;
     let low = value - midWidth;
     let high = value + midWidth;
-    return this.getRandomIntInclusive(low, high);
+    return Random.getRandomIntInclusive(low, high);
   }
 }
 
@@ -468,6 +465,13 @@ export class Curve {
     return l.pt2.y - l.pt1.y;
   }
 
+  /**
+   * @name intersect
+   * @description identify the intersection point between two lines
+   * @param {Line} l1 - line 1
+   * @param {Line} l2 - line 2
+   * @return {Point} intersection point
+   */
   protected intersect(l1: Line, l2: Line): Point {
     let m1: number;
     let b1: number;

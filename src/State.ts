@@ -6,7 +6,6 @@ import {Utils} from './Utils';
  */
 export class State {
   private _state: {};
-  private utils: Utils;
 
   /**
    * @name constructor
@@ -14,7 +13,6 @@ export class State {
    */
   constructor() {
     this._state = {};
-    this.utils = new Utils();
   }
 
   /**
@@ -42,7 +40,7 @@ export class State {
    * @return {object} new application state
    */
   public setState(data: any): any {
-    let newState = this.utils.mergeObjects(this._state, data);
+    let newState = Utils.mergeObjects(this._state, data);
     this._state = newState;
     return this._state;
   }

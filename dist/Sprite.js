@@ -24,16 +24,21 @@ var PIXI = __importStar(require("pixi.js"));
 var Utils_1 = require("./Utils");
 var Attribs_1 = require("./Attribs");
 /**
- * @name TilingSprite
- * @description extends the PIXI TilingSprite to include additional fields
- * @note: uses PIXI TilingSprite
+ * @name Sprite
+ * @description sprite object
  */
-var TilingSprite = /** @class */ (function (_super) {
-    __extends(TilingSprite, _super);
-    // protected controller: Controller | undefined;
+var Sprite = /** @class */ (function (_super) {
+    __extends(Sprite, _super);
     //#endregion
-    function TilingSprite(scene, texture, width, height) {
-        var _this = _super.call(this, texture, width, height) || this;
+    /**
+     * @name constructor
+     * @description constructor
+     * @param {Scene} scene - reference to parent scene
+     * @param {string} name - name of sequence
+     * @param {object} resources - loaded resources
+     */
+    function Sprite(scene, name, resources) {
+        var _this = _super.call(this, resources.textures[name]) || this;
         _this.subType = '';
         _this.id = Utils_1.Utils.createID();
         _this.vx = 0;
@@ -47,7 +52,7 @@ var TilingSprite = /** @class */ (function (_super) {
         _this.collisionDetection = false;
         _this.collisionWith = undefined;
         _this.attribs = new Attribs_1.Attribs();
-        _this.attribs.add('background');
+        _this.attribs.add('sprite');
         _this.scene = scene;
         scene.stage.addChild(_this);
         return _this;
@@ -57,22 +62,25 @@ var TilingSprite = /** @class */ (function (_super) {
      * @description attach a Controller
      * @return {void}
      */
-    TilingSprite.prototype.attachController = function (controller) {
+    Sprite.prototype.attachController = function (controller) {
+        this.controller = controller;
     };
     /**
-     * @name onCollision
-     * @description trigged when this anim collides with another anim
-     * @param {ISprite} sprite - anim with which collision has occured
+     * @name attachTouchHandler
+     * @description attach a touch (click, press, touch) handler for this anim
+     * @param {string} name - name of event
+     * @param {EventManager} - instance of event eventManager
      * @return {void}
      */
-    TilingSprite.prototype.onCollision = function (sprite) {
-    };
-    /**
-     * @name clearCollision
-     * @description clear collision event
-     * @return {void}
-     */
-    TilingSprite.prototype.clearCollision = function () {
+    Sprite.prototype.attachTouchHandler = function (name, eventManager) {
+        var _this = this;
+        this.interactive = true;
+        this.on('click', function () {
+            eventManager.triggerEvent(name, _this);
+        });
+        this.on('touchend', function () {
+            eventManager.triggerEvent(name, _this);
+        });
     };
     /**
      * @name update
@@ -80,18 +88,37 @@ var TilingSprite = /** @class */ (function (_super) {
      * @param {number} deltaTime - delta time
      * @return {void}
      */
-    TilingSprite.prototype.update = function (deltaTime) {
+    Sprite.prototype.update = function (deltaTime) {
         this.x += this.dx * (this.vx || 1) * deltaTime;
         this.y += this.dy * (this.vy || 1) * deltaTime;
+    };
+    /**
+     * @name onCollision
+     * @description trigged when this anim collides with another anim
+     * @param {ISprite} sprite - anim with which collision has occured
+     * @return {void}
+     */
+    Sprite.prototype.onCollision = function (sprite) {
+        this.collisionWith = sprite;
+        // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
+        this.controller && (this.controller.hitBy(sprite));
+    };
+    /**
+     * @name clearCollision
+     * @description clear collision event
+     * @return {void}
+     */
+    Sprite.prototype.clearCollision = function () {
+        this.collisionWith = undefined;
     };
     /**
      * @name destroy
      * @description cleanup
      */
-    TilingSprite.prototype.destroy = function () {
+    Sprite.prototype.destroy = function () {
         this.scene.stage.removeChild(this);
     };
-    return TilingSprite;
-}(PIXI.extras.TilingSprite));
-exports.TilingSprite = TilingSprite;
-//# sourceMappingURL=TilingSprite.js.map
+    return Sprite;
+}(PIXI.Sprite));
+exports.Sprite = Sprite;
+//# sourceMappingURL=Sprite.js.map

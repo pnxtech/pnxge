@@ -1,31 +1,29 @@
 import * as PIXI from 'pixi.js';
 import {ISprite} from './ISprite';
-import {EventManager} from './EventManager';
-import {Controller} from './Controller';
 import {Scene} from './Scene';
-import {Attribs} from './Attribs';
+import {Controller} from './Controller';
+import {EventManager} from './EventManager';
 import {Utils} from './Utils';
+import {Attribs} from './Attribs';
 
-interface ICallback { (): void };
 
 /**
- * @name AnimatedSprite
- * @description Animated Sprite
+ * @name Sprite
+ * @description sprite object
  */
-export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprite {
+export class Sprite extends PIXI.Sprite implements ISprite {
   //#region variables
   public subType: string;
   public id: string;
-  public dx: number;
-  public dy: number;
   public vx: number;
   public vy: number;
+  public dx: number;
+  public dy: number;
   public z: number;
   public health: number;
   public strength: number;
   public collisionDetection: boolean;
   public collisionWith: ISprite | undefined;
-  public animationSpeed: number;
   public attribs: Attribs;
   protected scene: Scene;
   protected controller: Controller | undefined;
@@ -33,28 +31,29 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
 
   /**
    * @name constructor
-   * @description binds Anim to Scene
+   * @description constructor
+   * @param {Scene} scene - reference to parent scene
+   * @param {string} name - name of sequence
+   * @param {object} resources - loaded resources
    */
-  constructor(scene: Scene, sequenceName: string, atlas: string, resources: any, autoUpdate?: boolean | undefined) {
-    super(resources[atlas].spritesheet.animations[sequenceName], autoUpdate);
-
+  constructor(scene: Scene, name: string, resources: any) {
+    super(resources.textures[name]);
     this.subType = '';
     this.id = Utils.createID();
-    this.dx = 0;
-    this.dy = 0;
     this.vx = 0;
     this.vy = 0;
+    this.dx = 0;
+    this.dy = 0;
     this.z = 0;
     this.health = 0;
     this.strength = 0;
     this.cacheAsBitmap = true;
     this.collisionDetection = false;
     this.collisionWith = undefined;
-    this.animationSpeed = 1;
     this.attribs = new Attribs();
-    this.attribs.add('animatedsprite');
+    this.attribs.add('sprite');
     this.scene = scene;
-    this.scene.stage.addChild(this);
+    scene.stage.addChild(this);
   }
 
   /**
@@ -85,17 +84,13 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
 
   /**
    * @name update
-   * @description update anim position based on velocity
-   * @param {number} deltaTime - delta time offset
+   * @description update handler
+   * @param {number} deltaTime - delta time
    * @return {void}
    */
   public update(deltaTime: number): void {
-    if (this.controller) { // if controller then that will handle movement.
-      this.controller.update(deltaTime);
-    } else {
-      this.x += this.dx * (this.vx || 1) * deltaTime;
-      this.y += this.dy * (this.vy || 1) * deltaTime;
-    }
+    this.x += this.dx * (this.vx || 1) * deltaTime;
+    this.y += this.dy * (this.vy || 1) * deltaTime;
   }
 
   /**
@@ -121,17 +116,9 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
 
   /**
    * @name destroy
-   * @description destroys anim and all sequences
-   * @return {void}
+   * @description cleanup
    */
-  public destroy(): void {
-    this.controller && (this.controller.destroy());
-    // TODO remove touch events if any!
-    super.destroy({
-      children: true,
-      texture: false,
-      baseTexture: false
-    });
+  public destroy() {
     this.scene.stage.removeChild(this);
   }
 }

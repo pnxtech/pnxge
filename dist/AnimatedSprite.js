@@ -22,32 +22,115 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
 var Attribs_1 = require("./Attribs");
+var Utils_1 = require("./Utils");
+;
 /**
  * @name AnimatedSprite
- * @description extends the PIXI AnimatedSprite to include additional anim fields
- * @note: uses PIXI AnimatedSprite https://pixijs.download/release/docs/PIXI.extras.AnimatedSprite.html
+ * @description Animated Sprite
  */
 var AnimatedSprite = /** @class */ (function (_super) {
     __extends(AnimatedSprite, _super);
-    function AnimatedSprite(textures, autoUpdate) {
-        var _this = _super.call(this, textures, autoUpdate) || this;
-        _this._attribs = new Attribs_1.Attribs();
+    //#endregion
+    /**
+     * @name constructor
+     * @description binds Anim to Scene
+     */
+    function AnimatedSprite(scene, sequenceName, atlas, resources, autoUpdate) {
+        var _this = _super.call(this, resources[atlas].spritesheet.animations[sequenceName], autoUpdate) || this;
+        _this.subType = '';
+        _this.id = Utils_1.Utils.createID();
+        _this.dx = 0;
+        _this.dy = 0;
+        _this.vx = 0;
+        _this.vy = 0;
+        _this.z = 0;
+        _this.health = 0;
+        _this.strength = 0;
+        _this.cacheAsBitmap = true;
+        _this.collisionDetection = false;
+        _this.collisionWith = undefined;
+        _this.animationSpeed = 1;
+        _this.attribs = new Attribs_1.Attribs();
+        _this.attribs.add('animatedsprite');
+        _this.scene = scene;
+        _this.scene.stage.addChild(_this);
         return _this;
     }
-    Object.defineProperty(AnimatedSprite.prototype, "attribs", {
-        /**
-         * @name getAttribs
-         * @description get attributes
-         * @return {Attribs} attributes
-         */
-        get: function () {
-            return this._attribs;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * @name attachController
+     * @description attach a Controller
+     * @return {void}
+     */
+    AnimatedSprite.prototype.attachController = function (controller) {
+        this.controller = controller;
+    };
+    /**
+     * @name attachTouchHandler
+     * @description attach a touch (click, press, touch) handler for this anim
+     * @param {string} name - name of event
+     * @param {EventManager} - instance of event eventManager
+     * @return {void}
+     */
+    AnimatedSprite.prototype.attachTouchHandler = function (name, eventManager) {
+        var _this = this;
+        this.interactive = true;
+        this.on('click', function () {
+            eventManager.triggerEvent(name, _this);
+        });
+        this.on('touchend', function () {
+            eventManager.triggerEvent(name, _this);
+        });
+    };
+    /**
+     * @name update
+     * @description update anim position based on velocity
+     * @param {number} deltaTime - delta time offset
+     * @return {void}
+     */
+    AnimatedSprite.prototype.update = function (deltaTime) {
+        if (this.controller) { // if controller then that will handle movement.
+            this.controller.update(deltaTime);
+        }
+        else {
+            this.x += this.dx * (this.vx || 1) * deltaTime;
+            this.y += this.dy * (this.vy || 1) * deltaTime;
+        }
+    };
+    /**
+     * @name onCollision
+     * @description trigged when this anim collides with another anim
+     * @param {ISprite} sprite - anim with which collision has occured
+     * @return {void}
+     */
+    AnimatedSprite.prototype.onCollision = function (sprite) {
+        this.collisionWith = sprite;
+        // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
+        this.controller && (this.controller.hitBy(sprite));
+    };
+    /**
+     * @name clearCollision
+     * @description clear collision event
+     * @return {void}
+     */
+    AnimatedSprite.prototype.clearCollision = function () {
+        this.collisionWith = undefined;
+    };
+    /**
+     * @name destroy
+     * @description destroys anim and all sequences
+     * @return {void}
+     */
+    AnimatedSprite.prototype.destroy = function () {
+        this.controller && (this.controller.destroy());
+        // TODO remove touch events if any!
+        _super.prototype.destroy.call(this, {
+            children: true,
+            texture: false,
+            baseTexture: false
+        });
+        this.scene.stage.removeChild(this);
+    };
     return AnimatedSprite;
 }(PIXI.extras.AnimatedSprite));
 exports.AnimatedSprite = AnimatedSprite;
-;
 //# sourceMappingURL=AnimatedSprite.js.map

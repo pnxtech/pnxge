@@ -1,19 +1,16 @@
 import * as PIXI from 'pixi.js';
 import {Application} from './Application';
-import {Anim} from './Anim';
-import {Image} from './Image';
-import {IAnimCompatible} from './AnimCompatible';
+import {ISprite} from './ISprite';
 import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
-import {TextSprite} from './TextSprite';
-import {IRecorderHash} from './Recorder';
-import {pcap} from './Math';
+import {pcap, Rect} from './Math';
 import {Benchmark} from './Benchmark';
 import {State} from './State';
+import {IRecorderHash} from './Recorder';
 
-interface IAnimHash { [key: string]: Anim | Image | TextSprite};
-interface IAnimCallback { (anim: Anim | Image | TextSprite): void };
-interface IAnimDoneCallback { (): void };
+interface ISpriteHash { [key: string]: ISprite};
+interface ISpriteCallback { (sprite: ISprite): void };
+interface ISpriteDoneCallback { (): void };
 
 /**
  * @name Scene
@@ -27,12 +24,14 @@ export class Scene {
   protected sceneHeight: number;
   protected benchmark: Benchmark = new Benchmark();
   public stage: PIXI.Container;
-  public anims: IAnimHash;
+  public sprites: ISpriteHash;
   protected internalTick: number = 0;
   protected projectileManager: ProjectileManager | undefined;
   protected soundManager: SoundManager | undefined;
   private sceneStarted: boolean = false;
   private benchmarkUpdate: boolean = false;
+  private collisionRect1: Rect = new Rect();
+  private collisionRect2: Rect = new Rect();
   //#endregion
 
   /**
@@ -46,7 +45,7 @@ export class Scene {
     this.sceneWidth = app.width;
     this.sceneHeight = app.height;
     this.stage = app.stage;
-    this.anims = {};
+    this.sprites = {};
   }
 
   /**
@@ -161,13 +160,14 @@ export class Scene {
   }
 
   /**
-   * @name addAnim
-   * @description add an anim to the scene
-   * @param {string} name - name of anim
-   * @param {Anim | Image | TextSprite} anim - anim objec
+   * @name addSprite
+   * @description add a sprite to the scene
+   * @param {string} name - name of sprite
+   * @param {ISprite} sprite - sprite object
+   * @return {void}
    */
-  public addAnim(name: string, anim: Anim | Image | TextSprite): void {
-    this.anims[name] = anim;
+  public addSprite(name: string, sprite: ISprite): void {
+    this.sprites[name] = sprite;
   }
 
   /**
@@ -187,12 +187,12 @@ export class Scene {
   }
 
   /**
-   * @name getAnim
-   * @description get anim by name
-   * @return {TextSprite} anim
+   * @name getSprite
+   * @description get sprite by name
+   * @return {ISprite | undefined} sprite
    */
-  public getAnim(name: string): Anim | Image | TextSprite {
-    return this.anims[name];
+  public getSprite(name: string): ISprite | undefined {
+    return this.sprites[name];
   }
 
   /**
@@ -214,15 +214,15 @@ export class Scene {
   }
 
   /**
-   * @name forEachAnim
-   * @description enumerate anims
-   * @param {IAnimCallback} callback - called for each anim
-   * @param {IAnimDoneCallback} done - called when done
+   * @name forEachSprite
+   * @description enumerate sprites
+   * @param {ISpriteCallback} callback - called for each sprite
+   * @param {ISpriteDoneCallback} done - called when done
    * @return {void}
    */
-  public forEachAnim(callback: IAnimCallback, done: IAnimDoneCallback): void {
-    Object.keys(this.anims).forEach((key) => {
-      callback(this.anims[key]);
+  public forEachSprite(callback: ISpriteCallback, done: ISpriteDoneCallback): void {
+    Object.keys(this.sprites).forEach((key) => {
+      callback(this.sprites[key]);
     });
     done();
   }
@@ -249,10 +249,10 @@ export class Scene {
     if (!this.sceneStarted) {
       return;
     }
-    if (this.anims) {
-      Object.keys(this.anims).forEach((key) => {
-        if (this.anims[key] && this.anims[key].visible) {
-          this.anims[key].update(deltaTime);
+    if (this.sprites) {
+      Object.keys(this.sprites).forEach((key) => {
+        if (this.sprites[key] && this.sprites[key].visible) {
+          this.sprites[key].update(deltaTime);
         }
       });
       this.collisionDetection(); // must happen before projectile update because latter requires it
@@ -271,13 +271,11 @@ export class Scene {
    */
   public sortAnims(): void {
     let objectList: any = this.stage.children;
-    objectList.sort((a: IAnimCompatible, b: IAnimCompatible) => {
-      if (!a.anim || !b.anim) {
+    objectList.sort((a: ISprite, b: ISprite) => {
+      if (!a.id || !b.id) {
         return 0;
       }
-      let first: IAnimCompatible = <IAnimCompatible>a.anim;
-      let second: IAnimCompatible = <IAnimCompatible>b.anim;
-      return first.z - second.z;
+      return a.z - b.z;
     });
   }
 
@@ -287,22 +285,33 @@ export class Scene {
    * @return {void}
    */
   public collisionDetection(): void {
-    let objectList:any = this.stage.children;
+    let objectList: any = this.stage.children;
     for (let obj1 of objectList) {
-      if (!obj1.anim || !obj1.anim.collisionDetection || !obj1.anim.visible) {
+      if (!obj1.collisionDetection || !obj1.visible) {
         continue;
       }
+      this.collisionRect1.x = obj1.x;
+      this.collisionRect1.y = obj1.y;
+      this.collisionRect1.width = obj1.width;
+      this.collisionRect1.height = obj1.height;
       for (let obj2 of objectList) {
-        if (obj1.anim.subType === obj2.anim.subType) {
-          continue;
-        }
-        if (obj2.anim && obj1.anim.id !== obj2.anim.id) {
-          if (!obj2.anim.collisionDetection || !obj2.anim.visible) {
+        // if (obj1.subType === obj2.subType) {
+        //   continue;
+        // }
+        if (obj1.id !== obj2.id) {
+          if (!obj2.collisionDetection || !obj2.visible) {
             continue;
           }
-          if (obj1.anim.rect.intersect(obj2.anim.rect)) {
-            obj1.anim.onCollision(obj2.anim);
-            obj2.anim.onCollision(obj1.anim);
+          this.collisionRect2.x = obj2.x;
+          this.collisionRect2.y = obj2.y;
+          this.collisionRect2.width = obj2.width;
+          this.collisionRect2.height = obj2.height;
+          if (this.collisionRect1.intersect(this.collisionRect2)) {
+            console.log('collision!');
+            obj1.visible = false;
+            obj2.visible = false;
+            // obj1.onCollision(obj2);
+            // obj2.onCollision(obj1);
           }
         }
       }
@@ -315,33 +324,38 @@ export class Scene {
    * determine whether it will collide with another
    * anim within the number of steps specified.
    * @note uses the specified anim's direction and velocity vectors
-   * @param {Anim} anim - animation object
+   * @param {ISprite} sprite - sprite object
    * @param {number} steps - number of steps to look ahead
    * @param {number} padding - padding to increase or decrease anim rect
-   * @return {Anim | Image | undefined} of potential collision
+   * @return {ISprite | undefined} of potential collision
    */
-  public lookAhead(anim: Anim, steps: number, padding: number = 0): Anim | Image | undefined {
-    let animRect = anim.rect;
-    animRect.x = anim.x;
-    animRect.y = anim.y;
+  public lookAhead(sprite: ISprite, steps: number, padding: number = 0): ISprite | undefined {
+    this.collisionRect1.x = sprite.x;
+    this.collisionRect1.y = sprite.y;
+    this.collisionRect1.width = sprite.width;
+    this.collisionRect1.height = sprite.height;
     if (padding < 0) {
-      animRect.deflate(padding);
+      this.collisionRect1.deflate(padding);
     } else if (padding > 0) {
-      animRect.inflate(padding);
+      this.collisionRect1.inflate(padding);
     }
     for (let i = 0; i < steps; i++) {
-      animRect.x += (anim.dx * (anim.vx || 1));
-      animRect.y += (anim.dy * (anim.vy || 1)) + (anim.height * 0.5);
+      this.collisionRect1.x += (sprite.dx * (sprite.vx || 1));
+      this.collisionRect1.y += (sprite.dy * (sprite.vy || 1)) + (sprite.height * 0.5);
       let objectList: any = this.stage.children;
       for (let obj of objectList) {
-        if (!obj.anim || !obj.anim.visible) {
+        if (!obj.anim.visible) {
           continue;
-        } else if (!obj.anim.collisionDetection) {
+        } else if (!obj.collisionDetection) {
           continue;
-        } else if (anim.id === obj.anim.id) {
+        } else if (sprite.id === obj.sprite.id) {
           continue;
         }
-        if (animRect.intersect(obj.anim.rect)) {
+        this.collisionRect2.x = obj.x;
+        this.collisionRect2.y = obj.y;
+        this.collisionRect2.width = obj.width;
+        this.collisionRect2.height = obj.height;
+        if (this.collisionRect1.intersect(this.collisionRect2)) {
           return obj.anim;
         }
       }
@@ -355,8 +369,8 @@ export class Scene {
    * @return {void}
    */
   public destroy(): void {
-    Object.keys(this.anims).forEach((key) => {
-      this.anims[key].destroy();
+    Object.keys(this.sprites).forEach((key) => {
+      this.sprites[key].destroy();
     });
     for (let child of this.stage.children) {
       this.stage.removeChild(child);

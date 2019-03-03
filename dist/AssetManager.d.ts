@@ -8,8 +8,6 @@ export declare class AssetManager {
     private gameConfig;
     private resources;
     private soundManager;
-    private utils;
-    private angle;
     /**
      * @name constructor
      * @description asset manager init
@@ -36,6 +34,23 @@ export declare class AssetManager {
      */
     getSoundEngine(): SoundManager | undefined;
     /**
+     * @name setValue
+     * @description set the value of a field accounting for undefined and default value
+     * @param {any} item - item to set
+     * @param {any} value - value to set to
+     * @param {any} defaultValue - default value
+     * @return {void}
+     */
+    protected setValue(item: any, value: any, defaultValue?: any): void;
+    /**
+     * @name setValues
+     * @description set multiple values on target object
+     * @param {any} target - target object
+     * @param {any} source - source object
+     * @return {void}
+     */
+    protected setValues(target: any, source: any): void;
+    /**
      * @name populateScene
      * @description populate Scene with resources
      * @param {Scene} scene - scene reference
@@ -45,21 +60,21 @@ export declare class AssetManager {
      */
     populateScene(scene: Scene, sceneName: string, postPopulateHandler: ICallback): void;
     /**
-     * @name createCharacter
-     * @description create an anim character
+     * @name createAnimatedSprite
+     * @description create an animated sprite character
      * @param {Scene} scene
      * @param {object} obj
      * @return {void}
      */
-    createCharacter(scene: Scene, obj: any): void;
+    createAnimatedSprite(scene: Scene, obj: any): void;
     /**
-     * @name createImage
-     * @description create an image
+     * @name createSprite
+     * @description create a sprite
      * @param {Scene} scene
      * @param {object} obj
      * @return {void}
      */
-    createImage(scene: Scene, obj: any): void;
+    createSprite(scene: Scene, obj: any): void;
 }
 export {};
 //# sourceMappingURL=AssetManager.d.ts.map

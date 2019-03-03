@@ -1,6 +1,6 @@
-import {Anim} from './Anim';
+import {ISprite} from './ISprite';
 import {Scene} from './Scene';
-import { PathElement } from './Path';
+import {PathElement} from './Path';
 
 /**
  * @name Controller
@@ -8,7 +8,7 @@ import { PathElement } from './Path';
  */
 export class Controller {
   //#region variables
-  protected anim: Anim | undefined;
+  protected sprite: ISprite | undefined;
   private isActive: boolean = true;
   private pathCache: any = {};
   private currentPath: string = '';
@@ -23,8 +23,8 @@ export class Controller {
    * @param {Scene} scene - where anim was loaded
    */
   constructor(name: string, scene: Scene) {
-    this.anim = <Anim>scene.getAnim(name);
-    this.anim.attachController(this);
+    this.sprite = scene.getSprite(name);
+    this.sprite && (this.sprite.attachController(this));
   }
 
   /**
@@ -47,7 +47,7 @@ export class Controller {
       this.currentPath = '';
       this.currentPathIndex = 0;
       this.isPathComplete = true;
-      this.anim && (this.anim.visible = false);
+      this.sprite && (this.sprite.visible = false);
     }
   }
 
@@ -70,9 +70,10 @@ export class Controller {
   /**
    * @name hitBy
    * @description handle when this anim controller is hit by an anim
-   * @param {Anim} anim - which hit this controller
+   * @param {ISprite} sprite - what hit this controller
+   * @return {void}
    */
-  public hitBy(anim: Anim): void {
+  public hitBy(sprite: ISprite): void {
   }
 
   /**
@@ -164,10 +165,10 @@ export class Controller {
    */
   public update(deltaTime: number): void {
     if (this.currentPath !== '') {
-      if (this.anim) {
-        this.anim.x = this.pathCache[this.currentPath][this.currentPathIndex].x;
-        this.anim.y = this.pathCache[this.currentPath][this.currentPathIndex].y;
-        this.anim.rotation = this.pathCache[this.currentPath][this.currentPathIndex].r;
+      if (this.sprite) {
+        this.sprite.x = this.pathCache[this.currentPath][this.currentPathIndex].x;
+        this.sprite.y = this.pathCache[this.currentPath][this.currentPathIndex].y;
+        this.sprite.rotation = this.pathCache[this.currentPath][this.currentPathIndex].r;
         if (this.currentPathIndex + 1 === this.pathCache[this.currentPath].length) {
           this.currentPath = '';
           this.currentPathIndex = 0;
@@ -186,5 +187,6 @@ export class Controller {
    * @return {void}
    */
   public destroy(): void {
+    this.sprite && (this.sprite.destroy());
   }
 }

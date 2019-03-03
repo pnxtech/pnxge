@@ -95,7 +95,7 @@ var Path = /** @class */ (function () {
             pathElements.push({
                 x: point.x,
                 y: point.y,
-                r: angle.angleFromVectors(vectorSrc, vectorDst)
+                r: Math_1.Angle.angleFromVectors(vectorSrc, vectorDst)
             });
             x = point.x;
             y = point.y;

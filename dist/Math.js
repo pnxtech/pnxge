@@ -35,7 +35,6 @@ exports.pcap = pcap;
  */
 var Angle = /** @class */ (function () {
     function Angle() {
-        this.HalfPI = Math.PI * 0.5;
     }
     /**
      * @name d2r
@@ -43,7 +42,7 @@ var Angle = /** @class */ (function () {
      * @param {number} degree - 360 degree type
      * @return {number} radian
      */
-    Angle.prototype.d2r = function (degree) {
+    Angle.d2r = function (degree) {
         return degree * Math.PI / 180.0;
     };
     /**
@@ -52,7 +51,7 @@ var Angle = /** @class */ (function () {
      * @param {number} radians
      * @return {number} degree
      */
-    Angle.prototype.r2d = function (radians) {
+    Angle.r2d = function (radians) {
         return radians * (180.0 / Math.PI);
     };
     /**
@@ -61,8 +60,8 @@ var Angle = /** @class */ (function () {
      * @param {number} degrees
      * @return {Vector} angleVector
      */
-    Angle.prototype.vectorAngleFromDegrees = function (degrees) {
-        var radians = this.d2r(degrees);
+    Angle.vectorAngleFromDegrees = function (degrees) {
+        var radians = Angle.d2r(degrees);
         return new Vector(Math.sin(radians), Math.cos(radians));
     };
     /**
@@ -71,7 +70,7 @@ var Angle = /** @class */ (function () {
      * @param {number} radians
      * @return {Angle} angleVector
      */
-    Angle.prototype.vectorAngleFromRadians = function (radians) {
+    Angle.vectorAngleFromRadians = function (radians) {
         return new Vector(Math.sin(radians), Math.cos(radians));
     };
     /**
@@ -81,7 +80,7 @@ var Angle = /** @class */ (function () {
      * @param {Vector} point - to (target) vector
      * @return {number} angle - in radians
      */
-    Angle.prototype.angleFromVectors = function (anchor, point) {
+    Angle.angleFromVectors = function (anchor, point) {
         return Math.atan2(anchor.y - point.y, anchor.x - point.x);
     };
     /**
@@ -89,28 +88,26 @@ var Angle = /** @class */ (function () {
      * @description get randomangle
      * @return {number} random angle
      */
-    Angle.prototype.randomAngle = function () {
-        var random = new Random();
-        return random.getRandomInclusive(0, Math.PI);
+    Angle.randomAngle = function () {
+        return Random.getRandomInclusive(0, Math.PI);
     };
     /**
      * @name randomAngleTop
      * @description get random top facing angle
      * @return {number} random angle
      */
-    Angle.prototype.randomAngleTop = function () {
-        var random = new Random();
-        return random.getRandomInclusive(0, Math.PI) + this.HalfPI;
+    Angle.randomAngleTop = function () {
+        return Random.getRandomInclusive(0, Math.PI) + this.HalfPI;
     };
     /**
      * @name randomAngleBottom
      * @description get random bottom facing angle
      * @return {number} random angle
      */
-    Angle.prototype.randomAngleBottom = function () {
-        var random = new Random();
-        return random.getRandomInclusive(0, Math.PI) - this.HalfPI;
+    Angle.randomAngleBottom = function () {
+        return Random.getRandomInclusive(0, Math.PI) - this.HalfPI;
     };
+    Angle.HalfPI = Math.PI * 0.5;
     return Angle;
 }());
 exports.Angle = Angle;
@@ -138,6 +135,10 @@ var Rect = /** @class */ (function () {
      * @description init class
      */
     function Rect(x, y, width, height) {
+        if (x === void 0) { x = 0; }
+        if (y === void 0) { y = 0; }
+        if (width === void 0) { width = 0; }
+        if (height === void 0) { height = 0; }
         this.x = x;
         this.y = y;
         this.width = width;
@@ -322,7 +323,7 @@ var Random = /** @class */ (function () {
     * @summary Returns a random number between 0 (inclusive) and 1 (exclusive)
     * @return {number} num - number
     */
-    Random.prototype.getRandom = function () {
+    Random.getRandom = function () {
         return Math.random();
     };
     /**
@@ -330,7 +331,7 @@ var Random = /** @class */ (function () {
     * @summary Returns a random number between min (inclusive) and max (exclusive)
     * @return {number} num - number
     */
-    Random.prototype.getRandomArbitrary = function (min, max) {
+    Random.getRandomArbitrary = function (min, max) {
         return Math.random() * (max - min) + min;
     };
     /**
@@ -338,7 +339,7 @@ var Random = /** @class */ (function () {
     * @summary Returns a random integer between min (included) and max (excluded). If min and max are zero then a random int is chosen
     * @return {number} num - number
     */
-    Random.prototype.getRandomInt = function (min, max) {
+    Random.getRandomInt = function (min, max) {
         if (min === void 0) { min = 0; }
         if (max === void 0) { max = 0; }
         if (min === 0 && max === 0) {
@@ -353,7 +354,7 @@ var Random = /** @class */ (function () {
     * @summary Returns a random integer between min (included) and max (included)
     * @return {number} num - number
     */
-    Random.prototype.getRandomIntInclusive = function (min, max) {
+    Random.getRandomIntInclusive = function (min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -363,7 +364,7 @@ var Random = /** @class */ (function () {
     * @summary Returns a random number (real not int) between min (included) and max (included)
     * @return {number} num - number
     */
-    Random.prototype.getRandomInclusive = function (min, max) {
+    Random.getRandomInclusive = function (min, max) {
         return Math.random() * (max - min) + min;
     };
     /**
@@ -371,7 +372,7 @@ var Random = /** @class */ (function () {
      * @description get a random true or false
      * @return {boolean} boolean - true or false
      */
-    Random.prototype.getRandomBoolean = function () {
+    Random.getRandomBoolean = function () {
         return (Math.random() * 10 > 5);
     };
     /**
@@ -381,11 +382,11 @@ var Random = /** @class */ (function () {
      * @param {number} width - number to determine width from center
      * @return {number} random number
      */
-    Random.prototype.getRandomFromCenter = function (value, width) {
+    Random.getRandomFromCenter = function (value, width) {
         var midWidth = width * 0.5;
         var low = value - midWidth;
         var high = value + midWidth;
-        return this.getRandomInclusive(low, high);
+        return Random.getRandomInclusive(low, high);
     };
     /**
      * @name getRandomIntFromCenter
@@ -394,11 +395,11 @@ var Random = /** @class */ (function () {
      * @param {number} width - number to determine width from center
      * @return {number} random number
      */
-    Random.prototype.getRandomIntFromCenter = function (value, width) {
+    Random.getRandomIntFromCenter = function (value, width) {
         var midWidth = (width * 0.5) | 0;
         var low = value - midWidth;
         var high = value + midWidth;
-        return this.getRandomIntInclusive(low, high);
+        return Random.getRandomIntInclusive(low, high);
     };
     return Random;
 }());
@@ -457,6 +458,13 @@ var Curve = /** @class */ (function () {
     Curve.prototype.distanceY = function (l) {
         return l.pt2.y - l.pt1.y;
     };
+    /**
+     * @name intersect
+     * @description identify the intersection point between two lines
+     * @param {Line} l1 - line 1
+     * @param {Line} l2 - line 2
+     * @return {Point} intersection point
+     */
     Curve.prototype.intersect = function (l1, l2) {
         var m1;
         var b1;

@@ -10,7 +10,6 @@ interface IAttribsHash {
  */
 export class Attribs {
   private hash: IAttribsHash;
-  private utils: Utils;
 
   /**
    * @name constructor
@@ -19,7 +18,6 @@ export class Attribs {
    */
   constructor(attribs: string | string[] | undefined = undefined) {
     this.hash = {};
-    this.utils = new Utils();
     if (attribs !== undefined) {
       this.add(attribs);
     }
@@ -86,7 +84,7 @@ export class Attribs {
    * @return {void}
    */
   public clone(attribs: Attribs): void {
-    this.hash = <IAttribsHash>this.utils.mergeObjects({}, attribs.hash)
+    this.hash = <IAttribsHash>Utils.mergeObjects({}, attribs.hash)
   }
 
   /**
