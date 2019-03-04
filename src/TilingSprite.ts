@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import {ISprite} from './ISprite';
 import {Controller} from './Controller';
 import {Scene} from './Scene';
+import {EventManager} from './EventManager';
 import {Utils} from './Utils';
 import {Attribs} from './Attribs';
 
@@ -24,8 +25,8 @@ export class TilingSprite extends PIXI.extras.TilingSprite implements ISprite {
   public collisionDetection: boolean;
   public collisionWith: ISprite | undefined;
   public attribs: Attribs;
-  protected scene: Scene;
-  // protected controller: Controller | undefined;
+  public scene: Scene;
+  public controller: Controller | undefined;
   //#endregion
 
   constructor(scene: Scene, texture: PIXI.Texture, width: number, height: number) {
@@ -54,6 +55,23 @@ export class TilingSprite extends PIXI.extras.TilingSprite implements ISprite {
    * @return {void}
    */
   public attachController(controller: Controller): void {
+  }
+
+  /**
+   * @name attachTouchHandler
+   * @description attach a touch (click, press, touch) handler for this anim
+   * @param {string} name - name of event
+   * @param {EventManager} - instance of event eventManager
+   * @return {void}
+   */
+  public attachTouchHandler(name: string, eventManager: EventManager): void {
+    this.interactive = true;
+    this.on('click', () => {
+      eventManager.triggerEvent(name, this);
+    });
+    this.on('touchend', () => {
+      eventManager.triggerEvent(name, this);
+    });
   }
 
   /**

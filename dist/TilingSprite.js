@@ -30,7 +30,6 @@ var Attribs_1 = require("./Attribs");
  */
 var TilingSprite = /** @class */ (function (_super) {
     __extends(TilingSprite, _super);
-    // protected controller: Controller | undefined;
     //#endregion
     function TilingSprite(scene, texture, width, height) {
         var _this = _super.call(this, texture, width, height) || this;
@@ -58,6 +57,23 @@ var TilingSprite = /** @class */ (function (_super) {
      * @return {void}
      */
     TilingSprite.prototype.attachController = function (controller) {
+    };
+    /**
+     * @name attachTouchHandler
+     * @description attach a touch (click, press, touch) handler for this anim
+     * @param {string} name - name of event
+     * @param {EventManager} - instance of event eventManager
+     * @return {void}
+     */
+    TilingSprite.prototype.attachTouchHandler = function (name, eventManager) {
+        var _this = this;
+        this.interactive = true;
+        this.on('click', function () {
+            eventManager.triggerEvent(name, _this);
+        });
+        this.on('touchend', function () {
+            eventManager.triggerEvent(name, _this);
+        });
     };
     /**
      * @name onCollision

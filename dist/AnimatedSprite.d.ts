@@ -22,8 +22,8 @@ export declare class AnimatedSprite extends PIXI.extras.AnimatedSprite implement
     collisionWith: ISprite | undefined;
     animationSpeed: number;
     attribs: Attribs;
-    protected scene: Scene;
-    protected controller: Controller | undefined;
+    scene: Scene;
+    controller: Controller | undefined;
     /**
      * @name constructor
      * @description binds Anim to Scene

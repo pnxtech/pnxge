@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { ISprite } from './ISprite';
 import { Controller } from './Controller';
 import { Scene } from './Scene';
+import { EventManager } from './EventManager';
 import { Attribs } from './Attribs';
 /**
  * @name TilingSprite
@@ -21,7 +22,8 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite implements IS
     collisionDetection: boolean;
     collisionWith: ISprite | undefined;
     attribs: Attribs;
-    protected scene: Scene;
+    scene: Scene;
+    controller: Controller | undefined;
     constructor(scene: Scene, texture: PIXI.Texture, width: number, height: number);
     /**
      * @name attachController
@@ -29,6 +31,14 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite implements IS
      * @return {void}
      */
     attachController(controller: Controller): void;
+    /**
+     * @name attachTouchHandler
+     * @description attach a touch (click, press, touch) handler for this anim
+     * @param {string} name - name of event
+     * @param {EventManager} - instance of event eventManager
+     * @return {void}
+     */
+    attachTouchHandler(name: string, eventManager: EventManager): void;
     /**
      * @name onCollision
      * @description trigged when this anim collides with another anim

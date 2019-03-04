@@ -25,8 +25,8 @@ export class Sprite extends PIXI.Sprite implements ISprite {
   public collisionDetection: boolean;
   public collisionWith: ISprite | undefined;
   public attribs: Attribs;
-  protected scene: Scene;
-  protected controller: Controller | undefined;
+  public scene: Scene;
+  public controller: Controller | undefined;
   //#endregion
 
   /**

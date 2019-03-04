@@ -23,8 +23,8 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements ISprit
     collisionDetection: boolean;
     collisionWith: ISprite | undefined;
     attribs: Attribs;
-    protected scene: Scene;
-    protected controller: Controller | undefined;
+    scene: Scene;
+    controller: Controller | undefined;
     /**
      * @name constructor
      * @description constructor pass throught to BitmapText
