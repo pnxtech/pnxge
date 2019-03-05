@@ -1,6 +1,9 @@
 import * as PIXI from 'pixi.js';
 import {Attribs} from './Attribs';
 import {Scene} from './Scene';
+import {Sprite} from './Sprite';
+import {AnimatedSprite} from './AnimatedSprite';
+import {TextSprite} from './TextSprite';
 import {Controller} from './Controller';
 import {EventManager} from './EventManager';
 
@@ -24,7 +27,7 @@ export interface ISprite{
   scale: PIXI.Point,
   cacheAsBitmap: boolean;
   collisionDetection: boolean;
-  collisionWith: ISprite | undefined;
+  collisionWith: Sprite | AnimatedSprite | TextSprite | undefined;
   visible: boolean;
   health: number;
   strength: number;
@@ -36,7 +39,7 @@ export interface ISprite{
   attachController(controller: Controller): void;
   attachTouchHandler(name: string, eventManager: EventManager): void;
   update(deltaTime: number): void;
-  onCollision(sprite: ISprite): void;
+  onCollision(sprite: Sprite | AnimatedSprite | TextSprite | undefined): void;
   clearCollision(): void;
   gotoAndStop?: (frame: number) => void;
   play?: () => void;

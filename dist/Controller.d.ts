@@ -1,12 +1,14 @@
-import { ISprite } from './ISprite';
 import { Scene } from './Scene';
 import { PathElement } from './Path';
+import { Sprite } from './Sprite';
+import { AnimatedSprite } from './AnimatedSprite';
+import { TextSprite } from './TextSprite';
 /**
  * @name Controller
  * @description  Controller base class
  */
 export declare class Controller {
-    protected sprite: ISprite | undefined;
+    protected sprite: Sprite | AnimatedSprite | TextSprite | undefined;
     private isActive;
     private pathCache;
     private currentPath;
@@ -45,10 +47,10 @@ export declare class Controller {
     /**
      * @name hitBy
      * @description handle when this anim controller is hit by an anim
-     * @param {ISprite} sprite - what hit this controller
+     * @param {Sprite | AnimatedSprite | TextSprite | undefined} sprite - what hit this controller
      * @return {void}
      */
-    hitBy(sprite: ISprite): void;
+    hitBy(sprite: Sprite | AnimatedSprite | TextSprite | undefined): void;
     /**
      * @name fire
      * @description handler to fire a projectile
