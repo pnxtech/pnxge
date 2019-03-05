@@ -142,11 +142,19 @@ var Scene = /** @class */ (function () {
      * @name addSprite
      * @description add a sprite to the scene
      * @param {string} name - name of sprite
-     * @param {ISprite} sprite - sprite object
+     * @param {Sprite | AnimatedSprite | TextSprite} sprite - sprite object
      * @return {void}
      */
     Scene.prototype.addSprite = function (name, sprite) {
         this.sprites[name] = sprite;
+    };
+    /**
+     * @name getSprite
+     * @description get sprite by name
+     * @return {Sprite | AnimatedSprite | TextSprite | undefined} sprite
+     */
+    Scene.prototype.getSprite = function (name) {
+        return this.sprites[name];
     };
     /**
      * @name moveLeft
@@ -161,14 +169,6 @@ var Scene = /** @class */ (function () {
      * @return {void}
      */
     Scene.prototype.moveRight = function () {
-    };
-    /**
-     * @name getSprite
-     * @description get sprite by name
-     * @return {ISprite | undefined} sprite
-     */
-    Scene.prototype.getSprite = function (name) {
-        return this.sprites[name];
     };
     Object.defineProperty(Scene.prototype, "width", {
         /**

@@ -1,6 +1,9 @@
 import * as PIXI from 'pixi.js';
 import {Application} from './Application';
 import {ISprite} from './ISprite';
+import {Sprite} from './Sprite';
+import {AnimatedSprite} from './AnimatedSprite';
+import {TextSprite} from './TextSprite';
 import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
 import {pcap, Rect} from './Math';
@@ -8,8 +11,9 @@ import {Benchmark} from './Benchmark';
 import {State} from './State';
 import {IRecorderHash} from './Recorder';
 
-interface ISpriteHash { [key: string]: ISprite};
-interface ISpriteCallback { (sprite: ISprite): void };
+
+interface ISpriteHash { [key: string]: Sprite | AnimatedSprite | TextSprite };
+interface ISpriteCallback { (sprite: Sprite | AnimatedSprite | TextSprite): void };
 interface ISpriteDoneCallback { (): void };
 
 /**
@@ -163,11 +167,20 @@ export class Scene {
    * @name addSprite
    * @description add a sprite to the scene
    * @param {string} name - name of sprite
-   * @param {ISprite} sprite - sprite object
+   * @param {Sprite | AnimatedSprite | TextSprite} sprite - sprite object
    * @return {void}
    */
-  public addSprite(name: string, sprite: ISprite): void {
+  public addSprite(name: string, sprite: Sprite | AnimatedSprite | TextSprite): void {
     this.sprites[name] = sprite;
+  }
+
+  /**
+   * @name getSprite
+   * @description get sprite by name
+   * @return {Sprite | AnimatedSprite | TextSprite | undefined} sprite
+   */
+  public getSprite(name: string): Sprite | AnimatedSprite | TextSprite | undefined {
+    return this.sprites[name];
   }
 
   /**
@@ -184,15 +197,6 @@ export class Scene {
    * @return {void}
    */
   public moveRight(): void {
-  }
-
-  /**
-   * @name getSprite
-   * @description get sprite by name
-   * @return {ISprite | undefined} sprite
-   */
-  public getSprite(name: string): ISprite | undefined {
-    return this.sprites[name];
   }
 
   /**

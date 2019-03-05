@@ -1,14 +1,17 @@
 import * as PIXI from 'pixi.js';
 import { Application } from './Application';
 import { ISprite } from './ISprite';
+import { Sprite } from './Sprite';
+import { AnimatedSprite } from './AnimatedSprite';
+import { TextSprite } from './TextSprite';
 import { ProjectileManager } from './ProjectileManager';
 import { SoundManager } from './SoundManager';
 import { Benchmark } from './Benchmark';
 interface ISpriteHash {
-    [key: string]: ISprite;
+    [key: string]: Sprite | AnimatedSprite | TextSprite;
 }
 interface ISpriteCallback {
-    (sprite: ISprite): void;
+    (sprite: Sprite | AnimatedSprite | TextSprite): void;
 }
 interface ISpriteDoneCallback {
     (): void;
@@ -115,10 +118,16 @@ export declare class Scene {
      * @name addSprite
      * @description add a sprite to the scene
      * @param {string} name - name of sprite
-     * @param {ISprite} sprite - sprite object
+     * @param {Sprite | AnimatedSprite | TextSprite} sprite - sprite object
      * @return {void}
      */
-    addSprite(name: string, sprite: ISprite): void;
+    addSprite(name: string, sprite: Sprite | AnimatedSprite | TextSprite): void;
+    /**
+     * @name getSprite
+     * @description get sprite by name
+     * @return {Sprite | AnimatedSprite | TextSprite | undefined} sprite
+     */
+    getSprite(name: string): Sprite | AnimatedSprite | TextSprite | undefined;
     /**
      * @name moveLeft
      * @description handle movement left
@@ -131,12 +140,6 @@ export declare class Scene {
      * @return {void}
      */
     moveRight(): void;
-    /**
-     * @name getSprite
-     * @description get sprite by name
-     * @return {ISprite | undefined} sprite
-     */
-    getSprite(name: string): ISprite | undefined;
     /**
      * @name width
      * @description get the width of the scene
