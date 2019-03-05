@@ -23,7 +23,7 @@ export class Controller {
    * @param {Scene} scene - where anim was loaded
    */
   constructor(name: string, scene: Scene) {
-    this.sprite = scene.getSprite(name);
+    this.sprite = scene.getSpriteAnim(name);
     this.sprite && (this.sprite.attachController(this));
   }
 

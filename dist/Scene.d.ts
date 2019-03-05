@@ -112,19 +112,19 @@ export declare class Scene {
      */
     readonly tick: number;
     /**
-     * @name addSprite
+     * @name addSpriteAnim
      * @description add a sprite to the scene
      * @param {string} name - name of sprite
      * @param {SpriteAnim} sprite - sprite object
      * @return {void}
      */
-    addSprite(name: string, sprite: SpriteAnim): void;
+    addSpriteAnim(name: string, sprite: SpriteAnim): void;
     /**
-     * @name getSprite
+     * @name getSpriteAnim
      * @description get sprite by name
      * @return {SpriteAnim | undefined} sprite
      */
-    getSprite(name: string): SpriteAnim | undefined;
+    getSpriteAnim(name: string): SpriteAnim | undefined;
     /**
      * @name moveLeft
      * @description handle movement left

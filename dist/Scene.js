@@ -139,21 +139,21 @@ var Scene = /** @class */ (function () {
         configurable: true
     });
     /**
-     * @name addSprite
+     * @name addSpriteAnim
      * @description add a sprite to the scene
      * @param {string} name - name of sprite
      * @param {SpriteAnim} sprite - sprite object
      * @return {void}
      */
-    Scene.prototype.addSprite = function (name, sprite) {
+    Scene.prototype.addSpriteAnim = function (name, sprite) {
         this.sprites[name] = sprite;
     };
     /**
-     * @name getSprite
+     * @name getSpriteAnim
      * @description get sprite by name
      * @return {SpriteAnim | undefined} sprite
      */
-    Scene.prototype.getSprite = function (name) {
+    Scene.prototype.getSpriteAnim = function (name) {
         return this.sprites[name];
     };
     /**

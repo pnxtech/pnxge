@@ -160,22 +160,22 @@ export class Scene {
   }
 
   /**
-   * @name addSprite
+   * @name addSpriteAnim
    * @description add a sprite to the scene
    * @param {string} name - name of sprite
    * @param {SpriteAnim} sprite - sprite object
    * @return {void}
    */
-  public addSprite(name: string, sprite: SpriteAnim): void {
+  public addSpriteAnim(name: string, sprite: SpriteAnim): void {
     this.sprites[name] = sprite;
   }
 
   /**
-   * @name getSprite
+   * @name getSpriteAnim
    * @description get sprite by name
    * @return {SpriteAnim | undefined} sprite
    */
-  public getSprite(name: string): SpriteAnim | undefined {
+  public getSpriteAnim(name: string): SpriteAnim | undefined {
     return this.sprites[name];
   }
 

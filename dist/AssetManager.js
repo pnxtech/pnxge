@@ -189,7 +189,7 @@ var AssetManager = /** @class */ (function () {
                     {
                         var textSprite = new TextSprite_1.TextSprite(scene, obj.text, obj.fontInfo);
                         this.setValues(textSprite, obj);
-                        scene.addSprite(obj.name, textSprite);
+                        scene.addSpriteAnim(obj.name, textSprite);
                     }
                     break;
                 case 'ground':
@@ -206,7 +206,7 @@ var AssetManager = /** @class */ (function () {
                         else {
                             animatedSprite.play();
                         }
-                        scene.addSprite(obj.name, animatedSprite);
+                        scene.addSpriteAnim(obj.name, animatedSprite);
                     }
                     break;
             }
@@ -239,7 +239,7 @@ var AssetManager = /** @class */ (function () {
             else {
                 animatedSprite.play();
             }
-            scene.addSprite(newName, animatedSprite);
+            scene.addSpriteAnim(newName, animatedSprite);
         }
     };
     /**
@@ -259,7 +259,7 @@ var AssetManager = /** @class */ (function () {
             this.setValue(sprite.scale.y, obj.sy, 1);
             this.setValue(sprite.anchor.x, obj.ax, 0.5);
             this.setValue(sprite.anchor.y, obj.ay, 0.5);
-            scene.addSprite(newName, sprite);
+            scene.addSpriteAnim(newName, sprite);
         }
     };
     return AssetManager;

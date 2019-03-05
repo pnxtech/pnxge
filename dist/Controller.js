@@ -18,7 +18,7 @@ var Controller = /** @class */ (function () {
         this.currentPath = '';
         this.currentPathIndex = 0;
         this.isPathComplete = true;
-        this.sprite = scene.getSprite(name);
+        this.sprite = scene.getSpriteAnim(name);
         this.sprite && (this.sprite.attachController(this));
     }
     Object.defineProperty(Controller.prototype, "active", {

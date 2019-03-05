@@ -187,7 +187,7 @@ export class AssetManager {
         case 'text': {
             let textSprite = new TextSprite(scene, obj.text, obj.fontInfo);
             this.setValues(textSprite, obj);
-            scene.addSprite(obj.name, textSprite);
+            scene.addSpriteAnim(obj.name, textSprite);
           }
           break;
         case 'ground': {
@@ -202,7 +202,7 @@ export class AssetManager {
             } else {
               animatedSprite.play();
             }
-            scene.addSprite(obj.name, animatedSprite);
+            scene.addSpriteAnim(obj.name, animatedSprite);
           }
           break;
       }
@@ -235,7 +235,7 @@ export class AssetManager {
       } else {
         animatedSprite.play();
       }
-      scene.addSprite(newName, animatedSprite);
+      scene.addSpriteAnim(newName, animatedSprite);
     }
   }
 
@@ -256,7 +256,7 @@ export class AssetManager {
       this.setValue(sprite.scale.y, obj.sy, 1);
       this.setValue(sprite.anchor.x, obj.ax, 0.5);
       this.setValue(sprite.anchor.y, obj.ay, 0.5);
-      scene.addSprite(newName, sprite);
+      scene.addSpriteAnim(newName, sprite);
     }
   }
 }

@@ -60,7 +60,7 @@ var ProjectileManager = /** @class */ (function () {
                 rotationAmount: projectileInfo.rotationAmount || 0
             });
             animatedSprite.cacheAsBitmap = projectileInfo.cacheFrame;
-            this.scene.addSprite(Utils_1.Utils.createID(), animatedSprite);
+            this.scene.addSpriteAnim(Utils_1.Utils.createID(), animatedSprite);
         }
         if (animatedSprite) {
             animatedSprite.visible = true;

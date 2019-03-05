@@ -100,7 +100,7 @@ export class ProjectileManager {
         rotationAmount: projectileInfo.rotationAmount || 0
       });
       animatedSprite.cacheAsBitmap = projectileInfo.cacheFrame;
-      this.scene.addSprite(Utils.createID(), animatedSprite);
+      this.scene.addSpriteAnim(Utils.createID(), animatedSprite);
     }
     if (animatedSprite) {
       animatedSprite.visible = true;
