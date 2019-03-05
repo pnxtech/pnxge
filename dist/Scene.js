@@ -195,13 +195,13 @@ var Scene = /** @class */ (function () {
         configurable: true
     });
     /**
-     * @name forEachSprite
+     * @name forEachSpriteAnim
      * @description enumerate sprites
      * @param {ISpriteCallback} callback - called for each sprite
      * @param {ISpriteDoneCallback} done - called when done
      * @return {void}
      */
-    Scene.prototype.forEachSprite = function (callback, done) {
+    Scene.prototype.forEachSpriteAnim = function (callback, done) {
         var _this = this;
         Object.keys(this.sprites).forEach(function (key) {
             callback(_this.sprites[key]);

@@ -150,13 +150,13 @@ export declare class Scene {
      */
     readonly height: number;
     /**
-     * @name forEachSprite
+     * @name forEachSpriteAnim
      * @description enumerate sprites
      * @param {ISpriteCallback} callback - called for each sprite
      * @param {ISpriteDoneCallback} done - called when done
      * @return {void}
      */
-    forEachSprite(callback: ISpriteCallback, done: ISpriteDoneCallback): void;
+    forEachSpriteAnim(callback: ISpriteCallback, done: ISpriteDoneCallback): void;
     /**
      * @name update
      * @description update the scene
