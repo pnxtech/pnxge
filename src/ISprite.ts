@@ -38,7 +38,7 @@ export interface ISprite{
   update(deltaTime: number): void;
   onCollision(sprite: ISprite): void;
   clearCollision(): void;
-  // gotoAndStop?: (frame: number) => void;
-  // play?: () => void;
+  gotoAndStop?: (frame: number) => void;
+  play?: () => void;
   destroy(): void;
 };
