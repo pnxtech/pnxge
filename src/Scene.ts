@@ -214,13 +214,13 @@ export class Scene {
   }
 
   /**
-   * @name forEachSprite
+   * @name forEachSpriteAnim
    * @description enumerate sprites
    * @param {ISpriteCallback} callback - called for each sprite
    * @param {ISpriteDoneCallback} done - called when done
    * @return {void}
    */
-  public forEachSprite(callback: ISpriteCallback, done: ISpriteDoneCallback): void {
+  public forEachSpriteAnim(callback: ISpriteCallback, done: ISpriteDoneCallback): void {
     Object.keys(this.sprites).forEach((key) => {
       callback(this.sprites[key]);
     });
