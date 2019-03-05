@@ -17,6 +17,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PI = Math.PI;
+exports.HalfPI = Math.PI * 0.5;
 /**
  * @name pcap
  * @description precision cap - reduces number precision to avoid rounding errors
@@ -43,7 +45,7 @@ var Angle = /** @class */ (function () {
      * @return {number} radian
      */
     Angle.d2r = function (degree) {
-        return degree * Math.PI / 180.0;
+        return degree * exports.PI / 180.0;
     };
     /**
      * @name r2d
@@ -52,7 +54,7 @@ var Angle = /** @class */ (function () {
      * @return {number} degree
      */
     Angle.r2d = function (radians) {
-        return radians * (180.0 / Math.PI);
+        return radians * (180.0 / exports.PI);
     };
     /**
      * @name vectorAngleFromDegrees
@@ -89,7 +91,7 @@ var Angle = /** @class */ (function () {
      * @return {number} random angle
      */
     Angle.randomAngle = function () {
-        return Random.getRandomInclusive(0, Math.PI);
+        return Random.getRandomInclusive(0, exports.PI);
     };
     /**
      * @name randomAngleTop
@@ -97,7 +99,7 @@ var Angle = /** @class */ (function () {
      * @return {number} random angle
      */
     Angle.randomAngleTop = function () {
-        return Random.getRandomInclusive(0, Math.PI) + this.HalfPI;
+        return Random.getRandomInclusive(0, exports.PI) + exports.HalfPI;
     };
     /**
      * @name randomAngleBottom
@@ -105,9 +107,8 @@ var Angle = /** @class */ (function () {
      * @return {number} random angle
      */
     Angle.randomAngleBottom = function () {
-        return Random.getRandomInclusive(0, Math.PI) - this.HalfPI;
+        return Random.getRandomInclusive(0, exports.PI) - exports.HalfPI;
     };
-    Angle.HalfPI = Math.PI * 0.5;
     return Angle;
 }());
 exports.Angle = Angle;

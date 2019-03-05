@@ -1,4 +1,4 @@
-import {SpriteAnim, ISprite} from './ISprite';
+import {SpriteAnim} from './ISprite';
 import {Scene} from './Scene';
 import {PathElement} from './Path';
 

@@ -20,7 +20,7 @@ export class Utils {
    */
   static zeroPad(num: number, size: number): string {
     let s = '000000000' + num;
-    return s.substr(s.length-size);
+    return s.substr(s.length - size);
   }
 
   /**

@@ -3,6 +3,9 @@
  * @description math library: a collection of math related classes
  */
 
+export const PI: number = Math.PI;
+export const HalfPI: number = Math.PI * 0.5;
+
 /**
  * @name pcap
  * @description precision cap - reduces number precision to avoid rounding errors
@@ -20,8 +23,6 @@ export function pcap(value: number | string): number {
  * @description Angle functions
  */
 export class Angle {
-  static HalfPI: number = Math.PI * 0.5;
-
   /**
    * @name d2r
    * @description degrees to radians
@@ -29,7 +30,7 @@ export class Angle {
    * @return {number} radian
    */
   static d2r(degree: number): number {
-    return degree * Math.PI / 180.0;
+    return degree * PI / 180.0;
   }
 
   /**
@@ -39,7 +40,7 @@ export class Angle {
    * @return {number} degree
    */
   static r2d(radians: number): number {
-    return radians * (180.0 / Math.PI);
+    return radians * (180.0 / PI);
   }
 
   /**
@@ -80,7 +81,7 @@ export class Angle {
    * @return {number} random angle
    */
   static randomAngle(): number {
-    return Random.getRandomInclusive(0, Math.PI);
+    return Random.getRandomInclusive(0, PI);
   }
 
   /**
@@ -89,7 +90,7 @@ export class Angle {
    * @return {number} random angle
    */
   static randomAngleTop(): number {
-    return Random.getRandomInclusive(0, Math.PI) + this.HalfPI;
+    return Random.getRandomInclusive(0, PI) + HalfPI;
   }
 
   /**
@@ -98,7 +99,7 @@ export class Angle {
    * @return {number} random angle
    */
   static randomAngleBottom(): number {
-    return Random.getRandomInclusive(0, Math.PI) - this.HalfPI;
+    return Random.getRandomInclusive(0, PI) - HalfPI;
   }
 }
 

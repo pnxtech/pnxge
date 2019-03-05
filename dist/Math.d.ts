@@ -2,6 +2,8 @@
  * @name Math
  * @description math library: a collection of math related classes
  */
+export declare const PI: number;
+export declare const HalfPI: number;
 /**
  * @name pcap
  * @description precision cap - reduces number precision to avoid rounding errors
@@ -15,7 +17,6 @@ export declare function pcap(value: number | string): number;
  * @description Angle functions
  */
 export declare class Angle {
-    static HalfPI: number;
     /**
      * @name d2r
      * @description degrees to radians
