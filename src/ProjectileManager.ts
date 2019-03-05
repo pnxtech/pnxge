@@ -1,7 +1,5 @@
-import {ISprite} from './ISprite';
-import {Sprite} from './Sprite';
+import {SpriteAnim, ISprite} from './ISprite';
 import {AnimatedSprite} from './AnimatedSprite';
-import {TextSprite} from './TextSprite';
 import {Scene} from "./Scene";
 import {Attribs} from './Attribs';
 import {Utils} from './Utils';
@@ -38,7 +36,7 @@ interface IProjectileObject {
   vy: number
 };
 
-export interface ICollisionResolutionCallback { (projectileSprite: Sprite | AnimatedSprite | TextSprite | undefined, collisionSprite: Sprite | AnimatedSprite | TextSprite | undefined): boolean };
+export interface ICollisionResolutionCallback { (projectileSprite: SpriteAnim | undefined, collisionSprite: SpriteAnim | undefined): boolean };
 
 /**
  * @name ProjectileManager

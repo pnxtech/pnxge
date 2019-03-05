@@ -64,7 +64,7 @@ var Controller = /** @class */ (function () {
     /**
      * @name hitBy
      * @description handle when this anim controller is hit by an anim
-     * @param {Sprite | AnimatedSprite | TextSprite | undefined} sprite - what hit this controller
+     * @param {SpriteAnim | undefined} sprite - what hit this controller
      * @return {void}
      */
     Controller.prototype.hitBy = function (sprite) {

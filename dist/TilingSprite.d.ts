@@ -1,8 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { ISprite } from './ISprite';
-import { Sprite } from './Sprite';
-import { AnimatedSprite } from './AnimatedSprite';
-import { TextSprite } from './TextSprite';
+import { SpriteAnim, ISprite } from './ISprite';
 import { Controller } from './Controller';
 import { Scene } from './Scene';
 import { EventManager } from './EventManager';
@@ -23,7 +20,7 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite implements IS
     health: number;
     strength: number;
     collisionDetection: boolean;
-    collisionWith: Sprite | AnimatedSprite | TextSprite | undefined;
+    collisionWith: SpriteAnim | undefined;
     attribs: Attribs;
     scene: Scene;
     controller: Controller | undefined;
@@ -45,10 +42,10 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite implements IS
     /**
      * @name onCollision
      * @description trigged when this anim collides with another anim
-     * @param {Sprite | AnimatedSprite | TextSprite | undefined} sprite - anim with which collision has occured
+     * @param {SpriteAnim | undefined} sprite - anim with which collision has occured
      * @return {void}
      */
-    onCollision(sprite: Sprite | AnimatedSprite | TextSprite | undefined): void;
+    onCollision(sprite: SpriteAnim | undefined): void;
     /**
      * @name clearCollision
      * @description clear collision event

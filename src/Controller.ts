@@ -1,9 +1,6 @@
-import {ISprite} from './ISprite';
+import {SpriteAnim, ISprite} from './ISprite';
 import {Scene} from './Scene';
 import {PathElement} from './Path';
-import {Sprite} from './Sprite';
-import {AnimatedSprite} from './AnimatedSprite';
-import {TextSprite} from './TextSprite';
 
 /**
  * @name Controller
@@ -11,7 +8,7 @@ import {TextSprite} from './TextSprite';
  */
 export class Controller {
   //#region variables
-  protected sprite: Sprite | AnimatedSprite | TextSprite | undefined;
+  protected sprite: SpriteAnim | undefined;
   private isActive: boolean = true;
   private pathCache: any = {};
   private currentPath: string = '';
@@ -73,10 +70,10 @@ export class Controller {
   /**
    * @name hitBy
    * @description handle when this anim controller is hit by an anim
-   * @param {Sprite | AnimatedSprite | TextSprite | undefined} sprite - what hit this controller
+   * @param {SpriteAnim | undefined} sprite - what hit this controller
    * @return {void}
    */
-  public hitBy(sprite: Sprite | AnimatedSprite | TextSprite | undefined): void {
+  public hitBy(sprite: SpriteAnim | undefined): void {
   }
 
   /**

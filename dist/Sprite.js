@@ -95,7 +95,7 @@ var Sprite = /** @class */ (function (_super) {
     /**
      * @name onCollision
      * @description trigged when this anim collides with another anim
-     * @param {Sprite | AnimatedSprite | TextSprite | undefined} sprite - anim with which collision has occured
+     * @param {SpriteAnim | undefined} sprite - anim with which collision has occured
      * @return {void}
      */
     Sprite.prototype.onCollision = function (sprite) {

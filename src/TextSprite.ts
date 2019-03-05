@@ -1,8 +1,6 @@
 import * as PIXI from 'pixi.js';
 import {Scene} from './Scene';
-import {ISprite} from './ISprite';
-import {Sprite} from './Sprite';
-import {AnimatedSprite} from './AnimatedSprite';
+import {SpriteAnim, ISprite} from './ISprite';
 import {Controller} from './Controller';
 import {EventManager} from './EventManager';
 import {Utils} from './Utils';
@@ -26,7 +24,7 @@ export class TextSprite extends PIXI.extras.BitmapText implements ISprite {
   public health: number;
   public strength: number;
   public collisionDetection: boolean;
-  public collisionWith: Sprite | AnimatedSprite | TextSprite | undefined;
+  public collisionWith: SpriteAnim | undefined;
   public attribs: Attribs;
   public scene: Scene;
   public controller: Controller | undefined;
@@ -96,10 +94,10 @@ export class TextSprite extends PIXI.extras.BitmapText implements ISprite {
   /**
    * @name onCollision
    * @description trigged when this anim collides with another anim
-   * @param {Sprite | AnimatedSprite | TextSprite | undefined} sprite - anim with which collision has occured
+   * @param {SpriteAnim | undefined} sprite - anim with which collision has occured
    * @return {void}
    */
-  public onCollision(sprite: Sprite | AnimatedSprite | TextSprite | undefined): void {
+  public onCollision(sprite: SpriteAnim | undefined): void {
     this.collisionWith = sprite;
     // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
     this.controller && (this.controller.hitBy(sprite));
