@@ -1,9 +1,6 @@
 import * as PIXI from 'pixi.js';
 import {Application} from './Application';
-import {ISprite} from './ISprite';
-import {Sprite} from './Sprite';
-import {AnimatedSprite} from './AnimatedSprite';
-import {TextSprite} from './TextSprite';
+import {SpriteAnim, ISprite} from './ISprite';
 import {ProjectileManager} from './ProjectileManager';
 import {SoundManager} from './SoundManager';
 import {pcap, Rect} from './Math';
@@ -11,9 +8,8 @@ import {Benchmark} from './Benchmark';
 import {State} from './State';
 import {IRecorderHash} from './Recorder';
 
-
-interface ISpriteHash { [key: string]: Sprite | AnimatedSprite | TextSprite };
-interface ISpriteCallback { (sprite: Sprite | AnimatedSprite | TextSprite): void };
+interface ISpriteHash { [key: string]: SpriteAnim };
+interface ISpriteCallback { (sprite: SpriteAnim): void };
 interface ISpriteDoneCallback { (): void };
 
 /**
@@ -167,19 +163,19 @@ export class Scene {
    * @name addSprite
    * @description add a sprite to the scene
    * @param {string} name - name of sprite
-   * @param {Sprite | AnimatedSprite | TextSprite} sprite - sprite object
+   * @param {SpriteAnim} sprite - sprite object
    * @return {void}
    */
-  public addSprite(name: string, sprite: Sprite | AnimatedSprite | TextSprite): void {
+  public addSprite(name: string, sprite: SpriteAnim): void {
     this.sprites[name] = sprite;
   }
 
   /**
    * @name getSprite
    * @description get sprite by name
-   * @return {Sprite | AnimatedSprite | TextSprite | undefined} sprite
+   * @return {SpriteAnim | undefined} sprite
    */
-  public getSprite(name: string): Sprite | AnimatedSprite | TextSprite | undefined {
+  public getSprite(name: string): SpriteAnim | undefined {
     return this.sprites[name];
   }
 
