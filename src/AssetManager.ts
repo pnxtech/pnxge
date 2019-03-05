@@ -197,7 +197,11 @@ export class AssetManager {
             this.setValue(animatedSprite.anchor.x, obj.ax, 0.5);
             this.setValue(animatedSprite.anchor.y, obj.ay, 0.5);
             this.setValue(animatedSprite.loop, obj.loop, false);
-            animatedSprite.play();
+            if (obj.frame !== undefined) {
+              animatedSprite.gotoAndPlay(obj.frame);
+            } else {
+              animatedSprite.play();
+            }
             scene.addSprite(obj.name, animatedSprite);
           }
           break;
@@ -226,7 +230,11 @@ export class AssetManager {
       this.setValue(animatedSprite.anchor.x, obj.ax, 0.5);
       this.setValue(animatedSprite.anchor.y, obj.ay, 0.5);
       this.setValue(animatedSprite.loop, obj.loop, false);
-      animatedSprite.play();
+      if (obj.frame !== undefined) {
+        animatedSprite.gotoAndPlay(obj.frame);
+      } else {
+        animatedSprite.play();
+      }
       scene.addSprite(newName, animatedSprite);
     }
   }

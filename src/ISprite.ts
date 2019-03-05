@@ -32,10 +32,13 @@ export interface ISprite{
   animationSpeed?: number;
   scene: Scene;
   controller: Controller | undefined;
+  text?: string;
   attachController(controller: Controller): void;
   attachTouchHandler(name: string, eventManager: EventManager): void;
   update(deltaTime: number): void;
   onCollision(sprite: ISprite): void;
   clearCollision(): void;
+  gotoAndStop?: (frame: number) => void;
+  play?: () => void;
   destroy(): void;
 };
