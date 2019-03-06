@@ -113,9 +113,11 @@ export class AssetManager {
    */
   protected setValues(target: any, source: any): void {
     target.attribs.add(source.type);
-    this.setValue(target.x, source.x);
-    this.setValue(target.y, source.y);
-    this.setValue(target.z, source.z, 0);
+
+    target.x = (source.x !== undefined) ? source.x : 0;
+    target.y = (source.y !== undefined) ? source.y : 0;
+    target.z = (source.z !== undefined) ? source.z : 0;
+
     this.setValue(target.dx, source.dx, 0);
     this.setValue(target.dy, source.dy, 0);
     this.setValue(target.vx, source.vx, 0);
