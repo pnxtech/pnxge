@@ -109,7 +109,7 @@ export class AssetManager {
     target.health = (source.health !== undefined) ? source.health : 100;
     target.strength = (source.strength !== undefined) ? source.strength : 0;
     target.collisionDetection = (source.collisionDetection !== undefined) ? source.collisionDetection : false;
-    target.alpha = (source.alpha !== undefined) ? source.alpha : false;
+    (source.alpha !== undefined) && (target.alpha = source.alpha);
     (source.tint !== undefined) && (target.tint = parseInt(source.tint, 16));
     if (source.rotation) {
       if (source.rotation === 'random') {
