@@ -198,7 +198,7 @@ var AssetManager = /** @class */ (function () {
         var count = (obj.count) ? obj.count : 1;
         for (var i = 0; i < count; i++) {
             var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
-            var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
+            var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources, true);
             this.setValues(animatedSprite, obj);
             animatedSprite.animationSpeed = (obj.animationSpeed !== undefined) ? obj.animationSpeed : 1;
             animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
