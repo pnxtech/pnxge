@@ -295,9 +295,9 @@ export class Scene {
       this.collisionRect1.width = obj1.width;
       this.collisionRect1.height = obj1.height;
       for (let obj2 of objectList) {
-        // if (obj1.subType === obj2.subType) {
-        //   continue;
-        // }
+        if (obj1.subType === obj2.subType) {
+          continue;
+        }
         if (obj1.id !== obj2.id) {
           if (!obj2.collisionDetection || !obj2.visible) {
             continue;
@@ -307,11 +307,8 @@ export class Scene {
           this.collisionRect2.width = obj2.width;
           this.collisionRect2.height = obj2.height;
           if (this.collisionRect1.intersect(this.collisionRect2)) {
-            console.log('collision!');
-            obj1.visible = false;
-            obj2.visible = false;
-            // obj1.onCollision(obj2);
-            // obj2.onCollision(obj1);
+            obj1.onCollision(obj2);
+            obj2.onCollision(obj1);
           }
         }
       }
