@@ -170,7 +170,7 @@ export class AssetManager {
           }
           break;
         case 'ground': {
-            let animatedSprite = new AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources, true);
+            let animatedSprite = new AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources, false);
             animatedSprite.attribs.add(obj.type);
             this.setValues(animatedSprite, obj);
             animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
@@ -199,7 +199,7 @@ export class AssetManager {
     let count = (obj.count) ? obj.count : 1;
     for (let i = 0; i < count; i++) {
       let newName = (count === 1) ? `${obj.name}` : `${obj.name}${i}`;
-      let animatedSprite = new AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources, true);
+      let animatedSprite = new AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources, false);
       this.setValues(animatedSprite, obj);
       animatedSprite.animationSpeed = (obj.animationSpeed !== undefined) ? obj.animationSpeed : 1;
       animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
