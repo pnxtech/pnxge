@@ -199,6 +199,7 @@ export class AssetManager {
       let newName = (count === 1) ? `${obj.name}` : `${obj.name}${i}`;
       let animatedSprite = new AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
       this.setValues(animatedSprite, obj);
+      animatedSprite.animationSpeed = (obj.animationSpeed !== undefined) ? obj.animationSpeed : 1;
       animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
       animatedSprite.scale.y = (obj.sy !== undefined) ? obj.sy : 1;
       animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
