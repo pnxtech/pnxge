@@ -34,15 +34,6 @@ export declare class AssetManager {
      */
     getSoundEngine(): SoundManager | undefined;
     /**
-     * @name setValue
-     * @description set the value of a field accounting for undefined and default value
-     * @param {any} item - item to set
-     * @param {any} value - value to set to
-     * @param {any} defaultValue - default value
-     * @return {void}
-     */
-    protected setValue(item: any, value: any, defaultValue?: any): void;
-    /**
      * @name setValues
      * @description set multiple values on target object
      * @param {any} target - target object

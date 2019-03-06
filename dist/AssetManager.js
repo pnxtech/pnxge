@@ -88,23 +88,6 @@ var AssetManager = /** @class */ (function () {
         return undefined;
     };
     /**
-     * @name setValue
-     * @description set the value of a field accounting for undefined and default value
-     * @param {any} item - item to set
-     * @param {any} value - value to set to
-     * @param {any} defaultValue - default value
-     * @return {void}
-     */
-    AssetManager.prototype.setValue = function (item, value, defaultValue) {
-        if (defaultValue === void 0) { defaultValue = undefined; }
-        if (value !== undefined) {
-            item = value;
-        }
-        else if (defaultValue !== undefined) {
-            item = defaultValue;
-        }
-    };
-    /**
      * @name setValues
      * @description set multiple values on target object
      * @param {any} target - target object
@@ -116,22 +99,17 @@ var AssetManager = /** @class */ (function () {
         target.x = (source.x !== undefined) ? source.x : 0;
         target.y = (source.y !== undefined) ? source.y : 0;
         target.z = (source.z !== undefined) ? source.z : 0;
-        this.setValue(target.dx, source.dx, 0);
-        this.setValue(target.dy, source.dy, 0);
-        this.setValue(target.vx, source.vx, 0);
-        this.setValue(target.vy, source.vy, 0);
-        this.setValue(target.subType, source.subType);
-        this.setValue(target.visible, source.visible, true);
-        this.setValue(target.visible, source.visible, true);
-        this.setValue(target.health, source.health, 100);
-        this.setValue(target.visible, source.visible, true);
-        this.setValue(target.strength, source.strength, 0);
-        this.setValue(target.visible, source.visible, true);
-        this.setValue(target.collisionDetection, source.collisionDetection, false);
-        this.setValue(target.alpha, source.alpha);
-        if (source.tint) {
-            target.tint = parseInt(source.tint, 16);
-        }
+        target.dx = (source.dx !== undefined) ? source.dx : 0;
+        target.dy = (source.dy !== undefined) ? source.dy : 0;
+        target.vx = (source.vx !== undefined) ? source.vx : 0;
+        target.vy = (source.vy !== undefined) ? source.vy : 0;
+        (source.subType !== undefined) && (target.subType = source.subType);
+        target.visible = (source.visible !== undefined) ? source.visible : true;
+        target.health = (source.health !== undefined) ? source.health : 100;
+        target.strength = (source.strength !== undefined) ? source.strength : 0;
+        target.collisionDetection = (source.collisionDetection !== undefined) ? source.collisionDetection : false;
+        target.alpha = (source.alpha !== undefined) ? source.alpha : false;
+        (source.tint !== undefined) && (target.tint = parseInt(source.tint, 16));
         if (source.rotation) {
             if (source.rotation === 'random') {
                 target.rotation = Math_1.Angle.randomAngle();
@@ -197,15 +175,10 @@ var AssetManager = /** @class */ (function () {
                         var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
                         animatedSprite.attribs.add(obj.type);
                         this.setValues(animatedSprite, obj);
-                        this.setValue(animatedSprite.anchor.x, obj.ax, 0.5);
-                        this.setValue(animatedSprite.anchor.y, obj.ay, 0.5);
-                        this.setValue(animatedSprite.loop, obj.loop, false);
-                        if (obj.frame !== undefined) {
-                            animatedSprite.gotoAndPlay(obj.frame);
-                        }
-                        else {
-                            animatedSprite.play();
-                        }
+                        animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
+                        animatedSprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
+                        animatedSprite.loop = (obj.loop !== undefined) ? obj.loop : false;
+                        (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.play();
                         scene.addSpriteAnim(obj.name, animatedSprite);
                     }
                     break;
@@ -226,13 +199,13 @@ var AssetManager = /** @class */ (function () {
         for (var i = 0; i < count; i++) {
             var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
             var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
-            animatedSprite.attribs.add(obj.type);
             this.setValues(animatedSprite, obj);
-            this.setValue(animatedSprite.scale.x, obj.sx, 1);
-            this.setValue(animatedSprite.scale.y, obj.sy, 1);
-            this.setValue(animatedSprite.anchor.x, obj.ax, 0.5);
-            this.setValue(animatedSprite.anchor.y, obj.ay, 0.5);
-            this.setValue(animatedSprite.loop, obj.loop, false);
+            animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
+            animatedSprite.scale.y = (obj.sy !== undefined) ? obj.sy : 1;
+            animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
+            animatedSprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
+            animatedSprite.loop = (obj.loop !== undefined) ? obj.loop : false;
+            (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.play();
             if (obj.frame !== undefined) {
                 animatedSprite.gotoAndPlay(obj.frame);
             }
@@ -255,10 +228,10 @@ var AssetManager = /** @class */ (function () {
             var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
             var sprite = new Sprite_1.Sprite(scene, obj.name, this.resources[obj.atlas]);
             this.setValues(sprite, obj);
-            this.setValue(sprite.scale.x, obj.sx, 1);
-            this.setValue(sprite.scale.y, obj.sy, 1);
-            this.setValue(sprite.anchor.x, obj.ax, 0.5);
-            this.setValue(sprite.anchor.y, obj.ay, 0.5);
+            sprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
+            sprite.scale.y = (obj.sy !== undefined) ? obj.sy : 1;
+            sprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
+            sprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
             scene.addSpriteAnim(newName, sprite);
         }
     };
