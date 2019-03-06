@@ -28,7 +28,7 @@ export declare class AnimatedSprite extends PIXI.extras.AnimatedSprite implement
      * @name constructor
      * @description binds Anim to Scene
      */
-    constructor(scene: Scene, sequenceName: string, atlas: string, resources: any, autoUpdate?: boolean | undefined);
+    constructor(scene: Scene, sequenceName: string, atlas: string, resources: any);
     /**
      * @name attachController
      * @description attach a Controller

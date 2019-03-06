@@ -35,8 +35,8 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
    * @name constructor
    * @description binds Anim to Scene
    */
-  constructor(scene: Scene, sequenceName: string, atlas: string, resources: any, autoUpdate?: boolean | undefined) {
-    super(resources[atlas].spritesheet.animations[sequenceName], autoUpdate);
+  constructor(scene: Scene, sequenceName: string, atlas: string, resources: any) {
+    super(resources[atlas].spritesheet.animations[sequenceName]);
 
     this.subType = '';
     this.id = Utils.createID();

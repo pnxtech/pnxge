@@ -35,8 +35,8 @@ var AnimatedSprite = /** @class */ (function (_super) {
      * @name constructor
      * @description binds Anim to Scene
      */
-    function AnimatedSprite(scene, sequenceName, atlas, resources, autoUpdate) {
-        var _this = _super.call(this, resources[atlas].spritesheet.animations[sequenceName], autoUpdate) || this;
+    function AnimatedSprite(scene, sequenceName, atlas, resources) {
+        var _this = _super.call(this, resources[atlas].spritesheet.animations[sequenceName]) || this;
         _this.subType = '';
         _this.id = Utils_1.Utils.createID();
         _this.dx = 0;
