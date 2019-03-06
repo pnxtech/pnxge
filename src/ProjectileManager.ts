@@ -1,4 +1,4 @@
-import {SpriteAnim, ISprite} from './ISprite';
+import {SpriteAnim} from './ISprite';
 import {AnimatedSprite} from './AnimatedSprite';
 import {Scene} from "./Scene";
 import {Attribs} from './Attribs';
@@ -122,7 +122,7 @@ export class ProjectileManager {
       if (projectileInfo.frame !== undefined) {
         animatedSprite.gotoAndStop(projectileInfo.frame);
       } else {
-        animatedSprite.play();
+        animatedSprite.gotoAndPlay(0);
       }
     }
   }

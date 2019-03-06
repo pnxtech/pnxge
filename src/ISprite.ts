@@ -40,7 +40,5 @@ export interface ISprite{
   update(deltaTime: number): void;
   onCollision(sprite: SpriteAnim | undefined): void;
   clearCollision(): void;
-  gotoAndStop?: (frame: number) => void;
-  play?: () => void;
   destroy(): void;
 };

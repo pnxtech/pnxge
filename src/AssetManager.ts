@@ -170,13 +170,15 @@ export class AssetManager {
           }
           break;
         case 'ground': {
-            let animatedSprite = new AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
+            let animatedSprite = new AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources, true);
             animatedSprite.attribs.add(obj.type);
             this.setValues(animatedSprite, obj);
+            animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
+            animatedSprite.scale.y = (obj.sy !== undefined) ? obj.sy : 1;
             animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
             animatedSprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
             animatedSprite.loop = (obj.loop !== undefined) ? obj.loop : false;
-            (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.play();
+            (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.gotoAndPlay(0);
             scene.addSpriteAnim(obj.name, animatedSprite);
           }
           break;
@@ -205,7 +207,7 @@ export class AssetManager {
       animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
       animatedSprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
       animatedSprite.loop = (obj.loop !== undefined) ? obj.loop : false;
-      (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.play();
+      (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.gotoAndPlay(0);
       scene.addSpriteAnim(newName, animatedSprite);
     }
   }
