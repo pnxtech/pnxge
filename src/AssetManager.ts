@@ -206,11 +206,6 @@ export class AssetManager {
       animatedSprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
       animatedSprite.loop = (obj.loop !== undefined) ? obj.loop : false;
       (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.play();
-      if (obj.frame !== undefined) {
-        animatedSprite.gotoAndPlay(obj.frame);
-      } else {
-        animatedSprite.play();
-      }
       scene.addSpriteAnim(newName, animatedSprite);
     }
   }
