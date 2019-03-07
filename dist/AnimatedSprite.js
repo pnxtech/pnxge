@@ -47,6 +47,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
         _this.health = 0;
         _this.strength = 0;
         _this.collisionDetection = false;
+        _this.loop = false;
         _this.collisionWith = undefined;
         _this.animationSpeed = 1;
         _this.attribs = new Attribs_1.Attribs();

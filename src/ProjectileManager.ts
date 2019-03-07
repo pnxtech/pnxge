@@ -21,6 +21,7 @@ interface IProjectileObject {
   attribs: Attribs,
   strength: number,
   frame?: number,
+  loop?: boolean,
   cacheFrame: boolean,
   rotation: number,
   rotationType?: string, // cw, ccw
@@ -114,6 +115,7 @@ export class ProjectileManager {
       animatedSprite.dy = projectileInfo.dy;
       animatedSprite.vx = projectileInfo.vx;
       animatedSprite.vy = projectileInfo.vy;
+      animatedSprite.loop = (projectileInfo.loop !== undefined) ? projectileInfo.loop : false;
       animatedSprite.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
       animatedSprite.rotation = projectileInfo.rotation;
       animatedSprite.scale.x = projectileInfo.scale;

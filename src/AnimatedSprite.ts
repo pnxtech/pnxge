@@ -48,6 +48,7 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
     this.health = 0;
     this.strength = 0;
     this.collisionDetection = false;
+    this.loop = false;
     this.collisionWith = undefined;
     this.animationSpeed = 1;
     this.attribs = new Attribs();
