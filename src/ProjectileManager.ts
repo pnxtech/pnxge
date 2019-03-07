@@ -122,7 +122,7 @@ export class ProjectileManager {
       if (projectileInfo.frame !== undefined) {
         animatedSprite.gotoAndStop(projectileInfo.frame);
       } else {
-        animatedSprite.gotoAndPlay(0);
+        animatedSprite.play();
       }
     }
   }
