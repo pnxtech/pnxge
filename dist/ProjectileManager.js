@@ -83,7 +83,7 @@ var ProjectileManager = /** @class */ (function () {
                 animatedSprite.gotoAndStop(projectileInfo.frame);
             }
             else {
-                animatedSprite.play();
+                animatedSprite.gotoAndPlay(0);
             }
         }
     };

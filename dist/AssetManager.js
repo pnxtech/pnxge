@@ -181,7 +181,7 @@ var AssetManager = /** @class */ (function () {
                         animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
                         animatedSprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
                         animatedSprite.loop = (obj.loop !== undefined) ? obj.loop : false;
-                        (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.play();
+                        (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.gotoAndPlay(0);
                         scene.addSpriteAnim(obj.name, animatedSprite);
                     }
                     break;
@@ -210,7 +210,7 @@ var AssetManager = /** @class */ (function () {
             animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
             animatedSprite.anchor.y = (obj.ay !== undefined) ? obj.ay : 0.5;
             animatedSprite.loop = (obj.loop !== undefined) ? obj.loop : false;
-            (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.play();
+            (obj.frame !== undefined) ? animatedSprite.gotoAndStop(obj.frame) : animatedSprite.gotoAndPlay(0);
             scene.addSpriteAnim(newName, animatedSprite);
         }
     };
