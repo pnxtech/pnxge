@@ -4,6 +4,7 @@ import {Utils} from './Utils';
 import {State} from './State';
 
 PIXI.utils.skipHello();
+PIXI.ticker.shared.autoStart = true;
 
 /**
  * @name Application

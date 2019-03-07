@@ -25,6 +25,7 @@ var EventManager_1 = require("./EventManager");
 var Utils_1 = require("./Utils");
 var State_1 = require("./State");
 PIXI.utils.skipHello();
+PIXI.ticker.shared.autoStart = true;
 /**
  * @name Application
  * @description  Application - top level game object
