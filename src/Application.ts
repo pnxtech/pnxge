@@ -44,7 +44,7 @@ export class Application extends PIXI.Application {
     this.appWidth = width;
     this.appHeight = height;
 
-    // PIXI.ticker.shared.autoStart = false;
+    PIXI.ticker.shared.autoStart = false;
     this.ticker.add((deltaTime) => {
       this.update(deltaTime);
     });
