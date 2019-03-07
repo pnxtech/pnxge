@@ -175,6 +175,7 @@ var AssetManager = /** @class */ (function () {
                         var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
                         animatedSprite.attribs.add(obj.type);
                         this.setValues(animatedSprite, obj);
+                        animatedSprite.cacheAsBitmap = (obj.cacheAsBitmap !== undefined) ? obj.cacheAsBitmap : false;
                         animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
                         animatedSprite.scale.y = (obj.sy !== undefined) ? obj.sy : 1;
                         animatedSprite.anchor.x = (obj.ax !== undefined) ? obj.ax : 0.5;
@@ -202,6 +203,7 @@ var AssetManager = /** @class */ (function () {
             var newName = (count === 1) ? "" + obj.name : "" + obj.name + i;
             var animatedSprite = new AnimatedSprite_1.AnimatedSprite(scene, obj.sequence, obj.atlas, this.resources);
             this.setValues(animatedSprite, obj);
+            animatedSprite.cacheAsBitmap = (obj.cacheAsBitmap !== undefined) ? obj.cacheAsBitmap : false;
             animatedSprite.animationSpeed = (obj.animationSpeed !== undefined) ? obj.animationSpeed : 1;
             animatedSprite.scale.x = (obj.sx !== undefined) ? obj.sx : 1;
             animatedSprite.scale.y = (obj.sy !== undefined) ? obj.sy : 1;
