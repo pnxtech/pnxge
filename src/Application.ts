@@ -4,7 +4,6 @@ import {Utils} from './Utils';
 import {State} from './State';
 
 PIXI.utils.skipHello();
-PIXI.ticker.shared.autoStart = true;
 
 /**
  * @name Application
@@ -44,6 +43,8 @@ export class Application extends PIXI.Application {
     document.body.appendChild(this.view);
     this.appWidth = width;
     this.appHeight = height;
+
+    // PIXI.ticker.shared.autoStart = false;
     this.ticker.add((deltaTime) => {
       this.update(deltaTime);
     });

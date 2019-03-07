@@ -25,7 +25,6 @@ var EventManager_1 = require("./EventManager");
 var Utils_1 = require("./Utils");
 var State_1 = require("./State");
 PIXI.utils.skipHello();
-PIXI.ticker.shared.autoStart = true;
 /**
  * @name Application
  * @description  Application - top level game object
@@ -62,6 +61,7 @@ var Application = /** @class */ (function (_super) {
         document.body.appendChild(_this.view);
         _this.appWidth = width;
         _this.appHeight = height;
+        // PIXI.ticker.shared.autoStart = false;
         _this.ticker.add(function (deltaTime) {
             _this.update(deltaTime);
         });

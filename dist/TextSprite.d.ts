@@ -48,13 +48,6 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements ISprit
      */
     attachTouchHandler(name: string, eventManager: EventManager): void;
     /**
-     * @name update
-     * @description update handler
-     * @param {number} deltaTime - delta time
-     * @return {void}
-     */
-    update(deltaTime: number): void;
-    /**
      * @name onCollision
      * @description trigged when this anim collides with another anim
      * @param {SpriteAnim | undefined} sprite - anim with which collision has occured
@@ -67,6 +60,13 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements ISprit
      * @return {void}
      */
     clearCollision(): void;
+    /**
+     * @name update
+     * @description update anim position based on velocity
+     * @param {number} deltaTime - delta time offset
+     * @return {void}
+     */
+    update(deltaTime: number): void;
     /**
      * @name destroy
      * @description cleanup

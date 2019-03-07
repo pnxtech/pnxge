@@ -87,6 +87,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
      * @return {void}
      */
     AnimatedSprite.prototype.update = function (deltaTime) {
+        _super.prototype.update.call(this, deltaTime);
         if (this.controller) { // if controller then that will handle movement.
             this.controller.update(deltaTime);
         }

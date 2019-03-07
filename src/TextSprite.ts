@@ -83,15 +83,6 @@ export class TextSprite extends PIXI.extras.BitmapText implements ISprite {
   }
 
   /**
-   * @name update
-   * @description update handler
-   * @param {number} deltaTime - delta time
-   * @return {void}
-   */
-  public update(deltaTime: number): void {
-  }
-
-  /**
    * @name onCollision
    * @description trigged when this anim collides with another anim
    * @param {SpriteAnim | undefined} sprite - anim with which collision has occured
@@ -110,6 +101,17 @@ export class TextSprite extends PIXI.extras.BitmapText implements ISprite {
    */
   public clearCollision(): void {
     this.collisionWith = undefined;
+  }
+
+  /**
+   * @name update
+   * @description update anim position based on velocity
+   * @param {number} deltaTime - delta time offset
+   * @return {void}
+   */
+  public update(deltaTime: number): void {
+    this.x += this.dx * (this.vx || 1) * deltaTime;
+    this.y += this.dy * (this.vy || 1) * deltaTime;
   }
 
   /**

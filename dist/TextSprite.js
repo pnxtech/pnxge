@@ -84,14 +84,6 @@ var TextSprite = /** @class */ (function (_super) {
         });
     };
     /**
-     * @name update
-     * @description update handler
-     * @param {number} deltaTime - delta time
-     * @return {void}
-     */
-    TextSprite.prototype.update = function (deltaTime) {
-    };
-    /**
      * @name onCollision
      * @description trigged when this anim collides with another anim
      * @param {SpriteAnim | undefined} sprite - anim with which collision has occured
@@ -109,6 +101,16 @@ var TextSprite = /** @class */ (function (_super) {
      */
     TextSprite.prototype.clearCollision = function () {
         this.collisionWith = undefined;
+    };
+    /**
+     * @name update
+     * @description update anim position based on velocity
+     * @param {number} deltaTime - delta time offset
+     * @return {void}
+     */
+    TextSprite.prototype.update = function (deltaTime) {
+        this.x += this.dx * (this.vx || 1) * deltaTime;
+        this.y += this.dy * (this.vy || 1) * deltaTime;
     };
     /**
      * @name destroy
