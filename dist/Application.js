@@ -61,7 +61,7 @@ var Application = /** @class */ (function (_super) {
         document.body.appendChild(_this.view);
         _this.appWidth = width;
         _this.appHeight = height;
-        PIXI.ticker.shared.autoStart = false;
+        // PIXI.ticker.shared.autoStart = false;
         _this.ticker.add(function (deltaTime) {
             _this.update(deltaTime);
         });
