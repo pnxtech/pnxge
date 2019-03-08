@@ -25,7 +25,6 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
   public strength: number;
   public collisionDetection: boolean;
   public collisionWith: SpriteAnim | undefined;
-  public animationSpeed: number;
   public attribs: Attribs;
   public scene: Scene;
   public controller: Controller | undefined;
