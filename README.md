@@ -88,5 +88,5 @@ Requires these tools:
 
 ```
 $ npm install -g muxml-cli
-$ npm install -g json-fmt
+
 ```
