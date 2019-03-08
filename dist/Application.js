@@ -45,7 +45,8 @@ var Application = /** @class */ (function (_super) {
             height: height,
             transparent: true,
             forceFXAA: false,
-            antialias: false
+            antialias: false,
+            sharedTicker: true
         }) || this;
         //#region variables
         _this.appWidth = 0;
@@ -61,11 +62,11 @@ var Application = /** @class */ (function (_super) {
         document.body.appendChild(_this.view);
         _this.appWidth = width;
         _this.appHeight = height;
-        return _this;
         // PIXI.ticker.shared.autoStart = false;
-        // this.ticker.add((deltaTime) => {
-        //   this.update(deltaTime);
-        // });
+        _this.ticker.add(function (deltaTime) {
+            _this.update(deltaTime);
+        });
+        return _this;
     }
     Object.defineProperty(Application.prototype, "demo", {
         /**

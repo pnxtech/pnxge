@@ -36,7 +36,8 @@ export class Application extends PIXI.Application {
       height,
       transparent: true,
       forceFXAA: false,
-      antialias: false
+      antialias: false,
+      sharedTicker: true
     });
     this._state = new State();
     this.WebGL = PIXI.utils.isWebGLSupported();
@@ -45,9 +46,9 @@ export class Application extends PIXI.Application {
     this.appHeight = height;
 
     // PIXI.ticker.shared.autoStart = false;
-    // this.ticker.add((deltaTime) => {
-    //   this.update(deltaTime);
-    // });
+    this.ticker.add((deltaTime) => {
+      this.update(deltaTime);
+    });
   }
 
   /**
