@@ -1,6 +1,6 @@
 {
   "name": "@pnx/pnxge",
-  "version": "1.0.299",
+  "version": "1.0.300",
   "description": "The Phoenix Game Engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
   "homepage": "https://github.com/pnxtech/pnxge#readme",
   "dependencies": {
     "howler": "2.1.1",
-    "pixi.js": "4.8.5"
+    "pixi.js": "5.0.0-rc.2"
   },
   "devDependencies": {
     "@types/pixi.js": "4.8.6",
