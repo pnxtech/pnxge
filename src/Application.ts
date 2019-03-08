@@ -37,7 +37,7 @@ export class Application extends PIXI.Application {
       transparent: true,
       forceFXAA: false,
       antialias: false,
-      sharedTicker: true
+      autoStart: false
     });
     this._state = new State();
     this.WebGL = PIXI.utils.isWebGLSupported();

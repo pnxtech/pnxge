@@ -46,7 +46,7 @@ var Application = /** @class */ (function (_super) {
             transparent: true,
             forceFXAA: false,
             antialias: false,
-            sharedTicker: true
+            autoStart: false
         }) || this;
         //#region variables
         _this.appWidth = 0;
