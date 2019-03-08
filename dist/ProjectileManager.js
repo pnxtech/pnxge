@@ -128,6 +128,10 @@ var ProjectileManager = /** @class */ (function () {
                         (animatedSprite.y - animatedSprite.height) > this.scene.height) {
                         hide = true;
                     }
+                    if (animatedSprite.loop === true &&
+                        animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
+                        hide = true;
+                    }
                     var cwith = animatedSprite.collisionWith;
                     if (!hide && cwith && cwith.id !== animatedSprite.id) {
                         if (this.collisionResolutionHandler) {
