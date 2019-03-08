@@ -29,7 +29,7 @@ var Attribs = /** @class */ (function () {
         var _this = this;
         if (typeof attribs !== 'string') {
             attribs.forEach(function (value) {
-                if (attribs !== undefined) {
+                if (value !== undefined) {
                     _this.hash[value] = true;
                 }
             });

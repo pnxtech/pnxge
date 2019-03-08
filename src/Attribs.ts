@@ -32,7 +32,7 @@ export class Attribs {
   public add(attribs: string | string[]): void {
     if (typeof attribs !== 'string') {
       attribs.forEach((value) => {
-        if (attribs !== undefined) {
+        if (value !== undefined) {
           this.hash[value] = true;
         }
       })
