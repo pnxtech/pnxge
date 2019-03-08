@@ -178,6 +178,9 @@ export class Controller {
           this.currentPathIndex++;
         }
       }
+    } else {
+      this.sprite.x += this.sprite.dx * (this.sprite.vx || 1) * deltaTime;
+      this.sprite.y += this.sprite.dy * (this.sprite.vy || 1) * deltaTime;
     }
   }
 
