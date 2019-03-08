@@ -95,7 +95,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
             this.x += this.dx * (this.vx || 1) * deltaTime;
             this.y += this.dy * (this.vy || 1) * deltaTime;
         }
-        _super.prototype.update.call(this, deltaTime);
+        // super.update(deltaTime);
     };
     /**
      * @name onCollision

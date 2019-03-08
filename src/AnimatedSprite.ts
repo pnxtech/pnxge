@@ -95,7 +95,7 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
       this.x += this.dx * (this.vx || 1) * deltaTime;
       this.y += this.dy * (this.vy || 1) * deltaTime;
     }
-    super.update(deltaTime);
+    // super.update(deltaTime);
   }
 
   /**
