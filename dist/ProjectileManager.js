@@ -77,6 +77,8 @@ var ProjectileManager = /** @class */ (function () {
             animatedSprite.loop = (projectileInfo.loop !== undefined) ? projectileInfo.loop : false;
             animatedSprite.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
             animatedSprite.rotation = projectileInfo.rotation;
+            animatedSprite.anchor.x = 0.5;
+            animatedSprite.anchor.y = 0.5;
             animatedSprite.scale.x = projectileInfo.scale;
             animatedSprite.scale.y = projectileInfo.scale;
             animatedSprite.collisionDetection = projectileInfo.collisionDetection;
@@ -96,57 +98,57 @@ var ProjectileManager = /** @class */ (function () {
      */
     ProjectileManager.prototype.update = function (deltaTime) {
         for (var i = 0; i < this.projectiles.length; i++) {
-            if (this.projectiles[i].active) {
-                var animatedSprite = this.projectiles[i].animatedSprite;
-                if (animatedSprite) {
-                    if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
-                        var rotAmount = 0;
-                        var rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
-                        switch (this.projectiles[i].rotationType) {
-                            case 'cw':
-                                rotAmount = animatedSprite.rotation;
-                                rotAmount += rotSpeedAmount;
-                                if (rotAmount > 6.28) {
-                                    rotAmount = 0;
-                                }
-                                animatedSprite.rotation = rotAmount;
-                                break;
-                            case 'ccw':
-                                rotAmount = animatedSprite.rotation;
-                                rotAmount -= rotSpeedAmount;
-                                if (rotAmount < 0) {
-                                    rotAmount = 6.28;
-                                }
-                                animatedSprite.rotation = rotAmount;
-                                break;
-                        }
+            if (this.projectiles[i].active === false) {
+                continue;
+            }
+            var animatedSprite = this.projectiles[i].animatedSprite;
+            if (animatedSprite) {
+                if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
+                    var rotAmount = 0;
+                    var rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
+                    switch (this.projectiles[i].rotationType) {
+                        case 'cw':
+                            rotAmount = animatedSprite.rotation;
+                            rotAmount += rotSpeedAmount;
+                            if (rotAmount > 6.28) {
+                                rotAmount = 0;
+                            }
+                            animatedSprite.rotation = rotAmount;
+                            break;
+                        case 'ccw':
+                            rotAmount = animatedSprite.rotation;
+                            rotAmount -= rotSpeedAmount;
+                            if (rotAmount < 0) {
+                                rotAmount = 6.28;
+                            }
+                            animatedSprite.rotation = rotAmount;
+                            break;
                     }
-                    var hide = false;
-                    if ((animatedSprite.x + animatedSprite.width) < 0 ||
-                        (animatedSprite.y + animatedSprite.height) < 0 ||
-                        (animatedSprite.x - animatedSprite.width) > this.scene.width ||
-                        (animatedSprite.y - animatedSprite.height) > this.scene.height) {
+                }
+                var hide = false;
+                if ((animatedSprite.x + animatedSprite.width) < 0 ||
+                    (animatedSprite.y + animatedSprite.height) < 0 ||
+                    (animatedSprite.x - animatedSprite.width) > this.scene.width ||
+                    (animatedSprite.y - animatedSprite.height) > this.scene.height) {
+                    hide = true;
+                }
+                if (animatedSprite.loop === true &&
+                    animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
+                    hide = true;
+                }
+                var cwith = animatedSprite.collisionWith;
+                if (!hide && cwith && cwith.id !== animatedSprite.id) {
+                    if (this.collisionResolutionHandler) {
+                        hide = this.collisionResolutionHandler(animatedSprite, cwith);
+                    }
+                    else {
                         hide = true;
                     }
-                    if (animatedSprite.loop === true &&
-                        animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
-                        hide = true;
-                    }
-                    var cwith = animatedSprite.collisionWith;
-                    if (!hide && cwith && cwith.id !== animatedSprite.id) {
-                        if (this.collisionResolutionHandler) {
-                            hide = this.collisionResolutionHandler(animatedSprite, cwith);
-                        }
-                        else {
-                            hide = true;
-                        }
-                    }
-                    if (hide) {
-                        this.projectiles[i].active = false;
-                        animatedSprite.visible = false;
-                        // anim.clearCollision();
-                        // anim.reset();
-                    }
+                }
+                if (hide) {
+                    this.projectiles[i].active = false;
+                    animatedSprite.visible = false;
+                    animatedSprite.clearCollision();
                 }
             }
         }

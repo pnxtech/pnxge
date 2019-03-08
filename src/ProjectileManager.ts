@@ -118,6 +118,8 @@ export class ProjectileManager {
       animatedSprite.loop = (projectileInfo.loop !== undefined) ? projectileInfo.loop : false;
       animatedSprite.animationSpeed = (projectileInfo.animSpeed) ? projectileInfo.animSpeed : 1;
       animatedSprite.rotation = projectileInfo.rotation;
+      animatedSprite.anchor.x = 0.5;
+      animatedSprite.anchor.y = 0.5;
       animatedSprite.scale.x = projectileInfo.scale;
       animatedSprite.scale.y = projectileInfo.scale;
       animatedSprite.collisionDetection = projectileInfo.collisionDetection;
@@ -137,56 +139,56 @@ export class ProjectileManager {
    */
   public update(deltaTime: number): void {
     for (let i = 0; i < this.projectiles.length; i++) {
-      if (this.projectiles[i].active) {
-        let animatedSprite = this.projectiles[i].animatedSprite;
-        if (animatedSprite) {
-          if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
-            let rotAmount = 0;
-            let rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
-            switch (this.projectiles[i].rotationType) {
-              case 'cw':
-                rotAmount = animatedSprite.rotation;
-                rotAmount += rotSpeedAmount;
-                if (rotAmount > 6.28) {
-                  rotAmount = 0;
-                }
-                animatedSprite.rotation = rotAmount;
-                break;
-              case 'ccw':
-                rotAmount = animatedSprite.rotation;
-                rotAmount -= rotSpeedAmount;
-                if (rotAmount < 0) {
-                  rotAmount = 6.28;
-                }
-                animatedSprite.rotation = rotAmount;
-                break;
-            }
+      if (this.projectiles[i].active === false) {
+        continue;
+      }
+      let animatedSprite = this.projectiles[i].animatedSprite;
+      if (animatedSprite) {
+        if (this.projectiles[i].rotationType && this.projectiles[i].rotationType !== '') {
+          let rotAmount = 0;
+          let rotSpeedAmount = this.projectiles[i].rotationAmount || 0.01;
+          switch (this.projectiles[i].rotationType) {
+            case 'cw':
+              rotAmount = animatedSprite.rotation;
+              rotAmount += rotSpeedAmount;
+              if (rotAmount > 6.28) {
+                rotAmount = 0;
+              }
+              animatedSprite.rotation = rotAmount;
+              break;
+            case 'ccw':
+              rotAmount = animatedSprite.rotation;
+              rotAmount -= rotSpeedAmount;
+              if (rotAmount < 0) {
+                rotAmount = 6.28;
+              }
+              animatedSprite.rotation = rotAmount;
+              break;
           }
-          let hide = false;
-          if ((animatedSprite.x + animatedSprite.width) < 0 ||
-              (animatedSprite.y + animatedSprite.height) < 0 ||
-              (animatedSprite.x - animatedSprite.width) > this.scene.width ||
-              (animatedSprite.y - animatedSprite.height) > this.scene.height) {
-              hide = true;
-          }
-          if (animatedSprite.loop === true &&
-              animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
+        }
+        let hide = false;
+        if ((animatedSprite.x + animatedSprite.width) < 0 ||
+            (animatedSprite.y + animatedSprite.height) < 0 ||
+            (animatedSprite.x - animatedSprite.width) > this.scene.width ||
+            (animatedSprite.y - animatedSprite.height) > this.scene.height) {
+            hide = true;
+        }
+        if (animatedSprite.loop === true &&
+            animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
+          hide = true;
+        }
+        let cwith = animatedSprite.collisionWith;
+        if (!hide && cwith && cwith.id !== animatedSprite.id) {
+          if (this.collisionResolutionHandler) {
+            hide = this.collisionResolutionHandler(animatedSprite, cwith);
+          } else {
             hide = true;
           }
-          let cwith = animatedSprite.collisionWith;
-          if (!hide && cwith && cwith.id !== animatedSprite.id) {
-            if (this.collisionResolutionHandler) {
-              hide = this.collisionResolutionHandler(animatedSprite, cwith);
-            } else {
-              hide = true;
-            }
-          }
-          if (hide) {
-            this.projectiles[i].active = false;
-            animatedSprite.visible = false;
-            // anim.clearCollision();
-            // anim.reset();
-          }
+        }
+        if (hide) {
+          this.projectiles[i].active = false;
+          animatedSprite.visible = false;
+          animatedSprite.clearCollision();
         }
       }
     }
