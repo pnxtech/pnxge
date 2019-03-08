@@ -6,8 +6,6 @@ import {Scene} from './Scene';
 import {Attribs} from './Attribs';
 import {Utils} from './Utils';
 
-interface ICallback { (): void };
-
 /**
  * @name AnimatedSprite
  * @description Animated Sprite
@@ -105,7 +103,6 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
    */
   public onCollision(sprite: SpriteAnim | undefined): void {
     this.collisionWith = sprite;
-    // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
     this.controller && (this.controller.hitBy(sprite));
   }
 
@@ -125,7 +122,6 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
    */
   public destroy(): void {
     this.controller && (this.controller.destroy());
-    // TODO remove touch events if any!
     super.destroy({
       children: true,
       texture: false,

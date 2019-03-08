@@ -101,7 +101,6 @@ export class Sprite extends PIXI.Sprite implements ISprite {
    */
   public onCollision(sprite: SpriteAnim | undefined): void {
     this.collisionWith = sprite;
-    // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
     this.controller && (this.controller.hitBy(sprite));
   }
 

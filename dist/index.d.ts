@@ -5,7 +5,6 @@ export * from './Attribs';
 export * from './Benchmark';
 export * from './Controller';
 export * from './EventManager';
-export * from './ISprite';
 export * from './Math';
 export * from './Path';
 export * from './ProjectileManager';

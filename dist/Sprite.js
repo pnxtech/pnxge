@@ -100,7 +100,6 @@ var Sprite = /** @class */ (function (_super) {
      */
     Sprite.prototype.onCollision = function (sprite) {
         this.collisionWith = sprite;
-        // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
         this.controller && (this.controller.hitBy(sprite));
     };
     /**

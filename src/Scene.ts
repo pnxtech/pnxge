@@ -14,7 +14,7 @@ interface ISpriteDoneCallback { (): void };
 
 /**
  * @name Scene
- * @description Phoenix Game Engine Scene class
+ * @description Scene class
  */
 export class Scene {
   //#region variables
@@ -369,9 +369,6 @@ export class Scene {
     Object.keys(this.sprites).forEach((key) => {
       this.sprites[key].destroy();
     });
-    for (let child of this.stage.children) {
-      this.stage.removeChild(child);
-    }
     if (this.app.usingWebGL) {
       let renderer: PIXI.WebGLRenderer = <PIXI.WebGLRenderer>this.app.renderer;
       if (renderer.textureGC) {

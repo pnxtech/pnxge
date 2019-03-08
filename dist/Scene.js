@@ -8,7 +8,7 @@ var State_1 = require("./State");
 ;
 /**
  * @name Scene
- * @description Phoenix Game Engine Scene class
+ * @description Scene class
  */
 var Scene = /** @class */ (function () {
     //#endregion
@@ -355,10 +355,6 @@ var Scene = /** @class */ (function () {
         Object.keys(this.sprites).forEach(function (key) {
             _this.sprites[key].destroy();
         });
-        for (var _i = 0, _a = this.stage.children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            this.stage.removeChild(child);
-        }
         if (this.app.usingWebGL) {
             var renderer = this.app.renderer;
             if (renderer.textureGC) {

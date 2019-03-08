@@ -15,7 +15,7 @@ interface ISpriteDoneCallback {
 }
 /**
  * @name Scene
- * @description Phoenix Game Engine Scene class
+ * @description Scene class
  */
 export declare class Scene {
     app: Application;

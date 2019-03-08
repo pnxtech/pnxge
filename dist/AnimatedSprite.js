@@ -23,7 +23,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(require("pixi.js"));
 var Attribs_1 = require("./Attribs");
 var Utils_1 = require("./Utils");
-;
 /**
  * @name AnimatedSprite
  * @description Animated Sprite
@@ -104,7 +103,6 @@ var AnimatedSprite = /** @class */ (function (_super) {
      */
     AnimatedSprite.prototype.onCollision = function (sprite) {
         this.collisionWith = sprite;
-        // this.scene.app.debugLog(`${this.subType} was hit by ${anim.subType}`);
         this.controller && (this.controller.hitBy(sprite));
     };
     /**
@@ -122,7 +120,6 @@ var AnimatedSprite = /** @class */ (function (_super) {
      */
     AnimatedSprite.prototype.destroy = function () {
         this.controller && (this.controller.destroy());
-        // TODO remove touch events if any!
         _super.prototype.destroy.call(this, {
             children: true,
             texture: false,
