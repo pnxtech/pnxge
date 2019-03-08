@@ -61,11 +61,11 @@ var Application = /** @class */ (function (_super) {
         document.body.appendChild(_this.view);
         _this.appWidth = width;
         _this.appHeight = height;
-        // PIXI.ticker.shared.autoStart = false;
-        _this.ticker.add(function (deltaTime) {
-            _this.update(deltaTime);
-        });
         return _this;
+        // PIXI.ticker.shared.autoStart = false;
+        // this.ticker.add((deltaTime) => {
+        //   this.update(deltaTime);
+        // });
     }
     Object.defineProperty(Application.prototype, "demo", {
         /**
