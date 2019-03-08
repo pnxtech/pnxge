@@ -90,13 +90,13 @@ export class AnimatedSprite extends PIXI.extras.AnimatedSprite implements ISprit
    * @return {void}
    */
   public update(deltaTime: number): void {
-    super.update(deltaTime);
     if (this.controller) { // if controller then that will handle movement.
       this.controller.update(deltaTime);
     } else {
       this.x += this.dx * (this.vx || 1) * deltaTime;
       this.y += this.dy * (this.vy || 1) * deltaTime;
     }
+    super.update(deltaTime);
   }
 
   /**
