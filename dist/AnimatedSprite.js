@@ -36,7 +36,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
      * @description binds Anim to Scene
      */
     function AnimatedSprite(scene, sequenceName, atlas, resources) {
-        var _this = _super.call(this, resources[atlas].spritesheet.animations[sequenceName]) || this;
+        var _this = _super.call(this, resources[atlas].spritesheet.animations[sequenceName], false) || this;
         _this.subType = '';
         _this.id = Utils_1.Utils.createID();
         _this.dx = 0;
@@ -95,7 +95,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
             this.x += this.dx * (this.vx || 1) * deltaTime;
             this.y += this.dy * (this.vy || 1) * deltaTime;
         }
-        //super.update(deltaTime);
+        _super.prototype.update.call(this, deltaTime);
     };
     /**
      * @name onCollision
