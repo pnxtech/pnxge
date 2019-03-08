@@ -96,7 +96,7 @@ export class AssetManager {
    * @return {void}
    */
   protected setValues(target: any, source: any): void {
-    target.attribs.add(source.type);
+    target.attribs.add([source.type, source.subType, source.name]);
     target.x = (source.x !== undefined) ? source.x : 0;
     target.y = (source.y !== undefined) ? source.y : 0;
     target.z = (source.z !== undefined) ? source.z : 0;
