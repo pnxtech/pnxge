@@ -104,12 +104,12 @@ export class TextSprite extends PIXI.extras.BitmapText implements ISprite {
   }
 
   /**
-   * @name update
+   * @name updateSpriteAnim
    * @description update anim position based on velocity
    * @param {number} deltaTime - delta time offset
    * @return {void}
    */
-  public update(deltaTime: number): void {
+  public updateSpriteAnim(deltaTime: number): void {
     this.x += this.dx * (this.vx || 1) * deltaTime;
     this.y += this.dy * (this.vy || 1) * deltaTime;
   }

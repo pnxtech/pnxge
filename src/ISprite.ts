@@ -37,7 +37,7 @@ export interface ISprite{
   text?: string;
   attachController(controller: Controller): void;
   attachTouchHandler(name: string, eventManager: EventManager): void;
-  update(deltaTime: number): void;
+  updateSpriteAnim(deltaTime: number): void;
   onCollision(sprite: SpriteAnim | undefined): void;
   clearCollision(): void;
   destroy(): void;

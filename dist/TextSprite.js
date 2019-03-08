@@ -103,12 +103,12 @@ var TextSprite = /** @class */ (function (_super) {
         this.collisionWith = undefined;
     };
     /**
-     * @name update
+     * @name updateSpriteAnim
      * @description update anim position based on velocity
      * @param {number} deltaTime - delta time offset
      * @return {void}
      */
-    TextSprite.prototype.update = function (deltaTime) {
+    TextSprite.prototype.updateSpriteAnim = function (deltaTime) {
         this.x += this.dx * (this.vx || 1) * deltaTime;
         this.y += this.dy * (this.vy || 1) * deltaTime;
     };

@@ -61,12 +61,12 @@ export declare class TextSprite extends PIXI.extras.BitmapText implements ISprit
      */
     clearCollision(): void;
     /**
-     * @name update
+     * @name updateSpriteAnim
      * @description update anim position based on velocity
      * @param {number} deltaTime - delta time offset
      * @return {void}
      */
-    update(deltaTime: number): void;
+    updateSpriteAnim(deltaTime: number): void;
     /**
      * @name destroy
      * @description cleanup

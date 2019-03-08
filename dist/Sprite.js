@@ -83,12 +83,12 @@ var Sprite = /** @class */ (function (_super) {
         });
     };
     /**
-     * @name update
+     * @name updateSpriteAnim
      * @description update handler
      * @param {number} deltaTime - delta time
      * @return {void}
      */
-    Sprite.prototype.update = function (deltaTime) {
+    Sprite.prototype.updateSpriteAnim = function (deltaTime) {
         this.x += this.dx * (this.vx || 1) * deltaTime;
         this.y += this.dy * (this.vy || 1) * deltaTime;
     };

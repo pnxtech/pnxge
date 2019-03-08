@@ -53,12 +53,12 @@ export declare class TilingSprite extends PIXI.extras.TilingSprite implements IS
      */
     clearCollision(): void;
     /**
-     * @name update
+     * @name updateSpriteAnim
      * @description update handler
      * @param {number} deltaTime - delta time
      * @return {void}
      */
-    update(deltaTime: number): void;
+    updateSpriteAnim(deltaTime: number): void;
     /**
      * @name destroy
      * @description cleanup

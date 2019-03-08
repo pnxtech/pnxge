@@ -234,7 +234,7 @@ var Scene = /** @class */ (function () {
         if (this.sprites) {
             Object.keys(this.sprites).forEach(function (key) {
                 if (_this.sprites[key] && _this.sprites[key].visible) {
-                    _this.sprites[key].update(deltaTime);
+                    _this.sprites[key].updateSpriteAnim(deltaTime);
                 }
             });
             this.collisionDetection(); // must happen before projectile update because latter requires it

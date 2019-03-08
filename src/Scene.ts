@@ -252,7 +252,7 @@ export class Scene {
     if (this.sprites) {
       Object.keys(this.sprites).forEach((key) => {
         if (this.sprites[key] && this.sprites[key].visible) {
-          this.sprites[key].update(deltaTime);
+          this.sprites[key].updateSpriteAnim(deltaTime);
         }
       });
       this.collisionDetection(); // must happen before projectile update because latter requires it

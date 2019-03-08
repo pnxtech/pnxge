@@ -46,12 +46,12 @@ export declare class Sprite extends PIXI.Sprite implements ISprite {
      */
     attachTouchHandler(name: string, eventManager: EventManager): void;
     /**
-     * @name update
+     * @name updateSpriteAnim
      * @description update handler
      * @param {number} deltaTime - delta time
      * @return {void}
      */
-    update(deltaTime: number): void;
+    updateSpriteAnim(deltaTime: number): void;
     /**
      * @name onCollision
      * @description trigged when this anim collides with another anim

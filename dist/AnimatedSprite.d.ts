@@ -43,12 +43,12 @@ export declare class AnimatedSprite extends PIXI.extras.AnimatedSprite implement
      */
     attachTouchHandler(name: string, eventManager: EventManager): void;
     /**
-     * @name update
+     * @name updateSpriteAnim
      * @description update anim position based on velocity
      * @param {number} deltaTime - delta time offset
      * @return {void}
      */
-    update(deltaTime: number): void;
+    updateSpriteAnim(deltaTime: number): void;
     /**
      * @name onCollision
      * @description trigged when this anim collides with another anim

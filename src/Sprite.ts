@@ -83,12 +83,12 @@ export class Sprite extends PIXI.Sprite implements ISprite {
   }
 
   /**
-   * @name update
+   * @name updateSpriteAnim
    * @description update handler
    * @param {number} deltaTime - delta time
    * @return {void}
    */
-  public update(deltaTime: number): void {
+  public updateSpriteAnim(deltaTime: number): void {
     this.x += this.dx * (this.vx || 1) * deltaTime;
     this.y += this.dy * (this.vy || 1) * deltaTime;
   }
