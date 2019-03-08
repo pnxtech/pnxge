@@ -29,10 +29,12 @@ var Attribs = /** @class */ (function () {
         var _this = this;
         if (typeof attribs !== 'string') {
             attribs.forEach(function (value) {
-                _this.hash[value] = true;
+                if (attribs !== undefined) {
+                    _this.hash[value] = true;
+                }
             });
         }
-        else {
+        else if (attribs !== undefined) {
             this.hash[attribs] = true;
         }
     };
