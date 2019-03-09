@@ -197,7 +197,7 @@ export class ProjectileManager {
         } else {
           hide = !this.sceneRect.pointInRect(animatedSprite.x, animatedSprite.y);
         }
-        if (hide && animatedSprite.loop === true &&
+        if (!hide && animatedSprite.loop === true &&
             animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
           hide = true;
         }
