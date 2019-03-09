@@ -171,6 +171,25 @@ var Rect = /** @class */ (function () {
         return ((Math.abs(dx) < combinedHalfWidths) && (Math.abs(dy) < combinedHalfHeights)) ? true : false;
     };
     /**
+     * @name pointInRect
+     * @description is a point within this rect?
+     * @param {any} param1 - first param, number or point
+     * @param {any} param2 - second param, number or point
+     * @return {boolean} true if point is within rect else false
+     */
+    Rect.prototype.pointInRect = function (param1, param2) {
+        var bool = false;
+        if (typeof param1 === 'number') {
+            bool = (param1 >= this.x && param1 <= this.width &&
+                param2 >= this.y && param2 <= this.height);
+        }
+        else {
+            bool = (param1.x >= this.x && param1.x <= this.width &&
+                param2.y >= this.y && param2.y <= this.height);
+        }
+        return bool;
+    };
+    /**
      * @name inflate
      * @description increase a rect by adding padding
      * @param {padding} padding to increase rect

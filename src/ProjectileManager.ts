@@ -3,6 +3,7 @@ import {AnimatedSprite} from './AnimatedSprite';
 import {Scene} from "./Scene";
 import {Attribs} from './Attribs';
 import {Utils} from './Utils';
+import {Rect} from './Math';
 
 interface IProjectileCacheObject {
   active: boolean,
@@ -49,6 +50,8 @@ export class ProjectileManager {
   private atlas: string;
   private resources: {};
   private collisionResolutionHandler: ICollisionResolutionCallback | undefined;
+  private sceneRect: Rect;
+  private _fence: Rect | undefined;
 
   /**
    * @name constructor
@@ -59,6 +62,28 @@ export class ProjectileManager {
     this.atlas = atlas;
     this.resources = resources;
     this.collisionResolutionHandler = undefined;
+    this.sceneRect = new Rect(0, 0, this.scene.width, this.scene.height);
+  }
+
+  /**
+   * @name fence
+   * @description GEO fence getter for projectiles
+   * @return {Rect | undefined}
+   */
+  get fence(): Rect | undefined {
+    return this._fence;
+  }
+
+  /**
+   * @name fence
+   * @description GEO fence setter for projectiles
+   * @param {Rect} input rect
+   * @return {void}
+   */
+  set fence(rect: Rect | undefined) {
+    if (rect) {
+      this._fence = new Rect(rect.x, rect.y, rect.width, rect.height);
+    }
   }
 
   /**
@@ -167,13 +192,12 @@ export class ProjectileManager {
           }
         }
         let hide = false;
-        if ((animatedSprite.x + animatedSprite.width) < 0 ||
-            (animatedSprite.y + animatedSprite.height) < 0 ||
-            (animatedSprite.x - animatedSprite.width) > this.scene.width ||
-            (animatedSprite.y - animatedSprite.height) > this.scene.height) {
-            hide = true;
+        if (this._fence) {
+          hide = this._fence.pointInRect(animatedSprite.x, animatedSprite.y);
+        } else {
+          hide = this.sceneRect.pointInRect(animatedSprite.x, animatedSprite.y);
         }
-        if (animatedSprite.loop === true &&
+        if (hide && animatedSprite.loop === true &&
             animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
           hide = true;
         }

@@ -104,6 +104,14 @@ export declare class Rect {
      */
     intersect(targetRect: Rect): boolean;
     /**
+     * @name pointInRect
+     * @description is a point within this rect?
+     * @param {any} param1 - first param, number or point
+     * @param {any} param2 - second param, number or point
+     * @return {boolean} true if point is within rect else false
+     */
+    pointInRect(param1: any, param2: any): boolean;
+    /**
      * @name inflate
      * @description increase a rect by adding padding
      * @param {padding} padding to increase rect

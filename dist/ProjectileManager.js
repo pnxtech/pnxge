@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var AnimatedSprite_1 = require("./AnimatedSprite");
 var Utils_1 = require("./Utils");
+var Math_1 = require("./Math");
 ;
 ;
 ;
@@ -20,7 +21,31 @@ var ProjectileManager = /** @class */ (function () {
         this.atlas = atlas;
         this.resources = resources;
         this.collisionResolutionHandler = undefined;
+        this.sceneRect = new Math_1.Rect(0, 0, this.scene.width, this.scene.height);
     }
+    Object.defineProperty(ProjectileManager.prototype, "fence", {
+        /**
+         * @name fence
+         * @description GEO fence getter for projectiles
+         * @return {Rect | undefined}
+         */
+        get: function () {
+            return this._fence;
+        },
+        /**
+         * @name fence
+         * @description GEO fence setter for projectiles
+         * @param {Rect} input rect
+         * @return {void}
+         */
+        set: function (rect) {
+            if (rect) {
+                this._fence = new Math_1.Rect(rect.x, rect.y, rect.width, rect.height);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @name registerCollisionResolutionHandler
      * @description register a collision resolution callback handler
@@ -126,13 +151,13 @@ var ProjectileManager = /** @class */ (function () {
                     }
                 }
                 var hide = false;
-                if ((animatedSprite.x + animatedSprite.width) < 0 ||
-                    (animatedSprite.y + animatedSprite.height) < 0 ||
-                    (animatedSprite.x - animatedSprite.width) > this.scene.width ||
-                    (animatedSprite.y - animatedSprite.height) > this.scene.height) {
-                    hide = true;
+                if (this._fence) {
+                    hide = this._fence.pointInRect(animatedSprite.x, animatedSprite.y);
                 }
-                if (animatedSprite.loop === true &&
+                else {
+                    hide = this.sceneRect.pointInRect(animatedSprite.x, animatedSprite.y);
+                }
+                if (hide && animatedSprite.loop === true &&
                     animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
                     hide = true;
                 }

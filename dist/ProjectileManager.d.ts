@@ -2,6 +2,7 @@ import { SpriteAnim } from './ISprite';
 import { AnimatedSprite } from './AnimatedSprite';
 import { Scene } from "./Scene";
 import { Attribs } from './Attribs';
+import { Rect } from './Math';
 interface IProjectileObject {
     active?: boolean;
     animatedSprite?: AnimatedSprite;
@@ -40,11 +41,25 @@ export declare class ProjectileManager {
     private atlas;
     private resources;
     private collisionResolutionHandler;
+    private sceneRect;
+    private _fence;
     /**
      * @name constructor
      * @description class constructor
      */
     constructor(scene: Scene, atlas: string, resources: {});
+    /**
+     * @name fence
+     * @description GEO fence getter for projectiles
+     * @return {Rect | undefined}
+     */
+    /**
+    * @name fence
+    * @description GEO fence setter for projectiles
+    * @param {Rect} input rect
+    * @return {void}
+    */
+    fence: Rect | undefined;
     /**
      * @name registerCollisionResolutionHandler
      * @description register a collision resolution callback handler
