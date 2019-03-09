@@ -290,18 +290,18 @@ export class Scene {
       if (!obj1.collisionDetection || !obj1.visible) {
         continue;
       }
-      this.collisionRect1.x = obj1.x;
-      this.collisionRect1.y = obj1.y;
-      this.collisionRect1.width = obj1.width;
-      this.collisionRect1.height = obj1.height;
       for (let obj2 of objectList) {
+        if (!obj2.collisionDetection || !obj2.visible) {
+          continue;
+        }
         if (obj1.subType === obj2.subType) {
           continue;
         }
         if (obj1.id !== obj2.id) {
-          if (!obj2.collisionDetection || !obj2.visible) {
-            continue;
-          }
+          this.collisionRect1.x = obj1.x;
+          this.collisionRect1.y = obj1.y;
+          this.collisionRect1.width = obj1.width;
+          this.collisionRect1.height = obj1.height;
           this.collisionRect2.x = obj2.x;
           this.collisionRect2.y = obj2.y;
           this.collisionRect2.width = obj2.width;
