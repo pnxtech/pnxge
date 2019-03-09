@@ -152,10 +152,10 @@ var ProjectileManager = /** @class */ (function () {
                 }
                 var hide = false;
                 if (this._fence) {
-                    hide = this._fence.pointInRect(animatedSprite.x, animatedSprite.y);
+                    hide = !this._fence.pointInRect(animatedSprite.x, animatedSprite.y);
                 }
                 else {
-                    hide = this.sceneRect.pointInRect(animatedSprite.x, animatedSprite.y);
+                    hide = !this.sceneRect.pointInRect(animatedSprite.x, animatedSprite.y);
                 }
                 if (hide && animatedSprite.loop === true &&
                     animatedSprite.currentFrame === animatedSprite.totalFrames - 1) {
