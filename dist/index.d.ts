@@ -17,4 +17,5 @@ export * from './TextSprite';
 export * from './TilingSprite';
 export * from './Threshold';
 export * from './Utils';
+export { SpriteAnim } from './ISprite';
 //# sourceMappingURL=index.d.ts.map
