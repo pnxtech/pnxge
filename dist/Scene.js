@@ -26,6 +26,7 @@ var Scene = /** @class */ (function () {
         this.collisionRect2 = new Math_1.Rect();
         this.app = app;
         this._state = new State_1.State();
+        this._manualSorting = true;
         this.sceneWidth = app.width;
         this.sceneHeight = app.height;
         this.stage = app.stage;
@@ -71,6 +72,26 @@ var Scene = /** @class */ (function () {
          */
         set: function (data) {
             this._state.state = data;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Scene.prototype, "manualSorting", {
+        /**
+         * @name manualSorting
+         * @description manualSorting getter
+         * @return {boolean} is manualSorting set
+         */
+        get: function () {
+            return this._manualSorting;
+        },
+        /**
+         * @name manualSorting
+         * @description manualSorting setter
+         * @param {boolean} flag - enable manual sorting?
+         */
+        set: function (flag) {
+            this._manualSorting = flag;
         },
         enumerable: true,
         configurable: true
@@ -241,7 +262,9 @@ var Scene = /** @class */ (function () {
             if (this.projectileManager) {
                 this.projectileManager.update(deltaTime);
             }
-            this.sortAnims();
+            if (this._manualSorting === false) {
+                this.sortAnims();
+            }
         }
         this.benchmarkUpdate && console.log("scene benchmark: " + Math_1.pcap(this.benchmark.elapsed()) + " ms");
     };
@@ -271,19 +294,19 @@ var Scene = /** @class */ (function () {
             if (!obj1.collisionDetection || !obj1.visible) {
                 continue;
             }
-            this.collisionRect1.x = obj1.x;
-            this.collisionRect1.y = obj1.y;
-            this.collisionRect1.width = obj1.width;
-            this.collisionRect1.height = obj1.height;
             for (var _a = 0, objectList_2 = objectList; _a < objectList_2.length; _a++) {
                 var obj2 = objectList_2[_a];
+                if (!obj2.collisionDetection || !obj2.visible) {
+                    continue;
+                }
                 if (obj1.subType === obj2.subType) {
                     continue;
                 }
                 if (obj1.id !== obj2.id) {
-                    if (!obj2.collisionDetection || !obj2.visible) {
-                        continue;
-                    }
+                    this.collisionRect1.x = obj1.x;
+                    this.collisionRect1.y = obj1.y;
+                    this.collisionRect1.width = obj1.width;
+                    this.collisionRect1.height = obj1.height;
                     this.collisionRect2.x = obj2.x;
                     this.collisionRect2.y = obj2.y;
                     this.collisionRect2.width = obj2.width;

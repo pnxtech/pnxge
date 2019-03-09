@@ -20,6 +20,7 @@ interface ISpriteDoneCallback {
 export declare class Scene {
     app: Application;
     private _state;
+    private _manualSorting;
     protected sceneWidth: number;
     protected sceneHeight: number;
     protected benchmark: Benchmark;
@@ -67,6 +68,17 @@ export declare class Scene {
     * @param {any} data - object to be merged with state
     */
     state: any;
+    /**
+     * @name manualSorting
+     * @description manualSorting getter
+     * @return {boolean} is manualSorting set
+     */
+    /**
+    * @name manualSorting
+    * @description manualSorting setter
+    * @param {boolean} flag - enable manual sorting?
+    */
+    manualSorting: boolean;
     /**
      * @name setState
      * @description merges object entries in to application state
