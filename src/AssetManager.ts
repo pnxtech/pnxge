@@ -140,6 +140,9 @@ export class AssetManager {
       if (obj.extends) {
         obj = Utils.mergeObjects(this.gameConfig.refs[obj.extends], obj);
       }
+      if (obj.manualSorting !== undefined) {
+        scene.manualSorting = obj.manualSorting;
+      }
       switch (obj.type) {
         case 'data':
           delete obj.type;

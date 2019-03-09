@@ -20,6 +20,7 @@ export class Scene {
   //#region variables
   public app: Application;
   private _state: State;
+  private _manualSorting: boolean;
   protected sceneWidth: number;
   protected sceneHeight: number;
   protected benchmark: Benchmark = new Benchmark();
@@ -42,6 +43,7 @@ export class Scene {
   constructor(app: Application) {
     this.app = app;
     this._state = new State();
+    this._manualSorting = true;
     this.sceneWidth = app.width;
     this.sceneHeight = app.height;
     this.stage = app.stage;
@@ -91,6 +93,24 @@ export class Scene {
    */
   public set state(data: any) {
     this._state.state = data;
+  }
+
+  /**
+   * @name manualSorting
+   * @description manualSorting getter
+   * @return {boolean} is manualSorting set
+   */
+  public get manualSorting(): boolean {
+    return this._manualSorting;
+  }
+
+  /**
+   * @name manualSorting
+   * @description manualSorting setter
+   * @param {boolean} flag - enable manual sorting?
+   */
+  public set manualSorting(flag: boolean) {
+    this._manualSorting = flag;
   }
 
   /**
@@ -259,7 +279,9 @@ export class Scene {
       if (this.projectileManager) {
         this.projectileManager.update(deltaTime);
       }
-      this.sortAnims();
+      if (this._manualSorting === false) {
+        this.sortAnims();
+      }
     }
     this.benchmarkUpdate && console.log(`scene benchmark: ${pcap(this.benchmark.elapsed())} ms`);
   }
