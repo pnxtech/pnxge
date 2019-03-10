@@ -169,6 +169,7 @@ export class AssetManager {
         case 'text': {
             let textSprite = new TextSprite(scene, obj.text, obj.fontInfo);
             this.setValues(textSprite, obj);
+            textSprite.cacheAsBitmap = (obj.cacheAsBitmap !== undefined) ? obj.cacheAsBitmap : false;
             scene.addSpriteAnim(obj.name, textSprite);
           }
           break;
