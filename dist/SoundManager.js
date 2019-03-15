@@ -56,7 +56,7 @@ var SoundManager = /** @class */ (function () {
         if (this.disabled || !this.globalVolume) {
             return;
         }
-        // this.stop(name);
+        this.stop(name);
         this.soundData.sprite[name].id = this.soundPlayer.play(name);
     };
     /**
