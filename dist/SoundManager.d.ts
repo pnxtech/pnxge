@@ -58,5 +58,11 @@ export declare class SoundManager {
      * @return {void}
      */
     unload(): void;
+    /**
+     * @name debugLog
+     * @param {string} message - message to log
+     * @return {void}
+     */
+    private debugLog;
 }
 //# sourceMappingURL=SoundManager.d.ts.map
