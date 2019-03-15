@@ -35,7 +35,6 @@ export class SoundManager {
       ];
     });
     this.soundPlayer = new Howl(this.soundData);
-    this.debugLog(`Init sound player with ${JSON.stringify(spritemap)}`);
   }
 
   /**
@@ -57,9 +56,8 @@ export class SoundManager {
     if (this.disabled || !this.globalVolume) {
       return;
     }
-    this.stop(name);
+    // this.stop(name);
     this.soundData.sprite[name].id = this.soundPlayer.play(name);
-    this.debugLog(`Playing ${name} with ID: ${this.soundData.sprite[name].id}`);
   }
 
   /**
@@ -74,9 +72,6 @@ export class SoundManager {
     }
     if (this.soundData.sprite[name].id) {
       this.soundPlayer.stop(this.soundData.sprite[name].id);
-      this.debugLog(`Stopping ${name} with ID: ${this.soundData.sprite[name].id}`);
-    } else {
-      this.debugLog(`Failed stop of ${name}`);
     }
   }
 
@@ -116,14 +111,5 @@ export class SoundManager {
    */
   public unload(): void {
     Howler.unload();
-  }
-
-  /**
-   * @name debugLog
-   * @param {string} message - message to log
-   * @return {void}
-   */
-  private debugLog(message: string): void {
-    console.log(`${new Date().getTime()}: ${message}`);
   }
 }

@@ -33,7 +33,6 @@ var SoundManager = /** @class */ (function () {
             ];
         });
         this.soundPlayer = new howler_1.Howl(this.soundData);
-        this.debugLog("Init sound player with " + JSON.stringify(spritemap));
     }
     Object.defineProperty(SoundManager.prototype, "disableSoundEngine", {
         /**
@@ -57,9 +56,8 @@ var SoundManager = /** @class */ (function () {
         if (this.disabled || !this.globalVolume) {
             return;
         }
-        this.stop(name);
+        // this.stop(name);
         this.soundData.sprite[name].id = this.soundPlayer.play(name);
-        this.debugLog("Playing " + name + " with ID: " + this.soundData.sprite[name].id);
     };
     /**
      * @name stop
@@ -73,10 +71,6 @@ var SoundManager = /** @class */ (function () {
         }
         if (this.soundData.sprite[name].id) {
             this.soundPlayer.stop(this.soundData.sprite[name].id);
-            this.debugLog("Stopping " + name + " with ID: " + this.soundData.sprite[name].id);
-        }
-        else {
-            this.debugLog("Failed stop of " + name);
         }
     };
     Object.defineProperty(SoundManager.prototype, "volume", {
@@ -120,14 +114,6 @@ var SoundManager = /** @class */ (function () {
      */
     SoundManager.prototype.unload = function () {
         howler_1.Howler.unload();
-    };
-    /**
-     * @name debugLog
-     * @param {string} message - message to log
-     * @return {void}
-     */
-    SoundManager.prototype.debugLog = function (message) {
-        console.log(new Date().getTime() + ": " + message);
     };
     return SoundManager;
 }());
