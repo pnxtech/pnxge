@@ -1,0 +1,1 @@
+{"version":3,"file":"ColorSpace.d.ts","sourceRoot":"","sources":["../src/ColorSpace.ts"],"names":[],"mappings":"AAAA;;;GAGG;AACH,qBAAa,UAAU;IACrB;;;;;;;;OAQG;IACH,MAAM,CAAC,UAAU,CAAC,KAAK,EAAE,MAAM,EAAE,OAAO,EAAE,MAAM,GAAG,MAAM;IAQzD;;;;;OAKG;IACH,MAAM,CAAC,WAAW,CAAC,KAAK,EAAE,MAAM,GAAG,MAAM;CAG1C"}

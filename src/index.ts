@@ -3,6 +3,7 @@ export * from './Application';
 export * from './AssetManager';
 export * from './Attribs';
 export * from './Benchmark';
+export * from './ColorSpace';
 export * from './Controller';
 export * from './EventManager';
 export * from './Math';

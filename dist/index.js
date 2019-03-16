@@ -8,6 +8,7 @@ __export(require("./Application"));
 __export(require("./AssetManager"));
 __export(require("./Attribs"));
 __export(require("./Benchmark"));
+__export(require("./ColorSpace"));
 __export(require("./Controller"));
 __export(require("./EventManager"));
 __export(require("./Math"));
