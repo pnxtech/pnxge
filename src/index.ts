@@ -11,7 +11,7 @@ export * from './Path';
 export * from './ProjectileManager';
 export * from './Recorder';
 export * from './Scene';
-export * from './SoundManager';
+export * from './SoundManager2';
 export * from './Sprite';
 export * from './State';
 export * from './TextSprite';

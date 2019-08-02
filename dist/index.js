@@ -16,7 +16,7 @@ __export(require("./Path"));
 __export(require("./ProjectileManager"));
 __export(require("./Recorder"));
 __export(require("./Scene"));
-__export(require("./SoundManager"));
+__export(require("./SoundManager2"));
 __export(require("./Sprite"));
 __export(require("./State"));
 __export(require("./TextSprite"));

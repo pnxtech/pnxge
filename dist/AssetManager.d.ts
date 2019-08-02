@@ -1,5 +1,5 @@
 import { Scene } from './Scene';
-import { SoundManager } from './SoundManager';
+import { SoundManager } from './SoundManager2';
 interface ICallback {
     (resources: {}): void;
 }

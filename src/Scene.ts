@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import {Application} from './Application';
 import {SpriteAnim, ISprite} from './ISprite';
 import {ProjectileManager} from './ProjectileManager';
-import {SoundManager} from './SoundManager';
+import {SoundManager} from './SoundManager2';
 import {pcap, Rect} from './Math';
 import {Benchmark} from './Benchmark';
 import {State} from './State';

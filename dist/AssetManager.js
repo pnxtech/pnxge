@@ -11,7 +11,7 @@ var PIXI = __importStar(require("pixi.js"));
 var Sprite_1 = require("./Sprite");
 var AnimatedSprite_1 = require("./AnimatedSprite");
 var TextSprite_1 = require("./TextSprite");
-var SoundManager_1 = require("./SoundManager");
+var SoundManager2_1 = require("./SoundManager2");
 var Math_1 = require("./Math");
 var Utils_1 = require("./Utils");
 ;
@@ -155,7 +155,7 @@ var AssetManager = /** @class */ (function () {
                     break;
                 case 'sounds':
                     if (!this.soundManager) {
-                        this.soundManager = new SoundManager_1.SoundManager(this.resources[obj.atlas].data);
+                        this.soundManager = new SoundManager2_1.SoundManager(this.resources[obj.atlas].data.filemap);
                         this.soundManager.volume = obj.volume;
                     }
                     scene.attachSoundManager(this.soundManager);

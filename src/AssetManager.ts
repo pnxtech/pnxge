@@ -3,7 +3,7 @@ import {Scene} from './Scene';
 import {Sprite} from './Sprite';
 import {AnimatedSprite} from './AnimatedSprite';
 import {TextSprite} from './TextSprite';
-import {SoundManager} from './SoundManager';
+import {SoundManager} from './SoundManager2';
 import {Angle} from './Math';
 import {Utils} from './Utils';
 
@@ -155,7 +155,7 @@ export class AssetManager {
           break;
         case 'sounds':
           if (!this.soundManager) {
-            this.soundManager = new SoundManager(this.resources[obj.atlas].data);
+            this.soundManager = new SoundManager(this.resources[obj.atlas].data.filemap);
             this.soundManager.volume = obj.volume;
           }
           scene.attachSoundManager(this.soundManager);

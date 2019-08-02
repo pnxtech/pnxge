@@ -1,40 +1,39 @@
-import {Howl, Howler} from 'howler';
+
+interface ISoundsHash {
+  [name: string]: any
+};
 
 /**
- * @name SoundManager
- * @description sound manager
- * @note: Uses: https://github.com/goldfire/howler.js/
+ * @name SoundManager2
+ * @description sound manager2
  */
 export class SoundManager {
   //#region variables
-  private soundPlayer: any;
-  private soundData: any = {};
   private globalVolume: number = 0;
   private disabled: boolean = false;
+  private soundResources: ISoundsHash = {};
   //#endregion
 
   /**
    * @name constructor
    * @description class constructor
-   * @note remaps audiosprite generated sound sprite data to the format that howler.js requires
+   * @param {array} soundList - list of sound paths
    */
-  constructor(soundObj: any) {
-    this.soundData = {
-      src: soundObj.resources,
-      preload: true,
-      autoplay: false,
-      pool: 5,
-      sprite: soundObj.spritemap
-    }
-    let spritemap = this.soundData.sprite;
-    Object.keys(spritemap).forEach((item: any) => {
-      spritemap[item] = [
-        (spritemap[item].start * 1000) | 0,
-        (spritemap[item].end * 1000) | 0,
-        spritemap[item].loop
-      ];
+  constructor(soundList: any) {
+    soundList.forEach((filePath: any) => {
+      let name = filePath.split('.')[0];
+      let sound = document.createElement('audio');
+      sound.src = filePath;
+      sound.setAttribute('preload', 'auto');
+      sound.setAttribute('controls', 'none');
+      sound.style.display = 'none';
+      document.body.appendChild(sound);
+      this.soundResources[name] = {
+        name,
+        filePath,
+        sound,
+      };
     });
-    this.soundPlayer = new Howl(this.soundData);
   }
 
   /**
@@ -53,12 +52,10 @@ export class SoundManager {
    * @return {void}
    */
   public play(name: string): void {
-    console.log(`playing ${name} sound`);
     if (this.disabled || !this.globalVolume) {
       return;
     }
-    this.stop(name);
-    this.soundData.sprite[name].id = this.soundPlayer.play(name);
+    this.soundResources[name].sound.play();
   }
 
   /**
@@ -71,10 +68,7 @@ export class SoundManager {
     if (this.disabled) {
       return;
     }
-    console.log(`stopping ${name} sound, id = ${this.soundData.sprite[name].id}`);
-    if (this.soundData.sprite[name].id) {
-      this.soundPlayer.stop(this.soundData.sprite[name].id);
-    }
+    this.soundResources[name].sound.pause();
   }
 
   /**
@@ -94,7 +88,11 @@ export class SoundManager {
    */
   public set volume(value: number) {
     this.globalVolume = value / 10;
-    Howler.volume(this.globalVolume);
+    // todo look sounds and set .volume = value
+    for (let name in this.soundResources) {
+      let item = this.soundResources[name];
+      item.sound.volume = this.globalVolume;
+    }
   }
 
   /**
@@ -103,7 +101,6 @@ export class SoundManager {
    * @param {boolean} value - true to mute, false to unmute
    */
   public set mute(value: boolean) {
-    Howler.mute(value);
   }
 
   /**
@@ -112,6 +109,10 @@ export class SoundManager {
    * @return {void}
    */
   public unload(): void {
-    Howler.unload();
+    for (let name in this.soundResources) {
+      let item = this.soundResources[name];
+      document.body.removeChild(item.sound);
+      delete this.soundResources[item.name];
+    }
   }
 }

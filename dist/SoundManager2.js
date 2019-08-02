@@ -1,38 +1,37 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var howler_1 = require("howler");
+;
 /**
- * @name SoundManager
- * @description sound manager
- * @note: Uses: https://github.com/goldfire/howler.js/
+ * @name SoundManager2
+ * @description sound manager2
  */
 var SoundManager = /** @class */ (function () {
     //#endregion
     /**
      * @name constructor
      * @description class constructor
-     * @note remaps audiosprite generated sound sprite data to the format that howler.js requires
+     * @param {array} soundList - list of sound paths
      */
-    function SoundManager(soundObj) {
-        this.soundData = {};
+    function SoundManager(soundList) {
+        var _this = this;
+        //#region variables
         this.globalVolume = 0;
         this.disabled = false;
-        this.soundData = {
-            src: soundObj.resources,
-            preload: true,
-            autoplay: false,
-            pool: 5,
-            sprite: soundObj.spritemap
-        };
-        var spritemap = this.soundData.sprite;
-        Object.keys(spritemap).forEach(function (item) {
-            spritemap[item] = [
-                (spritemap[item].start * 1000) | 0,
-                (spritemap[item].end * 1000) | 0,
-                spritemap[item].loop
-            ];
+        this.soundResources = {};
+        soundList.forEach(function (filePath) {
+            var name = filePath.split('.')[0];
+            var sound = document.createElement('audio');
+            sound.src = filePath;
+            sound.setAttribute('preload', 'auto');
+            sound.setAttribute('controls', 'none');
+            sound.style.display = 'none';
+            document.body.appendChild(sound);
+            _this.soundResources[name] = {
+                name: name,
+                filePath: filePath,
+                sound: sound,
+            };
         });
-        this.soundPlayer = new howler_1.Howl(this.soundData);
     }
     Object.defineProperty(SoundManager.prototype, "disableSoundEngine", {
         /**
@@ -53,12 +52,10 @@ var SoundManager = /** @class */ (function () {
      * @return {void}
      */
     SoundManager.prototype.play = function (name) {
-        console.log("playing " + name + " sound");
         if (this.disabled || !this.globalVolume) {
             return;
         }
-        this.stop(name);
-        this.soundData.sprite[name].id = this.soundPlayer.play(name);
+        this.soundResources[name].sound.play();
     };
     /**
      * @name stop
@@ -70,10 +67,7 @@ var SoundManager = /** @class */ (function () {
         if (this.disabled) {
             return;
         }
-        console.log("stopping " + name + " sound, id = " + this.soundData.sprite[name].id);
-        if (this.soundData.sprite[name].id) {
-            this.soundPlayer.stop(this.soundData.sprite[name].id);
-        }
+        this.soundResources[name].sound.pause();
     };
     Object.defineProperty(SoundManager.prototype, "volume", {
         /**
@@ -92,7 +86,11 @@ var SoundManager = /** @class */ (function () {
          */
         set: function (value) {
             this.globalVolume = value / 10;
-            howler_1.Howler.volume(this.globalVolume);
+            // todo look sounds and set .volume = value
+            for (var name_1 in this.soundResources) {
+                var item = this.soundResources[name_1];
+                item.sound.volume = this.globalVolume;
+            }
         },
         enumerable: true,
         configurable: true
@@ -104,7 +102,6 @@ var SoundManager = /** @class */ (function () {
          * @param {boolean} value - true to mute, false to unmute
          */
         set: function (value) {
-            howler_1.Howler.mute(value);
         },
         enumerable: true,
         configurable: true
@@ -115,9 +112,13 @@ var SoundManager = /** @class */ (function () {
      * @return {void}
      */
     SoundManager.prototype.unload = function () {
-        howler_1.Howler.unload();
+        for (var name_2 in this.soundResources) {
+            var item = this.soundResources[name_2];
+            document.body.removeChild(item.sound);
+            delete this.soundResources[item.name];
+        }
     };
     return SoundManager;
 }());
 exports.SoundManager = SoundManager;
-//# sourceMappingURL=SoundManager.js.map
+//# sourceMappingURL=SoundManager2.js.map
